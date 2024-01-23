@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+	<!--
+		<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		"http://www.springframework.org/dtd/spring-beans-2.0.dtd"> <beans>
+	-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd&#xA;http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+
+	<bean id="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/datasources/mdpnew" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>
+	<!--
+		<tx:annotation-driven
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		transaction-manager="txManager" />
+	-->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ApplicationcustomfieldsDao"
+
+		class="it.csi.mdp.core.business.dao.spring.ApplicationcustomfieldsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ApplicationDao" class="it.csi.mdp.core.business.dao.spring.ApplicationDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ApplicationDetailDao"
+		class="it.csi.mdp.core.business.dao.spring.ApplicationDetailDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="BasketDao" class="it.csi.mdp.core.business.dao.spring.BasketDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="CommissionDao" class="it.csi.mdp.core.business.dao.spring.CommissionDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="GatewayDao" class="it.csi.mdp.core.business.dao.spring.GatewayDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="GatewaydetailDao"
+		class="it.csi.mdp.core.business.dao.spring.GatewaydetailDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ItemDao" class="it.csi.mdp.core.business.dao.spring.ItemDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ItemExtraAttributeDao"
+		class="it.csi.mdp.core.business.dao.spring.ItemExtraAttributeDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="LanguageDao" class="it.csi.mdp.core.business.dao.spring.LanguageDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpCurrencyDao" class="it.csi.mdp.core.business.dao.spring.MdpCurrencyDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="OptAttrDao" class="it.csi.mdp.core.business.dao.spring.OptAttrDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="OptAttrExtraAttributeDao"
+		class="it.csi.mdp.core.business.dao.spring.OptAttrExtraAttributeDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="PartAnComuneDao" class="it.csi.mdp.core.business.dao.spring.PartAnComuneDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="PaymentGatewayDao"
+		class="it.csi.mdp.core.business.dao.spring.PaymentGatewayDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="PaymentmodeDao" class="it.csi.mdp.core.business.dao.spring.PaymentmodeDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="PeasTableIdDao" class="it.csi.mdp.core.business.dao.spring.PeasTableIdDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="StatiEsteriMinDao"
+		class="it.csi.mdp.core.business.dao.spring.StatiEsteriMinDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="StatoTransazioneDao"
+		class="it.csi.mdp.core.business.dao.spring.StatoTransazioneDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="StrumentoPagamentoDao"
+		class="it.csi.mdp.core.business.dao.spring.StrumentoPagamentoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="TransazioneDao" class="it.csi.mdp.core.business.dao.spring.TransazioneDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="TransazioneExtraAttributeDao"
+		class="it.csi.mdp.core.business.dao.spring.TransazioneExtraAttributeDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="VapplicationcomuniDao"
+		class="it.csi.mdp.core.business.dao.spring.VapplicationcomuniDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="ConfigDao" class="it.csi.mdp.core.business.dao.spring.ConfigDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="CsiLogAuditDao" class="it.csi.mdp.core.business.dao.spring.CsiLogAuditDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="MdpBckrolesDao" class="it.csi.mdp.core.business.dao.spring.MdpBckrolesDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpBckofficegroupappmappingDao"
+		class="it.csi.mdp.core.business.dao.spring.MdpBckofficegroupappmappingDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpBckofficegroupsDao"
+		class="it.csi.mdp.core.business.dao.spring.MdpBckofficegroupsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpBckrolesgroupmapDao"
+		class="it.csi.mdp.core.business.dao.spring.MdpBckrolesgroupmapDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpBckusersDao" class="it.csi.mdp.core.business.dao.spring.MdpBckusersDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpBckusersgroupDao"
+		class="it.csi.mdp.core.business.dao.spring.MdpBckusersgroupDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="AuthorizationsDao"
+		class="it.csi.mdp.core.business.dao.spring.AuthorizationsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+
+	<bean id="VtransazioneDao" class="it.csi.mdp.core.business.dao.spring.VtransazioneDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+
+	<bean id="VappgroupDao" class="it.csi.mdp.core.business.dao.spring.VappgroupDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="VerroriDao" class="it.csi.mdp.core.business.dao.spring.VerroriDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	<bean id="MdpErroriDao" class="it.csi.mdp.core.business.dao.spring.MdpErroriDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+
+	<bean id="AuditactionsDao" class="it.csi.mdp.core.business.dao.spring.AuditactionsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="GatewaycustomfieldsDao" class="it.csi.mdp.core.business.dao.spring.GatewaycustomfieldsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="GiornaleEventoDao" class="it.csi.mdp.core.business.dao.spring.GiornaleEventoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="RTDao" class="it.csi.mdp.core.business.dao.spring.RTDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="RRDao" class="it.csi.mdp.core.business.dao.spring.RRDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="ERDao" class="it.csi.mdp.core.business.dao.spring.ERDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="RPTDao" class="it.csi.mdp.core.business.dao.spring.RPTDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="CodicidEsitoPagamentoDao" class="it.csi.mdp.core.business.dao.spring.CodiciEsitoPagamentoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="StatiRptDao" class="it.csi.mdp.core.business.dao.spring.StatiRptDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="EntiDao" class="it.csi.mdp.core.business.dao.spring.EntiDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="InformativePSPDao" class="it.csi.mdp.core.business.dao.spring.InformativePSPDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="FlussoSingoloPagamentoDao" class="it.csi.mdp.core.business.dao.spring.FlussoSingoloPagamentoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="FlussoRiversamentoDao" class="it.csi.mdp.core.business.dao.spring.FlussoRiversamentoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+
+	<bean id="NodoErroriDao" class="it.csi.mdp.core.business.dao.spring.NodoErroriDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="StatisticaApplicazioneTransazioneDao" class="it.csi.mdp.core.business.dao.spring.StatisticaApplicazioneTransazioneDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="IbanEnteApplicationDao" class="it.csi.mdp.core.business.dao.spring.IbanEnteApplicationDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="IuvOtticiDao" class="it.csi.mdp.core.business.dao.spring.IuvOtticiDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	
+	<bean id="WispParamsDao" class="it.csi.mdp.core.business.dao.spring.WispParamsDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+	<bean id="ElementoMultiversamentoDao" class="it.csi.mdp.core.business.dao.spring.ElementoMultiVersamentoDaoImpl"
+		scope="singleton">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+	
+</beans>

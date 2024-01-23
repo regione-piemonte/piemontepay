@@ -1,0 +1,61 @@
+Il Servizio dei Pagamenti On Line di CSI Piemonte ha ricevuto la vostra richiesta di autorizzazione per un ordine di pagamento a favore di un esercente convenzionato.		 
+Esito della richiesta: [$ESITO$].
+
+Dati dell'Esercente o Ente per cui e' stata fatta la transazione  		 		 		 
+      Codice Esercente: [$MERCHANTCODE$]
+      
+
+Dati della transazione	 
+      Data ora: [$TIMESTAMP$]
+      Divisa: [$CCY$]
+      Importo: [$AMOUNT$]
+      Codice Merchant attribuito dall'esercente all'ordine di pagamento: [$IDTRANSAZIONE$]
+      Codice attribuito da [$PROVIDER$] all'ordine di pagamento: [$NUMOPER$]
+      Codice autorizzativo assegnato dal circuito di pagamento: [$NUMAUTOR$]
+      [$IUV$]
+
+Dati dell'acquirente (se reperibili)
+      Sistema di pagamento utilizzato: [$PAYMENTMODE$]
+      Nome dell'acquirente: [$BUYERNAME$]
+      Indirizzo email dell'acquirente: [$BUYERMAIL$]
+		 
+Dati aggiuntivi:
+
+Note		 		 		 		 		 		 		 		 		 
+Il Vostro pagamento NON e' stato autorizzato dalla Banca/Istituto emittente la carta di credito utilizzata; 
+l'importo da pagare NON e' quindi stato impegnato per acquistare il prodotto/servizio identificato dal codice assegnato al Vostro ordine di acquisto dall'esercente.
+
+
+-----------------------------------------------------------------------------
+
+
+CSI Piemonte Payment Service has received your authorization request for a payment order made at a contracted merchant.
+
+The authorization request has not been Approved by the Bank/Institute
+
+Shop detail:
+      Merchant Code: [$MERCHANTCODE$]
+
+Payment order detail:
+      Date and Time: [$TIMESTAMP$]
+      Currency: [$CCY$]
+      Amount: [$AMOUNT$]
+      Merchant order identifier code assigned by the merchant to the payment order: [$IDTRANSAZIONE$]
+      Order identifier code assigned by [$PROVIDER$] to the payment order: [$NUMOPER$]
+      Authorization code assigned by the interchange: [$NUMAUTOR$]
+
+
+Buyer information (if available)
+      Payment method selected : [$PAYMENTMODE$]
+      Buyer name: [$BUYERNAME$]
+      Buyer email address: [$BUYERMAIL$]
+
+Additional information
+
+
+Your purchase order has NOT been sent to the merchant. 
+Your payment has NOT been authorized by the bank/institute that issued your credit card. 
+The amount to be paid has NOT been assigned to the good/service indicated by the code given by the merchant to your purchase order. 
+
+
+-----------------------------------------------------------------------------

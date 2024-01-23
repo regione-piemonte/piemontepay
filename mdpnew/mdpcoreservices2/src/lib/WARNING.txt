@@ -1,0 +1,14 @@
+mdpcoreinterfaces
+
+
+
+e' un progetto compilabile e esportabile in jar contenente tutte le 
+interfacce comuni tra MDP Core e Adapters (dto, ejb ecc..)
+
+i sorgenti vanno compilati in un progetto a parte denominato mdpcoreinterfaces
+
+ed esportare in formato jar per includere la libreria sia nel progetto core, sia nei
+vari adapters al fine di compilare i rispettivi progetti
+
+AL MOMENTO I SORGENTI SONO NELLA CARTELLA LIB sotto src del progetto CORE
+in attesa di una definizione su dove porterli sistemare in SVN per le varie problematichedi nomenclatura, compilazione automatica ecc...

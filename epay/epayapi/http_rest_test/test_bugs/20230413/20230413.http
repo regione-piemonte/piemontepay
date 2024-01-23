@@ -1,0 +1,4 @@
+### da errore in test utente, Mariagrazie
+GET {{baseURLAPI}}organizations/01750860015/citizens/GLLGLL64B15G702I/debtpositions
+Authorization: Basic {{user}} {{pass}}
+Accept: application/json

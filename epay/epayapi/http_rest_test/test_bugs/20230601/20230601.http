@@ -1,0 +1,15 @@
+
+GET {{baseURLAPI}}organizations/00000000001/citizens/AAAAAA00A00A000I/debtpositions
+Authorization: Basic {{epayapi1}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+#Host: tst-srv-pay.bilancio.csi.it
+#User-Agent: Apache-HttpClient/4.5.10 (Java/1.8.0_291)
+
+###
+GET http://tst-srv-pay-fe.bilancio.csi.it:80/epayfe/api/v1/organizations/00000000001/citizens/AAAAAA00A00A000I/debtpositions
+Connection: keep-alive
+Content-Type: application/json
+Authorization: Basic epayapi1 mypass
+Host: tst-srv-oay-fe.bilancio.csi.it
+User-Agent: Apache-HttpClient/4.5.10 (Java/1.8.0_291)

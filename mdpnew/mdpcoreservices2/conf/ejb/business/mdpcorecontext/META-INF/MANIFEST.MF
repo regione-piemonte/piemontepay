@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: APP-INF/lib/spring-core-2.0.7.jar APP-INF/lib/spring-beans-2.0.7.jar APP-INF/lib/spring-aop-2.0.7.jar APP-INF/lib/spring-context-2.0.7.jar APP-INF/lib/spring-dao-2.0.7.jar APP-INF/lib/spring-jdbc-2.0.7.jar APP-INF/lib/spring-remoting-2.0.7.jar APP-INF/lib/spring-web-2.0.7.jar APP-INF/lib/spring-support-2.0.7.jar APP-INF/lib/mdpcoreinterfaces.jar APP-INF/lib/csi-stadapter-1.4.5.jar APP-INF/lib/csi-core-1.4.5.jar APP-INF/lib/csi-ejb-1.4.5.jar APP-INF/lib/aopalliance-1.0.jar APP-INF/lib/axis-1.4.jar APP-INF/lib/commons-discovery-0.2.jar APP-INF/lib/util-perf-1.0.1.jar
+
+
+
+

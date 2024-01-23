@@ -1,0 +1,41 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<deploy-descriptor 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
+	
+	<rilascio 
+		ambiente="@@@AMBIENTE@@@" 
+		cliente="INT" 
+		istanza="01" 
+		unita-installazione="mdpcoreservicessrv"
+		staging="false"
+	>
+		<prodotto codice="MDPNEW" versione="@@@VERSIONE_PROD@@@">
+			<descrizione>Nuovo Servizio Motore dei Pagamenti</descrizione>
+		</prodotto>
+		<componente codice="MDPCORESERVICE">
+			<descrizione>Componente di servizio core del prodotto MDP</descrizione>
+		</componente>
+	</rilascio>
+	
+	<lista-servizi>
+		<servizio nome="MdpCoreService" versione-intf="1.0.0" versione-impl="1.0.0" tipo-servizio="A" tipo-erogazione="A">			
+		</servizio>
+	</lista-servizi>
+	
+	<lista-binding>
+		<binding servizio="MdpCoreService" versione="1.0.0" protocollo="CSI-java-jnp">
+			<endpoint>
+				<csi-endpoint pd-file="defpd_coresrv.xml"/>
+			</endpoint>
+		</binding>
+	</lista-binding>
+</deploy-descriptor>

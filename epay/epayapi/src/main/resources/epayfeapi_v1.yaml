@@ -1,0 +1,922 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: attivazione.piemontepay@csi.it
+    name: PPay Attivazione
+  title: Swagger PPAY api - OpenAPI 3.0.3
+  description: |-
+    PPAY Espone delle API con queste funzionalità:
+      1) Debt Position - Elenco dei pagamenti da effettuare/effettuati
+      2) Create Debt Position - PDF relativo ad avviso pagamento spontaneo
+      3) Payment Notice - PDF relativo ad una posizione debitoria
+      4) Payment Receipt - PDF relativo ad una ricevuta di pagamento
+      5) Payment Types - Elenco tipologie di pagamento spontaneo associate ad uno specifico ente
+      6) Payment - Pagamento spontaneo
+      7) Payment - Pagamento di una posizione debitoria
+      8) Update archive flag - Aggiornare la preferenza all'archiviazione delle ricevute di pagamento.
+      9) Get archive flag - Restituisce la preferenza all'archiviazione delle ricevute di pagamento per il cittadino e per l'ente specificato.
+    
+     Tali funzionalità sono disegnate per l'uso diretto del singolo cittadino attraverso. Attraverso l'intermediazione di un gestionale.
+     Ogni cittadino può lavorare solo su un singolo ente per volta.
+     Per qualsiasenabi ulteriore chiarimento contattare il gruppo di attivazione alla seguente casella attivazione.piemontepay@csi.it.
+
+  termsOfService: https://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.2
+servers:
+  - url: http://localhost:8080/epayfe
+    description: dev env (pero' la generazione automatica non lo considera)
+tags:
+  - name: Debt Position
+    description: Debt Position
+  - name: Payment Notice
+    description: Payment Notice
+  - name: Payment Receipt
+    description: Payment Receipt
+  - name: Payment
+    description: payment iuv
+  - name: Payment Types
+    description: Payment Types
+  - name: Citizens
+    description: Update archive flag
+paths:
+  /api/v1/organizations/{organizationFiscalCode}/citizens/{citizenFiscalCode}/debtpositions:
+    get:
+      tags:
+        - Debt Position
+      summary: Debt Position's list
+      description: Debt Position's list from the organization fiscal code and the citizen fiscal code.
+      operationId: findDebtPositions
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Fiscal code of the organization
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Citizen's fiscal code, the one who want to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: status
+          in: query
+          description: Payment status. If not specified retun all payment
+          required: false
+          schema:
+            type: string
+            enum: [ PAYED, NOT_PAYED ]
+        - name: iuv
+          in: query
+          description: Payment identify
+          required: false
+          schema:
+            type: string
+            minLength: 17
+            maxLength: 35
+            pattern: "[0-9]+"
+        - name: currentPage
+          in: query
+          description: Page number (starts from 1)
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: elements
+          in: query
+          description: Number of page elements
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: specify fields to sort ( sort= "+data" -> order asc of data). Field names are case-sensitive. Sortable fieds are iuv, codiceVersamento, dataScadenza, importo
+          required: false
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: specify fileds to receiv. Default return all fields. Field names are case-sensitive
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebtPosition'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unrecognized caller
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - read:debtPosition
+  /api/v1/organizations/{organizationFiscalCode}/citizens/{citizenFiscalCode}/paymenttypes/{paymenttype}/debtpositions:
+    post:
+      tags:
+        - Debt Position
+      summary: Create a Debt Position and return the pdf and the iuv
+      description: Create a Debt Position and return the "stampa avviso pagamento spontaneo" PDF and the iuv. Prevedere il pagamento con CF ANONIMO.
+      operationId: createDebtPosition
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Fiscal code of the organization
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Citizen's fiscal code, the one who want to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: paymenttype
+          in: path
+          description: Payment Type returned in API getPaymentTypes
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create a new Debt Position
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentData'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedDebtPosition'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unrecognized caller
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - write:debtPosition
+  /api/v1/organizations/{organizationFiscalCode}/citizens/{citizenFiscalCode}/debtpositions/{iuv}/paymentnotice:
+    get:
+      tags:
+        - Payment Notice
+      summary: Payment Notice PDF
+      description: get the payment notice PDF
+      operationId: getPaymentNotice
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Fiscal code of the organization
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Citizen's fiscal code, the one who want to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: iuv
+          in: path
+          description: the IUV is needed to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 17
+            maxLength: 35
+            pattern: "[0-9]+"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentNotice'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unrecognized caller
+        '404':
+          description: Cannot find a Payment Notice for this Citizen fiscal code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - read:paymentNotice
+  /api/v1/organizations/{organizationFiscalCode}/citizens/{citizenFiscalCode}/debtpositions/{iuv}/paymentreceipt:
+    get:
+      tags:
+        - Payment Receipt
+      summary: Payment Receipt
+      description: Get the Payment Receipt PDF
+      operationId: getPaymentReceipt
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Fiscal code of the organization
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Citizen's fiscal code, the one who want to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: iuv
+          in: path
+          description: the IUV is needed to retrieve the information
+          required: true
+          schema:
+            type: string
+            minLength: 17
+            maxLength: 35
+            pattern: "[0-9]+"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReceipt'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unrecognized caller
+        '404':
+          description: Cannot find a Payment Notice for this Citizen fiscal code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - read:paymentReceipt
+  /api/v1/organizations/{organizationFiscalCode}/paymenttypes:
+    get:
+      tags:
+        - Payment Types
+      summary: Payment Type
+      description: get all the Payment Types
+      operationId: getPaymentTypes
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Fiscal code of the organization
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: paymentTypesDescription
+          in: query
+          description: payment types description, if specified, send 3 or more characters
+          required: false
+          schema:
+            type: string
+            minLength: 3
+            maxLength: 250
+        - name: currentPage
+          in: query
+          description: Page number (starts from 1)
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: elements
+          in: query
+          description: Number of page elements
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: specify fields to sort ( sort= "+data" -> order asc of data). Field names are case-sensitive. Sortable fields are between the required ones in the output
+          required: false
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: specify fileds to receiv. Default return all fields. Field names are case-sensitive
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentTypes'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Unrecognized caller
+        '404':
+          description: Cannot find a Payment Type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - read:paymentType
+  /api/v1/organizations/{organizationFiscalCode}/paymenttypes/{paymenttype}/payment:
+    post:
+      tags:
+        - Payment
+      summary: Return pagoPA iuv for payment
+      description: Return pagoPA iuv for payment (Pagamento spontaneo, restituisce pagoPA URL e IUV). Prevedere pagamento con CF ANONIMO.
+      operationId: getPaymentUrl
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Organization's fiscal code
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: paymenttype
+          in: path
+          description: Payment Type returned in API getPaymentTypes
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: access using post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentDataPayment'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReferences'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/organizations/{organizationFiscalCode}/debtpositions/{iuv}/payment:
+    get:
+      tags:
+        - Payment
+      summary: iuv payment
+      description: Return pagoPA url for payment
+      operationId: getDebtPositionsPaymentUrl
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Organization's fiscal code
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: iuv
+          in: path
+          description: Payment identify
+          required: true
+          schema:
+            type: string
+            minLength: 17
+            maxLength: 35
+            pattern: "[0-9]+"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIuv'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/organizations/{organizationFiscalCode}/citizens/{citizenFiscalCode}:
+    put:
+      tags:
+        - Citizens
+      summary: iuv payment
+      operationId: enableReceiptStorage
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Organization's fiscal code
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Payment identify
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: enableReceiptStorage
+          in: query
+          description: Flag to enable or disable receipt storage
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - ReceiptStorage
+      summary: Receipt Storage
+      operationId: getReceiptStorage
+      parameters:
+        - name: organizationFiscalCode
+          in: path
+          description: Organization's fiscal code
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+        - name: citizenFiscalCode
+          in: path
+          description: Payment identify
+          required: true
+          schema:
+            type: string
+            minLength: 11
+            maxLength: 16
+            pattern: "[a-zA-Z0-9]+"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiptStorage'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    DebtPosition:
+      oneOf:
+        - $ref: '#/components/schemas/Pagination'
+      required:
+        - currentPage
+        - totalElements
+        - totPages
+        - pageSize
+        - status
+      type: object
+      properties:
+        debtPositions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DebtPositionDetail'
+    ComponenteImporto:
+      required:
+        - importo
+        - causale
+      type: object
+      properties:
+        importo:
+          type: number
+        causale:
+          type: string
+    PaymentNotice:
+      type: object
+      properties:
+        notice:
+          type: string
+          format: byte
+          description: Corresponds to the payment notice in pdf format base64
+    PaymentDataPayment:
+      required:
+        - importo
+        - codiceFiscalePartitaIVAPagatore
+      type: object
+      properties:
+        note:
+          type: string
+          description: campo note come da interfaccia di sportello. Alcuni tipi pagamento richiedono questo campo obbligatorio.
+        importo:
+          type: number
+          description: Importo totale del pagamento da effettuare.
+        nome:
+          type: string
+          description: Nome del cittadino che vuole effettuare il pagamento.
+        cognome:
+          type: string
+          description: Cognome del cittadino che vuole effettuare il pagamento.
+        ragioneSociale:
+          type: string
+          description: Ragione sociale dell’impresa che vuole effettuare il pagamento, in alternativa ai dati nome e cognome
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+          description: codice fiscale o partita iva del pagatore
+        email:
+          type: string
+          description: Email del cittadino che vuole effettuare il pagamento. Inserirla se si vogliono ricevere le notifiche
+    PaymentData:
+      required:
+        - importo
+      type: object
+      properties:
+        note:
+          type: string
+          description: campo note come da interfaccia di sportello. Alcuni tipi pagamento richiedono questo campo obbligatorio.
+        importo:
+          type: number
+          description: Importo totale del pagamento da effettuare.
+        nome:
+          type: string
+          description: Nome del cittadino che vuole effettuare il pagamento.
+        cognome:
+          type: string
+          description: Cognome del cittadino che vuole effettuare il pagamento.
+        ragioneSociale:
+          type: string
+          description: Ragione sociale dell’impresa che vuole effettuare il pagamento, in alternativa ai dati nome e cognome
+        email:
+          type: string
+          description: Email del cittadino che vuole effettuare il pagamento. Inserirla se si vogliono ricevere le notifiche
+    CreatedDebtPosition:
+      required:
+        - codiceAvviso
+        - iuv
+      type: object
+      properties:
+        iuv:
+          type: string
+          description: IUV creato da PiemontePay per censire il pagamento
+        codiceAvviso:
+          type: string
+          description:
+            Codice Avviso creato da PiemontePay
+        pdf:
+          type: string
+          format: byte
+          description: Il pdf contenente la stampa avviso del pagamento. Il campo è encodato in base64
+    PaymentReceipt:
+      required:
+        - receipt
+      type: object
+      properties:
+        receipt:
+          type: string
+          format: byte
+          description: Corresponds to the payment receipt in pdf format base64
+    PaymentTypes:
+      oneOf:
+        - $ref: '#/components/schemas/Pagination'
+      type: object
+      properties:
+        paymentTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentType'
+    PaymentType:
+      required:
+        - codiceVersamento
+        - descrizioneVersamento
+      type: object
+      properties:
+        codiceVersamento:
+          type: string
+        descrizioneVersamento:
+          type: string
+        notePerIlPagatore:
+          type: string
+        noteObbligatorie:
+          type: boolean
+    PaymentReferences:
+      type: object
+      properties:
+        iuv:
+          type: string
+        paymentUrl:
+          type: string
+    PaymentIuv:
+      type: object
+      properties:
+        paymentUrl:
+          type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - INTERNAL_ERROR
+            - BUSINESS_ERROR
+            - AUTHORIZATION_ERROR
+        detail:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+        totalElements:
+          type: integer
+        totPages:
+          type: integer
+        pageSize:
+          type: integer
+    ReceiptStorage:
+      required:
+        - flag
+        - dataUltimaVariazione
+      type: object
+      properties:
+        flag:
+          type: boolean
+        dataUltimaVariazione:
+          type: string
+          format: date-time
+    DebtPositionDetail:
+      required:
+        - codiceAvviso
+        - codiceVersamento
+        - importo
+      type: object
+      properties:
+        descrizionePagamento:
+          type: string
+        codiceAvviso:
+          type: string
+        iuv:
+          type: string
+        codiceVersamento:
+          type: string
+        descrizionePortale:
+          type: string
+        importo:
+          type: number
+        componentiPagamento:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponenteImporto'
+        dataScadenza:
+          type: string
+          format: date-time
+        dataOraOperazione:
+          type: string
+          format: date-time
+        dataEsitoPagamento:
+          type: string
+          format: date-time
+        identificativoUnicoRiscossione:
+          type: string
+        numeroTransazione:
+          type: string
+        prestatoreServiziPagamento:
+          type: string
+        infoAggiuntive:
+          type: string
+        presenzaQuietanza:
+          type: boolean
+        codiceStatoPagamento:
+          type: string
+        descrizioneStatoPagamento:
+          type: string
+  securitySchemes:
+    csi_auth:
+      type: http
+      scheme: basic

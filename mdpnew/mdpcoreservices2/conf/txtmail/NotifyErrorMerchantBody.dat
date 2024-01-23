@@ -1,0 +1,12 @@
+Il Servizio dei Pagamenti On Line di CSI Piemonte ha riscontrato un errore durante un tentativo di pagamento sul vostro sito.
+Esito del tentativo di pagamento: [$ESITO$].
+
+Dati della transazione	 
+      Data ora: [$TIMESTAMP$]
+      Codice Merchant attribuito dall'esercente all'ordine di pagamento: [$IDTRANSAZIONE$]
+      
+Dati dell'acquirente (se reperibili)
+      Nome dell'acquirente: [$BUYERNAME$]
+      Indirizzo email dell'acquirente: [$BUYERMAIL$]
+		 
+Si consiglia di controllare lo stato del pagamento tramite il Back-office fornito dall'Istituto di Credito convenzionato.

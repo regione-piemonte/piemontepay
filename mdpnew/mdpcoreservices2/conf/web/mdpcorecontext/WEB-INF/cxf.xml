@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:cxf="http://cxf.apache.org/core"
+	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	   xmlns:jaxws="http://cxf.apache.org/jaxws"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+						   http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+						   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+						   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- import cxf resources -->
+	
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+ 	
+
+	<!-- WebServices end point definition -->
+	<jaxws:endpoint id="mdpCxf"
+	implementor="it.csi.mdp.core.interfacecxf.MdpCoreCxf" 
+	address="/MdpCoreCxf">
+	<jaxws:outFaultInterceptors>
+	<ref bean="faultOutbound"/>
+	</jaxws:outFaultInterceptors>
+	
+	
+	</jaxws:endpoint>
+
+
+	<!-- Logging features -->
+	<bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+	<bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+	
+	<bean id="faultInbound" class="org.apache.cxf.binding.coloc.WebFaultInInterceptor"/>
+	<bean id="faultOutbound" class="org.apache.cxf.jaxws.interceptors.WebFaultOutInterceptor"/>
+
+	<cxf:bus>
+	
+			<cxf:inFaultInterceptors>
+			<ref bean="faultInbound"/>
+		</cxf:inFaultInterceptors>
+		<!-- 
+		<cxf:outFaultInterceptors>
+			<ref bean="faultOutbound"/>
+		</cxf:outFaultInterceptors>
+		 -->
+		<cxf:inInterceptors>
+			<ref bean="logInbound"/>
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="logOutbound"/>
+		</cxf:outInterceptors>
+		
+
+		 
+		<cxf:features>
+		<cxf:logging></cxf:logging>
+		</cxf:features>
+	</cxf:bus>
+
+</beans>
+
+

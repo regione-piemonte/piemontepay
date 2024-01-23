@@ -1,0 +1,14 @@
+### 500 nel test di carico
+POST {{baseURLAPI}}organizations/80087670016/citizens/PLLPNC94M01L219O/paymenttypes/AS20/debtpositions
+Authorization: Basic {{epayapi1}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "note": "test di carico",
+  "importo": "43",
+  "nome": "Pinco",
+  "cognome": "Pallino",
+  "ragioneSociale": "",
+  "email": "pinco.pallino@unk.unk"
+}

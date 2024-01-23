@@ -1,0 +1,93 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<porta-delegata name="MdpCoreService">
+	<services>
+		<service name="MdpCoreService" public-interface-class="it.csi.mdp.core.interfacecsi.IMdpCoreCsi">
+			<operations>
+				<operation name="isAlive" type="synch-call">
+					<param-list>
+					</param-list>
+					<ret-val type="boolean" />
+				</operation>
+				<operation name="testResources" type="synch-call">
+					<param-list>
+					</param-list>
+					<ret-val type="boolean" />
+				</operation>
+				<operation name="getModalitaPagamento" type="synch-call">
+					<param-list>
+						<param name="t" type="it.csi.mdp.core.business.dto.Transazione"></param>
+						<param name="appId" type="java.lang.String"></param>
+					</param-list>
+					<ret-val
+						type="it.csi.mdp.core.business.paymentmanager.local.AppGateway[]" />
+				</operation>
+				<operation name="getModalitaInformativePagamento" type="synch-call">
+					<param-list>
+						<param name="t" type="it.csi.mdp.core.business.dto.Transazione"></param>
+						<param name="appId" type="java.lang.String"></param>
+					</param-list>
+					<ret-val
+						type="it.csi.mdp.core.business.paymentmanager.local.AppGatewayInformativa[]" />
+				</operation>
+				<operation name="initTransazione" type="synch-call">
+					<param-list>
+						<param name="appId" type="java.lang.String"></param>
+						<param name="basketId" type="java.lang.String"></param>
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Transazione" />
+				</operation>
+				<operation name="startTransazione" type="synch-call">
+					<param-list>
+						<param name="t" type="it.csi.mdp.core.business.dto.Transazione" />
+						<param name="tea"
+							type="it.csi.mdp.core.business.dto.TransazioneExtraAttribute[]" />
+					</param-list>
+					<ret-val type="java.lang.String" />
+				</operation>
+				<operation name="getStatoTransazione" type="synch-call">
+					<param-list>
+						<param name="transaction_id" type="java.lang.String" />
+
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Transazione" />
+				</operation>
+				<operation name="getRTperIUV" type="synch-call">
+					<param-list>
+						<param name="iuv" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.lang.String" />
+				</operation>
+				<operation name="getApplication" type="synch-call">
+					<param-list>
+						<param name="applicationid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Application" />
+				</operation>
+			</operations>
+		</service>
+	</services>
+	<config>
+		<url-pa>not-used</url-pa>
+		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+
+			<pluggable-pd name="PA_MdpCoreService"
+				class="it.csi.csi.porte.ejb20.PortaDelegataEJB" url-pa="mdppaymentsrv/ejb/PA_MdpCoreService">
+
+				<properties>
+					<property name="java.naming.provider.url" value="@@@url_T3_MDPCORE@@@" />
+					<property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
+				</properties>
+
+			</pluggable-pd>
+
+
+		</pluggable-pd-list>
+		<queue-manager url="" />
+	</config>
+</porta-delegata>

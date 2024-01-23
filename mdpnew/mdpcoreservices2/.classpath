@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/lib/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/lib/build/mdpcoreinterfaces.jar"/>
+	<classpathentry kind="lib" path="src/extlib/javamelody.jar"/>
+	<classpathentry kind="lib" path="src/extlib/jrobin-1.5.9.1.jar"/>
+	<classpathentry kind="lib" path="src/extlib/mdpdao.jar"/>
+	<classpathentry kind="lib" path="src/extlib/neethi-2.0.4.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

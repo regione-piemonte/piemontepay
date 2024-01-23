@@ -1,0 +1,6 @@
+GET {{baseURLAPI}}organizations/{{ofsRegionePiemonte}}/citizens/PRTGTR47T11G240O/debtpositions?currentPage=1&elements=10
+Authorization: Basic {{epayapi1}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+###
