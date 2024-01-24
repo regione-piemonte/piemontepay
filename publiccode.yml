@@ -1,0 +1,299 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+applicationSuite: PIEMONTEPAY
+categories:
+  - payment-gateway
+dependsOn:
+  open:
+    - name: Java Runtime
+      optional: true
+      version: 11.0.6
+      versionMax: ''
+      versionMin: 11.0.6
+    - name: Java Runtime
+      optional: false
+      version: 1.8.0
+      versionMax: 1.8.0
+      versionMin: 1.8.0
+    - name: Java Runtime
+      optional: false
+      version: 1.6.0
+      versionMax: 1.6.0
+      versionMin: 1.6.0
+    - name: Java Runtime
+      optional: false
+      version: 1.5.0
+      versionMax: 1.5.0
+      versionMin: 1.5.0
+    - name: Apache Web Server
+      optional: true
+      version: 2.4.41
+      versionMax: ''
+      versionMin: 2.4.41
+    - name: JBoss
+      optional: true
+      version: EAP 6.4.0.GA
+      versionMax: ''
+      versionMin: EAP 6.4.0.GA
+    - name: JBoss
+      optional: true
+      version: 4.3 EAP CP09
+      versionMax: 4.3 EAP CP09
+      versionMin: 4.3 EAP CP09
+    - name: PostgreSQL
+      optional: true
+      version: 9.6.11
+      versionMax: 9.6.11
+      versionMin: 9.6.11
+    - name: PostgreSQL
+      optional: true
+      version: '12'
+      versionMax: '12'
+      versionMin: '12'
+description:
+  it:
+    features:
+      - eseguire un pagamento spontaneo verso un Ente Creditore
+      - verificare l'esito di un pagamento
+      - eseguire il download della quietanza di pagamento
+      - eseguire la stampa di un avviso di pagamento
+      - upload liste di posizioni debitorie
+      - download degli IUV associati alle posizioni debitorie
+      - download delle liste dei pagamenti eseguiti
+      - ricerca e visualizzazione dei pagamenti eseguiti
+      - upload della lista dei provvisori di entrata
+      - creazione e manutenzione del catalogo delle entrate contabili
+      - elaborazione flussi pagoPA
+    genericName: PIEMONTEPAY
+    localisedName: PIEMONTEPAY
+    longDescription: |
+      PiemontePay è una piattaforma progettata per la gestione dei processi di
+
+      riscossione, di pagamento di tributi e/o servizi per i quali l’ente
+
+      risulta creditore o erogatore e fornisce servizi di supporto alla
+
+      riconciliazione contabile automatizzata in linea con le specifiche pagoPA.
+
+
+      E' rivolta ai cittadini e alle imprese che devono eseguire pagamenti verso
+
+      la PA e al personale della PA che deve predisporre e monitorare i processi
+
+      di riscossione e riconciliazione contabile.
+
+
+      PiemontePay è costituito da due macro componenti, EPAY e MDPNEW.
+
+
+      EPAY implementa le funzionalità della piattaforma PiemontePay sopra
+
+      descritte e coopera con mdpnew il quale espone servizi al fine di
+
+      mascherare l'interazione con differenti sistemi di pagamento elettronico
+
+      generalmente di proprieta' delle banche, chiamati Payment Gateway e il
+
+      nuovo sistema del Nodo dei pagamenti pagoPA AgID.
+    shortDescription: Piattaforma per l'intermediazione dei Pagamenti Elettronici con PAGOPA
+developmentStatus: stable
+intendedAudience:
+  countries:
+    - it
+  scope:
+    - government
+it:
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: true
+    pagopa: true
+    spid: true
+  riuso:
+    codiceIPA: r_piemon
+landingURL: 'https://github.com/regione-piemonte/piemontepay'
+legal:
+  authorsFile: |-
+    https://raw.githubusercontent.com/regione-piemonte/piemontepay/master/COPYRIGHTS.txt
+  license: EUPL-1.2
+  mainCopyrightOwner: Regione Piemonte
+  repoOwner: Regione Piemonte
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contacts:
+    - email: mariarosaria.napoletano@csi.it
+      name: Maria Rosaria Napoletano
+    - email: isabella.pennisi@csi.it
+      name: Isabella Pennisi
+    - email: irene.etzi@csi.it
+      name: Irene Etzi
+  type: internal
+name: Piemonte Pay
+platforms:
+  - web
+releaseDate: '2024-01-23'
+softwareType: standalone/web
+softwareVersion: 1.12.0
+url: 'https://github.com/regione-piemonte/piemontepay.git'
+usedBy:
+  - |-
+    A.T.A.P. SPA - Azienda Trasporti Automobilistici Pubblici delle Province di
+    Biella e Vercelli
+  - Afc Torino S.P.A.
+  - Agenzia della mobilita' Piemontese
+  - Agenzia Interregionale per Il Fiume Po
+  - Agenzia Regionale Piemontese per le Erogazioni in Agricoltura
+  - Citta' Metropolitana di Torino
+  - |-
+    Collegio dei Geometri e dei Geometri Laureati di Casale Monferrato e
+    Circondario
+  - Comune di Antignano
+  - Comune di Arquata Scrivia
+  - Comune di Aurano
+  - Comune di Bagnolo Piemonte
+  - Comune di Bardonecchia
+  - Comune di Bellinzago Novarese
+  - Comune di Benevello
+  - Comune di Biella
+  - Comune di Borgo San Dalmazzo
+  - Comune di Bricherasio
+  - Comune di Bussoleno
+  - Comune di Cambiano
+  - Comune di Candiolo
+  - Comune di Caprezzo
+  - Comune di Carrosio
+  - Comune di Castello di Annone
+  - Comune di Cavallermaggiore
+  - Comune di Cellarengo
+  - Comune di Cerreto Grue
+  - Comune di Cossato
+  - Comune di Crescentino
+  - Comune di Cumiana
+  - Comune di Dusino San Michele
+  - Comune di Ferrere
+  - Comune di Fiorano Canavese
+  - Comune di Fontanetto Po
+  - Comune di Forno Canavese
+  - Comune di Galliate
+  - Comune di Germagnano
+  - Comune di Germagno
+  - Comune di Grignasco
+  - Comune di Intragna
+  - Comune di La Cassa
+  - Comune di Levone
+  - Comune di Limone Piemonte
+  - Comune di Loreglia
+  - Comune di Lozzolo
+  - Comune di Magliano Alfieri
+  - Comune di Margarita
+  - Comune di Mezzomerico
+  - Comune di Mirabello Monferrato
+  - Comune di Mombasiglio
+  - Comune di Momperone
+  - Comune di Monasterolo di Savigliano
+  - Comune di Mondovi
+  - Comune di Montaldo di Mondovi
+  - Comune di Montalenghe
+  - Comune di Montezemolo
+  - Comune di Morozzo
+  - Comune di Nichelino
+  - Comune di Novara
+  - Comune di Nucetto
+  - Comune di Odalengo Piccolo
+  - Comune di Palazzolo Vercellese
+  - Comune di Pamparato
+  - Comune di Parella
+  - Comune di Parodi Ligure
+  - Comune di Penango
+  - Comune di Perlo
+  - Comune di Peveragno
+  - Comune di Pinasca
+  - Comune di Pinerolo
+  - Comune di Poirino
+  - Comune di Pralungo
+  - Comune di Prarostino
+  - Comune di Pratiglione
+  - Comune di Priero
+  - Comune di Priocca
+  - Comune di Riva presso Chieri
+  - Comune di Roaschia
+  - Comune di Roascio
+  - Comune di Rocca Canavese
+  - Comune di Rondissone
+  - Comune di San Damiano D'Asti
+  - Comune di San Germano Chisone
+  - Comune di Savigliano
+  - Comune di Scagnello
+  - Comune di Settime
+  - Comune di Strambinello
+  - Comune di Terdobbiate
+  - Comune di Tigliole
+  - Comune di Torino
+  - Comune di Torre Pellice
+  - Comune di Trasquera
+  - Comune di Trofarello
+  - Comune di Valfenera
+  - Comune di Valstrona
+  - Comune di Vercelli
+  - Comune di Vialfre'
+  - Comune di Vicoforte
+  - Comune di Vigone
+  - Comune di Villadeati
+  - Comune di Villanova Canavese
+  - Comune di Villanova D'Asti
+  - Consiglio Regionale del Piemonte
+  - |-
+    Consorzio Alessandrino di Bacino per La Raccolta e Il Trasporto Dei Rifiuti
+    Solidi Urbani
+  - Consorzio Chierese per I Servizi
+  - Consorzio Covar14
+  - Consorzio Intercomunale del Novese dei Servizi alla Persona
+  - Consorzio Intercomunale Servizi Socio Assistenziali di Pianezza
+  - Consorzio Intercomunale Socio Assistenziale C.I.S.A di Gassino Torinese
+  - Consorzio Monviso Solidale
+  - Consorzio Servizi Sociali
+  - Consorzio Socio Assistenziale Alba Langhe Roero
+  - Consorzio Socio-assistenziale del Cuneese
+  - Ente di Gestione delle Aree Protette Alpi Marittime
+  - Ente di Gestione Dei Sacri Monti
+  - Ente di Gestione Del Parco Paleontologico Astigiano
+  - Ente di Gestione delle aree protette del Monviso
+  - Ente Di Gestione delle Aree Protette del Ticino e del Lago Maggiore
+  - Ente di Gestione Delle Aree Protette della Valle Sesia
+  - Ente di Gestione delle Aree Protette dell'Appennino Piemontese
+  - Ente di Gestione Delle Aree Protette Delle Alpi Cozie
+  - Fondazione Film Commission Torino Piemonte
+  - Ordine Dei Giornalisti Consiglio Regionale del Piemonte
+  - Regione Piemonte
+  - S.C.R. Piemonte S.P.A.
+  - Unione Colli del Monferrato
+  - Unione Colline del Riddone
+  - Unione Dei Comuni Castelli Tra Roero e Monferrato
+  - Unione Dei Comuni di Camino Coniolo Pontestura e Solonghello
+  - Unione Dei Comuni di Moncalieri Trofarello La Loggia
+  - Unione della Comunita' Collinare Monferrato Valle Versa
+  - Unione di Comuni Terre di Vini e di Tartufi
+  - Unione Montana Alpi del Mare
+  - Unione Montana Alto Canavese
+  - Unione Montana dei Comuni della Valsesia
+  - Unione Montana della Valle Strona e Delle Quarne
+  - Unione Montana Delle Valli Chisone e Germanasca
+  - Unione Montana Langa Astigiana Val Bormida
+  - Unione Montana Suol D'Aleramo
+  - Unione Montana Valgrande e del Lago di Mergozzo
+  - Unione Montana Valle Maira
+  - Unione Montana Valle Stura
+  - Unione Montana Valli Borbera e Spinti
+  - Unione Montana Valli Orco e Soana
+  - Unione Terre del Tartufo
