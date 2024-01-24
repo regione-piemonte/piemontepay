@@ -1,0 +1,508 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.csi.it/epay/epaywso/ricevirichiestarevoca" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="RiceviRichiestaRevoca" targetNamespace="http://www.csi.it/epay/epaywso/ricevirichiestarevoca">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/types" targetNamespace="http://www.csi.it/epay/epaywso/types" version="1.0">
+
+  <xs:element name="EPaywsoServiceResponse" type="tns:ResponseType"/>
+
+  <xs:complexType name="PersonaFisicaType">
+    <xs:sequence>
+      <xs:element form="qualified" name="Cognome" type="xs:string"/>
+      <xs:element form="qualified" name="Nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element form="qualified" name="Result" type="tns:ResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element form="qualified" name="Codice" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaGiuridicaType">
+    <xs:sequence>
+      <xs:element form="qualified" name="RagioneSociale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SoggettoType">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="PersonaFisica" type="tns:PersonaFisicaType"/>
+      <xs:element form="qualified" minOccurs="0" name="PersonaGiuridica" type="tns:PersonaGiuridicaType"/>
+      <xs:element form="qualified" name="IdentificativoUnivocoFiscale" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Indirizzo" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Civico" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="CAP" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Localita" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Provincia" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Nazione" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="EMail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PosizioneDebitoriaType">
+    <xs:sequence>
+      <xs:element form="qualified" name="IdPosizioneDebitoria" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="IUV" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="CodiceAvviso" type="xs:string"/>
+      <xs:element form="qualified" name="CodiceEsito" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="DescrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EndpointType">
+    <xs:sequence>
+      <xs:element default="http" form="qualified" name="Protocol" type="xs:string"/>
+      <xs:element form="qualified" name="Host" type="xs:string"/>
+      <xs:element form="qualified" name="Context" type="xs:string"/>
+      <xs:element form="qualified" minOccurs="0" name="Port" type="xs:int"/>
+      <xs:element form="qualified" minOccurs="0" name="CredenzialiAutenticazione">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" name="NomeUtente" type="xs:string"/>
+            <xs:element form="qualified" name="Password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoInserimentoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="ElencoPosizioniDebitorieInserite">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="PosizioneDebitoriaInserita" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoAggiornamentoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="ElencoPosizioniDebitorieAggiornate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="PosizioneDebitoriaAggiornata" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ProtocolloAggiornamentoAzioneType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INSERIMENTO"/>
+      <xs:enumeration value="MODIFICA"/>
+      <xs:enumeration value="CANCELLAZIONE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:tns="http://www.csi.it/epay/epaywso/ricevirichiestarevoca" xmlns:ns1="http://www.csi.it/epay/epaywso/types" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.csi.it/epay/epaywso/ricevirichiestarevoca">
+  <xs:import namespace="http://www.csi.it/epay/epaywso/types"/>
+  <xs:import namespace="http://www.w3.org/2005/05/xmlmime"/>
+  <xs:element name="AggiornaCodiceVersamentoRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ProtocolloAggiornamentoAzione" type="xs:string"/>
+        <xs:element name="CodiceVersamento" type="tns:CodiceVersamentoType"/>
+        <xs:element name="IdOperazione" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AggiornaCodiceVersamentoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AggiornaEnteRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Ente" type="tns:EnteType"/>
+        <xs:element name="CodiciVersamento" type="tns:CodiciVersamentoType"/>
+        <xs:element name="IdOperazione" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AggiornaEnteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AggiornaRiferimentoContabileRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ProtocolloAggiornamentoAzione" type="xs:string"/>
+        <xs:element name="RiferimentoContabile" type="tns:RiferimentoContabileType"/>
+        <xs:element name="IdOperazione" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AggiornaRiferimentoContabileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnnullaOperazioneRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="IdOperazione" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnnullaOperazioneResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfermaOperazioneRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="IdOperazione" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfermaOperazioneResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CtRichiestaRevocaRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="ctRichiestaRevoca" type="tns:ctRichiestaRevoca"/>
+        <xs:element maxOccurs="unbounded" name="ctEsitoRevoca" type="tns:ctEsitoRevoca"/>
+        <xs:element name="parametriRiceviRT" type="tns:parametriRiceviRT"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestResourcesRequest">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TestResourcesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ctRichiestaRevoca">
+    <xs:sequence>
+      <xs:element name="versioneOggetto" type="xs:string"/>
+      <xs:element name="dominio" type="tns:ctDominio"/>
+      <xs:element name="identificativoMessaggioRevoca" type="xs:string"/>
+      <xs:element name="dataOraMessaggioRevoca" type="xs:anySimpleType"/>
+      <xs:element name="istitutoAttestante" type="tns:ctIstitutoAttestante"/>
+      <xs:element minOccurs="0" name="soggettoVersante" type="tns:ctSoggettoVersante"/>
+      <xs:element name="soggettoPagatore" type="tns:ctSoggettoPagatore"/>
+      <xs:element name="datiRevoca" type="tns:ctDatiRevoca"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctDominio">
+    <xs:sequence>
+      <xs:element name="identificativoDominio" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoStazioneRichiedente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctIstitutoAttestante">
+    <xs:sequence>
+      <xs:element name="identificativoUnivocoMittente" type="tns:ctIdentificativoUnivoco"/>
+      <xs:element name="denominazioneMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceUnitOperMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="denomUnitOperMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="indirizzoMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="civicoMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="capMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="localitaMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="provinciaMittente" type="xs:string"/>
+      <xs:element minOccurs="0" name="nazioneMittente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctIdentificativoUnivoco">
+    <xs:sequence>
+      <xs:element name="tipoIdentificativoUnivoco" type="tns:stTipoIdentificativoUnivoco"/>
+      <xs:element name="codiceIdentificativoUnivoco" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctSoggettoVersante">
+    <xs:sequence>
+      <xs:element name="identificativoUnivocoVersante" type="tns:ctIdentificativoUnivocoPersonaFG"/>
+      <xs:element name="anagraficaVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="indirizzoVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="civicoVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="capVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="localitaVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="provinciaVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="nazioneVersante" type="xs:string"/>
+      <xs:element minOccurs="0" name="e-mailVersante" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctIdentificativoUnivocoPersonaFG">
+    <xs:sequence>
+      <xs:element name="tipoIdentificativoUnivoco" type="tns:stTipoIdentificativoUnivocoPersFG"/>
+      <xs:element name="codiceIdentificativoUnivoco" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctSoggettoPagatore">
+    <xs:sequence>
+      <xs:element name="identificativoUnivocoPagatore" type="tns:ctIdentificativoUnivocoPersonaFG"/>
+      <xs:element name="anagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="indirizzoPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="civicoPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="capPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="localitaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="provinciaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="nazionePagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="e-mailPagatore" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctDatiRevoca">
+    <xs:sequence>
+      <xs:element name="importoTotaleRevocato" type="xs:decimal"/>
+      <xs:element name="identificativoUnivocoVersamento" type="xs:string"/>
+      <xs:element name="codiceContestoPagamento" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="datiSingolaRevoca" nillable="true" type="tns:ctDatiSingolaRevoca"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctDatiSingolaRevoca">
+    <xs:sequence>
+      <xs:element name="singoloImportoRevocato" type="xs:decimal"/>
+      <xs:element name="identificativoUnivocoRiscossione" type="xs:string"/>
+      <xs:element name="causaleRevoca" type="xs:string"/>
+      <xs:element name="datiAggiuntiviRevoca" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctEsitoRevoca">
+    <xs:sequence>
+      <xs:element name="versioneOggetto" type="xs:string"/>
+      <xs:element name="dominio" type="tns:ctDominio"/>
+      <xs:element name="identificativoMessaggioEsito" type="xs:string"/>
+      <xs:element name="dataOraMessaggioEsito" type="xs:anySimpleType"/>
+      <xs:element name="riferimentoMessaggioRevoca" type="xs:string"/>
+      <xs:element name="riferimentoDataRevoca" type="xs:anySimpleType"/>
+      <xs:element name="istitutoAttestante" type="tns:ctIstitutoAttestante"/>
+      <xs:element minOccurs="0" name="soggettoVersante" type="tns:ctSoggettoVersante"/>
+      <xs:element name="soggettoPagatore" type="tns:ctSoggettoPagatore"/>
+      <xs:element name="datiRevoca" type="tns:ctDatiEsitoRevoca"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctDatiEsitoRevoca">
+    <xs:sequence>
+      <xs:element name="importoTotaleRevocato" type="xs:decimal"/>
+      <xs:element name="identificativoUnivocoVersamento" type="xs:string"/>
+      <xs:element name="codiceContestoPagamento" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="datiSingolaRevoca" nillable="true" type="tns:ctDatiSingoloEsitoRevoca"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ctDatiSingoloEsitoRevoca">
+    <xs:sequence>
+      <xs:element name="singoloImportoRevocato" type="xs:decimal"/>
+      <xs:element name="identificativoUnivocoRiscossione" type="xs:string"/>
+      <xs:element name="causaleEsito" type="xs:string"/>
+      <xs:element name="datiAggiuntiviEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parametriRiceviRT">
+    <xs:sequence>
+      <xs:element name="applicationId" type="xs:string"/>
+      <xs:element name="transactionId" type="xs:string"/>
+      <xs:element name="dataOraMsgRicevuta" type="xs:date"/>
+      <xs:element name="idMsgRicevuta" type="xs:string"/>
+      <xs:element name="tipoFirma" type="xs:string"/>
+      <xs:element name="iuv" type="xs:string"/>
+      <xs:element name="codEsitoPagamento" type="xs:string"/>
+      <xs:element name="descEsitoPagamento" type="xs:string"/>
+      <xs:element name="idMsgRichiesta" type="xs:string"/>
+      <xs:element name="rtData" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"/>
+      <xs:element name="timestamp" type="xs:string"/>
+      <xs:element name="mac" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EnteType">
+    <xs:sequence>
+      <xs:element name="CodiceFiscale" type="xs:string"/>
+      <xs:element name="Denominazione" type="xs:string"/>
+      <xs:element name="Indirizzo" type="xs:string"/>
+      <xs:element name="Civico" type="xs:string"/>
+      <xs:element name="Localita" type="xs:string"/>
+      <xs:element name="Cap" type="xs:string"/>
+      <xs:element name="SiglaProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="Email" type="xs:string"/>
+      <xs:element minOccurs="0" name="Gs1Gln" type="xs:string"/>
+      <xs:element minOccurs="0" name="Cbill" type="xs:string"/>
+      <xs:element minOccurs="0" name="Iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="Bic" type="xs:string"/>
+      <xs:element minOccurs="0" name="IbanTesoreria" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BicTesoreria" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="IbanAppoggio" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BicAppoggio" nillable="true" type="xs:string"/>
+      <xs:element name="EntePlurintermediato" type="xs:boolean"/>
+      <xs:element name="RiconciliazioneVersamenti" type="xs:boolean"/>
+      <xs:element name="Accertamento" type="xs:boolean"/>
+      <xs:element name="RicezioneErrori" type="xs:boolean"/>
+      <xs:element name="TipologiaAccertamento" type="xs:string"/>
+      <xs:element name="ModalitaAcquisizioneProvvisori" type="xs:string"/>
+      <xs:element name="RicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+      <xs:element name="PeriodicitaSchedulazioneRiconciliazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="GiornoSchedulazione" type="xs:int"/>
+      <xs:element name="QualsiasiCodiceVersamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Logo" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CodiciVersamentoType">
+    <xs:sequence>
+      <xs:element name="ElencoCodiciVersamento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="CodiceVersamento" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CodiceVersamentoType">
+    <xs:sequence>
+      <xs:element name="CFEnte" type="xs:string"/>
+      <xs:element name="Codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="Descrizione" type="xs:string"/>
+      <xs:element name="VoceEntrata" type="xs:string"/>
+      <xs:element name="TipoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="Iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="Bic" type="xs:string"/>
+      <xs:element name="InvioFlussi" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Email" type="xs:string"/>
+      <xs:element name="Annullato" type="xs:boolean"/>
+      <xs:element name="ModalitaDiIntegrazione" type="xs:string"/>
+      <xs:element name="ApplicationId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RiferimentoContabileType">
+    <xs:sequence>
+      <xs:element name="CodiceFiscaleEnte" type="xs:string"/>
+      <xs:element name="CodiceVersamento" type="xs:string"/>
+      <xs:element name="DataInizioValidita" type="xs:date"/>
+      <xs:element minOccurs="0" name="DataFineValidita" type="xs:date"/>
+      <xs:element minOccurs="0" name="TipologiaDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="DatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="DescrizioneDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element name="AnnoEsercizio" type="xs:integer"/>
+      <xs:element minOccurs="0" name="NumeroEsercizio" type="xs:integer"/>
+      <xs:element minOccurs="0" name="AnnoAccertamento" type="xs:integer"/>
+      <xs:element minOccurs="0" name="NumeroAccertamento" type="xs:integer"/>
+      <xs:element minOccurs="0" name="NumeroCapitolo" type="xs:integer"/>
+      <xs:element minOccurs="0" name="NumeroArticolo" type="xs:integer"/>
+      <xs:element minOccurs="0" name="LivelloPDC" type="xs:string"/>
+      <xs:element minOccurs="0" name="Titolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodiceTipologia" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodiceCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="ChiaveIntersistema" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="stTipoIdentificativoUnivoco">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="G"/>
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="B"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="stTipoIdentificativoUnivocoPersFG">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="F"/>
+      <xs:enumeration value="G"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TipologiaAccertamentoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNI"/>
+      <xs:enumeration value="PIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ModalitaAcquisizioneProvvisoriType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CAM"/>
+      <xs:enumeration value="CON"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PeriodicitaSchedulazioneType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SGF"/>
+      <xs:enumeration value="GIO"/>
+      <xs:enumeration value="SET"/>
+      <xs:enumeration value="MEN"/>
+      <xs:enumeration value="BIM"/>
+      <xs:enumeration value="TRI"/>
+      <xs:enumeration value="QUA"/>
+      <xs:enumeration value="SEM"/>
+      <xs:enumeration value="ANN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TipoPagamentoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LDS"/>
+      <xs:enumeration value="PS"/>
+      <xs:enumeration value="REDS"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ModalitaDiIntegrazioneType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PEC"/>
+      <xs:enumeration value="SRV"/>
+      <xs:enumeration value="ALL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ctDatiEsitoRevoca" nillable="true" type="tns:ctDatiEsitoRevoca"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="riceviRichiestaRevocaResponse">
+    <wsdl:part element="tns:ctDatiEsitoRevoca" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="riceviRichiestaRevoca">
+    <wsdl:part element="tns:CtRichiestaRevocaRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EpayFruitoreRiceviRr">
+    <wsdl:operation name="riceviRichiestaRevoca">
+      <wsdl:input message="tns:riceviRichiestaRevoca" name="riceviRichiestaRevoca">
+    </wsdl:input>
+      <wsdl:output message="tns:riceviRichiestaRevocaResponse" name="riceviRichiestaRevocaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RiceviRichiestaRevocaSoapBinding" type="tns:EpayFruitoreRiceviRr">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="riceviRichiestaRevoca">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/ricevirichiestarevoca/riceviRichiestaRevoca" style="document"/>
+      <wsdl:input name="riceviRichiestaRevoca">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="riceviRichiestaRevocaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RiceviRichiestaRevoca">
+    <wsdl:port binding="tns:RiceviRichiestaRevocaSoapBinding" name="RiceviRichiestaRevoca">
+      <soap:address location="http://localhost:8080/epayservicesbe/RiceviRichiestaRevoca/EpayFruitoreRiceviRr"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

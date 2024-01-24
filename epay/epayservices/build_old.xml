@@ -1,0 +1,570 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<project basedir="." default="default" name="epayservices" xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
+	<!-- -->
+	<property file="buildfiles/build.properties" />
+	<property environment="env" />
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # internal target: resolve-dependencies                     # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="resolve-dependencies" description="configurazione di ivy">
+		<tstamp />
+		<ivy:configure file="${buildfiles}/ivyconf.xml" />
+		<ivy:resolve file="${buildfiles}/ivy.xml" conf="*" transitive="false" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # internal target: load-dependencies                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies" description="carica le dipendenze tramite ivy" depends="resolve-dependencies">
+		<tstamp />
+		<ivy:retrieve pattern="${libraries}/[conf]/[artifact].[ext]" conf="runtime, provided" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: default                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="default" description="verifica se eseguire il build per un solo environment specificato a linea di commando con -Dtarget=${target} o per tutti gli environment ">
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+		<!-- -->
+		<condition property="first-call" value="all-target">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<!-- -->
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+		<!-- -->
+		<antcall target="${first-call}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: all-target                                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="all-target" description="Lancia il build per le varie distribuzioni in sequenza">
+		<antcall target="distribution">
+			<param name="target" value="local-rp-01" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="dev-rp-01" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="tst-rp-01" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="coll-rp-01" />
+		</antcall>
+		<antcall target="distribution">
+			<param name="target" value="prod-rp-01" />
+		</antcall>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # target: init                                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="init" description="Inizializza lo script Ant">
+		<tstamp>
+			<format property="ANNO-COPYRIGHT" pattern="yyyy" />
+		</tstamp>
+		<!-- -->
+		<property environment="env" />
+
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<!-- -->
+		<echo message=" target: ${target}" />
+		<echo message=" basedir: ${basedir}" />
+		<echo message=" temp: ${temp}" />
+		
+		<!-- -->
+		<loadproperties srcFile="buildfiles/${target}.properties" />
+		<loadproperties srcFile="buildfiles/build.properties" />
+		<!-- -->
+		<property name="dist-target" value="${dist}/${target}" />
+		<property name="archives-target" value="${archives}/${target}" />
+		<property name="temp-target" value="${temp}/${target}" />
+		<echo message=" temp-target: ${temp-target}" />
+		<property name="conf-target" value="${temp-target}/conf" />
+		<!-- -->
+		<property name="classes" value="${temp-target}/classes" />
+		<!-- -->
+		<!-- -->
+		<property name="manifest-dir" value="${temp-target}/manifests" />
+		<!-- -->
+		<property name="ear-manifest-dir" value="${manifest-dir}/ear" />
+		<property name="web-manifest-dir" value="${manifest-dir}/web" />
+
+		<path id="class.path">
+			<fileset dir="${libraries}">
+				<include name="**/*.jar" />
+			</fileset>
+			<pathelement path="src/main/resources" />
+		</path>
+	</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # target: _cancella-tree-structure                          # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_delete-tree-structure" depends="init">
+		<delete dir="${dist-target}" />
+		<delete dir="${temp-target}" />
+		<delete dir="${archives-target}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # target: _create-tree-structure                             # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<!-- crea la struttura di cartelle necessarie al build -->
+	<target name="_create-tree-structure" depends="init, _delete-tree-structure">
+		<mkdir dir="${dist-target}" />
+		<mkdir dir="${temp-target}" />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${archives-target}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: compile-all                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="compile-all" description="Compila tutti i sorgenti." depends="init, load-dependencies">
+		<touch file="${temp-target}/src-timestamp-file.txt" />
+		<!-- -->
+		<echo message="JAVA_HOME: ${env.JAVA_HOME}" />
+		<javac debug="${flag-debug}" debuglevel="lines,vars,source" fork="true" classpathref="class.path" optimize="${flag-optimize}" destdir="${classes}" listfiles="yes" verbose="true" srcdir="${src-java}" source="1.8" target="1.8">
+			<compilerarg line="-Adebug=true" />
+		</javac>
+		<!-- -->
+		<copy todir="${classes}">
+			<fileset dir="${resources}" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # target: _create-manifests                                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_create-manifests" description="crea la lista nominativa dei JAR per la creazione dei manifest. La liste viene memorizzata dentro la property[classpath-manifest]" depends="init, compile-all">
+		<delete dir="${manifest-dir}" />
+		<!-- -->
+		<mkdir dir="${manifest-dir}" />
+		<mkdir dir="${ear-manifest-dir}" />
+		
+		
+		<!-- <mkdir dir="${web-manifest-dir}" / -->
+		<copy file="${resources}/ear/MANIFEST.MF" todir="${ear-manifest-dir}" />
+
+		<!-- -->
+		<!-- ####################### -->
+		<!-- # PRODUZIONE MANIFEST # -->
+		<!-- ####################### -->
+		<manifest file="${ear-manifest-dir}/MANIFEST.MF" mode="update">
+			<section name="${company-name}">
+				<attribute name="Nome-Prodotto" value="${product-name}" />
+				<attribute name="Nome-Componente" value="${component-name}" />
+				<attribute name="Versione" value="${product-version}" />
+				<attribute name="Ambiente" value="${nome.ambiente}" />
+			</section>
+		</manifest>
+		<!--
+ <manifest file="${web-manifest-dir}/MANIFEST.MF" mode="update">
+	<section name="${company-name}">
+		<attribute name="Nome-Prodotto" value="${product-name}" />
+		<attribute name="Nome-Componente" value="${component-name}" />
+		<attribute name="Versione" value="${product-version}" />
+		<attribute name="Modulo" value="${web-module-name}" />
+		<attribute name="Ambiente" value="${nome.ambiente}" />
+	</section>
+</manifest>
+-->
+	</target>
+	
+	<!-- -->
+		<!-- ############################################################# -->
+		<!-- # public target: package-jar-ws                            # -->
+		<!-- ############################################################# -->
+		<!-- -->
+		<target name="package-ws-jar" depends="compile-all">
+			<jar jarfile="${archives-target}/${name-webservices}.jar">
+				<fileset dir="${temp-target}/classes">
+					<include name="${app-webservices}/**" />
+					<include name="${app-mdpservices}/**" />
+					<include name="${app-mdpservices-integration}/**" />
+				</fileset>
+				<manifest>
+					<attribute name="Built-By" value="${user.name}" />
+					<attribute name="Built-Date" value="${DSTAMP}" />
+					<attribute name="Class-Path" value="META-INF/beanRefContext.xml lib/*.jar" />
+				</manifest>
+			</jar>
+		</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-jar-ejb                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ejb-jar" depends="compile-all">
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mail.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/mail.properties" replacefilterfile="${buildfiles}/${target}.properties" />
+
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/timer.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/timer.properties" replacefilterfile="${buildfiles}/${target}.properties">
+			<replacefilter token="@@generateRtPdf@@" value="false" />
+		</replace>
+		
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mailRT.properties" overwrite="true" />
+
+		<jar jarfile="${archives-target}/${name-ejb}.jar">
+			<fileset dir="${temp-target}/classes">
+				<include name="${app-business}/**" />
+				<include name="${app-utilities}/**" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Class-Path" value="${name-client-ejb}.jar META-INF/beanRefContext.xml lib/*.jar" />
+			</manifest>
+			<metainf dir="${temp-target}/classes/META-INF">
+				<include name="mail.properties" />
+				<include name="timer.properties" />
+				<include name="mailRT.properties" />
+			</metainf>
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-jar-ejb-be1                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ejb-jar-be1" depends="compile-all">
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mail.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/mail.properties" replacefilterfile="${buildfiles}/${target}.properties" />
+
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/timer.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/timer.properties" replacefilterfile="${buildfiles}/${target}.properties">
+			<replacefilter token="@@generateRtPdf@@" value="true" />
+		</replace>
+
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mailRT.properties" overwrite="true" />
+
+		<jar jarfile="${archives-target}/${name-ejb-be}1.jar">
+			<fileset dir="${temp-target}/classes">
+				<include name="${app-business}/**" />
+				<include name="${app-utilities}/**" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Class-Path" value="${name-client-ejb}.jar META-INF/beanRefContext.xml lib/*.jar" />
+			</manifest>
+			<metainf dir="${temp-target}/classes/META-INF">
+				<include name="mail.properties" />
+				<include name="timer.properties" />
+				<include name="mailRT.properties" />
+			</metainf>
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-jar-ejb-be2                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ejb-jar-be2" depends="compile-all">
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mail.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/mail.properties" replacefilterfile="${buildfiles}/${target}.properties" />
+
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/timer.properties" overwrite="true" />
+		<replace file="${temp-target}/classes/META-INF/timer.properties" replacefilterfile="${buildfiles}/${target}.properties">
+			<replacefilter token="@@generateRtPdf@@" value="false" />
+		</replace>
+
+		<copy todir="${temp-target}/classes/META-INF" file="${conf}/mailRT.properties" overwrite="true" />
+
+		<jar jarfile="${archives-target}/${name-ejb-be}2.jar">
+			<fileset dir="${temp-target}/classes">
+				<include name="${app-business}/**" />
+				<include name="${app-utilities}/**" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Class-Path" value="{name-client-ejb}.jar META-INF/beanRefContext.xml lib/*.jar" />
+			</manifest>
+			<metainf dir="${temp-target}/classes/META-INF">
+				<include name="mail.properties" />
+				<include name="timer.properties" />
+				<include name="mailRT.properties" />
+			</metainf>
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-jar-ejb-client                     # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ejb-client-jar" depends="compile-all">
+		<jar jarfile="${archives-target}/${name-client-ejb}.jar" basedir="${temp-target}/classes">
+			<include name="${app-ejb-intercaces}/**" />
+			<include name="${app-ejb-intercaces-ex}/**" />
+			<include name="${app-model}/**" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+			</manifest>
+		</jar>
+
+		<copy tofile="${archives-target}/${name-client-ejb}-${api-client-version}.jar" file="${archives-target}/${name-client-ejb}.jar" overwrite="true" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-jar-jpa                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-jpa-jar" depends="compile-all">
+		<jar jarfile="${archives-target}/${name-jpa}.jar">
+			<fileset dir="${temp-target}/classes">
+				<include name="${app-persistence}/**" />
+				<include name="${app-utilities}/**" />
+			</fileset>
+			<fileset dir="${resources}">
+				<include name="dozerBeanMapping.xml" />
+				<include name="jpqlQueries.xml" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Class-Path" value="dozerBeanMapping.xml jpqlQueries.xml" />
+			</manifest>
+			<metainf dir="${resources}/META-INF" includes="persistence.xml" />
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-ear                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear" description="costruisce l'ear" depends="init, compile-all, _create-manifests, package-jpa-jar, package-ejb-client-jar, package-ejb-jar">
+		<copy todir="${temp-target}/lib">
+			<fileset dir="${libraries}/runtime" />
+		</copy>
+
+		<delete file="${archives-target}/${web-module-name}.ear" />
+		<ear compress="${flag-compress}" destfile="${archives-target}/${web-module-name}.ear" appxml="${resources}/ear/epayservices/META-INF/application.xml" manifest="${ear-manifest-dir}/MANIFEST.MF">
+			<fileset dir="${archives-target}">
+				<include name="${name-client-ejb}.jar" />
+				<include name="${name-ejb}.jar" />
+				<include name="${name-jpa}.jar" />
+			</fileset>
+			<fileset dir="${temp-target}">
+				<include name="lib/*" />
+			</fileset>
+		</ear>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-ear-be1                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear-be1" description="costruisce l'ear" depends="init, compile-all, _create-manifests, package-jpa-jar, package-ejb-client-jar, package-ejb-jar-be1, package-ws-jar">
+		<copy todir="${temp-target}/lib">
+			<fileset dir="${libraries}/runtime" />
+		</copy>
+
+		<delete file="${archives-target}/${web-module-name}be1.ear" />
+		<ear compress="${flag-compress}" destfile="${archives-target}/${web-module-name}be1.ear" appxml="${resources}/ear/epayservicesbe1/META-INF/application.xml" manifest="${ear-manifest-dir}/MANIFEST.MF">
+			<fileset dir="${archives-target}">
+				<include name="${name-client-ejb}.jar" />
+				<include name="${name-ejb-be}1.jar" />
+				<include name="${name-jpa}.jar" />
+				<include name="${name-webservices}.jar" />
+			</fileset>
+			<fileset dir="${temp-target}">
+				<include name="lib/*" />
+			</fileset>
+		</ear>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-ear-be2                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear-be2" description="costruisce l'ear" depends="init, compile-all, _create-manifests, package-jpa-jar, package-ejb-client-jar, package-ejb-jar-be2, package-ws-jar">
+		<copy todir="${temp-target}/lib">
+			<fileset dir="${libraries}/runtime" />
+		</copy>
+
+		<delete file="${archives-target}/${web-module-name}be2.ear" />
+		<ear compress="${flag-compress}" destfile="${archives-target}/${web-module-name}be2.ear" appxml="${resources}/ear/epayservicesbe2/META-INF/application.xml" manifest="${ear-manifest-dir}/MANIFEST.MF">
+			<fileset dir="${archives-target}">
+				<include name="${name-client-ejb}.jar" />
+				<include name="${name-ejb-be}2.jar" />
+				<include name="${name-jpa}.jar" />
+				<include name="${name-webservices}.jar" />
+			</fileset>
+			<fileset dir="${temp-target}">
+				<include name="lib/*" />
+			</fileset>
+		</ear>
+	</target>
+
+	<!-- ############################################################# -->
+	<!-- # public target: datasource                                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="datasource" description="costruisce datasource" depends="init">
+		<copy todir="${temp-target}" file="${conf}/epay-ds.xml" />
+		<replace file="${temp-target}/epay-ds.xml" replacefilterfile="${buildfiles}/${target}.properties" />
+		<move todir="${archives-target}" file="${temp-target}/epay-ds.xml" />
+	</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: package-all                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all" depends="init, _create-tree-structure" description="esegue il packaging di ogni componente del prodotto">
+		<antcall target="package-ear" />
+		<antcall target="package-ear-be1" />
+		<antcall target="package-ear-be2" />
+		<antcall target="datasource" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: distribution                               # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="distribution" description="Costruisce il tar per la distribuzione." depends="package-all">
+		<delete failonerror="no">
+			<fileset dir="${dist-target}" includes="**/*.*" />
+		</delete>
+		<tar tarfile="${dist-target}/${tar-outfilename}" longfile="warn">
+			<tarfileset dir="${archives-target}">
+				<include name="${web-module-name}.ear" />
+				<!--<include name="${name-client-ejb}-${product-version}.jar" />-->
+				<include name="epay-ds.xml" />
+			</tarfileset>
+		</tar>
+		
+		<tar tarfile="${dist-target}/${tar-outfilename-be}" longfile="warn">
+			<tarfileset dir="${archives-target}">
+				<include name="${web-module-name}be1.ear" />
+				<include name="${web-module-name}be2.ear" />
+				<!--<include name="${name-client-ejb}-${product-version}.jar" />-->
+				<include name="epay-ds.xml" />
+			</tarfileset>
+		</tar>
+
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: #clean-all                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="#clean-all" description="Rimuove tutte le cartelle temporanee.">
+		<delete dir="${cache}" />
+		<delete dir="${libraries}" />
+		<delete dir="${dist}" />
+		<delete dir="${build}/archives" />
+		<delete dir="${build}/classes" />
+		<delete dir="${temp}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: show-vars                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="show-vars" depends="init" description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************" />
+		<echo message="********  ${product-name} environment  *******" />
+		<echo message="*****************************************" />
+		<echo message="Runtime :" />
+		<echo message="JAVA_HOME = ${env.JAVA_HOME}" />
+		<echo message="JAVA_HOME_CLIENT = ${env.JAVA_HOME_CLIENT}" />
+		<echo message="JAVA_HOME_SERVER = ${env.JAVA_HOME_SERVER}" />
+		<echo message="ANT_HOME = ${env.ANT_HOME}" />
+		<echo message="IVY_VERSION = ${env.IVY_VERSION}" />
+		<echo message="" />
+		<echo message="Classpath :" />
+		<echo message="CLASS_PATH = ${classpath}" />
+		<echo message="" />
+		<echo message="" />
+		<echo message="Application :" />
+		<echo message="VERSION = ${product-version}" />
+		<echo message="" />
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # wsdl2java                                                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+
+
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+	<classpath>
+		<fileset dir="${basedir}/src/java/jaxws">
+			<include name="**/*.jar" />
+		</fileset>
+	</classpath>
+	</taskdef>
+
+	<target name="#wsdl2java_enteToEpay">
+		<property name="wsdl_enti_to_epay_tst" value="${basedir}/docs/wsdl/Enti2EPaywsoService.wsdl" />
+		<wsimport wsdl="${wsdl_enti_to_epay_tst}" destdir="${basedir}/bin" sourcedestdir="${src-java}" keep="true" verbose="true" package="it.csi.epay.epayservices.soap.sportello2epaywso" />
+	</target>
+
+	<target name="#wsdl2java_mdpmultiiuv">
+		<property name="wsdl_mdp_multi_iuv_tst" value="http://tst-applogic.reteunitaria.piemonte.it/mdpmultiiuv/MdpMultiIuvsrvServiceWS?wsdl"/>
+				
+		<wsimport
+			wsdl="${wsdl_mdp_multi_iuv_tst}"
+			destdir="${basedir}/bin"
+			sourcedestdir="${src-java}"
+			keep="true"
+			verbose="true"
+		    package="it.csi.mdpmultiiuv">
+		</wsimport>
+
+	</target>		
+
+
+</project>

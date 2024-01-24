@@ -1,0 +1,1218 @@
+
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="MdpCoreCxfService" targetNamespace="http://interfacecxf.core.mdp.csi.it/" xmlns:ns1="http://www.csi.it/mdp/" xmlns:ns2="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://interfacecxf.core.mdp.csi.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://interfacecxf.core.mdp.csi.it/" xmlns:tns="http://interfacecxf.core.mdp.csi.it/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="getApplication" type="tns:getApplication" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getApplicationResponse" type="tns:getApplicationResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getComuneProvincia" type="tns:getComuneProvincia" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getComuneProvinciaResponse" type="tns:getComuneProvinciaResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getErroriNodo" type="tns:getErroriNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getErroriNodoResponse" type="tns:getErroriNodoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getListaRTperIUV" type="tns:getListaRTperIUV" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getListaRTperIUVResponse" type="tns:getListaRTperIUVResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getModalitaInformativePagamento" type="tns:getModalitaInformativePagamento" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getModalitaInformativePagamentoResponse" type="tns:getModalitaInformativePagamentoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getModalitaPagamento" type="tns:getModalitaPagamento" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getModalitaPagamentoResponse" type="tns:getModalitaPagamentoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getPagonetCustomData" type="tns:getPagonetCustomData" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getPagonetCustomDataResponse" type="tns:getPagonetCustomDataResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getRTperIUV" type="tns:getRTperIUV" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getRTperIUVResponse" type="tns:getRTperIUVResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getRTperIUVTransazione" type="tns:getRTperIUVTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getRTperIUVTransazioneResponse" type="tns:getRTperIUVTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getSceltaWisp" type="tns:getSceltaWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getSceltaWispResponse" type="tns:getSceltaWispResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getStatoTransazione" type="tns:getStatoTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getStatoTransazioneResponse" type="tns:getStatoTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getUrlWisp" type="tns:getUrlWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="getUrlWispResponse" type="tns:getUrlWispResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="initTransazione" type="tns:initTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="initTransazioneResponse" type="tns:initTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="startTransazione" type="tns:startTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="startTransazioneCarrello" type="tns:startTransazioneCarrello" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="startTransazioneCarrelloResponse" type="tns:startTransazioneCarrelloResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="startTransazioneResponse" type="tns:startTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="getErroriNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getErroriNodoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:nodoErrore" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="nodoErrore" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="data" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descrizione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="id" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="startTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="t" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="tea" type="tns:transazioneExtraAttribute" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:all xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="amount" nillable="true" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="authornumber" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="basketId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="buyerEmail" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="buyercodfisc" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="buyername" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ccy" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="changestatedate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="clientipaddress" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="codStato" nillable="true" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="commissioniApplicate" nillable="true" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="commissioniApplicateNull" type="xs:boolean" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="errcode" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="finishDate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewaypaymodeid" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="incassokoerrormessage" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="initDate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="intestatariocc" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="language" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="merchantId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="mscsorderid" nillable="true" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="mscsorderidNull" type="xs:boolean" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="oldstate" nillable="true" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="opernumber" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="paymentid" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="payurl" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="pgresultcode" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="providertimestamp" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="rispcomp" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="startDate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="userhaschange" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:all>
+</xs:complexType>
+<xs:complexType name="transazioneExtraAttribute" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="extraAttributeId" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="name" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="value" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="startTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="startTransazioneCarrello" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="t" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="tea" type="tns:transazioneExtraAttribute" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="elencoRPT" type="tns:ElencoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="multiBeneficiario" type="xs:boolean" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ElencoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element maxOccurs="unbounded" name="rptdata" type="tns:RPTData" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="RPTData" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="autenticazioneSoggetto" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idStazioneRichiedente" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="soggettoVersante" type="tns:SoggettoVersante" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="soggettoPagatore" type="tns:SoggettoPagatore" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="datiVersamento" type="tns:DatiVersamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="datiAccertamento" type="tns:DatiAccertamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SoggettoVersante" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="identificativoUnivocoVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoIdentificativoUnivocoVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="anagraficaVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="indirizzoVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="civicoVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="capVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="localitaVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="provinciaVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="nazioneVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="e-mailVersante" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SoggettoPagatore" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="identificativoUnivocoPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoIdentificativoUnivocoPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="anagraficaPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="indirizzoPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="civicoPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="capPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="localitaPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="provinciaPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="nazionePagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="e-mailPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DatiVersamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="importoTotaleDaVersare" type="xs:decimal" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="identificativoUnivocoVersamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ibanAddebito" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="bicAddebito" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="firmaRicevuta" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element maxOccurs="unbounded" name="datiSingoloVersamento" type="tns:DatiSingoloVersamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DatiSingoloVersamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="importoSingoloVersamento" type="xs:decimal" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="commissioneCaricoPA" type="xs:decimal" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="credenzialiPagatore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="causaleVersamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="datiSpecificiRiscossione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="datiMarcaBolloDigitale" type="tns:DatiMarcaBolloDigitale" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="datiAccertamento" type="tns:DatiAccertamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DatiMarcaBolloDigitale" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="tipoBollo" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="hashDocumento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="provinciaResidenza" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DatiAccertamentoRPT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="annoAccertamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="numeroAccertamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="startTransazioneCarrelloResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="initTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="appId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="basketId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="initTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getComuneProvincia" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="arg0" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getComuneProvinciaResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:partAnComune" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="partAnComune" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="cap" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="DStart" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="DStop" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descComune" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descProvincia" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descRegione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="idComune" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="idComuneNext" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="idComuneNextNull" type="xs:boolean" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="idComunePrev" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="idComunePrevNull" type="xs:boolean" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="istatComune" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="istatProvincia" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="istatRegione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="RStatus" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="siglaProv" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getUrlWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transazione" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="parametriUrlWisp" type="tns:parametriUrlWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="parametriAggiuntivi" type="tns:ChiaveValore" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="parametriUrlWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="bolloDigitale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="codiceLingua" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idPsp" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="modello2" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="stornoPagamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="terzoModelloPagamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoVersamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="urlBackWisp" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="urlReturnWisp" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ChiaveValore" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="chiave" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="valore" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getUrlWispResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRTperIUV" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="iuv" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRTperIUVResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:ricevutaTelematicaNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ricevutaTelematicaNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="dataMsgRicevuta" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descEsitoPagamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="id" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idEsitoPagamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idMsgRicevuta" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idMsgRichiesta" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="insertDate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="iuv" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="lastUpdate" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="rtData" type="xs:base64Binary" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoFirma" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getModalitaInformativePagamento" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="t" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="appId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getModalitaInformativePagamentoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:appGatewayInformativa" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="appGatewayInformativa" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexContent xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:extension base="tns:appGateway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="condizioniEconomicheMassime" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="dataInizioValidita" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="dataPubblicazione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="datainserimento" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descrizioneServizio" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="disponibilitaServizio" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idInformativaPSP" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoCanale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoFlusso" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoIntermediario" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoPSP" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="modelloPagamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ordinamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="origine" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="priorita" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ragioneSociale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="statoinserimento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="stornoPagamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoVersamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="urlInformazioniPSP" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="appGateway" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayDescription" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayServiceName" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="merchantId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="paymentmodeDescription" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="paymentmodeId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="sogliaMax" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="sogliaMin" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoCommissione" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="valoreComm" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="valoreMax" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="valoreMin" type="xs:double" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getModalitaPagamento" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="t" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="appId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getModalitaPagamentoResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:appGateway" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getStatoTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="transaction_id" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getStatoTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:Transazione" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getPagonetCustomData" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getPagonetCustomDataResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:vapplicationcomuni" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="vapplicationcomuni" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="codiceimm" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descComune" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="merchantid" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRTperIUVTransazione" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="iuv" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getRTperIUVTransazioneResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:ricevutaTelematicaNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getApplication" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="appId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getApplicationResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:application" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="application" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationname" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="cliente" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="esercemail" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="id" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="note" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="numeroverde" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="progetto" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="redirectNewmdp" type="xs:long" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="referentecsi" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="validoAl" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="validoDal" type="xs:dateTime" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSceltaWisp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="applicationId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSceltaWispResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="return" type="tns:informativePSPScelto" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="informativePSPScelto" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="condizioniEconomicheMassime" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="descrizioneServizio" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="disponibilitaServizio" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="gatewayId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoCanale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoFlusso" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoIntermediario" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="identificativoPSP" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="idinformativapsp" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="modelloPagamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ordinamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="origine" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="paymentModeId" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="priorita" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="ragioneSociale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="statoinserimento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="stornoPagamento" type="xs:int" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="tipoVersamento" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="urlInformazioniCanale" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element minOccurs="0" name="urlInformazioniPSP" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListaRTperIUV" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element minOccurs="0" name="iuv" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListaRTperIUVResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:ricevutaTelematicaNodo" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="DaoException" type="tns:DaoException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="DaoException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:complexType>
+<xs:element name="CSIException" type="tns:CSIException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="CSIException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="MissingParameterException" type="tns:MissingParameterException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="MissingParameterException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:complexType>
+<xs:element name="NamingException" type="tns:NamingException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="NamingException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="resolvedObj" nillable="true" type="xs:anyType" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="CreateException" type="tns:CreateException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="CreateException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:complexType>
+<xs:element name="DatatypeConfigurationException" type="tns:DatatypeConfigurationException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="DatatypeConfigurationException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:complexType>
+<xs:element name="SOAPFaultException" type="tns:SOAPFaultException" xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+<xs:complexType name="SOAPFaultException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:sequence xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+</xs:complexType>
+</xs:schema>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.csi.it/mdp/" xmlns:tns="http://www.csi.it/mdp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:element name="BusinessException" type="tns:BusinessException" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<xsd:complexType name="BusinessException" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+</xsd:complexType>
+<xsd:element name="SystemException" type="tns:SystemException" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<xsd:complexType name="SystemException" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:sequence xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+</xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPagonetCustomDataResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getPagonetCustomDataResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:startTransazioneResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BusinessException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="ns1:BusinessException" name="BusinessException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startTransazioneCarrelloResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:startTransazioneCarrelloResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DatatypeConfigurationException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:DatatypeConfigurationException" name="DatatypeConfigurationException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStatoTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getStatoTransazioneResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStatoTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getStatoTransazione" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSceltaWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getSceltaWisp" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="ns1:SystemException" name="SystemException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="initTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:initTransazioneResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getErroriNodoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getErroriNodoResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getModalitaInformativePagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getModalitaInformativePagamentoResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getApplicationResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getApplicationResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRTperIUVTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getRTperIUVTransazione" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getModalitaPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getModalitaPagamento" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListaRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getListaRTperIUVResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getComuneProvincia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getComuneProvincia" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getComuneProvinciaResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getComuneProvinciaResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:startTransazione" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="initTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:initTransazione" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getModalitaPagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getModalitaPagamentoResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUrlWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getUrlWispResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListaRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getListaRTperIUV" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getRTperIUV" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUrlWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getUrlWisp" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSceltaWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getSceltaWispResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPagonetCustomData" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getPagonetCustomData" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="startTransazioneCarrello" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:startTransazioneCarrello" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getApplication" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getApplication" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getModalitaInformativePagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getModalitaInformativePagamento" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SOAPFaultException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:SOAPFaultException" name="SOAPFaultException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getErroriNodo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getErroriNodo" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getRTperIUVResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRTperIUVTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:part element="tns:getRTperIUVTransazioneResponse" name="parameters" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IMdpCoreCxf" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:operation name="getErroriNodo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getErroriNodo" name="getErroriNodo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getErroriNodoResponse" name="getErroriNodoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="startTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:startTransazione" name="startTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:startTransazioneResponse" name="startTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="startTransazioneCarrello" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:startTransazioneCarrello" name="startTransazioneCarrello" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:startTransazioneCarrelloResponse" name="startTransazioneCarrelloResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:BusinessException" name="BusinessException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SystemException" name="SystemException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="initTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:initTransazione" name="initTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:initTransazioneResponse" name="initTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPFaultException" name="SOAPFaultException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DatatypeConfigurationException" name="DatatypeConfigurationException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getComuneProvincia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getComuneProvincia" name="getComuneProvincia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getComuneProvinciaResponse" name="getComuneProvinciaResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUrlWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getUrlWisp" name="getUrlWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getUrlWispResponse" name="getUrlWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getRTperIUV" name="getRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getRTperIUVResponse" name="getRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getModalitaInformativePagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getModalitaInformativePagamento" name="getModalitaInformativePagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getModalitaInformativePagamentoResponse" name="getModalitaInformativePagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getModalitaPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getModalitaPagamento" name="getModalitaPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getModalitaPagamentoResponse" name="getModalitaPagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getStatoTransazione" name="getStatoTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getStatoTransazioneResponse" name="getStatoTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPagonetCustomData" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getPagonetCustomData" name="getPagonetCustomData" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getPagonetCustomDataResponse" name="getPagonetCustomDataResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRTperIUVTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getRTperIUVTransazione" name="getRTperIUVTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getRTperIUVTransazioneResponse" name="getRTperIUVTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getApplication" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getApplication" name="getApplication" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getApplicationResponse" name="getApplicationResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSceltaWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getSceltaWisp" name="getSceltaWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getSceltaWispResponse" name="getSceltaWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:CreateException" name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:NamingException" name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getListaRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <wsdl:input message="tns:getListaRTperIUV" name="getListaRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:input>
+      <wsdl:output message="tns:getListaRTperIUVResponse" name="getListaRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:output>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+      <wsdl:fault message="tns:DaoException" name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MdpCoreCxfServiceSoapBinding" type="tns:IMdpCoreCxf" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="getErroriNodo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getErroriNodo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getErroriNodoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="startTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="startTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="startTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="startTransazioneCarrello" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="startTransazioneCarrello" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="startTransazioneCarrelloResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="BusinessException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="SystemException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="initTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="initTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="initTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPFaultException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="SOAPFaultException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DatatypeConfigurationException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DatatypeConfigurationException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getComuneProvincia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getComuneProvincia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getComuneProvinciaResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUrlWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getUrlWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getUrlWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getModalitaInformativePagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getModalitaInformativePagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getModalitaInformativePagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getModalitaPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getModalitaPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getModalitaPagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getStatoTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getStatoTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPagonetCustomData" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getPagonetCustomData" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getPagonetCustomDataResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRTperIUVTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getRTperIUVTransazione" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getRTperIUVTransazioneResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getApplication" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getApplication" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getApplicationResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSceltaWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getSceltaWisp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getSceltaWispResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="CreateException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CreateException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="NamingException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="NamingException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getListaRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="getListaRTperIUV" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="getListaRTperIUVResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+      <wsdl:fault name="MissingParameterException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="MissingParameterException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="CSIException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+      <wsdl:fault name="DaoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+        <soap:fault name="DaoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MdpCoreCxfService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:port binding="tns:MdpCoreCxfServiceSoapBinding" name="MdpCoreCxfPort" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:address location="http://tst-applogic-e2nmsf.csi.it/mdpcoreservices/MdpCoreCxf/MdpCoreCxf" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

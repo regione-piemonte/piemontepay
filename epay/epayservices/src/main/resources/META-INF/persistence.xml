@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	 
+	<persistence-unit name="epayservice" >
+		<jta-data-source>java:jboss/datasources/epay</jta-data-source>
+		
+		<mapping-file>jpqlQueries.xml</mapping-file>
+		<class>it.csi.epay.epayservices.integration.db.entities.CsiLogAudit</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDModalitaPagamento</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDModalitaRicezioneEsito</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDStatoErrore</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDStatoPagamento</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTAnagrafica</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTAnagraficaTemp</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTConfigurazione</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTDatiAvvisoPagamento</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTDatiSingoliVersamenti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTElaborazione</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTEnti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTEntiTemp</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTErrori</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTEsitiRicevuti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTPagamento</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTParametri</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTParametriPK</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTQuietanzaDaElaborare</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTRegistroElaborazioni</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTRegistroVersamenti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTRt</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTRr</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTTipoPagamento</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTTransazioneMdp</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTRegistroElaborazioniFault</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTPagamentoComponenti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTPagamentoRiferimenti</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTTracciabilitaChiamanteEsterno</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDChiamanteEsterno</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayDEsitoChiamataEsterna</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTChiamataEsternaNonValida</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTTaglioMarca</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTMarcaDigitale</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayRMarcaDoc</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTPagamentoSecondario</class>
+		<class>it.csi.epay.epayservices.integration.db.entities.EpayTPagamentoSecondarioComponenti</class>
+		
+				
+		<properties>
+			<!-- property name="hibernate.archive.autodetection" value="class" /-->
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
+			<property name="hibernate.dialect" value="it.csi.epay.epayservices.integration.db.EpayPostgreSQLDialect" />
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
+		</properties>
+	</persistence-unit>
+</persistence>

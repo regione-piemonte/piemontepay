@@ -1,0 +1,1 @@
+ALTER TABLE epay.epay_t_pagamento ADD requires_cost_update boolean default NULL;

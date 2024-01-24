@@ -1,0 +1,28 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<datasources>
+	<datasource jta="false" jndi-name="java:jboss/datasources/poscDS" pool-name="posc" enabled="true" use-ccm="false">
+		<!-- DB LOCALE   --> 
+ 
+        <connection-url>jdbc:postgresql://localhost:5432/ePay</connection-url>
+ 		
+		<driver-class>org.postgresql.Driver</driver-class>
+		<driver>postgresql-9.3-1101.jdbc4.jar</driver>
+		<security>
+			<user-name>ePay</user-name>
+			<password>ePay</password>
+		</security>
+		<validation>
+			<validate-on-match>false</validate-on-match>
+			<background-validation>false</background-validation>
+		</validation>
+		<statement>
+			<share-prepared-statements>false</share-prepared-statements>
+		</statement>
+	</datasource>
+</datasources>

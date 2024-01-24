@@ -1,0 +1,17 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+ <datasources>
+	<datasource jndi-name="java:jboss/datasources/epay" pool-name="epay" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:postgresql://10.138.154.6:10510/TEST</connection-url>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>epay_rw</user-name>
+                        <password>mypass</password>
+                    </security>
+                </datasource>
+</datasources>

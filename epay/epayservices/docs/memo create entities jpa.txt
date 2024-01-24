@@ -1,0 +1,8 @@
+1) creare entities jpa delle tabelle (tabelle con sequence uguale a $table_$pk_seq)
+	- tabelle di tipo D e R no sequence
+	- tabelle EpayTParametri, EpayTTransazioneMdp no sequence 
+	
+2) aggiungere allocationSize=1 all'annotazione @SequenceGenerator delle entities
+    (cerca con eclipse file search "sequenceName" e sostituisci con "allocationSize=1, sequenceName")
+
+   	

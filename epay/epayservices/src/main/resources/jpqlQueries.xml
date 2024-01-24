@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<entity-mappings version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd">
+
+
+    <!-- EpayTAnagrafica -->
+    <named-query name="EpayTAnagrafica.findByCFandType">
+        <query><![CDATA[
+            SELECT t FROM EpayTAnagrafica t 
+                WHERE t.idAnagrafica = (SELECT max(a.idAnagrafica)
+                                        FROM EpayTAnagrafica a
+                                        WHERE UPPER(a.codiceFiscale) = UPPER(:codiceFiscale)
+                                        GROUP by UPPER(a.codiceFiscale)) 
+        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTAnagraficaTemp.findAnagrafica">
+        <query><![CDATA[
+            SELECT t FROM EpayTAnagraficaTemp t 
+        ]]></query>
+    </named-query>
+    
+    <!-- EpayTConfigurazione -->
+    <named-query name="EpayTConfigurazione.findByCodice">
+        <query><![CDATA[
+            SELECT t FROM EpayTConfigurazione t 
+                WHERE t.codice = :codice
+                AND t.epayTEnti.codiceFiscale = :codiceFiscale
+        ]]></query>
+    </named-query>
+    <!-- EpayTDatiAvvisoPagamento -->
+    <named-query
+        name="EpayTDatiAvvisoPagamento.findByCodiceVersamento">
+        <query><![CDATA[
+            SELECT t FROM EpayTDatiAvvisoPagamento t  
+            WHERE t.epayTTipoPagamento.idTipoPagamento = :idTipoPagamento
+        ]]></query>
+    </named-query>
+	<named-query
+		name="EpayTPdfReport.findByCodice">
+		<query><![CDATA[
+ 			SELECT t FROM EpayTPdfReport t  
+		 	WHERE t.codice = :codice
+		]]></query>
+	</named-query>
+    <!-- EpayTEnti -->
+    <named-query name="EpayTEnti.ricercaPerCodiceFiscale">
+        <query><![CDATA[SELECT t FROM EpayTEnti t WHERE
+                    UPPER(t.codiceFiscale) = UPPER(:codiceFiscale)]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.getByIdPagamentoSecondario">
+        <query><![CDATA[SELECT e
+                        FROM EpayTEnti e
+                        INNER JOIN e.epayTTipoPagamentos tp
+                        INNER JOIN tp.epayTPagamentoSecondarios ps
+                        WHERE ps.idPagamentoSecondario = :idPagamentoSecondario
+        ]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoConTasseAttive">
+        <query><![CDATA[SELECT t FROM EpayTEnti t WHERE 
+                    EXISTS (SELECT 1 FROM t.epayTTipoPagamentos tp
+                            WHERE tp.pagamentoSpontaneo = true
+                            AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true)
+                    ORDER BY t.nome]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoConTasseAttiveSenzaLogo">
+        <query><![CDATA[SELECT NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.codiceFiscale, t.codiceGs1Gln, t.codiceInterbancario, t.flagInvioPagamenti, t.nome, t.orari) FROM EpayTEnti t WHERE 
+                    EXISTS (SELECT 1 FROM t.epayTTipoPagamentos tp 
+                        WHERE tp.pagamentoSpontaneo = true 
+                            AND intoIntervalDate(tp.inizioValidita,tp.fineValidita) = true)
+                        ORDER BY t.nome]]></query>
+    </named-query>
+    
+    <named-query name="EpayTEnti.elencoConTasseAttiveVisibiliSenzaLogoEConNomeEnte">
+        <query><![CDATA[SELECT NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.codiceFiscale, t.codiceGs1Gln, t.codiceInterbancario, t.flagInvioPagamenti, t.nome, t.orari) FROM EpayTEnti t WHERE 
+                    EXISTS (SELECT 1 FROM t.epayTTipoPagamentos tp 
+                        WHERE tp.pagamentoSpontaneo = true 
+                            AND intoIntervalDate(tp.inizioValidita,tp.fineValidita) = true
+                            AND tp.flagVisualizzaDaSportello = true)
+                            AND lower(t.nome) like lower(:nomeEnte) 
+                        ORDER BY t.nome]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoConTasseAttiveSenzaLogoEConNomeEnte">
+        <query><![CDATA[SELECT NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.codiceFiscale, t.codiceGs1Gln, t.codiceInterbancario, t.flagInvioPagamenti, t.nome, t.orari) FROM EpayTEnti t 
+                    WHERE EXISTS (SELECT 1 FROM t.epayTTipoPagamentos tp 
+                        WHERE tp.pagamentoSpontaneo = true 
+                        AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true) 
+                    AND lower(t.nome) like lower(:nomeEnte) 
+                    ORDER BY t.nome]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoConTasseAttiveConIuv">
+        <query><![CDATA[SELECT NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.codiceFiscale, t.codiceGs1Gln, t.codiceInterbancario, t.flagInvioPagamenti, t.nome, t.orari) FROM EpayTEnti t 
+            INNER JOIN t.epayTTipoPagamentos tp
+            INNER JOIN tp.epayTPagamentos p  
+            INNER JOIN p.epayDStatoPagamento sp 
+            WHERE tp.pagamentoSpontaneo = false  
+            AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true 
+            AND sp.pagabile = true 
+            GROUP BY t.idEnte ORDER BY t.nome]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoPerInvioPagamenti">
+        <query><![CDATA[SELECT t FROM EpayTEnti t WHERE t.flagInvioPagamenti = true
+        ]]></query>
+    </named-query>
+
+    <named-query name="EpayTEnti.elencoPerInvioPagamentiSenzaLogo">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.codiceFiscale, t.codiceGs1Gln, t.codiceInterbancario, t.flagInvioPagamenti, t.nome, t.orari)
+            FROM EpayTEnti t 
+            WHERE t.flagInvioPagamenti = true
+            AND EXISTS ( SELECT 1 FROM t.epayTTipoPagamentos tp
+                            INNER JOIN tp.epayTPagamentos p  
+                            WHERE tp.flagInvioPagamenti = true
+                            AND p.epayDStatoPagamento in (4)
+                            AND p.flagInviato = false
+            )
+        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTEnti.elencoPerInvioNotifiche">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, pgpSymDecryptBytea(t.passphrase, :passwordPp))
+            FROM EpayTEnti t 
+            WHERE t.flagInvioNotificatore = true
+            AND t.passphrase IS NOT NULL
+            AND EXISTS ( SELECT 1 FROM   t.epayTTipoPagamentos tp
+            INNER JOIN tp.epayTPagamentos p  
+             WHERE
+                        p.dataScadenza is not null
+                        AND intoIntervalDate(p.inizioValidita, p.dataScadenza) = true
+                        AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true
+                        AND pagamentoAttivo(p.idPagamento) = true
+                        AND p.importo >0
+                        AND p.epayTAnagrafica.flagPersonaFisica = true
+                        AND p.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+                        AND p.pagamentoSpontaneo = false
+                        AND tp.flagInvioNotificatore = false 
+                        AND NOT EXISTS  (SELECT 1 FROM  p.epayTTracciaturaNotifys rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+              )
+            
+        ]]></query>
+    </named-query>
+    
+    
+    <named-query name="EpayTEnti.elencoPerInvioNotificheTipizzate">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.passphrase)
+            FROM EpayTEnti t 
+            WHERE     
+              EXISTS ( SELECT 1 FROM   t.epayTTipoPagamentos tp
+            INNER JOIN tp.epayTPagamentos p  
+             WHERE
+                        tp.flagInvioNotificatore = true 
+                        AND tp.flagPersonalizzazioneCov = true 
+                        AND tp.passphrase is not null 
+                        AND intoIntervalDate(p.inizioValidita, p.dataScadenza) = true
+                        AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true
+                        AND pagamentoAttivo(p.idPagamento) = true
+                        AND p.importo >0
+                        AND p.epayTAnagrafica.flagPersonaFisica = true
+                        AND p.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+                        AND p.pagamentoSpontaneo = false
+                        AND NOT EXISTS  (SELECT 1 FROM  p.epayTTracciaturaNotifys rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+              )
+            
+        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTEnti.elencoPerInvioNotificheTipizzateCittaFacile">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTEnti(t.idEnte, t.passphrase)
+            FROM EpayTEnti t 
+            WHERE  
+            t.flagAdesioneCittaFacile   = true 
+             AND EXISTS ( SELECT 1 FROM   t.epayTTipoPagamentos tp
+            INNER JOIN tp.epayTPagamentos p  
+             WHERE
+                        tp.flagInvioNotificatore = true 
+                        AND tp.flagPersonalizzazioneCov = true 
+                        AND tp.passphrase is not null 
+                        AND intoIntervalDate(p.inizioValidita, p.dataScadenza) = true
+                        AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true
+                        AND pagamentoAttivo(p.idPagamento) = true
+                        AND p.importo >0
+                        AND p.epayTAnagrafica.flagPersonaFisica = true
+                        AND p.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+                        AND p.pagamentoSpontaneo = false
+                        AND NOT EXISTS  (SELECT 1 FROM  p.epayTTracciaturaNotifyCittaFaciles rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+              )
+            
+        ]]></query>
+    </named-query>
+    
+    
+    <named-query name="EpayTTipoPagamento.elencoPerInvioNotificheTipizzatePerEnte">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTTipoPagamento(tp.idTipoPagamento, tp.passphrase)
+            FROM EpayTTipoPagamento tp 
+            WHERE  
+                tp.flagInvioNotificatore = true 
+                AND tp.flagPersonalizzazioneCov = true 
+                AND tp.passphrase is not null 
+                AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true
+                 AND tp.epayTEnti.idEnte =  :idEnte
+                  AND EXISTS ( SELECT 1 FROM   tp.epayTPagamentos p
+                                    WHERE
+                                     intoIntervalDate(p.inizioValidita, p.dataScadenza) = true
+                        AND pagamentoAttivo(p.idPagamento) = true
+                        AND p.importo >0
+                        AND p.epayTAnagrafica.flagPersonaFisica = true
+                        AND p.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+                        AND p.pagamentoSpontaneo = false
+                        AND NOT EXISTS  (SELECT 1 FROM  p.epayTTracciaturaNotifys rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+              )
+            
+        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTTipoPagamento.elencoPerInvioNotificheTipizzateCittaFacilePerEnte">
+        <query><![CDATA[SELECT 
+            NEW it.csi.epay.epayservices.integration.db.entities.EpayTTipoPagamento(tp.idTipoPagamento,tp.passphrase)
+            FROM EpayTTipoPagamento tp 
+            WHERE  
+                tp.flagInvioNotificatore = true 
+                AND tp.flagPersonalizzazioneCov = true 
+                AND tp.passphrase is not null 
+                AND intoIntervalDate(tp.inizioValidita, tp.fineValidita) = true
+                 AND tp.epayTEnti.idEnte =  :idEnte
+                  AND EXISTS ( SELECT 1 FROM   tp.epayTPagamentos p
+                                    WHERE
+                                     intoIntervalDate(p.inizioValidita, p.dataScadenza) = true
+                        AND pagamentoAttivo(p.idPagamento) = true
+                        AND p.importo >0
+                        AND p.epayTAnagrafica.flagPersonaFisica = true
+                        AND p.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+                        AND p.pagamentoSpontaneo = false
+                        AND NOT EXISTS  (SELECT 1 FROM  p.epayTTracciaturaNotifyCittaFaciles rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+              )
+            
+        ]]></query>
+    </named-query>
+
+    <!-- EpayTPagamento Da non usare deprecata
+                -->
+    <named-query name="EpayTPagamento.findByIuv">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t WHERE 
+                    UPPER(t.iuvNumeroAvviso) = UPPER(:iuv)
+                    OR UPPER(t.auxDigit || t.applicationCode || t.iuvNumeroAvviso) = UPPER(:iuv) 
+                    OR EXISTS (SELECT 1 FROM t.epayTRegistroVersamentis rv
+                                WHERE UPPER(rv.iuv) = UPPER(:iuv))]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.findByIuvOttimizzata">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t WHERE 
+                    t.iuvNumeroAvviso = :iuv
+                    ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.findByIuvAndActiveAndPagabile">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.iuvNumeroAvviso = :iuv
+                        AND (t.epayTTipoPagamento.inizioValidita is null or t.epayTTipoPagamento.inizioValidita <= current_date())
+                        AND (t.epayTTipoPagamento.fineValidita is null or t.epayTTipoPagamento.fineValidita >= current_date())
+                        AND (t.inizioValidita is null or t.inizioValidita <= current_date())
+                        AND (t.fineValidita is null or t.fineValidita >= current_date())
+                        AND t.epayDStatoPagamento.pagabile = true
+                        ]]></query>
+    </named-query>
+    
+<!--    Deprecata -->
+<!--    <named-query name="EpayTPagamento.findByIuvAndActive"> -->
+<!--        <query><![CDATA[SELECT t FROM EpayTPagamento t  -->
+<!--                        WHERE (UPPER(t.iuvNumeroAvviso) = UPPER(:iuv) OR -->
+<!--                        UPPER(CONCAT(CONCAT(t.auxDigit, t.applicationCode), t.iuvNumeroAvviso)) = UPPER(:iuv) ) -->
+<!--                        AND intoIntervalDate(t.inizioValidita, t.fineValidita) = true -->
+<!--                        AND intoIntervalDate(t.epayTTipoPagamento.inizioValidita, t.epayTTipoPagamento.fineValidita) = true -->
+<!--                        AND pagamentoAttivo(t.idPagamento) = true -->
+<!--                        ]]></query> -->
+<!--    </named-query> -->
+
+    <named-query name="EpayTPagamento.findByIuvAndActive">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.iuvNumeroAvviso = :iuv  
+                        AND (t.epayTTipoPagamento.inizioValidita is null or t.epayTTipoPagamento.inizioValidita <= current_date())
+                        AND (t.epayTTipoPagamento.fineValidita is null or t.epayTTipoPagamento.fineValidita >= current_date())
+                        AND (t.inizioValidita is null or t.inizioValidita <= current_date())
+                        AND (t.fineValidita is null or t.fineValidita >= current_date())
+                        AND t.epayDStatoPagamento.pagabile = true
+                        ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamento.findByCodicePagamentoRifEnte">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.codicePagamentoRifEnte = :codicePagamentoRifEnte
+                        AND t.epayTTipoPagamento.codiceVersamento = :codiceVersamento  
+                        AND t.epayTTipoPagamento.epayTEnti.codiceFiscale = :codiceFiscale 
+                        ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTPagamento.findByIuvAndCovAndCFEnte">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.iuvNumeroAvviso = :iuv
+                        AND t.epayTTipoPagamento.codiceVersamento = :codiceVersamento  
+                        AND t.epayTTipoPagamento.epayTEnti.codiceFiscale = :codiceFiscale 
+                        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.findByCodicePagamentoRifEnteForStato">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t
+                        WHERE t.codicePagamentoRifEnte = :codicePagamentoRifEnte
+                        AND t.epayTTipoPagamento.epayTEnti.codiceFiscale = :codiceFiscale
+                        ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamento.findIdByCodicePagamentoRifEnte">
+        <query><![CDATA[SELECT t.idPagamento FROM EpayTPagamento t 
+        
+                        WHERE t.codicePagamentoRifEnte = :codicePagamentoRifEnte
+                        AND t.epayTTipoPagamento.codiceVersamento = :codiceVersamento  
+                        AND t.epayTTipoPagamento.epayTEnti.codiceFiscale = :codiceFiscale 
+                        ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamento.existsPagamentoCodicePagamentoRifEnte">
+        <query><![CDATA[SELECT 1 FROM EpayTPagamento t 
+        
+         where exists (
+                        SELECT 1 FROM EpayTPagamento tt
+                        WHERE tt.codicePagamentoRifEnte = :codicePagamentoRifEnte
+                        AND tt.epayTTipoPagamento.codiceVersamento = :codiceVersamento  
+                        AND tt.epayTTipoPagamento.epayTEnti.codiceFiscale = :codiceFiscale 
+                        and tt.idPagamento = t.idPagamento
+                        )
+                        
+                        ]]></query>
+    </named-query>
+    
+    
+    <named-query name="EpayTPagamento.elencoPerInvioPagamenti">
+        <query><![CDATA[
+            SELECT t FROM EpayTPagamento t 
+            WHERE t.epayTTipoPagamento.idTipoPagamento = :idTipoPagamento
+            AND t.pagamentoSpontaneo = :pagamentoSpontaneo
+            AND t.epayDStatoPagamento in (4, 11)
+            AND t.flagInviato = false
+        ]]></query>
+    </named-query>
+
+    <named-query name="EpayTPagamento.findByCFAndActive">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.epayTAnagrafica.codiceFiscale = :codiceFiscale
+                        AND (t.epayTTipoPagamento.inizioValidita is null or t.epayTTipoPagamento.inizioValidita <= current_date())
+                        AND (t.epayTTipoPagamento.fineValidita is null or t.epayTTipoPagamento.fineValidita >= current_date())
+                        AND (t.inizioValidita is null or t.inizioValidita <= current_date())
+                        AND (t.fineValidita is null or t.fineValidita >= current_date())
+                        AND t.epayDStatoPagamento.pagabile = true
+                        ]]></query>
+    </named-query>
+    <named-query
+        name="EpayTPagamento.findByCFAndActiveAndNotSpontaneous">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.epayTAnagrafica.codiceFiscale = :codiceFiscale
+                        AND t.epayTTipoPagamento.pagamentoSpontaneo = false
+                        AND (t.epayTTipoPagamento.inizioValidita is null or t.epayTTipoPagamento.inizioValidita <= current_date())
+                        AND (t.epayTTipoPagamento.fineValidita is null or t.epayTTipoPagamento.fineValidita >= current_date())
+                        AND (t.inizioValidita is null or t.inizioValidita <= current_date())
+                        AND (t.fineValidita is null or t.fineValidita >= current_date())
+                        AND t.epayDStatoPagamento.pagabile = true
+                        ]]></query>
+    </named-query>
+    <named-query name="EpayTPagamento.findByCF">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+                        WHERE t.epayTAnagrafica.codiceFiscale = :codiceFiscale
+                        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.findEffettuatiByCF">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t
+                        WHERE t.epayTAnagrafica.codiceFiscale = :codiceFiscale
+                        AND t.epayDStatoPagamento.idStato not in (-1, 0, 9)
+                        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.elencoPagamentiValidiPerEnte">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+             WHERE t.epayTTipoPagamento.epayTEnti.idEnte = :idEnte
+             AND t.epayTAnagrafica.flagPersonaFisica = true
+             AND t.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+             AND t.dataScadenza is not null
+             AND intoIntervalDate(t.inizioValidita, t.dataScadenza) = true
+             AND pagamentoAttivo(t.idPagamento) = true
+             AND t.importo >0
+             AND t.pagamentoSpontaneo = false
+             AND  t.epayTTipoPagamento.flagInvioNotificatore = false 
+             AND NOT EXISTS  (SELECT 1 FROM  t.epayTTracciaturaNotifys rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+                                ORDER BY t.dataScadenza ASC, t.dataInserimento ASC
+            
+        ]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.elencoPagamentiValidiPerTipoPagamento">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+             WHERE t.epayTTipoPagamento.idTipoPagamento = :idTipoPagamento
+             AND t.epayTAnagrafica.flagPersonaFisica = true
+             AND t.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+             AND intoIntervalDate(t.inizioValidita, t.dataScadenza) = true
+             AND pagamentoAttivo(t.idPagamento) = true
+             AND t.importo >0
+             AND t.pagamentoSpontaneo = false
+             AND NOT EXISTS  (SELECT 1 FROM  t.epayTTracciaturaNotifys rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+                                ORDER BY t.dataScadenza ASC, t.dataInserimento ASC
+        ]]></query>
+    </named-query>
+    
+     <named-query name="EpayTPagamento.elencoPagamentiValidiPerTipoPagamentoCittafacile">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t 
+             WHERE t.epayTTipoPagamento.idTipoPagamento = :idTipoPagamento
+             AND t.epayTAnagrafica.flagPersonaFisica = true
+             AND t.dataInserimento > toTimestamp(:limiteData,'YYYY-MM-DD h:m:s')
+             AND intoIntervalDate(t.inizioValidita, t.dataScadenza) = true
+             AND pagamentoAttivo(t.idPagamento) = true
+             AND t.importo >0
+             AND t.pagamentoSpontaneo = false
+             AND NOT EXISTS  (SELECT 1 FROM  t.epayTTracciaturaNotifyCittaFaciles rv
+                                WHERE rv.esitoStatoInvioNotify = 'OK' )
+                                ORDER BY t.dataScadenza ASC, t.dataInserimento ASC
+        ]]></query>
+    </named-query>
+      <!-- AND t.epayTTipoPagamento.flagInvioNotificatore = true -->
+             <!-- AND t.epayTTipoPagamento.passphrase is not null -->
+    
+    <named-query name="EpayTPagamento.findByIuvAndIdentificativoDominio">
+        <query><![CDATA[SELECT t FROM EpayTPagamento t
+                        WHERE t.iuvNumeroAvviso = :iuvNumeroAvviso
+                        AND t.identificativoDominio = :identificativoDominio
+                        ]]></query>
+    </named-query>
+
+    <!-- EpayTPagamentoComponenti -->
+    <named-query
+        name="EpayTPagamentoComponenti.elencoComponentiByIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoComponenti t 
+                    WHERE t.epayTPagamento.idPagamento = :idPagamento]]></query>
+    </named-query>
+    <named-query
+        name="EpayTPagamentoComponenti.elencoComponentiByIdPagamentoEProgressivo">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoComponenti t
+                    WHERE t.epayTPagamento.idPagamento = :idPagamento
+                    AND t.progressivo = :progressivo]]></query>
+    </named-query>
+    <named-query name="EpayTPagamentoComponenti.findByIUVAndImporto">
+        <query><![CDATA[
+            SELECT t FROM EpayTPagamentoComponenti t 
+                WHERE UPPER(t.epayTPagamento.iuvNumeroAvviso) = UPPER(:iuv)
+                AND CAST(t.epayTPagamento.importo as string) = :importo 
+        ]]></query>
+    </named-query>
+    
+    <!-- EpayTPagamentoRiferimenti -->
+    <named-query
+        name="EpayTPagamentoRiferimenti.elencoRiferimentiByIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoRiferimenti t 
+                    WHERE t.epayTPagamento.idPagamento = :idPagamento]]></query>
+    </named-query>
+    <!-- EpayTRegistroElaborazioni -->
+    <named-query
+        name="EpayTRegistroElaborazioni.ricercaByOperazioneEIdMessaggio">
+        <query><![CDATA[SELECT t FROM EpayTRegistroElaborazioni t 
+                        WHERE t.operazione = :operazione
+                        AND t.idMessaggio = :idMessaggio
+                        ]]></query>
+    </named-query>
+
+    <!-- EpayTRegistroVersamenti -->
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.epayTPagamento.idPagamento = :idPagamento
+                                               GROUP by rv.epayTPagamento.idPagamento)
+                        ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamentoEIdStato">
+        <query><![CDATA[SELECT t
+                        FROM EpayTRegistroVersamenti t
+                        WHERE t.epayTPagamento.idPagamento = :idPagamento
+                        and t.epayDStatoPagamento.idStato = :idStato
+                        and t.origineInserimento IN ('MDPSERVICES-riceviRT','MDPSERVICES-riceviEsito')
+                        order by t.idRegistro desc
+                        ]]></query>
+    </named-query>
+    
+     <!--<named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamentoEStato">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.epayTPagamento.idPagamento = :idPagamento
+                        and t.epayDStatoPagamento.idStato = :idStato
+                        and t.origineInserimento = 'MDPSERVICES-riceviEsito'
+                        ]]></query>
+    </named-query> -->
+    
+    
+     <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamentoEStato">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                         WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.epayTPagamento.idPagamento = :idPagamento
+                        and rv.epayDStatoPagamento.idStato = :idStato
+                        and rv.origineInserimento = 'MDPSERVICES-riceviEsito')
+                        ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIuvAndIdTransazione">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.iuv = :iuv
+                                                 AND rv.epayTTransazioneMdp.idTransazione = :idTransazione
+                                               GROUP by rv.iuv, rv.epayTTransazioneMdp.idTransazione)
+                        ]]></query>
+    </named-query>
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIUV">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.iuv = :iuv
+                                               GROUP by rv.epayTPagamento.idPagamento)
+                        ]]></query>
+    </named-query>
+    
+    
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamentoAndIdPagamentoSecondario">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.epayTPagamento.idPagamento = :idPagamento
+                                               AND   rv.epayTPagamentoSecondario.idPagamentoSecondario = :idPagamentoSecondario
+                                               and rv.origineInserimento = 'MDPSERVICES-riceviRT'
+                                               GROUP by rv.epayTPagamento.idPagamento,rv.epayTPagamentoSecondario.idPagamentoSecondario )
+                        ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTRegistroVersamenti.verificaOrigineChiamata">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE  t.epayTPagamento.idPagamento = :idPagamento
+                           AND t.epayTTransazioneMdp.idTransazione = :idTransazione
+                           AND t.epayDOrigineChiamata.id = :idOrigineChiamata
+                        ORDER BY t.idRegistro DESC
+                        ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaUltimoByIdPagamentoPrimario">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.idRegistro = (SELECT max(rv.idRegistro)
+                                                FROM EpayTRegistroVersamenti rv
+                                               WHERE rv.epayTPagamento.idPagamento = :idPagamento
+                                               AND   rv.epayTPagamentoSecondario.idPagamentoSecondario is null
+                                               and rv.origineInserimento = 'MDPSERVICES-riceviRT'
+                                               GROUP by rv.epayTPagamento.idPagamento,rv.epayTPagamentoSecondario.idPagamentoSecondario )
+                        ]]></query>
+    </named-query>
+    <named-query
+        name="EpayTRegistroVersamenti.ricercaByIdPagamentoInAttesaSecondaRT">
+        <query><![CDATA[SELECT t FROM EpayTRegistroVersamenti t 
+                        WHERE t.epayTPagamento.idPagamento = :idPagamento
+                        AND  t.epayDStatoPagamento.descStato = 'In attesa seconda RT'
+                        ]]></query>
+    </named-query>
+    
+    
+    <!-- EpayTParametri -->
+    <named-query name="EpayTParametri.findAllGroup">
+        <query><![CDATA[SELECT t FROM EpayTParametri t WHERE t.id.gruppo = :gruppo]]></query>
+    </named-query>
+    <named-query name="EpayTParametri.findOne">
+        <query><![CDATA[SELECT t FROM EpayTParametri t WHERE t.id.gruppo = :gruppo AND t.id.codice = :codice]]></query>
+    </named-query>
+
+    <!-- EpayTTipoPagamento -->
+    <named-query
+        name="EpayTTipoPagamento.findPagamentiSpontaneiAttiviByIdEnte">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamento t 
+                        WHERE t.epayTEnti.idEnte = :idEnte
+                        AND t.pagamentoSpontaneo = true
+                        AND intoIntervalDate(t.inizioValidita, t.fineValidita) = true
+                        ORDER BY t.descrizionePortale]]></query>
+    </named-query>
+    
+    
+     <named-query
+        name="EpayTTipoPagamento.findPagamentiVisibiliSpontaneiAttiviByIdEnte">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamento t 
+                        WHERE t.epayTEnti.idEnte = :idEnte
+                        AND t.pagamentoSpontaneo = true
+                        AND intoIntervalDate(t.inizioValidita, t.fineValidita) = true 
+                        AND t.flagVisualizzaDaSportello = true
+                        ORDER BY t.descrizionePortale]]></query>
+    </named-query>
+    
+    
+    
+    
+    
+    <named-query name="EpayTTipoPagamento.getByIdPagamento">
+        <query><![CDATA[SELECT tp
+                        FROM EpayTPagamento p
+                        INNER JOIN p.epayTTipoPagamento tp
+                        WHERE p.idPagamento = :idPagamento
+        ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTTipoPagamento.findByIdEnteECodiceVersamento">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamento t 
+                        WHERE t.epayTEnti.idEnte = :idEnte
+                        AND t.codiceVersamento = :codiceVersamento]]></query>
+    </named-query>
+    <!-- CSI_PAG-1888 INIZIO -->
+    <named-query
+        name="EpayRTipoPagamentoCollegato.findByIdTipoPagamentoPrincipale">
+        <query><![CDATA[SELECT t FROM EpayRTipoPagamentoCollegato t 
+                        WHERE t.id.idTipoPagamentoPrincipale = :idTipoPagamentoPrincipale]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayRTipoPagamentoCollegato.countByIdPagamentoSecondario">
+        <query><![CDATA[SELECT count(t) FROM EpayRTipoPagamentoCollegato t 
+                        WHERE t.id.idTipoPagamentoSecondario = :idTipoPagamentoSecondario]]></query>
+    </named-query>
+    
+    
+    <named-query
+        name="EpayTPagamentoSecondario.findByIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoSecondario t 
+                        WHERE t.epayTPagamento.idPagamento = :idPagamento]]></query>
+    </named-query>
+    <named-query
+        name="EpayTPagamentoSecondarioComponenti.elencoComponentiByIdPagamentoSecondario">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoSecondarioComponenti t 
+                    WHERE t.epayTPagamentoSecondario.idPagamentoSecondario = :idPagamentoSecondario]]></query>
+    </named-query>
+    <!-- CSI_PAG-1888 FINE -->
+    
+    <named-query
+        name="EpayRTipoPagamentoCollegato.findByIdTipoPagamentoSecondario">
+        <query><![CDATA[SELECT t FROM EpayRTipoPagamentoCollegato t 
+                        WHERE t.id.idTipoPagamentoSecondario = :tipoPagamentoSecondario]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTTipoPagamento.elencoPerInvioPagamenti">
+        <query><![CDATA[
+            SELECT t
+            FROM EpayTTipoPagamento t
+            INNER JOIN t.epayTPagamentos p
+            WHERE t.epayTEnti.idEnte = :idEnte
+            AND t.flagInvioPagamenti = true
+            AND p.epayDStatoPagamento in (4)
+            AND p.flagInviato = false
+        ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTTipoPagamento.findByIdTipoPagamento">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamento t 
+                        WHERE t.idTipoPagamento = :idTipoPagamento]]></query>
+    </named-query>
+    
+    <named-query name="EpayTPagamento.existsPagamentiByTipoPagamento">
+        <query><![CDATA[select 1 from EpayTPagamento t where t.epayTTipoPagamento.idTipoPagamento = :idTipoPagamento]]></query>
+    </named-query>  
+    
+        <!-- EpayTRt -->
+    <named-query name="EpayTRt.elencoRtSenzaRicevutaPdf">
+        <query><![CDATA[SELECT t FROM EpayTRt t 
+                        WHERE t.ricevutaPdf IS NULL]]></query>
+    </named-query>  
+    
+    <!-- EpayTRt -->
+    <named-query name="EpayTRt.getRtInAttesaSecondaRT">
+    <query><![CDATA[SELECT t FROM EpayTRt t 
+                    WHERE t.iuv =:iuv 
+                    and t.epayTRegistroVersamenti.idRegistro = :idRegistro]]></query>                   
+    </named-query>
+    <named-query name="EpayTRt.ricercaRtByIdRegistro">
+        <query><![CDATA[SELECT t FROM EpayTRt t 
+                        WHERE t.epayTRegistroVersamenti.idRegistro = :idRegistro ]]></query>
+    </named-query>
+    <named-query name="EpayTRt.ricercaRtByIuv">
+        <query><![CDATA[SELECT t FROM EpayTRt t 
+                        WHERE t.iuv = :iuv
+                        ORDER BY  T.idRt desc]]>
+        </query>
+    </named-query>
+    
+    <!-- EpayTRtXml -->
+    <named-query name="EpayTRtXml.ricercaRtByIdRegistroAndCodiceFiscaleEnte">
+        <query><![CDATA[SELECT t FROM EpayTRtXml t
+                        WHERE t.epayTRegistroVersamenti.idRegistro = :idRegistro
+                        AND ( t.identificativoDominio IS NULL OR t.identificativoDominio = :codiceFiscaleEnte )
+        ]]></query>
+    </named-query>
+    
+    <!-- EpayTRtPdf -->
+    <named-query name="EpayTRtPdf.ricercaRtByIdRegistroAndCodiceFiscaleEnte">
+        <query><![CDATA[SELECT t FROM EpayTRtPdf t 
+                        WHERE t.epayTRegistroVersamenti.idRegistro = :idRegistro
+                        AND ( t.identificativoDominio IS NULL OR t.identificativoDominio = :codiceFiscaleEnte )
+        ]]></query>
+    </named-query>
+
+    <!-- EpayTEsitiRicevuti -->
+    <named-query
+        name="EpayTRt.ricercaEsitiRicevutiByIdRegistro">
+        <query><![CDATA[SELECT t FROM EpayTEsitiRicevuti t 
+                        WHERE t.epayTRegistroVersamenti.idRegistro = :idRegistro ]]></query>
+    </named-query>
+
+    <named-query
+            name="EpayTEsitiRicevuti.ricercaEsitiRicevutiByIuv">
+        <query><![CDATA[SELECT t FROM EpayTEsitiRicevuti t, EpayTRegistroVersamenti r
+    WHERE r.iuv = :iuv
+    AND t.epayTRegistroVersamenti = r
+    ORDER BY t.idEsito DESC ]]></query>
+    </named-query>
+
+    <!-- EpayDChiamanteEsterno -->
+
+    <named-query
+        name="EpayDChiamanteEsterno.ricercaChiamanteByCodiceAndDataInizioDataFine">
+        <query><![CDATA[SELECT t FROM EpayDChiamanteEsterno t 
+                        WHERE t.codiceChiamante = :codiceChiamante
+                        AND t.dataInizioValidita <= current_timestamp()
+                        AND (t.dataFineValidita > current_timestamp() OR t.dataFineValidita = null)]]></query>
+    </named-query>
+
+    <!--  EpayRAutorizzazioneChiamanteTipoPagamento -->
+    
+    <named-query
+        name="EpayRAutorizzazioneChiamanteTipoPagamento.ricercaChiamanteByCodiceTipoPagamentoDateInizioDataFine">
+        <query><![CDATA[SELECT count(t) FROM EpayRAutorizzazioneChiamanteTipoPagamento t 
+                        WHERE t.id.codiceChiamante = :codiceChiamante
+                        AND t.id.idTipoPagamento = :idTipoPagamento
+                        AND t.id.dataInizioValidita <= current_timestamp()
+                        AND (t.dataFineValidita > current_timestamp() OR t.dataFineValidita = null)]]></query>
+    </named-query>
+
+    <!--  epayRChiamanteAutorizzazioneChiamante -->
+    
+    <named-query
+        name="EpayRChiamanteAutorizzazioneChiamante.ricercaChiamanteByCodiceAutorizzazioneChiamante">
+        <query><![CDATA[SELECT count(t) FROM EpayRChiamanteAutorizzazioneChiamante t 
+                        WHERE t.id.codiceChiamante = :codiceChiamante
+                        AND t.id.codiceAutorizzazioneChiamante = :codiceAutorizzazioneChiamante]]></query>
+    </named-query>
+    
+    <!-- EpayTTracciabilitaChiamanteEsterno -->
+
+    <named-query
+        name="EpayTTracciabilitaChiamanteEsterno.findByIdTransazione">
+        <query><![CDATA[SELECT t FROM EpayTTracciabilitaChiamanteEsterno t 
+                        WHERE t.idTransazione = :idTransazione ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTTracciabilitaChiamanteEsterno.findByIdentificativoPagamento">
+        <query><![CDATA[SELECT t FROM EpayTTracciabilitaChiamanteEsterno t 
+                        WHERE t.identificativoPagamento = :identificativoPagamento ]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTTracciabilitaChiamanteEsterno.countByIdentificativoPagamento">
+        <query><![CDATA[SELECT count(t) FROM EpayTTracciabilitaChiamanteEsterno t 
+                        WHERE t.identificativoPagamento = :identificativoPagamento ]]></query>
+    </named-query>
+
+    <!-- EpayTEntiTemp -->
+    <named-query name="EpayTEntiTemp.findByIdOperazione">
+        <query><![CDATA[SELECT t FROM EpayTEntiTemp t WHERE t.idOperazione = :idOperazione]]></query>
+    </named-query>
+
+    <!-- EpayTTipoPagamentoTemp -->
+    <named-query
+        name="EpayTTipoPagamentoTemp.findByIdOperazione">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamentoTemp t WHERE t.idOperazione = :idOperazione]]></query>
+    </named-query>
+
+    <!-- EpayDTipologiaPagamento -->
+    <named-query
+        name="EpayDTipologiaPagamento.findOneByCodice">
+        <query><![CDATA[SELECT t FROM EpayDTipologiaPagamento t WHERE t.codice = :codice]]></query>
+    </named-query>
+    
+    <!-- statistiche pagamenti -->
+    <named-query
+        name="EpayTPagamento.contaPerEsportazionePEC">
+        <query><![CDATA[SELECT count(t) FROM EpayTPagamento t WHERE (t.flgInvioReportPec = false or t.flgInvioReportPec is null ) and t.iuvNumeroAvviso is not null]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamento.getIdMassimoPerEsportazionePECRangeDate">
+        <query><![CDATA[SELECT MAX(t.idPagamento) FROM EpayTPagamento t WHERE t.dataInserimento <= :dataInizio  AND t.dataInserimento >= :dataFine]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTPagamento.getIdMassimoPerEsportazionePEC">
+        <query><![CDATA[SELECT MAX(t.idPagamento) FROM EpayTPagamento t WHERE t.flgInvioReportPec = false or t.flgInvioReportPec is null ]]></query>
+    </named-query>
+
+    <named-query
+        name="EpayTPagamento.marcaInviatiAlPEC">
+        <query><![CDATA[UPDATE EpayTPagamento t
+            SET flgInvioReportPec = true
+            WHERE t.flgInvioReportPec = false]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamento.marcaInviatiAlPECList">
+        <query><![CDATA[UPDATE EpayTPagamento t
+            SET flgInvioReportPec = true
+            WHERE t.idPagamento in :idPagamentos]]></query>
+    </named-query>
+    
+    <named-query name="EpayTTaglioMarca.findByCodice">
+        <query><![CDATA[SELECT t FROM EpayTTaglioMarca t WHERE 
+                    UPPER(t.codiceMarca) = UPPER(:codiceMarca)]]>
+        </query>
+    </named-query>
+    
+    <named-query name="EpayTTaglioMarca.findByCodiceAndImporto">
+        <query><![CDATA[SELECT t FROM EpayTTaglioMarca t WHERE 
+                    UPPER(t.codiceMarca) = UPPER(:codiceMarca)
+                    AND t.importo = :importo]]>
+        </query>
+    </named-query>
+    
+    <named-query name="EpayTTaglioMarca.findByImporto">
+        <query><![CDATA[SELECT t FROM EpayTTaglioMarca t WHERE 
+                    t.importo = :importo]]>
+        </query>
+    </named-query>
+    
+    <named-query name="EpayTMarcaDigitale.findByIuv">
+        <query><![CDATA[SELECT t FROM EpayTMarcaDigitale t WHERE 
+                    t.iuvMarca = :iuv]]>
+        </query>
+    </named-query>
+    
+     <named-query name="EpayTMarcaDigitale.findByIuvAndIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTMarcaDigitale t WHERE 
+                    t.iuvMarca = :iuv 
+                    and t.epayTPagamentoMarcaBollo.idPagamento = :idPagamento]]>
+        </query>
+    </named-query>
+    
+    <named-query
+        name="EpayTTipoPagamento.findByIdEnteMarca">
+        <query><![CDATA[SELECT t FROM EpayTTipoPagamento t 
+                        WHERE t.epayTEnti.idEnte = :idEnte
+                        AND t.tipologiaPagamento.codice = 'MABL']]></query>
+    </named-query>
+    <!-- MM -->
+    <named-query
+        name="EpayTEsitiRicevuti.ricercaEsitiSenzaQuietanza">
+        <query><![CDATA[SELECT t FROM EpayTEsitiRicevuti t 
+                        WHERE t.idModalitaRicezione = '5'
+                        AND t.epayTQuietanzaEsito is null]]></query>
+    </named-query>
+    
+    <named-query
+        name="EpayTPagamentoSecondario.ricercaByIdPagamento">
+        <query><![CDATA[SELECT t FROM EpayTPagamentoSecondario t 
+                    WHERE t.epayTPagamento.idPagamento = :idPagamento]]></query>
+    </named-query>
+    <!-- MM -->
+
+    <named-query name="EpayTQuietanzaEsito.ricercaQuietanzaById">
+        <query><![CDATA[SELECT t FROM EpayTQuietanzaEsito t WHERE t.idQuietanzaEsito = :idQuietanzaEsito
+        ]]></query>
+    </named-query>
+
+<!--query per batch 800+ agg pos deb-->
+    <named-query name="EpayTQuietanzaDaElaborare.findByIuvAndCodiceIpa">
+        <query><![CDATA[SELECT t FROM EpayTQuietanzaDaElaborare t 
+                        WHERE t.iuv = :iuv AND t.codiceIpa = :codiceIpa)
+        ]]></query>
+    </named-query>
+
+    <named-query name="EpayTPagamentoComponenti.elencoComponentiPerBatchAggPosDeb">
+        <query>
+            <![CDATA[SELECT t
+                    FROM EpayTPagamentoComponenti t
+                    INNER JOIN t.epayTPagamento p
+                    WHERE p.epayDStatoPagamento in (0, 1, 3, 5, 6, 8)
+                    AND ( p.fineValidita is null or p.fineValidita >= now() )
+                    AND t.datiSpecificiRiscossione like ':tassonomiaEsistente%']]>
+        </query>
+    </named-query>
+
+    <named-query name="EpayTPagamentoComponenti.aggiornaComponentiPerBatchAggPosDeb">
+        <query>
+            <![CDATA[ UPDATE EpayTPagamentoComponenti t
+                SET t.datiSpecificiRiscossione = replace ( :datiSpecificiRiscossione, :tassonomiaEsistente, :tassonomiaNuova )
+                WHERE t.idComponente = :idComponente]]>
+        </query>
+    </named-query>
+<!--fine query per batch 800+ agg pos deb-->
+	<named-query name="EpayTQuietanzaDaElaborare.getListaQuietanzeDaElaborare">
+		<query>
+			<![CDATA[SELECT t
+                    FROM EpayTQuietanzaDaElaborare t
+                    WHERE t.inviare = TRUE
+                    AND t.terminiScaduti = FALSE
+			]]>
+		</query>
+	</named-query>
+
+    <!-- EpayTStatoArchiviazione -->
+    <named-query name="EpayTStatoArchiviazione.findByIdEnteAndCodiceFiscale">
+        <query><![CDATA[SELECT t FROM EpayTStatoArchiviazione t 
+                        WHERE t.epayTEnti.idEnte = :idEnte
+                        AND UPPER(t.codiceFiscale) = UPPER(:codiceFiscale)
+        ]]></query>
+    </named-query>
+
+</entity-mappings>
