@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.csi.it/epay/epaywso/rendicontazione" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:types="http://www.csi.it/epay/epaywso/types"
+	name="ServiziRendicontazione" 
+	targetNamespace="http://www.csi.it/epay/epaywso/rendicontazione">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/rendicontazione" schemaLocation="ServiziRendicontazioneTypes.xsd"/>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TrasmettiFlussoRendicontazioneRequest">
+    <wsdl:part element="tns:TrasmettiFlussoRendicontazioneRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiFlussoRendicontazioneResponse">
+    <wsdl:part element="types:EPaywsoServiceResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="ServiziRendicontazione">
+    <wsdl:operation name="TrasmettiFlussoRendicontazione">
+      <wsdl:input message="tns:TrasmettiFlussoRendicontazioneRequest"/>
+      <wsdl:output message="tns:TrasmettiFlussoRendicontazioneResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiziRendicontazioneSOAP" type="tns:ServiziRendicontazione">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TrasmettiFlussoRendicontazione">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/rendicontazione/TrasmettiFlussoRendicontazione"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiziRendicontazione">
+    <wsdl:port binding="tns:ServiziRendicontazioneSOAP" name="ServiziRendicontazioneSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

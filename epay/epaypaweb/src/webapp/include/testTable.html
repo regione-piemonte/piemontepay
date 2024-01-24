@@ -1,0 +1,69 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../js/datatablesnew/datatables.min.css"/>
+</head>
+<body>
+
+	<script type="text/javascript" src="../js/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="../js/datatablesnew/datatables.min.js"></script>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<table id="testTable" class="table table-hover tab_left">
+				<thead>
+					<tr><th>col1</th><th>col2</th><th>col3</th><th>col4</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>row11</td><td>row12</td><td>row13</td><td>row14</td></tr>
+					<tr><td>row21</td><td>row22</td><td>row23</td><td>row24</td></tr>
+					<tr><td>row31</td><td>row32</td><td>row33</td><td>row34</td></tr>
+					<tr><td>row41</td><td>row42</td><td>row43</td><td>row44</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+			// Standard
+			var dataTableOptions = {
+				pageLength: 5,
+				bFilter: false,
+				bDestroy: true,
+				lengthMenu: [5, 10, 15, 20],
+				language: {
+					processing: 'Elaborazione in corso...',
+					zeroRecords: 'Nessun risultato trovato',
+					infoFiltered: ' - filtrato da _MAX_ risultati',
+					infoEmpty: '0 risultati',
+					info: '_START_ - _END_ di _TOTAL_ risultati',
+					lengthMenu: '_MENU_ record per pagina',
+					emptyTable: 'Nessun risultato trovato',
+					paginate: {
+						first: 'Inizio',
+						last: 'Fine',
+						next: 'Succ.',
+						previous: 'Prec.'
+					}
+				}
+			};
+
+
+			$("#testTable").dataTable($.extend(true, {}, dataTableOptions, {
+				"sorting" : true
+			}));
+
+	</script>
+
+</body>
+
+</html>

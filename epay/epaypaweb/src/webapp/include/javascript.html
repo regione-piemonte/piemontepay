@@ -1,0 +1,125 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<script type="text/javascript" src="js/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.it.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<script type="text/javascript">
+	var currencyEURFormatter = new Intl.NumberFormat('it-IT', {
+		style: 'currency',
+		currency: 'EUR',
+		minimumFractionDigits: 2
+	});
+
+	var dateFormatter = new Intl.DateTimeFormat('it-IT', {
+		year: 'numeric', month: '2-digit', day: '2-digit'
+	});
+	
+	var dateTimeFormatter = new Intl.DateTimeFormat('it-IT', {
+		year: 'numeric', month: '2-digit', day: '2-digit',
+		hour: 'numeric', minute: 'numeric', second: 'numeric',
+		hour12: false
+	});
+	
+	$(".datepicker").datepicker({
+		language:'it',
+		autoclose: true
+	});
+
+	if ($(".note").length > 0) {
+		$(".note").html($(".note").html().replace(/\n/g, "<br>"));
+	}
+	
+	// Standard
+	var dataTableOptions = {
+		pageLength: 5,
+		filter: false,
+		destroy: true,
+		lengthMenu: [5, 10, 15, 20],
+		language: {
+			processing: 'Elaborazione in corso...',
+			zeroRecords: 'Nessun risultato trovato',
+			infoFiltered: ' - filtrato da _MAX_ risultati',
+			infoEmpty: '0 risultati',
+			info: '_START_ - _END_ di _TOTAL_ risultati',
+			lengthMenu: '_MENU_ record per pagina',
+			emptyTable: 'Nessun risultato trovato',
+			paginate: {
+				first: 'Inizio',
+				last: 'Fine',
+				next: 'Succ.',
+				previous: 'Prec.'
+			}
+		}
+	};
+
+	function displayAlert(message, level) {
+		var messageDiv = $("<div class='alert'><button type='button' class='close' data-dismiss='alert'>x</button><p><span></span></p></div>");
+		messageDiv.find("span").html(message);
+		messageDiv.addClass("alert-" + level);
+		messageDiv.appendTo($('#alert-div'))
+	};
+
+	function clearAllAlerts() {
+		$(".alert").remove();
+	}
+	
+	function alertAction(bodyMessage) {
+		$("#alert-action-body").html(bodyMessage);
+		$("#alert-action-button").off("click");
+		$("#alert-action-modal").modal();
+	}
+
+	function confirmAction(bodyMessage, confirmFunction) {
+		$("#confirm-action-body").html(bodyMessage);
+		$("#confirm-action-button").off("click");
+		$("#confirm-action-button").click(confirmFunction);
+		$("#confirm-action-modal").modal();
+	}
+
+	function confirmBackAction(showConfirmActionModal, submitFormId) {
+		if (showConfirmActionModal) {
+			confirmAction("Eventuali dati inseriti non ancora salvati saranno persi.", function() {
+				clearAllAlerts();
+				$("#confirm-action-modal").modal("hide");
+				$(submitFormId).submit();
+			});
+		} else
+			$(submitFormId).submit();
+	}
+
+	var fileDownloadCheckTimer;
+
+	function showModalPleaseWait() {
+	    // use the current timestamp as the token value
+		var token = new Date().getTime();
+
+	    // submit the token
+	    $("#modal-pleasewait").modal({
+	    	backdrop: 'static',
+	    	keyboard: false
+	    });
+
+		// launch thread waiting for download completation
+		fileDownloadCheckTimer = window.setInterval(function() {
+			var cookieValue = $.cookie('pleaseWaitToken');
+			if (cookieValue == token) {
+				hideModalPleaseWait();
+			}
+		}, 1000);
+		
+		return token;
+	};
+
+	function hideModalPleaseWait() {
+		window.clearInterval(fileDownloadCheckTimer);
+		$.removeCookie('pleaseWaitToken'); // clears this cookie value
+		$("#modal-pleasewait").modal('hide');
+	}
+</script>

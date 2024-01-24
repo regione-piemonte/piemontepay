@@ -1,0 +1,16 @@
+/.classpath
+/.project
+/.settings
+/.tern-project
+/bin/
+/build/
+/dist/
+/lib/
+/src/generated/*
+/.settings
+/bin1/
+/bin/
+*.csv#
+*.xlsx#
+.settings/
+*.iml

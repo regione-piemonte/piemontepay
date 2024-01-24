@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:pag="http://www.digitpa.gov.it/schemas/2011/Pagamenti/"
+	xmlns:tns="http://www.csi.it/epay/epaywso/rendicontazione" xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/rendicontazione"
+	elementFormDefault="qualified">
+
+	<import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes.xsd" />
+
+	<element name="TrasmettiFlussoRendicontazioneRequest" type="tns:TrasmettiFlussoRendicontazioneRequestType" />
+
+	<complexType name="TrasmettiFlussoRendicontazioneRequestType">
+		<sequence>
+			<element name="Testata" type="tns:TestataFlussoRendicontazioneType" />
+			<element name="FlussoRiversamento" type="base64Binary" />
+			<element name="DatiAggiuntivi" type="tns:DatiAggiuntiviType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="TestataFlussoRendicontazioneType">
+		<sequence>
+			<element name="IdMessaggio" type="types:String35Type" />
+			<element name="CFEnteCreditore" type="types:String35Type" />
+			<element name="IdPSP" type="types:String35Type" />
+			<element name="IdentificativoFlusso" type="types:String35Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="DatiAggiuntiviType">
+		<sequence>
+			<element name="ElencoCodiciVersamento">
+				<complexType>
+					<sequence>
+						<element name="CodiceVersamento" type="types:CodiceVersamentoType" minOccurs="1" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+
+</schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="do"/>
+    <constant name="struts.convention.default.parent.package" value="default"/>
+	<constant name="struts.convention.result.path" value="/"/>
+
+	<constant name="struts.json.exclude.parentClassLoader" value="true" />
+	<constant name="struts.json.action.fileProtocols" value="jar,vfsfile,vfszip" />
+
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.custom.i18n.resources" value="global"/>
+
+    <package name="default" namespace="/" extends="json-default">
+        <interceptors>
+            <interceptor name="authenticationInterceptor" class="${authentication.interceptor}" />
+            <interceptor name="authorizationsInterceptor" class="it.csi.epay.epaypaweb.presentation.interceptor.AuthorizationsInterceptor" />
+            <interceptor name="sessionInterceptor" class="it.csi.epay.epaypaweb.presentation.interceptor.SessionInterceptor" />
+            <interceptor name="exceptionInterceptor" class="it.csi.epay.epaypaweb.presentation.interceptor.ExceptionInterceptor" />
+            <interceptor-stack name="epaypawebStack">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="createSession"/>
+                <interceptor-ref name="exceptionInterceptor"/>
+                <interceptor-ref name="authenticationInterceptor"/>
+                <interceptor-ref name="sessionInterceptor"/>
+                <interceptor-ref name="authorizationsInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+        	<result name="unauthorized-error">pages/unauthorized-error.jsp</result>
+        	<result name="invalid-session">pages/invalid-session.jsp</result>
+			<result name="system-error">pages/system-error.jsp</result>
+        </global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="system-error" />
+		</global-exception-mappings>
+    </package>
+</struts>

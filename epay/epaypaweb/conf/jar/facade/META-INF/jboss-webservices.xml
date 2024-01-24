@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<webservices xmlns="http://www.jboss.com/xml/ns/javaee">
+  <context-root>${ws-context-root}</context-root>
+</webservices>

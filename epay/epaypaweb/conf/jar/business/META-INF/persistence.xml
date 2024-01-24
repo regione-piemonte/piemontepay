@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="epaypa">
+		<jta-data-source>java:/epaypaDS</jta-data-source>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDCategoriaCdu</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDStatoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoAggPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoFormatoOutput</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoInvioMail</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoVersamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTAggPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTAggPosizioneDebitoriaLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTAvvisoScaduto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCampoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCdu</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCodiceVersamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTColonnaTemplate</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTComponenteImporto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTConfigurazione</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTDatiAvvisoPagamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTEnte</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTFlussoLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTInvioMail</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTNotificaPagamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTNotificaPagamentoLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTPosizioneDebitoriaLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTPosizioneDebitoriaForAutocomplete</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTProfilo</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRendicontazione</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRendicontazioneLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRiferimentoPagamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRiversamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRuolo</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTSoggetto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTTemplate</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTTransazionePsp</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTUtente</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTTipoRevoca</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRr</class>
+		
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDStatoReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoFileReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTFileReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTReport</class>
+		
+		<class>it.csi.epay.epaypaweb.persistence.entity.cooppec.EpaypaTCodiceVersamentoTemp</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.cooppec.EpaypaTEnteTemp</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.cooppec.EpaypaDErrore</class>
+		
+		<properties>
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="epaypa-scheduler">
+		<jta-data-source>java:/epaypaDS</jta-data-source>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EPaypaTScheduledJob</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EPaypaTSchedulerLock</class>
+		<properties>
+			<property name="javax.persistence.lock.timeout" value="0" />
+		</properties>
+	</persistence-unit>
+</persistence>

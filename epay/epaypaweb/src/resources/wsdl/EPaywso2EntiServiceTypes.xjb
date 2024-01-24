@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<bindings
+	xmlns="http://java.sun.com/xml/ns/jaxb"
+	version="2.1">
+	<bindings schemaLocation="EPaywso2EntiServiceTypes.xsd">
+		<schemaBindings>
+			<package name="it.csi.epay.epaypaweb.facade.epaywso2enti.dto" />
+		</schemaBindings>
+	</bindings>
+</bindings>

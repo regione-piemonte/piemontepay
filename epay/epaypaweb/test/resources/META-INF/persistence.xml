@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"-->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+	<persistence-unit name="epaypa" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDCategoriaCdu</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDCategoriaCdu</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDStatoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoAggPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoAggPosizioneDebitoriaLight</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoInvioMail</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoVersamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTAggPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTAvvisoScaduto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCampoFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCdu</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTCodiceVersamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTColonnaTemplate</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTComponenteImporto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTEnte</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTFlusso</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTInvioMail</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTNotificaPagamento</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTPosizioneDebitoria</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTProfilo</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTRuolo</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTSoggetto</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTTemplate</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTTransazionePsp</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTUtente</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDStatoReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaDTipoFileReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTFileReport</class>
+		<class>it.csi.epay.epaypaweb.persistence.entity.EpaypaTReport</class>
+		<properties>
+			<property name="hibernate.show_sql" value="false" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://tst-bilancio-vdb01.bilancio.csi.it:5432/TSTBIL1" />
+			<property name="javax.persistence.jdbc.user" value="epaypa" />
+			<property name="javax.persistence.jdbc.password" value="epaypapass" />
+		</properties>
+	</persistence-unit>
+</persistence>
+
+
+
+
+

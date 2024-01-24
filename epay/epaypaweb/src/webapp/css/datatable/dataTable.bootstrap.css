@@ -1,0 +1,232 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+
+.boxTable {display: table-row;float:left; width:100%; background-color: #d9d9d9;}
+.boxTable.colum4 >div{ width:20%;}
+.boxTable>div{display: table-cell;float:left;  font-weight: bold;background-color: #d9d9d9; padding:10px 20px}
+
+.table_fixed , .table_fixed thead th, .table_fixed tbody td{text-align: left;}
+.table_fixed thead , .table_fixed tbody {clear:both;}
+.table_colum5 thead th, .table_colum5  tbody td{width:20%;}
+.table_colum4 thead th, .table_colum4 tbody td{width:25%;}
+
+
+table.table_colum6 thead th {width:12%; padding:8px 0px 8px 8px;}
+table.table_colum6 thead th:nth-child(1) {width:11%; padding:8px 0px 8px 8px;}
+table.table_colum6 tbody td {width:15%; padding:8px 0px 8px 8px;}
+
+
+
+
+
+/* ------ css corretto ------*/
+
+
+div.dataTables_length label {
+	float: left;
+	text-align: left;
+}
+
+div.dataTables_length select {
+	width: 75px;
+}
+
+div.dataTables_filter label {
+	/*float: right;*/
+}
+
+div.dataTables_info {
+	padding-top: 8px;
+}
+
+div.dataTables_paginate {
+	float: right;
+	margin: 0;
+}
+
+table.table {
+	clear: both;
+	margin-bottom: 6px !important;
+	max-width: none !important;
+}
+
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+table.table thead .sorting { background: url('../im/sort_both.png') no-repeat center right; }
+table.table thead .sorting_asc { background: url('../im/sort_asc.png') no-repeat center right; }
+table.table thead .sorting_desc { background: url('../im/sort_desc.png') no-repeat center right; }
+
+table.table thead .sorting_asc_disabled { background: url('../im/sort_asc_disabled.png') no-repeat center right; }
+table.table thead .sorting_desc_disabled { background: url('../im/sort_desc_disabled.png') no-repeat center right; }
+
+table.dataTable th:active {
+	outline: none;
+}
+
+/* table inactive scrolling */
+
+.dataTables_scrollHead{overflow: inherit !important;}
+.dataTables_scrollBody tr td > .btn-group ul{}
+
+table.table thead tr#intTable > th.sorting,
+table.table thead tr#intTable  > th.sorting_asc,
+table.table thead tr#intTable  > th.sorting_desc,
+table.table thead tr#intTable  > th.sorting_asc_disabled,
+table.table thead tr#intTable  > th.sorting_desc_disabled {
+	background:#d9d9d9;
+	cursor:default;
+}
+
+table#ricercaScroll thead .sorting {}
+table#ricercaScroll thead .sorting_asc {}
+table#ricercaScroll thead .sorting_desc {}
+
+table#ricercaScroll thead .sorting_asc_disabled {}
+table#ricercaScroll thead .sorting_desc_disabled { }
+
+
+/*-------*/
+/* Scrolling */
+div.dataTables_scrollHead table {
+	margin-bottom: 0 !important;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+div.dataTables_scrollHead table thead tr:last-child th:first-child,
+div.dataTables_scrollHead table thead tr:last-child td:first-child {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+div.dataTables_scrollBody table {
+	border-top: none;
+	margin-bottom: 0 !important;
+}
+
+div.dataTables_scrollBody tbody tr:first-child th,
+div.dataTables_scrollBody tbody tr:first-child td {
+	border-top: none;
+}
+
+div.dataTables_scrollFoot table {
+	border-top: none;
+}
+
+
+
+
+/*
+ * TableTools styles
+ */
+.table tbody tr.active td,
+.table tbody tr.active th {
+	background-color: #08C;
+	color: white;
+}
+
+.table tbody tr.active:hover td,
+.table tbody tr.active:hover th {
+	background-color: #0075b0 !important;
+}
+
+.table-striped tbody tr.active:nth-child(odd) td,
+.table-striped tbody tr.active:nth-child(odd) th {
+	background-color: #017ebc;
+}
+
+table.DTTT_selectable tbody tr {
+	cursor: pointer;
+	*cursor: hand;
+}
+
+div.DTTT .btn {
+	color: #333 !important;
+	font-size: 12px;
+}
+
+div.DTTT .btn:hover {
+	text-decoration: none !important;
+}
+
+
+ul.DTTT_dropdown.dropdown-menu a {
+	color: #333 !important; /* needed only when demo_page.css is included */
+}
+
+ul.DTTT_dropdown.dropdown-menu li:hover a {
+	background-color: #0088cc;
+	color: white !important;
+}
+
+/* TableTools information display */
+div.DTTT_print_info.modal {
+	height: 150px;
+	margin-top: -75px;
+	text-align: center;
+}
+
+div.DTTT_print_info h6 {
+	font-weight: normal;
+	font-size: 28px;
+	line-height: 28px;
+	margin: 1em;
+}
+
+div.DTTT_print_info p {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+
+
+/*
+ * FixedColumns styles
+ */
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_LeftFootWrapper table,
+table.DTFC_Cloned tr.even {
+	background-color: white;
+}
+
+div.DTFC_LeftHeadWrapper table {
+	margin-bottom: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+div.DTFC_LeftHeadWrapper table thead tr:last-child th:first-child,
+div.DTFC_LeftHeadWrapper table thead tr:last-child td:first-child {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+div.DTFC_LeftBodyWrapper table {
+	border-top: none;
+	margin-bottom: 0 !important;
+}
+
+div.DTFC_LeftBodyWrapper tbody tr:first-child th,
+div.DTFC_LeftBodyWrapper tbody tr:first-child td {
+	border-top: none;
+}
+
+div.DTFC_LeftFootWrapper table {
+	border-top: none;
+}
+
+
+/*****inserite da me ***************/
+.datatableth{margin-left:0;}

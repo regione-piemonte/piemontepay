@@ -1,0 +1,176 @@
+
+// Global values
+// --------------------------------------------------
+
+// Grays
+// -------------------------
+@black:                 #000;
+@grayDarker:            #333D46;
+@grayDark:              #838D99;
+@gray:                  #CCD1D7;
+@grayLight:             #d7d7d7;
+@grayLighter:           #F1F1F1;
+@grayBorder:            #d7d7d7 ;
+@white:                 #fff;
+
+
+// Accent colors
+// -------------------------
+@blue:                  #0153A9;
+@blueDark:              #0a386e;
+@green:                 #77c723;
+@red:                   #e63b3d;
+@yellow:                #ffbc09;
+@orange:                #f89406;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
+
+// Links
+// -------------------------
+@linkColor:             #496684;
+@linkColorHover:        darken(@linkColor, 15%);
+
+
+// Typography
+// -------------------------
+@sansFontFamily:        Arial, "Helvetica Neue", Helvetica, Verdana, sans-serif;
+@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+
+@baseFontSize:          12px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        20px;
+@altFontFamily:         @serifFontFamily;
+
+@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+@headingsFontWeight:    bold;    // instead of browser default, bold
+@headingsColor:         inherit; // empty to use BS default, @textColor
+
+
+// Component sizing
+// -------------------------
+// Based on 14px font-size and 20px line-height
+
+@fontSizeLarge:         @baseFontSize * 1.25; // ~16px
+@fontSizeSmall:         @baseFontSize * 0.85; // ~10px
+@fontSizeMini:          @baseFontSize * 0.75; // ~9px
+
+@paddingExtraLarge:     17px 22px; 
+@paddingLarge:          9px 17px; // 44px
+@paddingdefault:		7px 14px;
+@paddingSmall:          2px 5px;  // 26px
+@paddingMini:           0 6px;   // 22px
+
+
+@baseBorderRadius:      0px;
+@borderRadiusLarge:     4px;
+@borderRadiusSmall:     2px;
+
+@space10: 10px;
+@space20: 20px;
+@space30: 30px;
+@space40: 40px;
+@space50: 50px;
+
+// Tables
+// -------------------------
+@tableBackground:                   transparent; // overall background-color
+@tableBackgroundAccent:             #f9f9f9; // for striping
+@tableBackgroundHover:              #FFEBB8; // for hover
+@tableBorder:                       @grayBorder; // table and cell border
+
+// Buttons
+// -------------------------
+@btnBackground:                     #F8F9FB;
+@btnBackgroundHighlight:            #BFC4C8;
+@btnBorder:                         @grayLight; /*#A7B0B7; #333D46 #000000 #838D99;*/
+
+// Navbar
+// -------------------------
+@navbarCollapseWidth:             979px;
+@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+
+@navbarHeight:                    40px;
+@navbarBackgroundHighlight:       #ffffff;
+@navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
+@navbarBorder:                    darken(@navbarBackground, 12%);
+
+@navbarText:                      #777;
+@navbarLinkColor:                 #777;
+@navbarLinkColorHover:            @grayDark;
+@navbarLinkColorActive:           @gray;
+@navbarLinkBackgroundHover:       transparent;
+@navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
+
+@warningText:             @black;
+@warningBackground:       #f1af00;
+@warningBorder:           #f1af00;
+@iconWarningPath:          "im/rupar/iconWarning.gif";
+
+@errorText:               @black;
+@errorBackground:         @red;
+@errorBorder:             @red;
+@iconErrorPath:          "im/rupar/iconError.gif";
+
+
+@successText:             @black;
+@successBackground:       @green;
+@successBorder:           @green;
+@iconSuccessPath:          "im/rupar/iconSuccess.gif";
+
+
+// GRID
+// --------------------------------------------------
+
+// Default 940px grid
+// -------------------------
+@gridColumns:             12;
+@gridColumnWidth:         60px;
+@gridGutterWidth:         20px;
+@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+
+// 1200px min
+@gridColumnWidth1200:     70px;
+@gridGutterWidth1200:     30px;
+@gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
+
+// 768px-979px
+@gridColumnWidth768:      42px;
+@gridGutterWidth768:      20px;
+@gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+
+
+// Fluid grid
+// -------------------------
+@fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
+@fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+
+// 1200px min
+@fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
+@fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
+
+// 768px-979px
+@fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
+@fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------- CSS  --------------------------------------------------------------//
+// Fluid layouts (left aligned, with sidebar, min- & max-width content)
+.container-fluid {padding-right: @gridGutterWidth; padding-left: @gridGutterWidth;}
+.pagination ul li a:hover,.pagination ul .active a,.pagination ul .active span{background-color:@white}
+.pagination ul li a,.pagination ul li span{background-color:@white;}
+.breadcrumb{background-color: @blue;}
+.breadcrumb li .divider{color:@grayLight;}
+.breadcrumb li a{ color:@grayLight;}
+.breadcrumb .active{color:@white}
+
+.label,.badge{color: @white;background-color: @blue;}
+.btn-collapse{color:@white;text-shadow:0 -1px 0 rgba(0,0,0,0.25);background-color:@blue;background-image:-moz-linear-gradient(top,@blueDark,@blue);background-image:-webkit-gradient(linear,0 0,0 100%,from(@blueDark),to(@blue));background-image:-webkit-linear-gradient(top,@blueDark,@blue);background-image:-o-linear-gradient(top,@blueDark,@blue);background-image:linear-gradient(to bottom,@blueDark,@blue);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='@blueDark',endColorstr='@blue',GradientType=0);border-color:@blue @blue #0f4a7a;border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);*background-color:@blue;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false)}
+.btn-collapse:hover,.btn-collapse:active,.btn-collapse.active,.btn-collapse.disabled,.btn-collapse[disabled]{color:#fff;background-color:@blue;*background-color:#1465a7}
+
+.marginLeft1{margin-left:10px;}
+.marginLeft2{margin-left:20px;}
+.marginLeft3{margin-left:30px;}
+.marginLeft4{ margin-left:40px;}
+.marginLeft5{margin-left:50px;}
