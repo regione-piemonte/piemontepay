@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  JBoss Server Configuration                                           -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: postgres-ds.xml 71535 2008-04-01 07:05:03Z adrian@jboss.org $ -->
+<!-- ==================================================================== -->
+<!--  Datasource config for Postgres                                      -->
+<!-- ==================================================================== -->
+
+
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>mdpcoreservicessrv/jdbc/MdpnewDS</jndi-name>
+    <!--connection-url>jdbc:postgresql://tst-domdb69.csi.it:5432/PGDEV01</connection-url-->
+	<connection-url>jdbc:postgresql://tst-domdb67.csi.it:5432/PGTST03</connection-url>
+    <driver-class>org.postgresql.Driver</driver-class>
+    <connection-property name="loginTimeout">5</connection-property>
+    <connection-property name="socketTimeout">40</connection-property>
+    <user-name>mdpnew</user-name>
+    <!--password>Sai7Da8a</password-->
+	<password>Kai7ugh3</password>
+    <new-connection-sql>select 1</new-connection-sql>
+    <check-valid-connection-sql>select 1</check-valid-connection-sql>
+    <min-pool-size>20</min-pool-size>
+    <max-pool-size>80</max-pool-size>
+    <background-validation>false</background-validation>
+    <validate-on-match>true</validate-on-match>
+    <valid-connection-checker-class-name>org.jboss.resource.adapter.jdbc.vendor.PostgreSQLValidConnectionChecker</valid-connection-checker-class-name>
+    <prefill>true</prefill>
+    <metadata>
+      <type-mapping>PostgreSQL 8.0</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+</datasources>

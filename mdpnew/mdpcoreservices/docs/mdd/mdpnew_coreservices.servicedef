@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="mdpnew" versione="1.0.0" codProdotto="mdpnew" codComponente="mdpcoreservices">
+  <operations name="getModalitaPagamento" returnType="//@types/@types.7" throws="//@types/@types.11 //@types/@types.8 //@types/@types.10" since="">
+    <params name="transazione" type="//@types/@types.5"/>
+    <params name="idApplicazione">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="initTransazione" returnType="//@types/@types.5" throws="//@types/@types.11 //@types/@types.8 //@types/@types.10 //@types/@types.9" since="">
+    <params name="idApplicazione">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="idBasket">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="startTransazione" throws="//@types/@types.11 //@types/@types.8 //@types/@types.10" since="">
+    <params name="transazione" type="//@types/@types.5"/>
+    <params name="transazioneExtraAttributes" type="//@types/@types.6"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <operations name="getStatoTransazione" returnType="//@types/@types.5" throws="//@types/@types.11 //@types/@types.8 //@types/@types.10" since="">
+    <params name="idTransazione">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="getApplication" returnType="//@types/@types.2" throws="//@types/@types.11" since="">
+    <params name="idApplicazione">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="testResources">
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <operations name="getComuneProvincia" returnType="//@types/@types.1" throws="//@types/@types.11">
+    <params name="codiceIstatComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="getPagonetCustomData" returnType="//@types/@types.4" throws="//@types/@types.11">
+    <params name="idApplicazione">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="idGateway">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="isAlive">
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="TransazioneExtraAttribute">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.dto.TransazioneExtraAttribute"/>
+      </annotations>
+      <features name="extraAttributeId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="name">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="transactionId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="value">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="PartAnComune">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.dto.PartAnComune"/>
+      </annotations>
+      <features name="DStart">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="DStop">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="RStatus">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descComune">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descProvincia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descRegione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idComune">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="idComuneNext">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="idComuneNextNull">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="idComunePrev">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="idComunePrevNull">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="istatComune">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="istatProvincia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="istatRegione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="siglaProv">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Application">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.dto.Application"/>
+      </annotations>
+      <features name="applicationname">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cliente">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="esercemail">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="id">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="note">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="numeroverde">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="progetto">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="redirectNewmdp">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="referentecsi">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="validoAl">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="validoDal">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="AppGateway">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.paymentmanager.local.AppGateway"/>
+      </annotations>
+      <features name="applicationId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="gatewayDescription">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="gatewayId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="gatewayServiceName">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="merchantId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="paymentmodeDescription">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="paymentmodeId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="sogliaMax">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="sogliaMin">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="tipoCommissione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="valoreComm">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="valoreMax">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="valoreMin">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Vapplicationcomuni">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.dto.Vapplicationcomuni"/>
+      </annotations>
+      <features name="applicationId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceimm">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descComune">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="gatewayId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="merchantid">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Transazione">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.dto.Transazione"/>
+      </annotations>
+      <features name="amount">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="applicationId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="authornumber">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="basketId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="buyerEmail">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="buyercodfisc">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="buyername">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="ccy">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="changestatedate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="clientipaddress">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="commissioniApplicate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="commissioniApplicateNull">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="errcode">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="finishDate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="gatewayId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="gatewaypaymodeid">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="incassokoerrormessage">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="initDate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="intestatariocc">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="language">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="merchantId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="mscsorderid">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="mscsorderidNull">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="oldstate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.12"/>
+      </features>
+      <features name="opernumber">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="paymentid">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="payurl">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="pgresultcode">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="providertimestamp">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="rispcomp">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="startDate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="transactionId">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="userhaschange">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="Array of TransazioneExtraAttribute" componentType="//@types/@types.0"/>
+    <types xsi:type="typedef:TypedArray" name="Array of AppGateway" componentType="//@types/@types.3"/>
+    <types xsi:type="typedef:Exception" name="NamingException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="javax.naming.NamingException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="DatatypeConfigurationException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="javax.xml.datatype.DatatypeConfigurationException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="CreateException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="javax.ejb.CreateException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="DaoException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.mdp.core.business.exceptions.DaoException"/>
+      </annotations>
+    </types>
+  </types>
+  <annotations source="servicedef">
+    <details key="java-fqn" value="it.csi.mdp.core.interfacecsi.IMdpCoreCsi"/>
+  </annotations>
+</servicedef:ServiceDef>

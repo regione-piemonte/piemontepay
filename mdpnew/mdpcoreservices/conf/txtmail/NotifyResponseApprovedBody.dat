@@ -1,0 +1,63 @@
+Il Servizio dei Pagamenti On Line di CSI Piemonte ha ricevuto la vostra richiesta di autorizzazione per un ordine di pagamento a favore di un esercente convenzionato.		 
+La richiesta ha avuto esito [$ESITO$].
+
+Dati dell'Esercente o Ente per cui e' stata fatta la transazione  		 		 		 
+      Codice Esercente: [$MERCHANTCODE$]
+      
+
+Dati della transazione	 
+      Data ora: [$TIMESTAMP$]
+      Divisa: [$CCY$]
+      Importo: [$AMOUNT$]
+      Codice Merchant attribuito dall'esercente all'ordine di pagamento: [$IDTRANSAZIONE$]
+      Codice attribuito da [$PROVIDER$] all'ordine di pagamento: [$NUMOPER$]
+      Codice autorizzativo assegnato dal circuito di pagamento: [$NUMAUTOR$]
+
+
+Dati dell'acquirente (se reperibili)
+      Sistema di pagamento utilizzato: [$PAYMENTMODE$]
+      Nome dell'acquirente: [$BUYERNAME$]
+      Indirizzo email dell'acquirente: [$BUYERMAIL$]
+		 
+Dati aggiuntivi:
+
+Note		 		 		 		 		 		 		 		 		 
+Il Vostro pagamento  stato autorizzato dalla Banca/Istituto emittente la carta di credito utilizzata; l'importo da pagare e' stato impegnato per acquistare il prodotto/servizio identificato dal codice assegnato al Vostro ordine di acquisto dall'esercente.
+L'esercente, secondo le proprie regole operative, potra' decidere di addebitare la Vostra carta dell'importo del pagamento, subito o, più probabilmente, successivamente, al momento della spedizione.
+L'addebito sara' effettuato sul conto della carta; se tardasse, cio' dipendera' dalle scelte dell'esercente.
+Il successivo addebito sul Vostro conto corrente bancario dipende dalle modalita' e dalle condizioni applicate dalla Vostra banca. 		 		 		 		 
+
+
+-----------------------------------------------------------------------------
+
+
+CSI Piemonte Payment Service has received your authorization request for a payment order made at a contracted merchant.
+
+The authorization request has been Approved
+
+Shop detail:
+      Merchant Code: [$MERCHANTCODE$]
+
+Payment order detail:
+      Date and Time: [$TIMESTAMP$]
+      Currency: [$CCY$]
+      Amount: [$AMOUNT$]
+      Merchant order identifier code assigned by the merchant to the payment order: [$IDTRANSAZIONE$]
+      The order identifier code assigned by [$PROVIDER$] to the payment order: [$NUMOPER$]
+      Authorization code assigned by the interchange: [$NUMAUTOR$]
+
+
+Buyer information (if available)
+      Payment method selected : [$PAYMENTMODE$]
+      Buyer name: [$BUYERNAME$]
+      Buyer email address: [$BUYERMAIL$]
+
+Additional information
+
+
+Your purchase order has been sent to the merchant, that will process it according to his procedures. Delivery times depend on the kind of good/service purchased and the procedures used by the merchant: some goods/services (such as software, music and other products downloadable via Web), will be immediately available, where as products and services requiring physical delivery will be received depending on the shipping date and the shipping option selected. You might need to wait some days for delivery.
+
+Your payment has been authorized by the bank/institute that issued your credit card. The amount to be paid has been assigned to the good/service indicated by the code given by the merchant to your purchase order. 
+
+
+-----------------------------------------------------------------------------

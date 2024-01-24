@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!--<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+   "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+   -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+<bean name="corePaymentBean" class="it.csi.mdp.core.business.paymentmanager.bean.CorePaymentBean">
+</bean>
+
+<bean name="nodoSPCBean" class="it.csi.mdp.core.business.paymentmanager.bean.NodoSpcBean">
+</bean>
+
+ <bean id="paymentManagerLocal" lazy-init="true"
+        class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        
+    <property name="jndiName" value="mdppaymentsrv/ejb/PaymentManagerLocal" />    								 
+    <property name="businessInterface" value="it.csi.mdp.core.business.paymentmanager.PaymentLocal" />
+    <!-- property name="refreshHomeOnConnectFailure" value="true"/>
+    <property name="cacheHome" value="true"/>
+    <property name="lookupHomeOnStartup" value="false"/> -->
+    <property name="resourceRef" value="false" />
+  </bean>
+ 
+</beans>

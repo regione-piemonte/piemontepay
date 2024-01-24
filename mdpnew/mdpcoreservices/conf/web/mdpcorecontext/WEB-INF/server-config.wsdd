@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="attachments"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="axis.sendMinimizedElements" value="true"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <service name="Version2" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <!--<service name="MyService" provider="java:RPC">
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="className" value="samples.userguide.example3.MyService"/>
+ </service>-->
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+
+ <service name="MdpCoreService" provider="Handler">
+ <parameter name="wsdlPortType" value="MdpCoreService" />
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="defPDResource" value="/defpdelegata.xml"/>
+  <parameter name="className" value="it.csi.mdp.core.interfacecsi.IMdpCoreCsi"/>
+  <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
+
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Application" qname="ns1:Application" xmlns:ns1="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Applicationcustomfields" qname="ns2:Applicationcustomfields" xmlns:ns2="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ApplicationcustomfieldsPk" qname="ns3:ApplicationcustomfieldsPk" xmlns:ns3="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ApplicationDetail" qname="ns4:ApplicationDetail" xmlns:ns4="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ApplicationDetailPk" qname="ns5:ApplicationDetailPk" xmlns:ns5="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ApplicationPk" qname="ns6:ApplicationPk" xmlns:ns6="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Basket" qname="ns7:Basket" xmlns:ns7="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.BasketPk" qname="ns8:BasketPk" xmlns:ns8="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Bckofficegroups" qname="ns9:Bckofficegroups" xmlns:ns9="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.BckofficegroupsPk" qname="ns10:BckofficegroupsPk" xmlns:ns10="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Commission" qname="ns11:Commission" xmlns:ns11="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.CommissionPk" qname="ns12:CommissionPk" xmlns:ns12="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.DComuniAttiviEChiusi" qname="ns13:DComuniAttiviEChiusi" xmlns:ns13="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.DComuniAttiviEChiusiPk" qname="ns14:DComuniAttiviEChiusiPk" xmlns:ns14="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Gateway" qname="ns15:Gateway" xmlns:ns15="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Gatewaydetail" qname="ns16:Gatewaydetail" xmlns:ns16="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.GatewaydetailPk" qname="ns17:GatewaydetailPk" xmlns:ns17="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.GatewayPk" qname="ns18:GatewayPk" xmlns:ns18="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Icicodiciimm" qname="ns19:Icicodiciimm" xmlns:ns19="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.IcicodiciimmPk" qname="ns20:IcicodiciimmPk" xmlns:ns20="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Item" qname="ns21:Item" xmlns:ns21="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ItemExtraAttribute" qname="ns22:ItemExtraAttribute" xmlns:ns22="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ItemExtraAttributePk" qname="ns23:ItemExtraAttributePk" xmlns:ns23="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.ItemPk" qname="ns24:ItemPk" xmlns:ns24="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Language" qname="ns25:Language" xmlns:ns25="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.LanguagePk" qname="ns26:LanguagePk" xmlns:ns26="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.MdpBckofficeuserappmapping" qname="ns27:MdpBckofficeuserappmapping" xmlns:ns27="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.MdpBckofficeuserappmappingPk" qname="ns28:MdpBckofficeuserappmappingPk" xmlns:ns28="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.MdpCurrency" qname="ns29:MdpCurrency" xmlns:ns29="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.MdpCurrencyPk" qname="ns30:MdpCurrencyPk" xmlns:ns30="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.OptAttr" qname="ns31:OptAttr" xmlns:ns31="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.OptAttrExtraAttribute" qname="ns32:OptAttrExtraAttribute" xmlns:ns32="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.OptAttrExtraAttributePk" qname="ns33:OptAttrExtraAttributePk" xmlns:ns33="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.OptAttrPk" qname="ns34:OptAttrPk" xmlns:ns34="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PartAnComune" qname="ns35:PartAnComune" xmlns:ns35="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PartAnComunePk" qname="ns36:PartAnComunePk" xmlns:ns36="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PaymentGateway" qname="ns37:PaymentGateway" xmlns:ns37="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PaymentGatewayPk" qname="ns38:PaymentGatewayPk" xmlns:ns38="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Paymentmode" qname="ns39:Paymentmode" xmlns:ns39="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PaymentmodePk" qname="ns40:PaymentmodePk" xmlns:ns40="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Pdpstatiesteri" qname="ns41:Pdpstatiesteri" xmlns:ns41="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PdpstatiesteriPk" qname="ns42:PdpstatiesteriPk" xmlns:ns42="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PeasTableId" qname="ns43:PeasTableId" xmlns:ns43="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.PeasTableIdPk" qname="ns44:PeasTableIdPk" xmlns:ns44="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StatiEsteriMin" qname="ns45:StatiEsteriMin" xmlns:ns45="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StatiEsteriMinPk" qname="ns46:StatiEsteriMinPk" xmlns:ns46="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StatoTransazione" qname="ns47:StatoTransazione" xmlns:ns47="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StatoTransazionePk" qname="ns48:StatoTransazionePk" xmlns:ns48="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StrumentoPagamento" qname="ns49:StrumentoPagamento" xmlns:ns49="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.StrumentoPagamentoPk" qname="ns50:StrumentoPagamentoPk" xmlns:ns50="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.Transazione" qname="ns51:Transazione" xmlns:ns51="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.TransazioneExtraAttribute" qname="ns52:TransazioneExtraAttribute" xmlns:ns52="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.TransazioneExtraAttributePk" qname="ns53:TransazioneExtraAttributePk" xmlns:ns53="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.dto.TransazionePk" qname="ns54:TransazionePk" xmlns:ns54="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.paymentmanager.local.AppGateway" qname="ns84:AppGateway" xmlns:ns84="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.paymentmanager.local.AppGatewayInformativa" qname="ns85:AppGatewayInformativa" xmlns:ns85="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.ApplicationcustomfieldsDaoException" qname="ns55:ApplicationcustomfieldsDaoException" xmlns:ns55="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.ApplicationDaoException" qname="ns56:ApplicationDaoException" xmlns:ns56="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.ApplicationDetailDaoException" qname="ns57:ApplicationDetailDaoException" xmlns:ns57="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.BasketDaoException" qname="ns58:BasketDaoException" xmlns:ns58="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.BckofficegroupsDaoException" qname="ns59:BckofficegroupsDaoException" xmlns:ns59="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.CommissionDaoException" qname="ns60:CommissionDaoException" xmlns:ns60="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.DaoException" qname="ns61:DaoException" xmlns:ns61="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.DComuniAttiviEChiusiDaoException" qname="ns62:DComuniAttiviEChiusiDaoException" xmlns:ns62="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.GatewayDaoException" qname="ns63:GatewayDaoException" xmlns:ns63="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.GatewaydetailDaoException" qname="ns64:GatewaydetailDaoException" xmlns:ns64="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.IcicodiciimmDaoException" qname="ns65:IcicodiciimmDaoException" xmlns:ns65="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.ItemDaoException" qname="ns66:ItemDaoException" xmlns:ns66="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.ItemExtraAttributeDaoException" qname="ns67:ItemExtraAttributeDaoException" xmlns:ns67="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.LanguageDaoException" qname="ns68:LanguageDaoException" xmlns:ns68="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.MdpBckofficeuserappmappingDaoException" qname="ns69:MdpBckofficeuserappmappingDaoException" xmlns:ns69="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.MdpCurrencyDaoException" qname="ns70:MdpCurrencyDaoException" xmlns:ns70="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.OptAttrDaoException" qname="ns71:OptAttrDaoException" xmlns:ns71="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.OptAttrExtraAttributeDaoException" qname="ns72:OptAttrExtraAttributeDaoException" xmlns:ns72="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.PartAnComuneDaoException" qname="ns73:PartAnComuneDaoException" xmlns:ns73="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.PaymentGatewayDaoException" qname="ns74:PaymentGatewayDaoException" xmlns:ns74="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.PaymentmodeDaoException" qname="ns75:PaymentmodeDaoException" xmlns:ns75="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.PdpstatiesteriDaoException" qname="ns76:PdpstatiesteriDaoException" xmlns:ns76="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.PeasTableIdDaoException" qname="ns77:PeasTableIdDaoException" xmlns:ns77="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.StatiEsteriMinDaoException" qname="ns78:StatiEsteriMinDaoException" xmlns:ns78="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.StatoTransazioneDaoException" qname="ns79:StatoTransazioneDaoException" xmlns:ns79="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.StrumentoPagamentoDaoException" qname="ns80:StrumentoPagamentoDaoException" xmlns:ns80="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.TransazioneDaoException" qname="ns81:TransazioneDaoException" xmlns:ns81="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.business.exceptions.TransazioneExtraAttributeDaoException" qname="ns82:TransazioneExtraAttributeDaoException" xmlns:ns82="urn:MdpCoreService"/>
+<beanMapping languageSpecificType="java:it.csi.mdp.core.interfacecxf.MissingParameterException" qname="ns83:MissingParameterException" xmlns:ns83="urn:MdpCoreService"/>
+
+ </service>
+ 
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

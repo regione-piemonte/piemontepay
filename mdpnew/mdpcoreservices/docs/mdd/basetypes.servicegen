@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicegen:BaseTypes xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" xmlns:typedef="http://www.csi.it/mddtools/typedef">
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIInteger"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIBoolean" code="CSIBoolean"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIByte" code="CSIByte"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIDate" code="CSIDate"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIDouble" code="CSIDouble"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIFloat" code="CSIFloat"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSILong" code="CSILong"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIString" code="CSIString"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedInteger" nillable="true"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedBoolean" code="CSIBoolean" nillable="true"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedDouble" code="CSIDouble" nillable="true"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedFloat" code="CSIFloat" nillable="true"/>
+  <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedLong" code="CSILong" nillable="true"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIInteger" componentType="//@baseTypes.0"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIBoolean" componentType="//@baseTypes.1"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIByte" componentType="//@baseTypes.2"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIDate" componentType="//@baseTypes.3"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIDouble" componentType="//@baseTypes.4"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIFloat" componentType="//@baseTypes.5"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSILong" componentType="//@baseTypes.6"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIString" componentType="//@baseTypes.7"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedInteger" componentType="//@baseTypes.8"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedBoolean" componentType="//@baseTypes.9"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedDouble" componentType="//@baseTypes.10"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedFloat" componentType="//@baseTypes.11"/>
+  <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedLong" componentType="//@baseTypes.12"/>
+</servicegen:BaseTypes>

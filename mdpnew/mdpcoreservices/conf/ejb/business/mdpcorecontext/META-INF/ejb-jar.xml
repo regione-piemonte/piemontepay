@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ejb-jar id="ejb-jar_ID" version="2.1"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<description><![CDATA[No Description.]]></description>
+	<display-name><![CDATA[]]>
+	</display-name>
+
+	<enterprise-beans>
+		<session>
+			<ejb-name>PaymentManager</ejb-name>
+			<home>it.csi.mdp.core.business.paymentmanager.PaymentHome</home>
+			<remote>it.csi.mdp.core.business.paymentmanager.Payment</remote>
+			<local-home>it.csi.mdp.core.business.paymentmanager.PaymentLocalHome</local-home>
+			<local>it.csi.mdp.core.business.paymentmanager.PaymentLocal</local>
+			<ejb-class>it.csi.mdp.core.business.paymentmanager.PaymentSession</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+
+		<session>
+			<display-name>PA_MdpCoreService</display-name>
+			<ejb-name>PA_MdpCoreService</ejb-name>
+			<home>it.csi.csi.porte.ejb20.PortaApplicativaHome</home>
+			<remote>it.csi.csi.porte.ejb20.PortaApplicativaEJB</remote>
+			<ejb-class>it.csi.csi.porte.ejb20.PortaApplicativaBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+			<env-entry>
+				<description />
+				<env-entry-name>defpa</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>/defpaejb.xml</env-entry-value>
+			</env-entry>
+			<ejb-local-ref>
+				<description>reference all bean che implementa il servizio</description>
+				<ejb-ref-name>PaymentManager</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+				<local-home>it.csi.mdp.core.business.paymentmanager.PaymentLocalHome</local-home>
+				<local>it.csi.mdp.core.business.paymentmanager.PaymentLocal</local>
+				<ejb-link>PaymentManager</ejb-link>
+			</ejb-local-ref>
+
+		</session>
+
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		<container-transaction>
+			<method>
+				<ejb-name>PaymentManager</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>RequiresNew</trans-attribute>
+		</container-transaction>
+		<container-transaction>
+			<method>
+				<ejb-name>PA_MdpCoreService</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>RequiresNew</trans-attribute>
+		</container-transaction>
+	</assembly-descriptor>
+</ejb-jar>
+
+
+
+

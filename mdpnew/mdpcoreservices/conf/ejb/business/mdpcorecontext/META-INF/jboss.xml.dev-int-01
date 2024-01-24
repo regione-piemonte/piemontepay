@@ -1,0 +1,50 @@
+
+<!DOCTYPE jboss PUBLIC
+     "-//JBoss//DTD JBOSS 4.2//EN"
+     "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
+<jboss>
+  <enterprise-beans>
+     
+     <session>
+        <ejb-name>PaymentManager</ejb-name>
+        <jndi-name>mdppaymentsrv/ejb/PaymentManager</jndi-name>
+        <local-jndi-name>mdppaymentsrv/ejb/PaymentManagerLocal</local-jndi-name>
+              <exception-on-rollback>true</exception-on-rollback>
+               <!-- 
+              <configuration-name>Clustered Stateless SessionBean</configuration-name>
+               -->
+
+      <method-attributes>
+        <method>
+          <method-name>*</method-name>
+          <transaction-timeout>120</transaction-timeout>
+        </method>
+         </method-attributes>
+     </session>
+     
+     <session>
+        <ejb-name>PA_MdpCoreService</ejb-name>
+        <jndi-name>mdppaymentsrv/ejb/PA_MdpCoreService</jndi-name>
+          <exception-on-rollback>true</exception-on-rollback>
+          <!-- 
+              <configuration-name>Clustered Stateless SessionBean</configuration-name>
+             --> 
+     </session>
+     
+  </enterprise-beans>
+<!-- 
+   <container-configurations>
+
+    <container-configuration extends="Clustered Stateless SessionBean">
+      <container-name>Clustered Stateless SessionBean</container-name>
+      <container-pool-conf>
+      	<MinimumSize>10</MinimumSize>
+        <MaximumSize>100</MaximumSize>
+      </container-pool-conf>
+     
+    </container-configuration>
+
+  </container-configurations>
+  
+ -->
+</jboss>     

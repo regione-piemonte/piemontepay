@@ -1,0 +1,14 @@
+build/
+.classpath
+.project
+dist/
+lib/
+bin
+.settings
+*.iml
+/src/extlib/mdpcoreinterfaces.jar
+/src/extlib/mdpdao.jar
+/src/extlib/mdpcoreinterfaces.jar
+/src/extlib/mdpdao.jar
+/src/extlib/mdpcoreinterfaces.jar
+/src/extlib/mdpdao.jar
