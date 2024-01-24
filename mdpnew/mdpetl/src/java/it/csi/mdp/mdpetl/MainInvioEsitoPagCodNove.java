@@ -1,0 +1,55 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+package it.csi.mdp.mdpetl;
+
+import java.util.concurrent.TimeUnit;
+
+import it.csi.mdp.mdpetl.application.InvioEsitoPagCodNove;
+import it.csi.mdp.mdpetl.util.LogUtil;
+import it.csi.mdp.mdpetl.util.StringUtils;
+
+/**
+ *
+ */
+
+public class MainInvioEsitoPagCodNove {
+
+	private static LogUtil log = new LogUtil ( MainInvioEsitoPagCodNove.class );
+
+	public static void main ( String [] args ) {
+		long time = System.nanoTime ();
+		try {
+			elabora ( args );
+		} catch ( Exception exception ) {
+			exception.printStackTrace (); // il male, ma c'era nell'altro main
+		} finally {
+			time = System.nanoTime () - time;
+			long milliseconds = TimeUnit.MILLISECONDS.convert ( time, TimeUnit.NANOSECONDS ) % 1000;
+			long seconds = TimeUnit.SECONDS.convert ( time, TimeUnit.NANOSECONDS );
+			System.out.printf ( "Elapsed %d ns: %02d:%02d:%02d.%03d hh:mm:ss", time, ( seconds / 3600 ) % 60, ( seconds / 60 ) % 60, seconds % 60,
+				milliseconds );
+		}
+		System.out.println ( "Fine elaborazione." );
+		System.exit ( 0 );
+	}
+
+	private static void elabora ( String [] args ) {
+		elaborateLocal ();
+	}
+
+	private static void elaborateLocal () {
+		System.out.println ( "Inizio elaborazione." );
+		try {
+			byte [] key = StringUtils.getKeyDB ();
+			new InvioEsitoPagCodNove ().elaboraInvioEsito ( key );
+		} catch ( Exception e ) {
+			log.error ( "main", e );
+			e.printStackTrace ();
+			System.exit ( -1 );
+		}
+	}
+}

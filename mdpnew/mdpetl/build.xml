@@ -1,0 +1,233 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<project name="mdpetl" default="default" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" basedir=".">
+	<property file="buildfiles/build.properties" />
+	<property file="buildfiles/${target}.properties" />
+	
+	<target name="default" description="Eseguire il build per l'environment
+	                       specificato a linea di comando con
+	                       -Dtarget=${target} o per tutti gli
+	                       environment (se non specificato).">
+
+
+			<echo message="target: ${server}" />
+			<echo message="target: ${target}" />
+
+			<antcall target="clean-all" />
+			<antcall target="distribution" />
+	</target>
+
+	<target name="init" description="Inizializza lo script Ant">
+		<tstamp/>
+
+		<condition property="target" value="${default_target}">
+			<not>
+				<isset property="target"/>
+			</not>
+		</condition>
+
+		<echo>TARGET  ${target} </echo>
+		<loadproperties srcFile="buildfiles/${target}.properties" />
+
+		<property environment="env"/>
+		<echo message="${env.JAVA_HOME}"/>
+
+		<mkdir dir="${dist}" /> 
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/lib"/>		
+		<mkdir dir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/config"/>
+		<mkdir dir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/log"/>
+		<mkdir dir="${lib}" />
+		<mkdir dir="${classes}" />
+	</target>
+
+	<target name="resolve-dependencies" description="configurazione di ivy" depends="init">
+		<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		<ivy:resolve   file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+
+
+	<target name="load-dependencies" depends="resolve-dependencies" >
+		<ivy:retrieve pattern="${lib}/[artifact].[type]" />
+	</target>
+
+
+	<target name="compile-all" depends="load-dependencies" description="Compila i sorgenti nella directory ${classes}">
+		<javac srcdir="${src}" destdir="${classes}" source="1.5" target="1.5">
+			<classpath>
+				<fileset dir="${lib}" includes="${libInclude}"/>
+				<fileset dir="${libExt}" includes="${libIncludeExt}"/>
+	
+			</classpath>
+		</javac>
+	</target>
+
+
+	<target name="create-jar" depends="compile-all">
+		<jar destfile="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/lib/${project}.jar"
+		       basedir="${classes}"
+		  	   includes="**/*.class"
+		       excludes="**/*.properties,**/*.xml"
+		  />
+	</target>
+
+	<target name="distribution" depends="create-jar" >
+		<echo message=" lista librerie da copiare 	${libInclude}" />
+
+		<copy todir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/lib/" verbose="true" overwrite="true">	
+			<fileset dir="${lib}" includes="${libInclude}"/>
+		</copy>
+
+		<copy todir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/lib/" verbose="true" overwrite="true">	
+			<fileset dir="${libExt}" includes="${libIncludeExt}"/>
+		</copy>
+
+		<copy todir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/config" overwrite="true">
+			<fileset dir="${config}" includes="**/*.properties"/>
+			<fileset dir="${config}" includes="**/*.xml"/>
+			<fileset dir="${config}" includes="**/*.xsd"/>
+			<fileset dir="${config}" includes="**/*.txt"/>
+		</copy>
+		
+		
+		<replace dir="${dist}/${target}/${prodotto}-${lineaCliente}/mdpetl/config" summary="yes" 
+			replacefilterfile="buildfiles/${target}.properties" />
+		
+		
+		<tar tarfile="${dist}/${target}/${project}-${version}.tar"    
+			    basedir="${dist}/${target}" excludes="**/*.tar" />
+		
+		<delete dir="${dist}/${target}/" includeemptydirs="true" excludes="**/*.tar" />
+			
+	</target>
+
+	
+	<target name="distribution-dev-int-01">
+			<antcall target="distribution">
+				<param name="target" value="dev-int-01"/>
+			</antcall>
+		</target>
+	
+	<target name="distribution-tst-int-01">
+		<antcall target="distribution">
+			<param name="target" value="tst-int-01"/>
+		</antcall>
+	</target>
+
+	<target name="distribution-coll-int-01">
+		<antcall target="distribution">
+			<param name="target" value="coll-int-01"/>
+		</antcall>
+	</target>
+	
+	<target name="distribution-prod-int-01">
+		<antcall target="distribution">
+			<param name="target" value="prod-int-01"/>
+		</antcall>
+	</target>
+	
+	
+	<!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-all                                        # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+	          depends="clean-archives,clean-cache,clean-classes,
+	                  clean-javadoc,clean-jsp,clean-temp,clean-dist" />
+		
+	<!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-cache                                      # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-cache"
+	          description="Rimuove la cartella di cache di Ivy e la lib.">
+	  	<echo>Sto cancellando  ${build}/cache ...</echo>
+	  	
+			<delete dir="${build}/cache" failonerror="no" />
+	  	<echo>Sto cancellando  ${lib} ...</echo>
+			<delete dir="${lib}" failonerror="no" />
+	  </target>
+	
+
+
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-temp                                       # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-temp"
+	          description="Rimuove la cartella dei files temporanei di build.">
+	    <delete dir="${temp}" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-archives                                  # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-archives"
+	          description="Rimuove la cartella degli archivi (war, ear, ...).">
+	    <delete dir="${build}/archives" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-dist                                       # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-dist"
+	          description="Rimuove la cartella delle distribuzioni.">
+	    <delete dir="${dist}" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-classes                                    # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-classes"
+	          description="Rimuove la cartella dei sorgenti compilati.">
+	    <delete dir="${classes}" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-javadoc                                    # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-javadoc"
+	          description="Rimuove la cartella temporanea dei javadoc.">
+	    <delete dir="${build}/javadoc" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: clean-jsp                                        # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="clean-jsp"
+	          description="Rimuove la cartella temporanea delle jsp compilate.">
+	    <delete dir="${build}/jsp" />
+	  </target>
+
+	  <!-- -->
+	  <!-- ############################################################# -->
+	  <!-- # [CLEAN]: _clean-web-inf                                   # -->
+	  <!-- ############################################################# -->
+	  <!-- -->
+	  <target name="_clean-web-inf"
+	          description="Rimuove il contenuto di lib e classes della
+	                       web application (per run locali).">
+	    <delete dir="${srcweb}/WEB-INF/classes" />
+	    <delete dir="${srcweb}/WEB-INF/lib" />
+	  </target>
+
+</project>

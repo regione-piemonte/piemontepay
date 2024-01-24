@@ -1,0 +1,85 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivy-module version="2.0">
+	<info organisation="csipiemonte" module="mdpetl" />
+	<dependencies>
+		<dependency org="apache" name="log4j" rev="1.2.8"/>
+	
+		<dependency org="apache" name="commons-lang" rev="2.5">
+			<artifact name="commons-lang-2.5" type="jar" />
+		</dependency> 
+		
+		<dependency org="apache" name="commons-codec" rev="1.6" />
+
+		<dependency org="others" name="thoughtworks" rev="1.3">
+	    	<artifact name="xstream-1.3" type="jar" />
+	    </dependency>
+
+		<dependency org="sun" name="activation" rev="1.0.2">
+	    	<artifact name="activation-1.0.2" type="jar" />
+	    </dependency>
+
+		<dependency org="postgresql" name="postgresql-jdbc" rev="9.0-801.jdbc3">
+			<artifact name="postgresql-9.0-801.jdbc3" type="jar"/>
+		</dependency>
+
+		<!-- Customizzazione librerie CXF [vedere http://jiradsp.csi.it:8081/browse/STDSA-307 -->
+		<dependency org="csipiemonte" name="cxf" rev="2.2.5" transitive="false" />
+		
+		
+		<!-- CXF Dependencies -->
+		<dependency org="apache" name="geronimo-saaj_1.3_spec" rev="1.0.1" />
+	
+		<dependency org="apache" name="geronimo-stax" rev="1.0" />
+
+		<dependency org="apache" name="soap" rev="2.3.1" />
+		
+		
+		<dependency org="apache" name="geronimo-activation" rev="1.1" />
+		<dependency org="apache" name="geronimo-annotation" rev="1.0" />
+		<dependency org="apache" name="geronimo-javamail" rev="1.4">
+			<artifact name="geronimo-javamail_1.4_spec-1.6" type="jar" />
+		</dependency>
+		<dependency org="apache" name="geronimo-jaxws" rev="2.1" />
+		<dependency org="apache" name="geronimo-ws" rev="2.0" />
+
+
+		<dependency org="others" name="xml-resolver" rev="1.2" />
+		<dependency org="others" name="xmlschema" rev="1.4.7" />
+
+		<dependency org="others" name="wstx-asl" rev="3.2.9" />
+		
+		<dependency org="apache" name="commons-io" rev="2.2"/>
+
+
+        
+		<!--<dependency org="sun" name="jaxp-api" rev="1.4" />-->
+		<!--<dependency org="sun" name="jaxp-ri" rev="1.4" />-->
+
+		<dependency org="sun" name="jaxb" rev="2.1.12">
+			<artifact name="jaxb1-impl-2.1.12" type="jar" />
+			<artifact name="jaxb-impl-2.1.12" type="jar" />
+			<artifact name="jaxb-api-2.1.12" type="jar" />
+			<artifact name="jaxb-xjc-2.1.12" type="jar" />
+		</dependency>
+		
+		
+		
+		<dependency org="apache" name="wss4j" rev="1.5.10" />
+		<dependency org="apache" name="commons-logging" rev="1.1"/>
+		
+		<dependency org="apache" name="commons-cli" rev="1.2"/>
+  		<dependency org="apache" name="commons-beanutils" rev="1.9.1"/>
+		<dependency org="others" name="neethi" rev="2.0.4" />	
+		<dependency org="sun"    name="saaj" rev="1.2" />
+		<!--<dependency org="others" name="wsdl4j" rev="1.5" />-->
+		<dependency org="others" name="wsdl4j" rev="1.6.2" />
+
+		
+	</dependencies>
+</ivy-module>

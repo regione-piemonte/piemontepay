@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listaInformativePSP>
+	<informativaPSP>
+		<identificativoFlusso>4</identificativoFlusso>
+		<identificativoPSP>BPPIITRRXXX</identificativoPSP>
+		<ragioneSociale>Postecom</ragioneSociale>
+		<informativaMaster>
+			<dataPubblicazione>2013-10-23T09:01:10</dataPubblicazione>
+			<dataInizioValidita>2013-10-23T09:01:10</dataInizioValidita>
+        		<urlInformazioniPSP>Non Disponibile</urlInformazioniPSP>
+       		<stornoPagamento>0</stornoPagamento>
+		</informativaMaster>
+		<listaInformativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>97103880585</identificativoIntermediario>
+				<identificativoCanale>97103880585_01</identificativoCanale>
+				<tipoVersamento>BP</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>BPOL PPAY BPIOL 06.00 22.30   CARTE CREDITO 00.15 23.45</disponibilitaServizio>
+				<descrizioneServizio>Il servizio consente di effettuare pagamenti a favore delle Pubbliche Amministrazioni. Il sistema utilizza il bollettino digitale pertanto garantisce la certezza del pagamento effettuato e restituisce una ricevuta telematica immediata con valore liberatorio. Per effettuare il pagamento un utente puo utilizzare i seguenti strumenti Addebito in conto se correntista BancoPosta, le carte PostePay, le carte di credito Visa e Mastercard. Le commissioni sono applicate ad ogni versamento effettuato.</descrizioneServizio>
+				<condizioniEconomicheMassime>C.Cred 1e+1,25% PPay e Ad.Conto 1e</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>Non Disponibile</urlInformazioniCanale>
+			</informativaDetail>
+		</listaInformativaDetail>
+	</informativaPSP>
+	<informativaPSP>
+		<identificativoFlusso>02</identificativoFlusso>
+		<identificativoPSP>UNGCIT21</identificativoPSP>
+		<ragioneSociale>UCCMB</ragioneSociale>
+		<informativaMaster>
+			<dataPubblicazione>2013-07-04T16:50:00</dataPubblicazione>
+			<dataInizioValidita>2013-07-05T00:00:00</dataInizioValidita>
+       		<stornoPagamento>0</stornoPagamento>
+		</informativaMaster>
+		<listaInformativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>02659940239</identificativoIntermediario>
+				<identificativoCanale>02659940239_01</identificativoCanale>
+				<tipoVersamento>BBT</tipoVersamento>
+				<modelloPagamento>2</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>Dalle 8 alle 16 tutti i giorni lavorativi. Al di fuori di questo orario verranno elaborati alla prima giornata lavorativa successiva</disponibilitaServizio>
+				<descrizioneServizio>Il Servizio consente il pagamento on line delle spese di giustizia (contributo unificato, diritti di cancelleria ed altri oneri ex D.M.  n.  44 del 21.02.2011), ove attivate dalla P.A, mediante disposizioni di bonifico.  Per le altre condizioni si veda, ai sensi della normativa sulla trasparenza, il Foglio Informativo -Conto Corrente Professional- disponibile sul sito http://www.creditmanagementbank.eu  e presso le Filiali di Unicredit Credit Mangement Bank</descrizioneServizio>
+				<condizioniEconomicheMassime>1,00 euro</condizioniEconomicheMassime>
+			</informativaDetail>
+		</listaInformativaDetail>
+	</informativaPSP>
+	<informativaPSP>
+		<identificativoFlusso>000000000000002</identificativoFlusso>
+		<identificativoPSP>CIPBITMM</identificativoPSP>
+		<ragioneSociale>ICBPI</ragioneSociale>
+		<informativaMaster>
+			<dataPubblicazione>2014-10-31T00:01:00</dataPubblicazione>
+			<dataInizioValidita>2014-10-31T00:01:00</dataInizioValidita>
+        		<urlInformazioniPSP></urlInformazioniPSP>
+       		<stornoPagamento>0</stornoPagamento>
+		</informativaMaster>
+		<listaInformativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>13212880150</identificativoIntermediario>
+				<identificativoCanale>13212880150_02</identificativoCanale>
+				<tipoVersamento>CP</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>0</priorita>
+				<disponibilitaServizio>Disponibilità servizio 24h su 24</disponibilitaServizio>
+				<descrizioneServizio>E' la piattaforma di pagamento dell’Istituto Centrale delle Banche Popolari Italiane, che utilizza il POS virtuale di CartaSi. Scegliendo questa modalità  puoi pagare con le carte: VISA, MasterCard, Maestro, VISA Electron, in un ambiente conforme ai protocolli di sicurezza previsti dai circuiti internazionali. Un sistema sicuro, facile ed immediato. I dati del pagamento effettuato ti saranno inviati via mail</descrizioneServizio>
+				<condizioniEconomicheMassime>1,25% dell'importo (max di 5,00 e)</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>https://www.icbpi.it/servizi-di-pagamento/</urlInformazioniCanale>
+			</informativaDetail>
+		</listaInformativaDetail>
+	</informativaPSP>
+	<informativaPSP>
+		<identificativoFlusso>02</identificativoFlusso>
+		<identificativoPSP>BCITITMM</identificativoPSP>
+		<ragioneSociale>INTESA SAN PAOLO SpA</ragioneSociale>
+		<informativaMaster>
+			<dataPubblicazione>2014-10-28T00:01:00</dataPubblicazione>
+			<dataInizioValidita>2014-10-28T00:01:00</dataInizioValidita>
+        		<urlInformazioniPSP></urlInformazioniPSP>
+       		<stornoPagamento>0</stornoPagamento>
+		</informativaMaster>
+		<listaInformativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>00799960158</identificativoIntermediario>
+				<identificativoCanale>00799960158_01</identificativoCanale>
+				<tipoVersamento>CP</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>7/7-24H</disponibilitaServizio>
+				<descrizioneServizio>Il servizio e' offerto ai cittadini ed imprese per facilitare la relazione con la Pubblica Amministrazione e contribuire alla diffusione di canali di pagamento innovativi. Clienti e non clienti delle Banche del Gruppo Intesa Sanpaolo possono usufruire del servizio tramite l'utilizzo di carte di pagamento aderenti ai circuiti VISA-MASTERCARD-MONETA ONLINE. Importo massimo pagabile 1500 Euro.</descrizioneServizio>
+				<condizioniEconomicheMassime>E 1,50 500E - E 2,50 imp.sup.500,01</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>https://www.servizi.infogroup.it/AgID/ProcTele/InfoPSP.do</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>00799960158</identificativoIntermediario>
+				<identificativoCanale>00799960158_01</identificativoCanale>
+				<tipoVersamento>BBT</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>2</priorita>
+				<disponibilitaServizio>7/7-24H</disponibilitaServizio>
+				<descrizioneServizio>Pago in Conto Gruppo Intesa Sanpaolo. Il servizio e' offerto ai cittadini ed imprese per facilitare la relazione con la Pubblica Amministrazione e contribuire alla diffusione di canali di pagamento innovativi.Il servizio e' disponibile per tutti i clienti del Gruppo Intesa Sanpaolo titolari del contratto servizi via Internet cell. e tel. attraverso la funzionalita' di Pago in Conto che prevede l'automatica compilazione del bonifico a favore della P.A. creditrice.</descrizioneServizio>
+				<condizioniEconomicheMassime>Gratuito</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>https://www.servizi.infogroup.it/AgID/ProcTele/InfoPSP.do</urlInformazioniCanale>
+			</informativaDetail>
+		</listaInformativaDetail>
+	</informativaPSP>
+	<informativaPSP>
+		<identificativoFlusso>1</identificativoFlusso>
+		<identificativoPSP>idPsp1</identificativoPSP>
+		<ragioneSociale>PSP per TEST</ragioneSociale>
+		<informativaMaster>
+			<dataPubblicazione>2014-06-01T12:00:00</dataPubblicazione>
+			<dataInizioValidita>2014-06-01T12:00:00</dataInizioValidita>
+        		<urlInformazioniPSP>SIMULATORE DI PSP ABILITATO PER LO STORNO</urlInformazioniPSP>
+       		<stornoPagamento>1</stornoPagamento>
+		</informativaMaster>
+		<listaInformativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale11</identificativoCanale>
+				<tipoVersamento>CP</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento DIRETTO</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale11</identificativoCanale>
+				<tipoVersamento>BP</tipoVersamento>
+				<modelloPagamento>0</modelloPagamento>
+				<priorita>2</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento DIRETTO</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale12</identificativoCanale>
+				<tipoVersamento>BBT</tipoVersamento>
+				<modelloPagamento>2</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento differito </descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale13</identificativoCanale>
+				<tipoVersamento>PO</tipoVersamento>
+				<modelloPagamento>4</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento presso PSP</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale14</identificativoCanale>
+				<tipoVersamento>AD</tipoVersamento>
+				<modelloPagamento>1</modelloPagamento>
+				<priorita>2</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento DIRETTO MULTI BENEFICIARIO</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale14</identificativoCanale>
+				<tipoVersamento>BP</tipoVersamento>
+				<modelloPagamento>1</modelloPagamento>
+				<priorita>3</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento DIRETTO MULTI BENEFICIARIO</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+			<informativaDetail>
+				<identificativoIntermediario>idIntermediario1</identificativoIntermediario>
+				<identificativoCanale>idCanale14</identificativoCanale>
+				<tipoVersamento>CP</tipoVersamento>
+				<modelloPagamento>1</modelloPagamento>
+				<priorita>1</priorita>
+				<disponibilitaServizio>7x24</disponibilitaServizio>
+				<descrizioneServizio>Test SIA pagamento DIRETTO MULTI BENEFICIARIO</descrizioneServizio>
+				<condizioniEconomicheMassime>0 EURO</condizioniEconomicheMassime>
+        			<urlInformazioniCanale>www.sia.eu</urlInformazioniCanale>
+			</informativaDetail>
+		</listaInformativaDetail>
+	</informativaPSP>
+</listaInformativePSP>
