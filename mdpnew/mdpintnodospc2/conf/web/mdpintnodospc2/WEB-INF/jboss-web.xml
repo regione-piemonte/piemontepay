@@ -1,0 +1,25 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<jboss-web>
+
+<class-loading java2ClassLoadingCompliance="false">
+      <loader-repository>
+     mdpintnodospc2:archive=mdpintnodospc2srv.war
+      </loader-repository> 
+   </class-loading>
+
+ 
+
+
+<distributable/>
+<replication-config>
+	<replication-trigger>SET</replication-trigger>
+	<replication-granularity>ATTRIBUTE</replication-granularity>
+</replication-config>
+  
+</jboss-web>

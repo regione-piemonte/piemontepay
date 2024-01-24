@@ -1,0 +1,8 @@
+.classpath
+.project
+.idea
+build/
+dist/
+lib/
+.settings
+*.iml

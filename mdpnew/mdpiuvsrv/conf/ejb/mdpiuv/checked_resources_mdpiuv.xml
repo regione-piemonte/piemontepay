@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<DiagnosticEngineConfig>
+
+	<!--
+	inserire qui la cofigurazione delle risorse invocate dal servizio.
+	(consultare la documentazione di coop diag per i dettagli sulla
+	configurazione dei caller).
+	esempi:
+  <Caller
+    classe = "it.csi.coopdiag.engine.plugin.dbms.DSCaller"
+    name = "PIOL_DB"
+    codSistema = "PIOL"
+    codRisorsa = "PIOL_DB"
+    codTipoRisorsa = "dbms-ds"
+    descrTipoRisorsa = "Database via Datasource JDBC">
+    <Properties>
+      <Property name="jndiName" value="java:comp/env/piolDS"/>
+      <Property name="configQuery" value="SELECT SYSDATE FROM DUAL"/>
+      <Property name="checkTimeout" value="10000"/>
+    </Properties>
+  </Caller>
+ 
+  <Caller
+    classe = "it.csi.coopdiag.engine.plugin.pdpa.PDPACaller"
+    name = "PDPA_GWDA_SU"
+    codSistema = "PIOL"
+    codRisorsa = "GWDA_SU"
+    codTipoRisorsa = "pd-pa"
+    descrTipoRisorsa = "Infrastruttura di cooperazione C.S.I">
+    <Properties>
+      <Property name="pdDefConfigType" value="resource"/>
+      <Property name="pdDefConfigLocation" value="/gateways/da/defpd_gatewayDA_su.xml"/>
+      <Property name="checkTimeout" value="10000"/>
+    </Properties>
+  </Caller>
+  -->   
+  <!-- il caller che segue e' stato inserito per non far fallire il caricamento
+       della configurazione -->
+  <Caller
+    classe = "it.csi.coopdiag.engine.plugin.fs.FSCaller"
+    name = "DUMMY_FS"
+    codSistema = "mdp"
+    codRisorsa = "mdp_FS"
+    codTipoRisorsa = "fs-rw"
+    descrTipoRisorsa = "File system">
+    <Properties>
+      <Property name="path.root" value="."/>
+      <Property name="path.permission" value="rw"/>
+      <Property name="path.filetoread" value="TAPPO.txt"/>
+    </Properties>
+  </Caller>
+
+</DiagnosticEngineConfig>
+	

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!--
+		Copyright 2006 (c) CSI Piemonte.
+
+        build.xml file per compilazione, rilascio e deploy. del
+
+        Per una lista completa dei tasks eseguibili usare l'argomento di
+        ant -projecthelp quando si richiama questo build.xml.
+
+-->
+
+<project name="mdpiuvsrv_testStubs" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="genallstubs-fad">
+	<description>Build file di test axis</description>
+
+	<echo message="Loading build properties..." />
+	<property file="./build.properties"/>
+	<property file="./build.locale.properties"  />
+	<property file="./${target}.properties"/>	
+
+	<path id="library.ref">
+		<fileset dir="../${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+
+	<path id="weblogic.ref">
+		<pathelement location="${application.server.jar}" />
+	</path>
+
+	<taskdef name="axis-wsdl2java" classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask">
+        <classpath refid="library.ref" />
+   	</taskdef>
+   
+   <target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<mkdir dir="../${build}/classes" />
+		
+		<!-- jboss43 si aspetta le librerie condivise in [ear]/lib -->
+		<mkdir dir="../${build}/temp/${target}/lib" />
+		
+		<mkdir dir="../${build}/archives/${target}" />
+		<mkdir dir="../${dist}/${target}" />
+		<mkdir dir="../${build}/javadoc" />
+		<mkdir dir="../${build}/jsp" />
+		<!-- necessario per invocare le property di ambiente -->
+		<property environment="env"/>
+		<!-- stampa dei valori recuperati -->
+		<echo message="${env.JAVA_HOME_SERVER}"/>
+		<echo message="${env.JAVA_HOME_CLIENT}"/>
+		
+	</target>
+   	<!-- creazione di tutti gli stub axis per i wsfad -->
+	<target name="genallstubs-fad" depends="init" description="geenra tutti gli stub dei wsfad per test">
+	
+	
+		<antcall target="genstubs-fad">
+			<param name="component.name" value="mdpiuvsrv"/>
+			<param name="service.name" value="Mdpiuv"/>
+			<param name="binding.code" value="[]"/>
+			<param name="service.type" value="Appl"/>
+			<param name="testfad.services.prefix" value="@url@"/>
+		</antcall>
+	
+	
+	</target>
+   
+    <!-- creazione delig stub axis per i servizi esposti tramite front-adapter 
+         riceve in input component.name, service.name, binding.code, testfad.services.prefix -->
+	<target name="genstubs-fad" depends="init" description="generazione stub wsfad per test">
+	    <axis-wsdl2java
+	    output="../test/java"
+	    testcase="true"
+	    verbose="true"
+	    all="true"
+	    skeletondeploy="false"
+	    serverside="false"
+	    url="${testfad.services.prefix}/${component.name}${service.type}${service.name}${binding.code}/services/${component.name}${service.name}?wsdl" 
+	    >
+	    <mapping
+	      namespace="${testfad.services.prefix}/${component.name}${service.type}${service.name}${binding.code}/services/${component.name}${service.name}"
+	      package="test.${service.name}.stubs" />
+	   	<mapping
+	      namespace="urn:${component.name}${service.name}"
+	      package="test.${service.name}.stubs" />
+	    <mapping
+	      namespace="http://api.coopdiag.csi.it"
+	      package="test.${service.name}.stubs" />  
+    </axis-wsdl2java>
+    </target>
+  </project>

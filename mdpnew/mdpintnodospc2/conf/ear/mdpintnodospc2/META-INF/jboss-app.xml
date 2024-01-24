@@ -1,0 +1,14 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<jboss-app>
+    
+      <loader-repository>
+      mdpintnodospc2srv:archive=mdpintnodospc2srv.ear
+      </loader-repository>
+       <library-directory>APP-INF/lib</library-directory> 
+</jboss-app>  

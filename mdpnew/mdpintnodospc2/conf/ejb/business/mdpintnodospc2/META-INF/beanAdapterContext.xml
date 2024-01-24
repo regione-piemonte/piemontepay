@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean name="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager" />
+
+ 	<import resource="classpath:META-INF/definizioneEndpoint.xml" />
+
+<!-- Es. Configurazione Data Source tramite Spring e iniezione in NamedParameterJdbcTemplate  -->
+
+<!-- 
+<bean id="adapterService" class="it.csi.mdp.adapters.BankAdapterImpl">
+</bean>
+
+<bean id="unicredit">
+	
+</bean>
+	
+
+<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	<property name="serviceName"><value>AdapterService</value></property>
+	<property name="service"><ref bean="adapterService"/></property>
+	<property name="serviceInterface"><value>it.csi.mdp.adapters.BankAdapter</value></property>
+	<property name="registryPort"><value>1099</value></property>
+</bean>
+
+ --> 
+ 
+</beans>

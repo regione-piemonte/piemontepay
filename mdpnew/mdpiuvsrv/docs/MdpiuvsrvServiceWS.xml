@@ -1,0 +1,59 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="MdpiuvWSImplService" targetNamespace="http://webservice.mdpiuvsrv.mdpnew.csi.it/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.mdpiuvsrv.mdpnew.csi.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.mdpiuvsrv.mdpnew.csi.it/" xmlns:tns="http://webservice.mdpiuvsrv.mdpnew.csi.it/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:element name="provaPaolo" type="tns:provaPaolo"/>
+<xsd:complexType name="provaPaolo">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="arg0" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:element name="provaPaoloResponse" type="tns:provaPaoloResponse"/>
+<xsd:complexType name="provaPaoloResponse">
+<xsd:sequence>
+<xsd:element minOccurs="0" name="return" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="provaPaolo">
+    <wsdl:part element="tns:provaPaolo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="provaPaoloResponse">
+    <wsdl:part element="tns:provaPaoloResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MdpiuvWSInterface">
+    <wsdl:operation name="provaPaolo">
+      <wsdl:input message="tns:provaPaolo" name="provaPaolo">
+    </wsdl:input>
+      <wsdl:output message="tns:provaPaoloResponse" name="provaPaoloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MdpiuvWSImplServiceSoapBinding" type="tns:MdpiuvWSInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="provaPaolo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="provaPaolo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="provaPaoloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MdpiuvWSImplService">
+    <wsdl:port binding="tns:MdpiuvWSImplServiceSoapBinding" name="MdpiuvWSImplPort">
+      <soap:address location="http://dev-jboss43cp09-503.self.csi.it:61310/mdpiuv/MdpiuvsrvServiceWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

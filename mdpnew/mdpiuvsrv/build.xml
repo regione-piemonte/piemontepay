@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!--
+		Copyright 2006 (c) CSI Piemonte.
+
+        build.xml file per compilazione, rilascio e deploy. del
+
+        Per una lista completa dei tasks eseguibili usare l'argomento di
+        ant -projecthelp quando si richiama questo build.xml.
+
+-->
+
+<project  basedir="."  name="mdpiuvsrv" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="default">
+	<description>Build file di progetto</description>
+
+	<echo message="Loading build properties..." />
+	<property file="buildfiles/build.properties"/>
+	<property file="buildfiles/build.locale.properties"  />
+	<property file="buildfiles/${target}.properties"/>	
+
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+
+	<path id="weblogic.ref">
+		<pathelement location="${application.server.jar}" />
+	</path>
+
+
+	<target name="default" description="Eseguire il build per 
+		l'environment specificato a linea di comando con -Dtarget=${target}
+		o per tutti gli environment (se non specificato).">
+
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+
+		<antcall target="clean-all" />
+		<antcall target="${first-call}" />
+	</target>
+
+
+	<target name="all-targets" description="Esegue il build per le varie distribuzioni in sequenza.">
+
+		<antcall target="distribution">
+			<param name="target" value="dev" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="tst-int-01" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="coll-int-01" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="prod-int-01" />
+		</antcall>
+	</target>
+
+
+	<target name="package-all" description="esegue il packaging di ogni componente del prodotto" >
+		<antcall target="package-ear" />
+	</target>
+
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<mkdir dir="${build}/classes" />
+		
+		<mkdir dir="${build}/temp/${target}/lib" />
+		<mkdir dir="${build}/archives/${target}" />
+		
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/javadoc" />
+		<mkdir dir="${build}/jsp" />
+	</target>
+
+
+    
+	<target name="resolve-dependencies" description="carica le librerie dal repository remoto">
+			<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+			<ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+	
+	
+	<target name="load-dependencies" depends="resolve-dependencies" description="Risolve le dipendenze esterne.">
+			<ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+		</target>
+
+
+    <!-- compilazione dei sorgenti java. N.B: le classi di "frontiera" devono
+         essere compilate con target JDK1.3 per permettere la fruibilita' del
+         servizio da parte di fruitori che utilizzano JRE anteriori all'1.5.
+     -->
+	<target name="compile-all" depends="init,load-dependencies" description="Compila tutti i sorgenti.">
+
+		<echo message="===> Target: ${target}" />		
+		
+		<!-- compilazione dei sorgenti delle interfacce (target 1.3)-->
+		<javac srcdir="${src}/java" 
+			destdir="${build}/classes" 
+			optimize="on" 
+			deprecation="on"
+			compiler="modern"
+			includes="it/csi/**/interfacecsi/**,it/csi/**/dto/**,it/csi/**/exception/**"
+			>
+			<classpath refid="library.ref"/>
+		</javac>
+		
+		<!-- compilazione degli altri sorgenti -->
+		<javac srcdir="${src}/java" 
+			destdir="${build}/classes" 
+			optimize="on" 
+			deprecation="on"
+			compiler="modern"
+			excludes="it/csi/**/interfacescsi/**,it/csi/**/entity/**,it/csi/**/exception/**"
+			>
+			<classpath refid="library.ref"/>
+		</javac>
+
+		<!-- compilazione delle classi di test 
+		<javac srcdir="${test}/java" 
+			destdir="${build}/classes" 
+			optimize="on" 
+			deprecation="on"
+			compiler="modern">
+			<classpath refid="library.ref"/>
+		</javac>
+		-->
+		<copy todir="${build}/classes">
+			<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*"/>
+		</copy>
+		<!--
+		<copy todir="${build}/classes">
+   			<fileset dir="${test}/java" excludes="**/*.java*,**/*.jbx*"/>
+		</copy>
+		-->
+	</target>
+
+    
+    <target name="_package-csiclientlibs-jar" depends="compile-all" 
+    description="costruisce tutti i ja r delle librrie client di CSI per ogni servizio"
+    >
+       
+       <!-- costruzione delle librerie client per il servizio mdpiuv -->
+       <antcall target="_csiclientlib-jar">
+         <param name="service.name" value="mdpiuv" />
+         <param name="service.ver" value="1.0" />
+       </antcall>
+       
+    </target>
+    
+    <target name="_csiclientlib-jar" description="genera le librerie client di ciascun servizio">
+    	<!-- prende come parametro il codice servizio service.name e la versione service.ver (deve essere a 2 cifre!!!) -->
+    	<jar destfile="${build}/archives/${target}/mdpiuvsrv-${service.name}-client-${service.ver}.0.jar"
+			basedir="${build}/classes"
+			includes="it/csi/mdpnew/mdpiuvsrv/dto/${service.name}/**,
+			          it/csi/mdpnew/mdpiuvsrv/exception/${service.name}/**,
+			          it/csi/mdpnew/mdpiuvsrv/interfacecsi/${service.name}/**,
+    				  it/csi/mdpnew/mdpiuvsrv/webservice/**">
+		</jar>
+    </target>
+	
+
+	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
+		
+		<copy todir="build/temp">
+			<fileset file="${conf}/ear/application.xml" />
+		</copy>
+		
+		
+		 <!-- sostituzione dei valori per il file del datasource di jboss 	
+	   <replace file="build/temp/conf/ejb/${webapp}/mdpiuvsrv-mdpnewdatasource-ds.xml" 
+	   	        token="@@sid.db@@" 
+	   	        value="${sid.db}"/>				   	
+	   
+	   <replace file="build/temp/conf/ejb/${webapp}/mdpiuvsrv-mdpnewdatasource-ds.xml" 
+	   	        token="@@db.psw@@" 
+	   	        value="${db.psw}"/> 	-->
+				
+		
+		<!-- configurazione in caso di cluster -->
+		<replace file="${build}/temp/conf/war/${webapp}/WEB-INF/web.xml" 
+				 token="@@cluster" 
+			     value="${CLUSTER}"/>
+		
+		
+		<replace file="build/temp/conf/ejb/${webapp}/META-INF/jboss.xml"
+				 token="@@cluster"
+		         value="${CLUSTER_EJB}"/>
+	</target>
+
+	
+    
+    <target name="_package-all-soappabr-wars">
+    
+
+    	
+    	
+    	
+    </target>
+    
+    <target name="_package-soappabr-war" >
+      <!-- prende in input i parametri component.name service.name binding.code -->
+      <mkdir dir="${temp}/${binding.code}/${service.name}/WEB-INF" />
+         
+		<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
+             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml" 
+			 roundup= "false">
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/deploysoapejb*.xml" />
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/jboss-web.xml" />
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/weblogic.xml" />
+		</war>
+    </target>
+
+    <!-- costruisce i war dei wsfad -->
+    <target name="_package-all-wsfad-wars">
+    
+    	
+    	
+    	
+    
+    </target>
+    
+    <target name="_package-wsfad-war" >
+      <!-- prende in input i parametri component.name service.name binding.code -->
+      <mkdir dir="${temp}/${binding.code}/${service.name}/WEB-INF" />
+         
+		<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
+             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml" 
+			 roundup= "false">
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/server-config.wsdd" />
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/jboss-web.xml" />
+			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/weblogic.xml" />
+			 <classes dir="${src}/web/${binding.code}/${service.name}" 
+				includes="defpdelegata_embedded*.xml" />
+			<lib dir="${lib}" includes="${wsfad.libs}" />
+			<fileset dir="${src}/web/${binding.code}/${service.name}" includes="**">			
+			</fileset>
+		</war>
+    </target>
+    
+    
+    <!-- costruisce tutti gli ejb jar relativi alle PA ejb (1 per servizio esposto)-->
+    <target name="_ejbpa-ejb-jars" depends="compile-all">
+    	
+    	<!-- binding ejb del servizio mdpiuv -->
+    	
+	
+        <!-- costruzione dell'ejb-jar del binding mdpiuv.pa -->
+		<antcall target="_ejbpa-ejb-jar">
+    	    <param name="service.name" value="mdpiuv" />
+    		<param name="service.version" value="1.0" />
+    		<param name="binding.name" value="pa" />
+    		<param name="service.type" value="appl" />
+    	</antcall>
+	
+
+
+	
+    </target>
+	
+	
+	<target name="_ejbpa-ejb-jar" description="Genera il jar per la PA ejb di servizi APPL o INFR" >
+	    <!-- prende come parametro il codice del servizio e del binding -->
+	    <!-- service.name -->
+	    <!-- service.version (serve per il rif. al client jar)-->
+	    <!-- service.type ("orch", "other-than-orch") -->
+	    <!-- binding.name -->
+		
+        
+     <!--   <if>
+ 			<equals arg1="${service.type}" arg2="orch" />
+ 		<then>
+			<jar jarfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.name}.jar" >
+				<fileset dir="${build}/classes">
+					<include name="it/csi/*/mdpiuvsrv/business/${service.name}/**"/>
+					<include name="it/csi/*/mdpiuvsrv/integration/${service.name}/**"/>
+				</fileset>						
+
+				<fileset dir="${conf}/ejb/${service.name}">
+					<include name="defpa*"/>
+					<include name="checked_resources*.xml"/>
+					<include name="defqmgr_*" />
+				</fileset> -->
+			
+				<!-- config. svcflow -->
+		<!--		<fileset dir="${conf}/orchestrator/descriptor/${service.name}">
+					<include name="*.xml"/>
+				</fileset>
+			
+				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
+					<patternset id="all-xml" >
+						<include name="**/*.xml"/>
+					</patternset>
+				</metainf>
+			</jar>
+		</then>
+		<else> -->
+			<echo>CREO LA INTEGRATION E LA BUSINESS</echo>
+			<echo>${service.type}-${service.name}-${binding.name}.jar</echo>
+			<jar jarfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.name}.jar" >
+				<fileset dir="${build}/classes">
+					<include name="it/csi/*/mdpiuvsrv/integration/${service.name}/**"/>
+					<include name="it/csi/*/mdpiuvsrv/business/${service.name}/**"/>
+					<include name="it/csi/*/mdpiuvsrv/util/**"/>
+					
+				</fileset>						
+
+				<fileset dir="${conf}/ejb/${service.name}">
+					<include name="defpa*"/>
+					<include name="checked_resources*.xml"/>
+					<include name="defqmgr_*" />
+					<include name="beanContext.xml" />
+				</fileset>
+			
+				<!-- porto dentro solo i file di jboss  
+				  ${conf}/ejb/${service.name}/META-INF --> 
+				
+				<metainf dir="build/temp/conf/ejb/${service.name}/META-INF" >
+					<patternset id="all-xml" >
+						<include name="**/*.xml"/>
+					</patternset>
+				</metainf>
+				
+				
+			</jar>		
+	<!--	</else>
+		</if> -->
+	</target>
+
+
+	<target name="_orch_ejbpa-ejb-jar" description="Genera il jar per la PA ejb di servizi ORCH" >
+	    <!-- prende come parametro il codice del servizio e del binding -->
+	    <!-- service.name -->
+	    <!-- service.version (serve per il rif. al client jar)-->
+	    <!-- binding.name -->
+		
+        
+		<jar jarfile="${build}/archives/${target}/orch-${service.name}${binding.name}ejb.jar" >
+			<fileset dir="${build}/classes">
+				<include name="it/csi/*/mdpiuvsrv/business/${service.name}/**"/>
+				<include name="it/csi/*/mdpiuvsrv/integration/${service.name}/**"/>
+			</fileset>						
+
+			<fileset dir="${conf}/ejb/${service.name}">
+				<include name="defpa*"/>
+				<include name="checked_resources*.xml"/>
+				<include name="defqmgr_*" />
+			</fileset>
+			
+			<!-- config. svcflow -->
+			<fileset dir="${conf}/orchestrator/descriptor/${service.name}">
+				<include name="*.xml"/>
+			</fileset>
+			
+			<metainf dir="${conf}/ejb/${service.name}/META-INF" >
+				<patternset id="all-xml" >
+					<include name="**/*.xml"/>
+				</patternset>
+			</metainf>
+		</jar>
+	</target>
+
+	<target name="integration-jar" description="Genera il jar per lo strato integration." >
+
+		<copy todir="${build}/classes/it/csi/${project}/integration/services/iride" file="${conf}/pd/iride/defPDIrideEJB.xml" />
+		<replace file="${build}/classes/it/csi/${project}/integration/services/iride/defPDIrideEJB.xml" token="@IRIDE_URL@" value="${iride.url.t3}" />
+			
+		<jar jarfile="${build}/archives/${target}/integration.jar">
+			<fileset dir="${build}/classes">
+				<include name="it/csi/${project}/integration/**"/>
+			</fileset>
+			
+			<manifest>
+					<attribute name="Class-Path" value="commons.jar lib/util-perf-1.0.0.jar"/>
+			</manifest>
+		</jar>
+	</target>
+
+	
+	<!-- -->
+			<!-- ############################################################# -->
+			<!-- # Target: environment-recreate                              # -->
+			<!-- ############################################################# -->
+			<!-- -->
+			<target name="environment-recreate">
+				<mkdir dir="${buildtemp}/conf" />
+				<copy todir="${buildtemp}/conf" overwrite="true">
+					<fileset dir="${conf}" />
+				</copy>
+			</target>
+	<!-- -->
+		<!-- ############################################################# -->
+		<!-- # [PKG]: package-war                                        # -->
+		<!-- ############################################################# -->
+		<!-- -->
+		<target name="package-war" description="Genera il war per lo strato web.">
+			<echo message="COSTRUISCO IL WAR ${webapp}"></echo>
+			
+			<!-- MODIFICA MODELLO 1 2018 - START - Per reperire da Filesystem locale lo skeydb -->
+			<copy file="buildfiles/${target}.properties" tofile="${build}/classes/env.properties" />
+			<!-- MODIFICA MODELLO 1 2018 - STOP -->
+			
+			<copy todir="${build}/classes">
+				<fileset dir="${conf}/war/${webapp}/WEB-INF" />
+			</copy>
+			
+			<echo message="copio le classi di WS ${prodotto}/${componente}"/>
+			<war destfile="${build}/archives/${target}/${war-file-name}.war"
+			     webxml="${buildtemp}/conf/war/${webapp}/WEB-INF/web.xml"
+			     roundup="false"
+			     manifest="${buildtemp}/conf/war/${webapp}/META-INF/MANIFEST.MF">
+				<webinf dir="${buildtemp}/conf/war/${webapp}/WEB-INF" 
+					    includes="cxf.xml,jboss-web.xml" />
+				<!--<fileset dir="${srcweb}" />
+				<classes dir="${build}/jsp" includes="**" />
+				-->
+				
+				<!-- MODIFICA 2018 per utilizzare properties locali - skeyDb -->
+				<classes dir="${build}/classes" includes="it/csi/${prodotto}/${componente}/webservice/**,env.properties" />
+				<lib dir="${lib}" includes="${war-libs-filter}" />
+			</war>
+		</target>
+	
+	
+	
+	<target name="package-ear"  description="costruisce l&apos;ear"  
+		depends="environment-recreate,environment-config,compile-all,package-war, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars">
+
+		<copy todir="${temp}/${target}/lib">
+		    <!-- librerie infrastrutturali o client di servizi fruiti -->
+			<fileset dir="${lib}"
+				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs} ${spring.libs}"
+			/>
+			<fileset dir="${build}/archives/${target}" includes="*client*.jar" />
+		</copy>
+
+		<ear appxml="${temp}/application.xml" destfile="${build}/archives/${target}/mdpiuvsrv.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar"/>
+			<fileset dir="${temp}/${target}" >
+				<include name="**/*"/>
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+
+			</manifest>
+		</ear>
+	</target>
+
+
+	<target name="distribution" description="Costruisce il tar per la distribuzione." 
+		depends="package-all">
+
+		<echo>====== Creating distribution for ${target} ...</echo>
+		<echo>====== Basedir: ${build}/archives/${target} ... </echo>
+
+		<!-- inserire qui eventuali statement antcall aggiuntivi da invocare
+		     nel processo di distribuzione del tar -->
+
+		<tar tarfile="${dist}/${target}/${project}-${version}.tar" 
+			basedir="${build}/archives/${target}" includes="*.ear" >
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt"/>
+				
+				<!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
+				
+			</tarfileset>
+			<tarfileset file="build/temp/conf/ejb/${webapp}/mdpiuvsrv-mdp*.xml" />
+		</tar>
+
+		<delete>
+			<fileset dir="${dist}/${target}" excludes="**/*.tar" />
+		</delete>
+
+	</target>
+
+
+	
+	<!-- clean targets -->
+	
+	<target name="clean-all"
+	    	description="Rimuove tutte le cartelle temporanee."
+    	depends="clean-archives, clean-classes, clean-dist, clean-javadoc, clean-cache, clean-temp"/>
+
+	<target name="clean-cache"
+	    	description="Rimuove la cartella di cache di Ivy e la lib.">
+
+		<delete dir="${build}/cache" />
+		<delete dir="${lib}" />
+
+	</target>
+
+	<target name="clean-temp"
+    		description="Rimuove la cartella dei files temporanei di build.">
+
+		<delete dir="${temp}" />
+
+	</target>
+
+
+	<target name="clean-archives"
+	    	description="Rimuove la cartella degli archivi (war, ear, ...).">
+
+		<delete dir="${build}/archives"/>
+
+	</target>
+
+	<target name="clean-dist"
+	    	description="Rimuove la cartella delle distribuzioni.">
+
+		<delete dir="${dist}"/>
+
+	</target>
+
+
+
+	<target name="clean-classes"
+	    	description="Rimuove la cartella dei sorgenti compilati.">
+
+		<delete dir="${build}/classes"/>
+
+	</target>
+
+
+	<target name="clean-javadoc"
+			description="Rimuove la cartella temporanea dei javadoc.">
+
+		<delete dir="${build}/javadoc"/>
+
+	</target>
+
+
+	
+
+	<target name="_clean-web-inf"
+			description="Rimuove il contenuto di lib e classes della web application (per run locali).">
+
+		<delete dir="${web}/WEB-INF/classes" />
+		<delete dir="${web}/WEB-INF/lib" />
+
+	</target>
+
+
+	<!-- imported tasks from other files -->
+
+	<target name="javadoc" depends="init"
+    		description="Genera la documentazione javadoc.">
+
+		<ant antfile="buildfiles/build.javadoc.xml" target="javadoc"/>
+
+	</target>
+
+
+	<!--<target name="_copy-to-web-inf"
+			description="Copia le classi e la lib sotto WEB-INF (per run locali)."
+                        depends="_clean-web-inf, compile-all">
+
+		<copy todir="${web}/web/samplecsi/WEB-INF/classes">
+			<fileset dir="${build}/classes">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${src}/web/samplecsi/WEB-INF/lib">
+			<fileset dir="${lib}">
+				<exclude name="weblogic*.jar"/>
+			</fileset>
+		</copy>
+
+	</target>-->
+
+
+	<target name="about" description="Visualizza l'elenco dei target pubblici dello script." >
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about" srcfile="buildfiles/about.txt" />
+		<echo message="${about}" />
+	</target>
+
+	<target name="about-custom" description="Visualizza l'elenco di tutti i target, pubblici e privati (equivalente a 'ant -projecthelp')">
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+		<echo message="${about-custom}" />
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
+	<target name="show-vars" depends="init"
+	          description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************"/>
+		<echo message="********  ${project} environment  *******" />
+		<echo message="*****************************************"/>
+		<echoproperties />
+		<echo />
+		<echo />
+		<echo message="*****************************************"/>
+		<echo message="********    java properties      *******" />
+		<echo message="*****************************************"/>
+		<echoproperties prefix="java."/>
+
+	</target>
+
+	<target name="__download-libs">
+		<delete dir="lib" />
+		<antcall target="load-dependencies" />
+	</target>
+
+	<!-- DEPLOY JBoss -->
+		<target name="_djb"  description="deploy server ">
+			  
+			<!-- COMANDO : ant -Dtarget=dev-coto-01 distribution _deploy-jboss -->
+			
+			<echo message="Deploy ${build}/archives/${target}/mdpiuvsrv.ear su JBoss " />
+		           
+			 <scp file="${build}/archives/${target}/mdpiuvsrv.ear"
+			         trust="true"
+			         todir="${mac.user}:${mac.pwd}@${mac.server}:${mac.path}"/>
+			  
+		     <echo message="Fatto !" />
+		 </target>
+	
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+    
+   
+</project>

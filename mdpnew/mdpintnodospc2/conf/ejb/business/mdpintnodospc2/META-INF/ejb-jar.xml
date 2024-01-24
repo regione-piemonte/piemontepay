@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ejb-jar id="ejb-jar_ID" version="2.1" 
+         xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+   <description><![CDATA[No Description.]]></description>
+   <display-name><![CDATA[]]></display-name>
+
+   <enterprise-beans>
+      <session >   
+         <ejb-name>NodoSpcAdapter2</ejb-name>
+         <home>it.csi.mdp.adapters.business.BankAdapterHome</home>
+         <remote>it.csi.mdp.adapters.business.BankAdapter</remote>
+         <ejb-class>it.csi.mdp.intnodospc2.business.NodoSpcAdapter2Bean</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+      </session>
+      
+
+      
+   </enterprise-beans>
+
+   <assembly-descriptor >
+			<container-transaction>
+      			<method>
+         			<ejb-name>NodoSpcAdapter2</ejb-name>
+          			<method-name>*</method-name>
+				</method>
+        	<trans-attribute>Required</trans-attribute>
+			</container-transaction>
+
+   </assembly-descriptor>
+</ejb-jar>
+
+
+
+
