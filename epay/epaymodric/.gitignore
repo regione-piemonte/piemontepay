@@ -1,0 +1,11 @@
+/.classpath
+/.project
+/.settings/*
+/build/*
+/lib/*
+/WebContent/*
+/dist/*
+/bin/
+*.iml
+tst-rp-01.properties
+local-sim.properties

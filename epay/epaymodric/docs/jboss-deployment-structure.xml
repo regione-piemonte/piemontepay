@@ -1,0 +1,17 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <dependencies>
+      <module name="org.apache.cxf" slot="main" export="true" meta-inf="export"/>
+      <module name="org.springframework.spring" export="true" meta-inf="export"/>
+      <module name="org.apache.ws.security" slot="main" export="true" meta-inf="export"/>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>

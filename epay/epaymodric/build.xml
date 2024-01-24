@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!-- ##################################################### -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="."
+         default="default"
+         name="epaymodric"
+         xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
+
+	<description>Build file per il progetto: [epaymodric]</description>
+
+	<!-- -->
+	<echo message="Loading build properties..." />
+	<property file="buildfiles/build.properties" />
+	<echoproperties destfile="${target}.properties"/>
+	<property file="buildfiles/build.locale.properties" />
+	<property file="buildfiles/${target}.properties" />
+
+	<!-- -->
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: init                                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${temp}/${target}/${earLib}" />
+		<mkdir dir="${build}/archives/${target}" />
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/javadoc" />
+		<mkdir dir="${build}/jsp" />
+		<mkdir dir="${build}/cache" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: default                                           # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="default"
+	        description="Eseguire il build per l'environment
+	                     specificato a linea di comando con
+	                     -Dtarget=${target} o per tutti gli
+	                     environment (se non specificato).">
+
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+
+		<echo message="server: ${server}" />
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+
+		<antcall target="clean-all" />
+		<antcall target="${first-call}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: all-targets                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="all-targets"
+	        description="Esegue il build per le varie distribuzioni in sequenza.">
+		<antcall target="distribution" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: distribution                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="distribution" depends="package-all"
+	        description="Costruisce il tar per la distribuzione." >
+		<echo message="====== Creating distribution for ${target} ..."/>
+		<echo message="====== Basedir: ${build}/archives/${target} ..."/>
+
+		<!-- sposto il file di Datasource nella dir di build. Deve essere zippato col file Ear -->
+		<!-- echo message="******************sposto il file di Datasource nella dir ***********************" />
+		<copy todir="${build}/archives/${target}"  overwrite="true" file="${temp}/conf/${prodotto}-${componente}-ds.xml" /-->
+
+		<tar tarfile="${dist}/${target}/${dist-file-name}.tar"
+		     basedir="${build}/archives/${target}"
+		     includes="${ear-file-name}.ear,*.xml">
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt"/>
+			</tarfileset>
+		</tar>
+		<tar tarfile="${dist}/${target}/${dist-file-name-offline}.tar"
+		     basedir="${build}/archives/${target}"
+		     includes="${ear-file-name-offline}.ear,*.xml">
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt"/>
+			</tarfileset>
+		</tar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: resolve-dependencies                               # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="resolve-dependencies"
+	        description="carica le librerie dal repository remoto">
+		 <ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		 <ivy:resolve file="${basedir}/buildfiles/ivy.xml" /> 
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: internal target: load-dependencies                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies"
+	        depends="resolve-dependencies"
+	        description="Risolve le dipendenze esterne.">
+		 <ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" /> 
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: compile-all                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="compile-all" depends="init,load-dependencies"
+	        description="Compila tutti i sorgenti.">
+
+		<echo message="===> Target: ${target}" />
+
+		<!-- compilazione dei sorgenti -->
+		<javac srcdir="${src}/java" destdir="${build}/classes" 
+			optimize="on" 
+			deprecation="off" 
+			compiler="modern" 
+			includeantruntime="false" 
+			target="1.8" 
+			source="1.8" 
+			debug="on"
+			encoding="UTF-8"
+			debuglevel="lines,vars,source">
+			<compilerarg value="-Werror" />
+			<!-- Qualsiasi warning interpretato come errore -->
+			<compilerarg value="-Xlint:-options" />
+			<!-- Ignora warning sul classpath per rt.jar    -->
+			<classpath refid="library.ref" />
+		</javac>
+
+		<!-- copia dei sorgenti -->
+		<copy todir="${build}/classes">
+			<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-recreate                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-recreate"
+	        description="Ricrea l&apos;environment di configurazione per il target corrente (per applicare le sostituzionidelle variabili).">
+		<mkdir dir="build/temp/conf" />
+		<copy todir="build/temp/conf" overwrite="true">
+			<fileset dir="${conf}" />
+		</copy>
+	</target>
+	
+	<!-- -->
+		<!-- ############################################################# -->
+		<!-- # Target: datasource-config                                # -->
+		<!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+		<!-- ############################################################# -->
+		<!-- -->
+		<target name="datasource-config" description="Predispone le configurazioni dipendenti dall&apos;ambiente. (per il datasource)">
+		<echo>FILE DS ignorato, la sua configurazione viene gestita su JBoss</echo>
+			<!-- if>
+				<available file="${temp}/conf/${prodotto}-${componente}-ds.xml" />
+				<then>
+					<echo>FILE DS TROVATO</echo>
+				</then>
+
+			</if>
+			<replace file="${temp}/conf/${prodotto}-${componente}-ds.xml" token="@@EPAYMODRIC_CONNECTION_URL@@" value="${connection_url}" />
+			<replace file="${temp}/conf/${prodotto}-${componente}-ds.xml" token="@@EPAYMODRIC_DB_USER@@" value="${db_user}" />
+			<replace file="${temp}/conf/${prodotto}-${componente}-ds.xml" token="@@EPAYMODRIC_DB_PWD@@" value="${db_pwd}" /-->
+
+
+		</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-config                                # -->
+	<!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-config"
+	        description="Predispone le configurazioni dipendenti dall&apos;ambiente." >
+		<if>
+			<available file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties"/>
+			<then>
+				<echo>FILE CONFIGURAZIONE TROVATO</echo>
+
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@AMBIENTE@"        value="${ambiente}"       />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.SERVER@"     value="${smtp.server}"    />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.PORT@"       value="${smtp.port}"      />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.USER@"       value="${smtp.user}"      />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.PASSWORD@"   value="${smtp.password}"  />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.SENDER@"     value="${smtp.sender}"    />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.RETRY@"      value="${smtp.retry}"     />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.RETRYDELAY@" value="${smtp.retrydelay}"/>
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@MAIL.SMTP.AUTH@" value="${mail.smtp.auth}"/>
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@MAIL.TRANSPORT.PROTOCOL@" value="${mail.transport.protocol}"/>
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@MAIL.SMTP.STARTTLS.ENABLE@" value="${mail.smtp.starTTLS.enable}"/>
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SMTP.EMERGENCY@"  value="${smtp.emergency}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@MAIL.ACTIVE@"  value="${mail.active}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@TRASMISSIONEFLUSSI.ACTIVE@"  value="${trasmissioneflussi.active}" />
+
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SERVICE.RICONCILIAZIONEVERSAMENTI.ENDPOINT@"  value="${service.riconciliazioneversamenti.endpoint}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SERVICE.EPAYPACATALOGSRV.ENDPOINT@"  value="${service.epaypacatalogsrv.endpoint}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SERVICE.RECUPERO.PROVVISORI@"  value="${service.recupero.provvisori}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SERVICE.INVIO.FLUSSI@"  value="${service.invio.flussi}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@DEFAULT.NUM.MAX.TENTATIVI.RICONCILIAZIONE@"  value="${default.num.max.tentativi.riconciliazione}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@DEFAULT.ABILITA.INVIO.PAGAMENTI.SCONOSCIUTI@"  value="${default.abilita.invio.pagamenti.sconosciuti}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@EPAYBEAPI.HEADER@"  value="${epaybeapi.header}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@SERVICE.WSO.ENDPOINT@"  value="${service.wso.endpoint}" />
+				<replace file="${temp}/conf/web/ws/epaymodric/WEB-INF/classes/config.properties" token="@PAGE.SIZE.FLUSSI.ORIG@"  value="${page.size.flussi.orig}" />
+												
+			</then>
+		</if>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all"
+	        description="Esegue il packaging di ogni componente del prodotto">
+		<antcall target="package-ear" />
+		<antcall target="package-ear-offline" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-ear                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear"
+            depends="environment-recreate, datasource-config, environment-config, compile-all, package-commons-jar, package-all-wsclientlibs-jars,
+                     package-all-ws-wars"
+            description="costruisce l&apos;ear">
+
+		<!-- librerie infrastrutturali o client di servizi fruiti -->
+		<copy todir="${temp}/${target}/${earLib}">
+			<fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+			<fileset dir="${build}/archives/${target}" includes="*common.jar" />
+			<fileset dir="${build}/archives/${target}" includes="epaymodric-*client*.jar" />
+		</copy>
+
+		<ear appxml="${temp}/conf/ear/online/application.xml"
+		     destfile="${build}/archives/${target}/${ear-file-name}.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*online*.war" excludes="*client*.jar,*common.jar,*batch*.war" />
+			<fileset dir="${temp}/${target}">
+				<include name="**/*" />
+			</fileset>
+
+			<metainf dir="${temp}/conf/ear/online/" includes="jboss-deployment-structure.xml" />
+
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+				<attribute name="Appl-Version" value="${version}" />
+			</manifest>
+		</ear>
+
+		<!--
+		<echo>COPIA PER IL DEPLOY SU ${pathStandalone}</echo>
+		<copy todir="${pathStandalone}">
+			<fileset dir="${build}/archives/${target}" includes="epaymodricsrv.ear" />
+		</copy>
+		-->
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-ear-offline                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear-offline"
+            depends="environment-recreate, datasource-config, environment-config, compile-all, package-commons-jar, package-all-wsclientlibs-jars,
+                     package-all-ws-wars"
+            description="costruisce l&apos;ear">
+
+		<!-- librerie infrastrutturali o client di servizi fruiti -->
+		<copy todir="${temp}/${target}/${earLib}">
+			<fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+			<fileset dir="${build}/archives/${target}" includes="*common.jar" />
+			<fileset dir="${build}/archives/${target}" includes="epaymodric-*client*.jar" />
+		</copy>
+
+		<ear appxml="${temp}/conf/ear/batch/application.xml"
+		     destfile="${build}/archives/${target}/${ear-file-name-offline}.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*batch*.war" excludes="*client*.jar,*common.jar,*online*.war" />
+			<fileset dir="${temp}/${target}">
+				<include name="**/*" />
+			</fileset>
+
+			<metainf dir="${temp}/conf/ear/batch/" includes="jboss-deployment-structure.xml" />
+
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+				<attribute name="Appl-Version" value="${version}" />
+			</manifest>
+		</ear>
+
+		<!--
+		<echo>COPIA PER IL DEPLOY SU ${pathStandalone}</echo>
+		<copy todir="${pathStandalone}">
+			<fileset dir="${build}/archives/${target}" includes="epaymodricsrv.ear" />
+		</copy>
+		-->
+	</target>
+				
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all-ws-wars                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all-ws-wars"
+	        description="Costruisce i war di tutti i web services">
+		<!-- richiamo costruzione war ws servizio epaymodric -->
+		<antcall target="_package-ws-online-war">
+			<param name="component.name" value="epaymodric"/>
+			<param name="service.name" value="epaymodric"/>
+			<param name="binding.code" value="ws"/>
+			<param name="service.type" value="appl"/>
+			<param name="service.ver" value="1.0" />
+		</antcall>
+		<!-- richiamo costruzione war ws servizio epaymodric -->
+		<antcall target="_package-ws-batch-war">
+			<param name="component.name" value="epaymodric"/>
+			<param name="service.name" value="epaymodric"/>
+			<param name="binding.code" value="ws"/>
+			<param name="service.type" value="appl"/>
+			<param name="service.ver" value="1.0" />
+		</antcall>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: _package-ws-online-war                             # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_package-ws-online-war"
+	        description="Costruisce il war per un singolo web service">
+		<!-- prende in input i parametri: component.name, service.name, binding.code, service.type, service.ver (deve essere a 2 cifre!!!) -->
+
+		<if>
+			<equals arg1="${service.type}" arg2="orch" />
+			<then>
+				<copy todir="${build}/classes" overwrite="true" flatten="true">
+					<fileset dir="${temp}/conf/orchestrator/descriptor/${service.name}" includes="**/*.xml">
+					</fileset>
+				</copy>
+
+				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-online-${binding.code}.war"
+				     webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
+				     roundup="false">
+					<webinf dir="${conf}/web/${binding.code}/${service.name}/WEB-INF/"
+					        includes="*.xml" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/"
+							includes="*.properties" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes"
+												includes="*.properties" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes" 
+							includes="*.xlsx" />
+					<classes dir="${build}/classes" excludes="it/csi/*/epaymodric/business/${service.name}/batch/**, it/csi/*/epaymodric/business/${service.name}/schedule/**">
+						<include name="it/csi/*/epaymodric/business/${service.name}/**"/>
+						<include name="it/csi/*/epaymodric/integration/${service.name}/**"/>
+						<include name="*.xml"/>
+					</classes>
+
+					<!-- in JB6.x i file di spring vanno in classes e non in WEB-INF -->
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes">
+						<include name="*.xml"/>
+						<include name="*.wsdl"/>
+					</classes>
+					
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes/online">
+						<include name="*.xml" />
+					</classes>
+					<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+
+				</war>
+				<delete>
+					<fileset dir="${build}/classes">
+						<include name="*.xml"/>
+					</fileset>
+				</delete>
+			</then>
+			<else>
+				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-online-${binding.code}.war"
+				     webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
+				     roundup="false">
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/">
+						<include name="*.xml" />
+						<include name="*.properties" />
+						<include name="classes/*.properties" />
+					</webinf>
+					<classes dir="${build}/classes" excludes="it/csi/*/epaymodric/business/${service.name}/batch/**, it/csi/*/epaymodric/business/${service.name}/schedule/**">
+						<include name="it/csi/*/epaymodric/business/${service.name}/**"/>
+						<include name="it/csi/*/epaymodric/integration/${service.name}/**"/>
+					</classes>
+
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes/online">
+						<include name="*.xml" />
+					</classes>
+
+					<!-- in JB6.x i file di spring vanno in classes e non in WEB-INF -->
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes">
+						<include name="*.xml"/>
+						<include name="*.wsdl"/>
+						<include name="*.xlsx"/>
+					</classes>
+
+					<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+				</war>
+			</else>
+		</if>
+
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: _package-ws-batch-war                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_package-ws-batch-war"
+	        description="Costruisce il war per un singolo web service">
+		<!-- prende in input i parametri: component.name, service.name, binding.code, service.type, service.ver (deve essere a 2 cifre!!!) -->
+
+		<if>
+			<equals arg1="${service.type}" arg2="orch" />
+			<then>
+				<copy todir="${build}/classes" overwrite="true" flatten="true">
+					<fileset dir="${temp}/conf/orchestrator/descriptor/${service.name}" includes="**/*.xml">
+					</fileset>
+				</copy>
+
+				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-batch-${binding.code}.war"
+				     webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
+				     roundup="false">
+					<webinf dir="${conf}/web/${binding.code}/${service.name}/WEB-INF/"
+					        includes="*.xml" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/"
+							includes="*.properties" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes"
+												includes="*.properties" />
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes" 
+							includes="*.xlsx" />
+					<classes dir="${build}/classes" excludes="it/csi/*/epaymodric/business/${service.name}/CoopApplicativaPECImpl.*,it/csi/*/epaymodric/business/${service.name}/EpaymodricImpl.*">qui
+						<include name="it/csi/*/epaymodric/business/${service.name}/**"/>
+						<include name="it/csi/*/epaymodric/integration/${service.name}/**"/>
+						<include name="*.xml"/>
+					</classes>
+
+					<!-- in JB6.x i file di spring vanno in classes e non in WEB-INF -->
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes">
+						<include name="*.xml"/>
+						<include name="*.wsdl"/>
+					</classes>
+
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes/batch">
+						<include name="*.xml" />
+					</classes>
+						
+					<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+
+				</war>
+				<delete>
+					<fileset dir="${build}/classes">
+						<include name="*.xml"/>
+					</fileset>
+				</delete>
+			</then>
+			<else>
+				<war destfile="${build}/archives/${target}/${service.type}-${service.name}-batch-${binding.code}.war"
+				     webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
+				     roundup="false">
+					<webinf dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/">
+						<include name="*.xml" />
+						<include name="*.properties" />
+						<include name="classes/*.properties" />
+					</webinf>
+					<classes dir="${build}/classes" excludes="it/csi/*/epaymodric/business/${service.name}/EpaymodricImpl.*,it/csi/*/epaymodric/business/${service.name}/CoopApplicativaPECImpl.*">
+						<include name="it/csi/*/epaymodric/business/${service.name}/**"/>
+						<include name="it/csi/*/epaymodric/integration/${service.name}/**"/>
+					</classes>
+
+					<!-- in JB6.x i file di spring vanno in classes e non in WEB-INF -->
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes">
+						<include name="*.xml"/>
+						<include name="*.wsdl"/>
+						<include name="*.xlsx"/>
+					</classes>
+					
+					<classes dir="${temp}/conf/web/${binding.code}/${service.name}/WEB-INF/classes/batch">
+						<include name="*.xml" />
+					</classes>
+					
+					<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}, ${war-exclude-custom-libs-filter}" />
+				</war>
+			</else>
+		</if>
+
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all-wsclientlibs-jars                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all-wsclientlibs-jars"
+	        description="Costruisce tutti i jar delle librerie client CXF per ogni servizio">
+		<!-- costruzione delle librerie client per il servizio epaymodric -->
+		<antcall target="_package-wsclientlibs-jar">
+			<param name="service.name" value="epaymodric" />
+			<param name="service.ver" value="1.0" />
+		</antcall>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: _package-wsclientlibs-jar                          # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_package-wsclientlibs-jar"
+	        description="Costruisce il jar delle librerie client CXF per un singolo servizio">
+		<!-- prende come parametro il codice servizio service.name e la versione service.ver (deve essere a 2 cifre!!!) -->
+		<jar destfile="${build}/archives/${target}/epaymodric-${service.name}-client-${service.ver}.0.jar"
+		     basedir="${build}/classes"
+		     includes="it/csi/epay/epaymodric/dto/${service.name}/**,
+		               it/csi/epay/epaymodric/exception/${service.name}/**,
+		               it/csi/epay/epaymodric/interfacews/${service.name}/**">
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-commons-jar                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-commons-jar" description="Genera il jar per le classi comuni.">
+		<jar destfile="${build}/archives/${target}/epaymodric-common.jar"
+		     basedir="${build}/classes"
+		     includes="it/csi/epay/epaymodric/business/**,
+		               it/csi/epay/epaymodric/integration/**,
+		               it/csi/epay/epaymodric/util/**">
+			<exclude name="it/csi/epay/epaymodric/business/epaymodric/**" />
+			<exclude name="it/csi/epay/epaymodric/integration/epaymodric/**" />
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+	        depends="clean-archives, clean-cache, clean-classes, clean-javadoc, clean-jsp, clean-temp" />
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-cache                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-cache"
+	        description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" failonerror="no" />
+		<delete dir="${lib}" failonerror="no" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-temp                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-temp"
+	        description="Rimuove la cartella dei files temporanei di build.">
+		<delete dir="${temp}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-archives                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-archives"
+	        description="Rimuove la cartella degli archivi (war, ear, ...).">
+		<delete dir="${build}/archives" />
+		<delete dir="dist" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-dist                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-dist"
+	        description="Rimuove la cartella delle distribuzioni.">
+		<delete dir="${dist}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-classes                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-classes"
+	        description="Rimuove la cartella dei sorgenti compilati.">
+		<delete dir="${build}/classes" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-javadoc                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-javadoc"
+	        description="Rimuove la cartella temporanea dei javadoc.">
+		<delete dir="${build}/javadoc" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-jsp                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-jsp"
+	        description="Rimuove la cartella temporanea delle jsp compilate.">
+		<delete dir="${build}/jsp" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: _clean-web-inf                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_clean-web-inf"
+	        description="Rimuove il contenuto di lib e classes della
+	                     web application (per run locali).">
+		<delete dir="${srcweb}/WEB-INF/classes" />
+		<delete dir="${srcweb}/WEB-INF/lib" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about                                             # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about" description="Visualizza l'elenco dei target pubblici dello script.">
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about" srcfile="buildfiles/about.txt" />
+		<echo message="${about}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about-custom                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about-custom"
+	        description="Visualizza l'elenco di tutti i target,
+	                     pubblici e privati
+	                     (equivalente a 'ant -projecthelp')" >
+
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+		<echo message="${about-custom}" />
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: show-vars                                         # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="show-vars" depends="init"
+	        description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************" />
+		<echo message="********  ${componente} environment  *******" />
+		<echo message="*****************************************" />
+		<echoproperties />
+		<echo />
+		<echo />
+		<echo message="*****************************************" />
+		<echo message="********    java properties      ********" />
+		<echo message="*****************************************" />
+		<echoproperties prefix="java."/>
+	</target>
+
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+</project>

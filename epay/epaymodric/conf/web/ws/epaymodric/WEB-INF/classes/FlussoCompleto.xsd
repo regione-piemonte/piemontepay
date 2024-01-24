@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:pag="http://www.digitpa.gov.it/schemas/2011/Pagamenti/"
+	xmlns:tns="http://www.csi.it/epay/epaywso/FlussoCompleto"
+	xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/FlussoCompleto"
+	elementFormDefault="qualified">
+
+    <include schemaLocation=""></include>
+    <import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes.xsd" />
+
+	<element name="FlussoCompleto" type="tns:FlussoCompletoType" />
+
+	<complexType name="FlussoCompletoType">
+		<sequence>
+			<element name="TestataFlusso" type="tns:TestataFlussoCompletoType"  minOccurs="1" maxOccurs="1" />
+			<element name="RigheSintesi">
+          		<complexType>
+		            <sequence>
+		              <element name="SingolaRigaSintesi" type="tns:FlussoSintesiType"  minOccurs="1" maxOccurs="unbounded" />
+		            </sequence>
+	          	</complexType>
+        	</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="TestataFlussoCompletoType">
+		<sequence>
+			<element name="IdMessaggio" type="types:String35Type" ></element>
+            <element name="DataOraMessaggio" type="dateTime" ></element>
+            <element name="CFEnteCreditore" type="types:String35Type" ></element>
+            <element name="DenominazioneEnte" type="types:String70Type" ></element>
+            <element name="IdPSP" type="types:String35Type" ></element>
+            <element name="DenominazionePSP" type="types:String70Type" ></element>
+            <element name="IdentificativoFlusso" type="types:String35Type" ></element>
+            <element name="IdentificativoUnivocoRegolamento" type="types:String35Type" ></element>
+            <element name="DataRegolamento" type="date" ></element>
+            <element name="NumeroTotalePagamentiFlusso" type="integer" ></element>
+            <element name="NumeroTotalePagamentiIntermediati" type="integer" ></element>
+            <element name="ImportoTotalePagamentiFlusso" type="types:ImportoType" ></element>
+            <element name="ImportoTotalePagamentiIntermediati" type="types:ImportoType" ></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="FlussoSintesiType">
+		<sequence>
+			<element name="IdFlusso" type="types:String35Type"></element>
+			<element name="CodiceVersamento" type="types:CodiceVersamentoType" minOccurs="1"></element>
+			<element name="DescrizioneCodiceVersamento" type="types:String500Type" minOccurs="0"></element>
+			<element name="DatiSpecificiDiRiscossione" type="types:String70Type" minOccurs="1"></element>
+			<element name="ImportoQuotaAggregazione" type="types:ImportoSignedType" minOccurs="1"></element>
+		    <element name="NroPagamentiAggregazione" type="types:Numero6CifreType" minOccurs="1"></element>
+		    <element name="Capitolo" type="types:String200Type" minOccurs="0"></element>
+		    <element name="Articolo" type="types:String200Type" minOccurs="0"></element>
+		    <element name="PdC" type="types:String200Type" minOccurs="0"></element>
+			<element name="ProgressivoFlussoSintetico" type="types:Numero6CifreType" minOccurs="0"></element>
+			<element name="AccertamentoAnno" type="types:AnnoType" minOccurs="0"></element>
+		    <element name="AccertamentoNumero" type="types:Numero6CifreType" minOccurs="0"></element>			
+          	<element minOccurs="0" name="RigheDettaglio">
+        		<complexType>
+	        	  <sequence>
+		           	 <element name="SingolaRigaDettaglio" type="tns:FlussoDettaglioType" minOccurs="0" maxOccurs="unbounded"/>
+		          </sequence>
+        		</complexType>
+      		</element>
+      
+		</sequence>
+	</complexType>
+
+	<complexType name="FlussoDettaglioType">
+		<sequence>
+		    <element name="AnagraficaPagatore" type="types:SoggettoType"></element>
+		    <element name="DescrizioneCausaleVersamento" type="types:String200Type" minOccurs="0"></element>
+			<element name="Causale" type="types:String135Type" minOccurs="0"></element>
+		    <element name="DataPagamento" type="dateTime" minOccurs="0"></element>
+    		<element name="EsitoPagamento" type="types:String70Type" minOccurs="0"></element>
+    		<element name="ImportoSingoloVersamento" type="types:ImportoSignedType" minOccurs="0"></element>
+			<element name="IndiceSingoloVersamento" type="types:Numero6CifreType" minOccurs="0"></element>
+		    <element name="Transactionid" type="types:String70Type" minOccurs="0"></element>
+		    <element name="IdentificativoUnivocoVersamento" type="types:String70Type" minOccurs="0"></element>
+			<element name="IdentificativoUnivocoRiscossione" type="types:String70Type" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+</schema>

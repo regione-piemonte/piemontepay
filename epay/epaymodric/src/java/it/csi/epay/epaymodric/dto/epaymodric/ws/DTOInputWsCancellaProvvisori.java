@@ -1,0 +1,35 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+package it.csi.epay.epaymodric.dto.epaymodric.ws;
+
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+import it.csi.epay.epaymodric.dto.epaymodric.base.DTOInputBase;
+import it.csi.epay.epaymodric.dto.epaymodric.base.DTOProvvisorio;
+
+@XmlAccessorType ( XmlAccessType.PROPERTY )
+@XmlType ( name = "dtoInputWsCancellaProvvisori" )
+public class DTOInputWsCancellaProvvisori extends DTOInputBase {
+
+	private static final long serialVersionUID = 1L;
+
+	private List<DTOProvvisorio> dtoProvvisorioList;
+
+	public DTOInputWsCancellaProvvisori() {
+	}
+
+	public List<DTOProvvisorio> getDtoProvvisorioList() {
+		return dtoProvvisorioList;
+	}
+
+	public void setDtoProvvisorioList(List<DTOProvvisorio> dtoProvvisorioList) {
+		this.dtoProvvisorioList = dtoProvvisorioList;
+	}
+}

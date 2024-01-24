@@ -1,0 +1,407 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.csi.it/epay/epaywso/riconciliazione-versamenti-psp/types" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EPayRiconciliazioneVersamentiPSPService" targetNamespace="http://www.csi.it/epay/epaywso/riconciliazione-versamenti-psp/types">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/types" elementFormDefault="qualified" targetNamespace="http://www.csi.it/epay/epaywso/types" version="1.0">
+
+  <xs:element name="EPaywsoServiceResponse" type="tns:ResponseType"/>
+
+  <xs:complexType name="SoggettoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonaFisica" type="tns:PersonaFisicaType"/>
+      <xs:element minOccurs="0" name="PersonaGiuridica" type="tns:PersonaGiuridicaType"/>
+      <xs:element name="IdentificativoUnivocoFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="Indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="Civico" type="xs:string"/>
+      <xs:element minOccurs="0" name="CAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="Localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="Nazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="EMail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaFisicaType">
+    <xs:sequence>
+      <xs:element name="Cognome" type="xs:string"/>
+      <xs:element name="Nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaGiuridicaType">
+    <xs:sequence>
+      <xs:element name="RagioneSociale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element name="Result" type="tns:ResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="Codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="Messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PosizioneDebitoriaType">
+    <xs:sequence>
+      <xs:element name="IdPosizioneDebitoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="IUV" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodiceAvviso" type="xs:string"/>
+      <xs:element name="CodiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="DescrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoInserimentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieInserite">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaInserita" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoAggiornamentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieAggiornate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaAggiornata" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EndpointType">
+    <xs:sequence>
+      <xs:element default="http" name="Protocol" type="xs:string"/>
+      <xs:element name="Host" type="xs:string"/>
+      <xs:element name="Context" type="xs:string"/>
+      <xs:element minOccurs="0" name="Port" type="xs:int"/>
+      <xs:element minOccurs="0" name="CredenzialiAutenticazione">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NomeUtente" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/riconciliazione-versamenti-psp/types" xmlns:ns1="http://www.csi.it/epay/epaywso/types" elementFormDefault="qualified" targetNamespace="http://www.csi.it/epay/epaywso/riconciliazione-versamenti-psp/types" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaywso/types"/>
+
+  <xs:element name="EsitoFlussiPagoPARequest" type="tns:TestataFlussoRiconciliazioneType"/>
+
+  <xs:element name="EsitoFlussiPagoPAResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="ns1:ResponseType">
+          <xs:sequence>
+            <xs:element name="StatoElaborazioneFlusso" type="xs:string"/>
+            <xs:element minOccurs="0" name="DettaglioEsitoElaborazione" type="xs:string"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RicercaProvvisoriPagoPARequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CFEnteCreditore" type="xs:string"/>
+        <xs:element minOccurs="0" name="ElencoCausaliVersamenti">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="CausaleVersamento" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AnnoEsercizio" type="xs:integer"/>
+        <xs:element minOccurs="0" name="DataProvvisorioDal" type="xs:date"/>
+        <xs:element minOccurs="0" name="DataProvvisorioAl" type="xs:date"/>
+        <xs:element minOccurs="0" name="NumeroProvvisorioDal" type="xs:integer"/>
+        <xs:element minOccurs="0" name="NumeroProvvisorioAl" type="xs:integer"/>
+        <xs:element minOccurs="0" name="Stato" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="RicercaProvvisoriPagoPAResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="ns1:ResponseType">
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ElencoProvvisori">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="Provvisorio" type="tns:ProvvisorioType"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TrasmettiFlussiInErrorePagoPARequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TestataFlussi" type="tns:TestataFlussiErroreType"/>
+        <xs:element minOccurs="0" name="RigheFlussi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="FlussoErrato" type="tns:FlussiInErroreType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TrasmettiFlussiInErrorePagoPAResponse" type="ns1:ResponseType"/>
+
+  <xs:element name="TrasmettiFlussiPagoPARequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="TestataFlusso" type="tns:TestataFlussoRiconciliazioneType"/>
+        <xs:element name="RigheSintesi">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="SingolaRigaSintesi" type="tns:FlussoSintesiType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TrasmettiFlussiPagoPAResponse" type="ns1:ResponseType"/>
+
+  <xs:complexType name="TestataFlussoRiconciliazioneType">
+    <xs:sequence>
+      <xs:element name="IdMessaggio" type="xs:string"/>
+      <xs:element name="DataOraMessaggio" type="xs:dateTime"/>
+      <xs:element name="CFEnteCreditore" type="xs:string"/>
+      <xs:element name="DenominazioneEnte" type="xs:string"/>
+      <xs:element name="IdPSP" type="xs:string"/>
+      <xs:element name="DenominazionePSP" type="xs:string"/>
+      <xs:element name="IdentificativoFlusso" type="xs:string"/>
+      <xs:element name="IdentificativoUnivocoRegolamento" type="xs:string"/>
+      <xs:element name="DataRegolamento" type="xs:date"/>
+      <xs:element name="NumeroTotalePagamentiFlusso" type="xs:integer"/>
+      <xs:element name="NumeroTotalePagamentiIntermediati" type="xs:integer"/>
+      <xs:element name="ImportoTotalePagamentiFlusso" type="xs:decimal"/>
+      <xs:element name="ImportoTotalePagamentiIntermediati" type="xs:decimal"/>
+      <xs:element name="ProvvisorioAnno" type="xs:integer"/>
+      <xs:element name="ProvvisorioNumero" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlussoSintesiType">
+    <xs:sequence>
+      <xs:element name="CodiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="DescrizioneCodiceVersamento" type="xs:string"/>
+      <xs:element name="DatiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element name="ImportoQuotaAggregazione" type="xs:decimal"/>
+      <xs:element name="NroPagamentiAggregazione" type="xs:integer"/>
+      <xs:element minOccurs="0" name="Capitolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="Articolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="PdC" type="xs:string"/>
+      <xs:element name="ProgressivoFlussoSintetico" nillable="true" type="xs:integer"/>
+      <xs:element name="AccertamentoAnno" nillable="true" type="xs:integer"/>
+      <xs:element name="AccertamentoNro" nillable="true" type="xs:integer"/>
+      <xs:element minOccurs="0" name="RigheDettaglio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="SingolaRigaDettaglio" type="tns:FlussoDettaglioType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlussoDettaglioType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AnagraficaPagatore" type="ns1:SoggettoType"/>
+      <xs:element minOccurs="0" name="DescrizioneCausaleVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="Causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="DataPagamento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="EsitoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="ImportoSingoloVersamento" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="IndiceSingoloVersamento" type="xs:integer"/>
+      <xs:element minOccurs="0" name="Transactionid" type="xs:string"/>
+      <xs:element minOccurs="0" name="IdentificativoUnivocoVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="IdentificativoUnivocoRiscossione" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProvvisorioType">
+    <xs:sequence>
+      <xs:element name="AnnoEsercizio" type="xs:integer"/>
+      <xs:element name="Numero" type="xs:integer"/>
+      <xs:element name="Data" type="xs:date"/>
+      <xs:element name="Importo" type="xs:decimal"/>
+      <xs:element name="CausaleVersamento" type="xs:string"/>
+      <xs:element name="Stato" type="xs:string"/>
+      <xs:element name="Soggetto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TestataFlussiErroreType">
+    <xs:sequence>
+      <xs:element name="IdMessaggio" type="xs:string"/>
+      <xs:element name="DataOraMessaggio" type="xs:dateTime"/>
+      <xs:element name="CFEnteCreditore" type="xs:string"/>
+      <xs:element name="DenominazioneEnte" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlussiInErroreType">
+    <xs:sequence>
+      <xs:element name="IdPsp" type="xs:string"/>
+      <xs:element name="DenominazionePSP" type="xs:string"/>
+      <xs:element name="IdentificativoFlusso" type="xs:string"/>
+      <xs:element name="IdentificativoUnivocoRegolamento" type="xs:string"/>
+      <xs:element name="DataRegolamento" type="xs:date"/>
+      <xs:element name="NumeroTotalePagamentiFlusso" type="xs:integer"/>
+      <xs:element name="NumeroTotalePagamentiIntermediati" type="xs:integer"/>
+      <xs:element name="ImportoTotalePagamentiFlusso" type="xs:decimal"/>
+      <xs:element name="ImportoTotalePagamentiIntermediati" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CodiceVersamento" type="xs:string"/>
+      <xs:element name="CodiceErrore" type="xs:string"/>
+      <xs:element name="DescrizioneErrore" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="StatoElaborazioneFlussoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DA_ELABORARE"/>
+      <xs:enumeration value="ELABORATO"/>
+      <xs:enumeration value="IN_ERRORE"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StatoProvvisorioType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ANNULLATO"/>
+      <xs:enumeration value="VALIDO"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="TrasmettiFlussiPagoPA">
+    <wsdl:part element="tns:TrasmettiFlussiPagoPARequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RicercaProvvisoriPagoPA">
+    <wsdl:part element="tns:RicercaProvvisoriPagoPARequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EsitoFlussiPagoPA">
+    <wsdl:part element="tns:EsitoFlussiPagoPARequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EsitoFlussiPagoPAResponse">
+    <wsdl:part element="tns:EsitoFlussiPagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RicercaProvvisoriPagoPAResponse">
+    <wsdl:part element="tns:RicercaProvvisoriPagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiFlussiInErrorePagoPAResponse">
+    <wsdl:part element="tns:TrasmettiFlussiInErrorePagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiFlussiPagoPAResponse">
+    <wsdl:part element="tns:TrasmettiFlussiPagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiFlussiInErrorePagoPA">
+    <wsdl:part element="tns:TrasmettiFlussiInErrorePagoPARequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EPayRiconciliazioneVersamentiPSP">
+    <wsdl:operation name="TrasmettiFlussiPagoPA">
+      <wsdl:input message="tns:TrasmettiFlussiPagoPA" name="TrasmettiFlussiPagoPA">
+    </wsdl:input>
+      <wsdl:output message="tns:TrasmettiFlussiPagoPAResponse" name="TrasmettiFlussiPagoPAResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaProvvisoriPagoPA">
+      <wsdl:input message="tns:RicercaProvvisoriPagoPA" name="RicercaProvvisoriPagoPA">
+    </wsdl:input>
+      <wsdl:output message="tns:RicercaProvvisoriPagoPAResponse" name="RicercaProvvisoriPagoPAResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsitoFlussiPagoPA">
+      <wsdl:input message="tns:EsitoFlussiPagoPA" name="EsitoFlussiPagoPA">
+    </wsdl:input>
+      <wsdl:output message="tns:EsitoFlussiPagoPAResponse" name="EsitoFlussiPagoPAResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrasmettiFlussiInErrorePagoPA">
+      <wsdl:input message="tns:TrasmettiFlussiInErrorePagoPA" name="TrasmettiFlussiInErrorePagoPA">
+    </wsdl:input>
+      <wsdl:output message="tns:TrasmettiFlussiInErrorePagoPAResponse" name="TrasmettiFlussiInErrorePagoPAResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EPayRiconciliazioneVersamentiPSPServiceSoapBinding" type="tns:EPayRiconciliazioneVersamentiPSP">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TrasmettiFlussiPagoPA">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/RiconciliazioneVersamentiPSP/TrasmettiFlussiPagoPA" style="document"/>
+      <wsdl:input name="TrasmettiFlussiPagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TrasmettiFlussiPagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RicercaProvvisoriPagoPA">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/RiconciliazioneVersamentiPSP/RicercaProvvisoriPagoPA" style="document"/>
+      <wsdl:input name="RicercaProvvisoriPagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RicercaProvvisoriPagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsitoFlussiPagoPA">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/RiconciliazioneVersamentiPSP/EsitoFlussiPagoPA" style="document"/>
+      <wsdl:input name="EsitoFlussiPagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="EsitoFlussiPagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrasmettiFlussiInErrorePagoPA">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/RiconciliazioneVersamentiPSP/TrasmettiFlussiInErrorePagoPA" style="document"/>
+      <wsdl:input name="TrasmettiFlussiInErrorePagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TrasmettiFlussiInErrorePagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EPayRiconciliazioneVersamentiPSPService">
+    <wsdl:port binding="tns:EPayRiconciliazioneVersamentiPSPServiceSoapBinding" name="EPayRiconciliazioneVersamentiPSPPort">
+      <soap:address location="http://localhost:8081/epaysimulatorApplEpaysimulatorws/EPayRiconciliazioneVersamentiPSPService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

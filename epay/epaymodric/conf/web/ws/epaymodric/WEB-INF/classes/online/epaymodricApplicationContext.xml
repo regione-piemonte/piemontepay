@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   					   http://cxf.apache.org/core
+						   http://cxf.apache.org/schemas/core.xsd
+	   					   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context.xsd
+						   http://cxf.apache.org/jaxws
+						   http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<context:annotation-config/>
+	
+	<context:component-scan base-package="it.csi.epay.epaymodric" />
+	
+	<jaxws:endpoint id="epaymodricEpaymodricWS"
+		implementor="it.csi.epay.epaymodric.business.epaymodric.EpaymodricImpl"
+		address="/epaymodricApplEpaymodricWs/Epaymodric">
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint id="coopApplicativaPEC"
+		implementor="it.csi.epay.epaymodric.business.epaymodric.CoopApplicativaPECImpl"
+		address="/coopApplicativaPEC">
+	</jaxws:endpoint>
+	
+	<bean id="jaxb2Marshaller" 
+		class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="packagesToScan">
+			<list>
+				<!-- List of java packages that contain the jaxb generated classes -->
+				<value>it.csi.epay.epaymodric.util.xsd.epayriconciliazioneversamentipsp</value>
+				<value>it.csi.epay.epaymodric.util.xsd.epayflussicompletipsp</value>
+			</list>
+		</property>
+		
+		<property name="marshallerProperties">
+			<map>
+				<entry key="com.sun.xml.bind.namespacePrefixMapper">
+					<bean id="NamespacePrefixMapperImpl" class="it.csi.epay.epaymodric.business.epaymodric.utils.NamespacePrefixMapperImpl" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

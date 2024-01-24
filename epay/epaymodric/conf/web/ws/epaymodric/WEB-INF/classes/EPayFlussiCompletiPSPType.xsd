@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.csi.it/epay/epaywso/flussi-completi-psp/types"
+	xmlns:tns="http://www.csi.it/epay/epaywso/flussi-completi-psp/types" 
+	xmlns:types="http://www.csi.it/epay/epaywso/types"
+	elementFormDefault="qualified">
+
+	<import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes.xsd" />
+	
+	<element name="TrasmettiFlussiPagoPARequest">
+		<complexType>
+			<sequence>
+				<element name="Testata" type="tns:TestataTrasmissioneFlussiType"/>
+				<element name="FlussoCompleto" type="base64Binary" minOccurs="1"/>
+				<element name="DatiAggiuntivi" type="tns:DatiAggiuntiviType" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="TrasmettiFlussiPagoPAResponse" type="types:ResponseType"/>
+	
+	<complexType name="TestataTrasmissioneFlussiType">
+		<sequence>
+			<element name="IdMessaggio" type="types:String35Type" />
+			<element name="CFEnteCreditore" type="types:String35Type" />
+			<element name="IdentificativoFlusso" type="types:String35Type" /> <!-- o causale di versamento-->
+			<element name="DataOraFlusso" type="dateTime" />
+			<element name="IdPSP" type="types:String35Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="DatiAggiuntiviType">
+		<sequence>
+			<element name="ElencoCodiciVersamento">
+				<complexType>
+					<sequence>
+						<element name="CodiceVersamento" type="types:CodiceVersamentoType" minOccurs="1" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+</schema>
