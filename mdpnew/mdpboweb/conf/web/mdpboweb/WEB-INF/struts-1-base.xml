@@ -1,0 +1,404 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="base" extends="jsp-package" namespace="/">
+		
+		
+		<!-- MENU -->
+			
+		
+		<action name="goToMnuApplicazioniFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuApplicazioni">	
+			<result name="GO_TO_cpGestioneApplicazioni" type="chain">cpGestioneApplicazioni</result>
+		</action>		
+		<action name="goToMnuGWModAppFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuGWModApp">	
+			<result name="GO_TO_cpGestioneGW_PM" type="chain">cpGestioneGW_PM</result>
+		</action>		
+		<action name="goToMnuEntiFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuEnti">	
+			<result name="GO_TO_cpRicercaEnti" type="chain">cpRicercaEnti</result>
+		</action>		
+			
+		
+		<action name="goToMnuTransazioniFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuTransazioni">	
+			<result name="GO_TO_cpGestioneTransazioni" type="chain">cpGestioneTransazioni</result>
+		</action>		
+		<action name="goToMnuStatisticheFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuStatistiche">	
+			<result name="GO_TO_cpStatisticheTranzazioni" type="chain">cpStatisticheTranzazioni</result>
+		</action>		
+			
+		
+		<action name="goToMnuAuditingFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuAuditing">	
+			<result name="GO_TO_cpGestioneAuditing" type="chain">cpGestioneAuditing</result>
+		</action>		
+			
+		
+		<action name="goToMnuGestConfigFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuGestConfig">	
+			<result name="GO_TO_cpRicercaParametriConfigurazioneBO" type="chain">cpRicercaParametriConfigurazioneBO</result>
+		</action>		
+		<action name="goToMnuGestioneGruppiFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuGestioneGruppi">	
+			<result name="GO_TO_cpGestioneGruppi" type="chain">cpGestioneGruppi</result>
+		</action>		
+		<action name="goToMnuGestioneUtentiFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuGestioneUtenti">	
+			<result name="GO_TO_cpGestioneUtenti" type="chain">cpGestioneUtenti</result>
+		</action>		
+			
+		
+		<action name="goToMnuStoricoErroriFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuStoricoErrori">	
+			<result name="GO_TO_cpStoricoErrori" type="chain">cpStoricoErrori</result>
+		</action>		
+			
+		
+		<action name="goToMnuGiornaleEventiFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuGiornaleEventi">	
+			<result name="GO_TO_cpGestioneGiornaleEventi" type="chain">cpGestioneGiornaleEventi</result>
+		</action>		
+		<action name="goToMnuRichiestaPagamentoTelematicoFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuRichiestaPagamentoTelematico">	
+			<result name="GO_TO_cpGestioneRPT" type="chain">cpGestioneRPT</result>
+		</action>		
+		<action name="goToMnuRicevutaTelematicaFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuRicevutaTelematica">	
+			<result name="GO_TO_cpGestioneRT" type="chain">cpGestioneRT</result>
+		</action>		
+		<action name="goToMnuInformativaPspFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuInformativaPsp">	
+			<result name="GO_TO_cpInformativePsp" type="chain">cpInformativePsp</result>
+		</action>		
+		<action name="goToMnuFlussoRiversamentoFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuFlussoRiversamento">	
+			<result name="GO_TO_cpFlussoRiversamento" type="chain">cpFlussoRiversamento</result>
+		</action>		
+		<action name="goToMnuSingoloFlussoPagamentoFromMenu" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.MenuAction" method="goToMnuSingoloFlussoPagamento">	
+			<result name="GO_TO_cpFlussoSingoloPagamento" type="chain">cpFlussoSingoloPagamento</result>
+		</action>		
+		
+		
+			
+<action name="cpHomePage" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpHomePageAction">
+	<result name="input">/jsp/cpHomePage.jsp</result>
+	<result name="success">/jsp/cpHomePage.jsp</result>
+	
+	
+	
+</action>
+
+<action name="cpGestioneGiornaleEventi" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneGiornaleEventiAction">
+	<result name="input">/jsp/cpGestioneGiornaleEventi.jsp</result>
+	<result name="success">/jsp/cpGestioneGiornaleEventi.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioGiornaleEventi" type="chain">cpDettaglioGiornaleEventi</result>
+	
+	
+</action>
+
+<action name="cpDettaglioGiornaleEventi" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioGiornaleEventiAction">
+	<result name="input">/jsp/cpDettaglioGiornaleEventi.jsp</result>
+	<result name="success">/jsp/cpDettaglioGiornaleEventi.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGiornaleEventi" type="chain">cpGestioneGiornaleEventi</result>
+	
+	
+</action>
+
+<action name="cpGestioneTransazioni" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneTransazioniAction">
+	<result name="input">/jsp/cpGestioneTransazioni.jsp</result>
+	<result name="success">/jsp/cpGestioneTransazioni.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioTransazione" type="chain">cpDettaglioTransazione</result>
+	
+	
+</action>
+
+<action name="cpDettaglioTransazione" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioTransazioneAction">
+	<result name="input">/jsp/cpDettaglioTransazione.jsp</result>
+	<result name="success">/jsp/cpDettaglioTransazione.jsp</result>
+	
+	<result name="GO_TO_cpGestioneTransazioni" type="chain">cpGestioneTransazioni</result>
+	
+	
+</action>
+
+<action name="cpGestioneApplicazioni" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneApplicazioniAction">
+	<result name="input">/jsp/cpGestioneApplicazioni.jsp</result>
+	<result name="success">/jsp/cpGestioneApplicazioni.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioApplicazioneNew" type="chain">cpDettaglioApplicazioneNew</result>
+	<result name="GO_TO_cpDettaglioApplicazione" type="chain">cpDettaglioApplicazione</result>
+	
+	
+</action>
+
+<action name="cpGestioneUtenti" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneUtentiAction">
+	<result name="input">/jsp/cpGestioneUtenti.jsp</result>
+	<result name="success">/jsp/cpGestioneUtenti.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioUtenti" type="chain">cpDettaglioUtenti</result>
+	
+	
+</action>
+
+<action name="cpDettaglioApplicazione" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioApplicazioneAction">
+	<result name="input">/jsp/cpDettaglioApplicazione.jsp</result>
+	<result name="success">/jsp/cpDettaglioApplicazione.jsp</result>
+	
+	<result name="GO_TO_cpGestioneApplicazioni" type="chain">cpGestioneApplicazioni</result>
+	
+	
+</action>
+
+<action name="cpDettaglioApplicazioneNew" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioApplicazioneNewAction">
+	<result name="input">/jsp/cpDettaglioApplicazioneNew.jsp</result>
+	<result name="success">/jsp/cpDettaglioApplicazioneNew.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioApplicazione" type="chain">cpDettaglioApplicazione</result>
+	
+	
+</action>
+
+<action name="cpGestioneGW_PM" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneGW_PMAction">
+	<result name="input">/jsp/cpGestioneGW_PM.jsp</result>
+	<result name="success">/jsp/cpGestioneGW_PM.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioGatewayNew" type="chain">cpDettaglioGatewayNew</result>
+	<result name="GO_TO_cpDettaglioGatewayNewClone" type="chain">cpDettaglioGatewayNewClone</result>
+	<result name="GO_TO_cpDettaglioGateway" type="chain">cpDettaglioGateway</result>
+	<result name="GO_TO_cpDettaglioPaymentMode" type="chain">cpDettaglioPaymentMode</result>
+	
+	
+</action>
+
+<action name="cpDettaglioGateway" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioGatewayAction">
+	<result name="input">/jsp/cpDettaglioGateway.jsp</result>
+	<result name="success">/jsp/cpDettaglioGateway.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGW_PM" type="chain">cpGestioneGW_PM</result>
+	
+	
+</action>
+
+<action name="cpDettaglioPaymentMode" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioPaymentModeAction">
+	<result name="input">/jsp/cpDettaglioPaymentMode.jsp</result>
+	<result name="success">/jsp/cpDettaglioPaymentMode.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGW_PM" type="chain">cpGestioneGW_PM</result>
+	
+	
+</action>
+
+<action name="cpDettaglioUtenti" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioUtentiAction">
+	<result name="input">/jsp/cpDettaglioUtenti.jsp</result>
+	<result name="success">/jsp/cpDettaglioUtenti.jsp</result>
+	
+	<result name="GO_TO_cpGestioneUtenti" type="chain">cpGestioneUtenti</result>
+	
+	
+</action>
+
+<action name="cpGestioneAuditing" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneAuditingAction">
+	<result name="input">/jsp/cpGestioneAuditing.jsp</result>
+	<result name="success">/jsp/cpGestioneAuditing.jsp</result>
+	
+	
+	
+</action>
+
+<action name="cpStoricoErrori" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpStoricoErroriAction">
+	<result name="input">/jsp/cpStoricoErrori.jsp</result>
+	<result name="success">/jsp/cpStoricoErrori.jsp</result>
+	
+	
+	
+</action>
+
+<action name="cpRicercaParametriConfigurazioneBO" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpRicercaParametriConfigurazioneBOAction">
+	<result name="input">/jsp/cpRicercaParametriConfigurazioneBO.jsp</result>
+	<result name="success">/jsp/cpRicercaParametriConfigurazioneBO.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioParametroConfigurazioneBO" type="chain">cpDettaglioParametroConfigurazioneBO</result>
+	<result name="GO_TO_cpEliminaParametroConfigurazioneBO" type="chain">cpEliminaParametroConfigurazioneBO</result>
+	
+	
+</action>
+
+<action name="cpDettaglioParametroConfigurazioneBO" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioParametroConfigurazioneBOAction">
+	<result name="input">/jsp/cpDettaglioParametroConfigurazioneBO.jsp</result>
+	<result name="success">/jsp/cpDettaglioParametroConfigurazioneBO.jsp</result>
+	
+	<result name="GO_TO_cpRicercaParametriConfigurazioneBO" type="chain">cpRicercaParametriConfigurazioneBO</result>
+	
+	
+</action>
+
+<action name="cpEliminaParametroConfigurazioneBO" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpEliminaParametroConfigurazioneBOAction">
+	<result name="input">/jsp/cpEliminaParametroConfigurazioneBO.jsp</result>
+	<result name="success">/jsp/cpEliminaParametroConfigurazioneBO.jsp</result>
+	
+	<result name="GO_TO_cpRicercaParametriConfigurazioneBO" type="chain">cpRicercaParametriConfigurazioneBO</result>
+	
+	
+</action>
+
+<action name="cpGestioneGruppi" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneGruppiAction">
+	<result name="input">/jsp/cpGestioneGruppi.jsp</result>
+	<result name="success">/jsp/cpGestioneGruppi.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioGruppo" type="chain">cpDettaglioGruppo</result>
+	
+	
+</action>
+
+<action name="cpDettaglioGruppo" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioGruppoAction">
+	<result name="input">/jsp/cpDettaglioGruppo.jsp</result>
+	<result name="success">/jsp/cpDettaglioGruppo.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGruppi" type="chain">cpGestioneGruppi</result>
+	
+	
+</action>
+
+<action name="cpDettaglioGatewayNewClone" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioGatewayNewCloneAction">
+	<result name="input">/jsp/cpDettaglioGatewayNewClone.jsp</result>
+	<result name="success">/jsp/cpDettaglioGatewayNewClone.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGW_PM" type="chain">cpGestioneGW_PM</result>
+	<result name="GO_TO_cpDettaglioGateway" type="chain">cpDettaglioGateway</result>
+	
+	
+</action>
+
+<action name="cpDettaglioGatewayNew" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioGatewayNewAction">
+	<result name="input">/jsp/cpDettaglioGatewayNew.jsp</result>
+	<result name="success">/jsp/cpDettaglioGatewayNew.jsp</result>
+	
+	<result name="GO_TO_cpGestioneGW_PM" type="chain">cpGestioneGW_PM</result>
+	<result name="GO_TO_cpDettaglioGateway" type="chain">cpDettaglioGateway</result>
+	
+	
+</action>
+
+<action name="cpGestioneRPT" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneRPTAction">
+	<result name="input">/jsp/cpGestioneRPT.jsp</result>
+	<result name="success">/jsp/cpGestioneRPT.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioRPT" type="chain">cpDettaglioRPT</result>
+	<result name="GO_TO_cpGestioneStatiRpt" type="chain">cpGestioneStatiRpt</result>
+	
+	
+</action>
+
+<action name="cpGestioneStatiRpt" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneStatiRptAction">
+	<result name="input">/jsp/cpGestioneStatiRpt.jsp</result>
+	<result name="success">/jsp/cpGestioneStatiRpt.jsp</result>
+	
+	<result name="GO_TO_cpGestioneRPT" type="chain">cpGestioneRPT</result>
+	
+	
+</action>
+
+<action name="cpGestioneRT" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneRTAction">
+	<result name="input">/jsp/cpGestioneRT.jsp</result>
+	<result name="success">/jsp/cpGestioneRT.jsp</result>
+	
+	
+	
+</action>
+
+<action name="cpDettaglioRPT" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioRPTAction">
+	<result name="input">/jsp/cpDettaglioRPT.jsp</result>
+	<result name="success">/jsp/cpDettaglioRPT.jsp</result>
+	
+	<result name="GO_TO_cpGestioneRPT" type="chain">cpGestioneRPT</result>
+	
+	
+</action>
+
+<action name="cpRicercaEnti" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpRicercaEntiAction">
+	<result name="input">/jsp/cpRicercaEnti.jsp</result>
+	<result name="success">/jsp/cpRicercaEnti.jsp</result>
+	
+	<result name="GO_TO_cpGestioneEnti" type="chain">cpGestioneEnti</result>
+	
+	
+</action>
+
+<action name="cpGestioneEnti" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpGestioneEntiAction">
+	<result name="input">/jsp/cpGestioneEnti.jsp</result>
+	<result name="success">/jsp/cpGestioneEnti.jsp</result>
+	
+	<result name="GO_TO_cpRicercaEnti" type="chain">cpRicercaEnti</result>
+	
+	
+</action>
+
+<action name="cpInformativePsp" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpInformativePspAction">
+	<result name="input">/jsp/cpInformativePsp.jsp</result>
+	<result name="success">/jsp/cpInformativePsp.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioInformativaPsp" type="chain">cpDettaglioInformativaPsp</result>
+	
+	
+</action>
+
+<action name="cpDettaglioInformativaPsp" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioInformativaPspAction">
+	<result name="input">/jsp/cpDettaglioInformativaPsp.jsp</result>
+	<result name="success">/jsp/cpDettaglioInformativaPsp.jsp</result>
+	
+	<result name="GO_TO_cpInformativePsp" type="chain">cpInformativePsp</result>
+	
+	
+</action>
+
+<action name="cpFlussoRiversamento" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpFlussoRiversamentoAction">
+	<result name="input">/jsp/cpFlussoRiversamento.jsp</result>
+	<result name="success">/jsp/cpFlussoRiversamento.jsp</result>
+	
+	<result name="GO_TO_cpVerificaFlussi" type="chain">cpVerificaFlussi</result>
+	<result name="GO_TO_cpDettaglioFlussoRiversamento" type="chain">cpDettaglioFlussoRiversamento</result>
+	
+	
+</action>
+
+<action name="cpDettaglioFlussoRiversamento" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpDettaglioFlussoRiversamentoAction">
+	<result name="input">/jsp/cpDettaglioFlussoRiversamento.jsp</result>
+	<result name="success">/jsp/cpDettaglioFlussoRiversamento.jsp</result>
+	
+	<result name="GO_TO_cpFlussoRiversamento" type="chain">cpFlussoRiversamento</result>
+	<result name="GO_TO_cpFlussoSingoloPagamento" type="chain">cpFlussoSingoloPagamento</result>
+	
+	
+</action>
+
+<action name="cpFlussoSingoloPagamento" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpFlussoSingoloPagamentoAction">
+	<result name="input">/jsp/cpFlussoSingoloPagamento.jsp</result>
+	<result name="success">/jsp/cpFlussoSingoloPagamento.jsp</result>
+	
+	<result name="GO_TO_cpDettaglioFlussoRiversamento" type="chain">cpDettaglioFlussoRiversamento</result>
+	
+	
+</action>
+
+<action name="cpVerificaFlussi" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpVerificaFlussiAction">
+	<result name="input">/jsp/cpVerificaFlussi.jsp</result>
+	<result name="success">/jsp/cpVerificaFlussi.jsp</result>
+	
+	<result name="GO_TO_cpFlussoRiversamento" type="chain">cpFlussoRiversamento</result>
+	
+	
+</action>
+
+<action name="cpStatisticheTranzazioni" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.mdpbackoffice.CpStatisticheTranzazioniAction">
+	<result name="input">/jsp/cpStatisticheTranzazioni.jsp</result>
+	<result name="success">/jsp/cpStatisticheTranzazioni.jsp</result>
+	
+	
+	
+</action>
+	
+		<!--PROTECTED REGION ID(R1672727510) ENABLED START-->
+		<!-- inserire qui la dichiarazione di azioni aggiuntive hand-written -->
+		<!--PROTECTED REGION END-->
+	</package>
+</struts>

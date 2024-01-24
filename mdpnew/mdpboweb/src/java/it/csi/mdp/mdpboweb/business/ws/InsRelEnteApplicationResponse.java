@@ -1,0 +1,119 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+package it.csi.mdp.mdpboweb.business.ws;
+
+public class InsRelEnteApplicationResponse  implements java.io.Serializable {
+    private java.lang.Integer _return;
+
+    public InsRelEnteApplicationResponse() {
+    }
+
+    public InsRelEnteApplicationResponse(
+           java.lang.Integer _return) {
+           this._return = _return;
+    }
+
+
+    /**
+     * Gets the _return value for this InsRelEnteApplicationResponse.
+     * 
+     * @return _return
+     */
+    public java.lang.Integer get_return() {
+        return _return;
+    }
+
+
+    /**
+     * Sets the _return value for this InsRelEnteApplicationResponse.
+     * 
+     * @param _return
+     */
+    public void set_return(java.lang.Integer _return) {
+        this._return = _return;
+    }
+
+    private java.lang.Object __equalsCalc = null;
+    public synchronized boolean equals(java.lang.Object obj) {
+        if (!(obj instanceof InsRelEnteApplicationResponse)) return false;
+        InsRelEnteApplicationResponse other = (InsRelEnteApplicationResponse) obj;
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (__equalsCalc != null) {
+            return (__equalsCalc == obj);
+        }
+        __equalsCalc = obj;
+        boolean _equals;
+        _equals = true && 
+            ((this._return==null && other.get_return()==null) || 
+             (this._return!=null &&
+              this._return.equals(other.get_return())));
+        __equalsCalc = null;
+        return _equals;
+    }
+
+    private boolean __hashCodeCalc = false;
+    public synchronized int hashCode() {
+        if (__hashCodeCalc) {
+            return 0;
+        }
+        __hashCodeCalc = true;
+        int _hashCode = 1;
+        if (get_return() != null) {
+            _hashCode += get_return().hashCode();
+        }
+        __hashCodeCalc = false;
+        return _hashCode;
+    }
+
+    // Type metadata
+    private static org.apache.axis.description.TypeDesc typeDesc =
+        new org.apache.axis.description.TypeDesc(InsRelEnteApplicationResponse.class, true);
+
+    static {
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://interfacecxf.boservices.mdp.csi.it/", "insRelEnteApplicationResponse"));
+        org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+        elemField.setFieldName("_return");
+        elemField.setXmlName(new javax.xml.namespace.QName("", "return"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+        elemField.setMinOccurs(0);
+        elemField.setNillable(false);
+        typeDesc.addFieldDesc(elemField);
+    }
+
+    /**
+     * Return type metadata object
+     */
+    public static org.apache.axis.description.TypeDesc getTypeDesc() {
+        return typeDesc;
+    }
+
+    /**
+     * Get Custom Serializer
+     */
+    public static org.apache.axis.encoding.Serializer getSerializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanSerializer(
+            _javaType, _xmlType, typeDesc);
+    }
+
+    /**
+     * Get Custom Deserializer
+     */
+    public static org.apache.axis.encoding.Deserializer getDeserializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanDeserializer(
+            _javaType, _xmlType, typeDesc);
+    }
+
+}

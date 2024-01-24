@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<files>
+	<!-- risorse caricate in ogni pagina -->
+	<file page="all">
+<resource type="text/css">
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/css/ext-all/resources/css/ext-all.css" />
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/css/general/css/xtheme-general.css" />
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/ext-all/3.2.2/adapter/ext/ext-base.js" />
+	<position value="/ris/utheme/global/jslib/ext-all/3.2.2/ext-all.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/util/Format.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/locale/ext-lang-it.js" />
+</resource>
+	</file>	
+	<!-- risorse specifiche del ContentPanel [cpHomePage] -->
+	<file page="cpHomePage">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpHomePage.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneGiornaleEventi] -->
+	<file page="cpGestioneGiornaleEventi">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneGiornaleEventi.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioGiornaleEventi] -->
+	<file page="cpDettaglioGiornaleEventi">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioGiornaleEventi.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneTransazioni] -->
+	<file page="cpGestioneTransazioni">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneTransazioni.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioTransazione] -->
+	<file page="cpDettaglioTransazione">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioTransazione.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneApplicazioni] -->
+	<file page="cpGestioneApplicazioni">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneApplicazioni.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneUtenti] -->
+	<file page="cpGestioneUtenti">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneUtenti.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioApplicazione] -->
+	<file page="cpDettaglioApplicazione">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioApplicazione.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioApplicazioneNew] -->
+	<file page="cpDettaglioApplicazioneNew">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioApplicazioneNew.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneGW_PM] -->
+	<file page="cpGestioneGW_PM">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneGW_PM.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioGateway] -->
+	<file page="cpDettaglioGateway">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioGateway.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioPaymentMode] -->
+	<file page="cpDettaglioPaymentMode">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioPaymentMode.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioUtenti] -->
+	<file page="cpDettaglioUtenti">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioUtenti.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneAuditing] -->
+	<file page="cpGestioneAuditing">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneAuditing.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpStoricoErrori] -->
+	<file page="cpStoricoErrori">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpStoricoErrori.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpRicercaParametriConfigurazioneBO] -->
+	<file page="cpRicercaParametriConfigurazioneBO">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpRicercaParametriConfigurazioneBO.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioParametroConfigurazioneBO] -->
+	<file page="cpDettaglioParametroConfigurazioneBO">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioParametroConfigurazioneBO.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpEliminaParametroConfigurazioneBO] -->
+	<file page="cpEliminaParametroConfigurazioneBO">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpEliminaParametroConfigurazioneBO.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneGruppi] -->
+	<file page="cpGestioneGruppi">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneGruppi.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioGruppo] -->
+	<file page="cpDettaglioGruppo">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioGruppo.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioGatewayNewClone] -->
+	<file page="cpDettaglioGatewayNewClone">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioGatewayNewClone.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioGatewayNew] -->
+	<file page="cpDettaglioGatewayNew">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioGatewayNew.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneRPT] -->
+	<file page="cpGestioneRPT">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneRPT.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneStatiRpt] -->
+	<file page="cpGestioneStatiRpt">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneStatiRpt.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneRT] -->
+	<file page="cpGestioneRT">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneRT.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioRPT] -->
+	<file page="cpDettaglioRPT">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioRPT.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpRicercaEnti] -->
+	<file page="cpRicercaEnti">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpRicercaEnti.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpGestioneEnti] -->
+	<file page="cpGestioneEnti">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpGestioneEnti.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpInformativePsp] -->
+	<file page="cpInformativePsp">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpInformativePsp.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioInformativaPsp] -->
+	<file page="cpDettaglioInformativaPsp">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioInformativaPsp.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpFlussoRiversamento] -->
+	<file page="cpFlussoRiversamento">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpFlussoRiversamento.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpDettaglioFlussoRiversamento] -->
+	<file page="cpDettaglioFlussoRiversamento">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpDettaglioFlussoRiversamento.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpFlussoSingoloPagamento] -->
+	<file page="cpFlussoSingoloPagamento">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpFlussoSingoloPagamento.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpVerificaFlussi] -->
+	<file page="cpVerificaFlussi">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpVerificaFlussi.js" />
+</resource>
+	</file>
+	<!-- risorse specifiche del ContentPanel [cpStatisticheTranzazioni] -->
+	<file page="cpStatisticheTranzazioni">
+<resource type="text/css">
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/css/ajaxify.css" />
+	
+</resource>
+<resource type="text/javascript">
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/table-grid/TableGrid.js" />
+	<position value="/ris/utheme/global/jslib/extjscsicore/1.0.0/miframe/miframe.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/enricher/enricher.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/menu/csimenu.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/toggle-panel/toggle.js" />
+	<position value="/ris/utheme/global/jslib/extjscsienricher/1.4.1/ajaxify-tag/ajaxifyTag.js" />
+	
+	<!-- componente js dello skin -->
+	<position value="/ris/utheme/global/themes/extlibsthemeV1/js/style.js" />
+	<!-- funzioni comuni all' applicativo (opz) -->
+	<position value="ris/js/localLibs.js" />
+	<!-- stilizzazioni JS locali (opz) -->
+	<position value="/ris/utheme/general/mdpboweb/js/localStyle.js" />
+	<!-- arricchimenti della schermata -->
+	<position value="ris/js/enrichments/cpStatisticheTranzazioni.js" />
+</resource>
+	</file>
+</files>

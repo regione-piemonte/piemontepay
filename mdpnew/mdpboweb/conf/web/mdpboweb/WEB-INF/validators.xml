@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator Config 1.0//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-config-1.0.dtd">
+
+<validators>
+
+	<!-- Custom validators Definiti in GuiGen -->
+	<validator name="csiDateValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiDateValidator"/>
+	<validator name="csiLongRangeValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiLongRangeValidator"/>
+
+	<!-- Validators per Simple Types User Defined -->
+	<validator name="csiUdStringRangeValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdStringRangeValidator"/>
+	<validator name="csiUdNumericDecValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdNumericDecValidator"/>
+	<validator name="csiUdLongRangeValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdLongRangeValidator"/>
+	<validator name="csiUdDateValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdDateValidator"/>
+	<validator name="csiUdStringRegexpValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdStringRegexpValidator"/>
+	<validator name="csiUdNumericIntValidator" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.validator.CsiUdNumericIntValidator"/>
+	
+
+	<!-- Custom validators modellati dall'utente nei widget -->
+
+	<!--PROTECTED REGION ID(R-148540340) ENABLED START-->
+	<!-- Inserire qui i custom validators che verranno acceduti mediante XML notation -->
+	<!--PROTECTED REGION END-->
+
+</validators>

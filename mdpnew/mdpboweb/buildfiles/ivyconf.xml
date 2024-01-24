@@ -1,0 +1,35 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivysettings>
+	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+	<resolvers>
+		<url name="myUrlResolver">
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+			
+			<!-- Aggiunta per extjs e reperimento risorse statiche -->
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+			<artifact pattern="http://repart.csi.it/javascript/[organisation]/[module]/lib/[artifact].[type]" />
+
+			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://repart.csi.it/javascript/[organisation]/[module]/ivy-[module].xml" />
+
+			
+			
+
+
+		</url>
+	</resolvers>
+</ivysettings>

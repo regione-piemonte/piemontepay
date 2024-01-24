@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+	<!-- bean di business logic -->
+	
+	<!-- bean di facade -->
+	<bean id="springBackEnd" class="it.csi.mdp.mdpboweb.business.BackEndFacade">
+		<property name="CPBECpHomePage">
+			<ref bean="CPBECpHomePage"/>
+		</property>
+		<property name="CPBECpGestioneGiornaleEventi">
+			<ref bean="CPBECpGestioneGiornaleEventi"/>
+		</property>
+		<property name="CPBECpDettaglioGiornaleEventi">
+			<ref bean="CPBECpDettaglioGiornaleEventi"/>
+		</property>
+		<property name="CPBECpGestioneTransazioni">
+			<ref bean="CPBECpGestioneTransazioni"/>
+		</property>
+		<property name="CPBECpDettaglioTransazione">
+			<ref bean="CPBECpDettaglioTransazione"/>
+		</property>
+		<property name="CPBECpGestioneApplicazioni">
+			<ref bean="CPBECpGestioneApplicazioni"/>
+		</property>
+		<property name="CPBECpGestioneUtenti">
+			<ref bean="CPBECpGestioneUtenti"/>
+		</property>
+		<property name="CPBECpDettaglioApplicazione">
+			<ref bean="CPBECpDettaglioApplicazione"/>
+		</property>
+		<property name="CPBECpDettaglioApplicazioneNew">
+			<ref bean="CPBECpDettaglioApplicazioneNew"/>
+		</property>
+		<property name="CPBECpGestioneGW_PM">
+			<ref bean="CPBECpGestioneGW_PM"/>
+		</property>
+		<property name="CPBECpDettaglioGateway">
+			<ref bean="CPBECpDettaglioGateway"/>
+		</property>
+		<property name="CPBECpDettaglioPaymentMode">
+			<ref bean="CPBECpDettaglioPaymentMode"/>
+		</property>
+		<property name="CPBECpDettaglioUtenti">
+			<ref bean="CPBECpDettaglioUtenti"/>
+		</property>
+		<property name="CPBECpGestioneAuditing">
+			<ref bean="CPBECpGestioneAuditing"/>
+		</property>
+		<property name="CPBECpStoricoErrori">
+			<ref bean="CPBECpStoricoErrori"/>
+		</property>
+		<property name="CPBECpRicercaParametriConfigurazioneBO">
+			<ref bean="CPBECpRicercaParametriConfigurazioneBO"/>
+		</property>
+		<property name="CPBECpDettaglioParametroConfigurazioneBO">
+			<ref bean="CPBECpDettaglioParametroConfigurazioneBO"/>
+		</property>
+		<property name="CPBECpEliminaParametroConfigurazioneBO">
+			<ref bean="CPBECpEliminaParametroConfigurazioneBO"/>
+		</property>
+		<property name="CPBECpGestioneGruppi">
+			<ref bean="CPBECpGestioneGruppi"/>
+		</property>
+		<property name="CPBECpDettaglioGruppo">
+			<ref bean="CPBECpDettaglioGruppo"/>
+		</property>
+		<property name="CPBECpDettaglioGatewayNewClone">
+			<ref bean="CPBECpDettaglioGatewayNewClone"/>
+		</property>
+		<property name="CPBECpDettaglioGatewayNew">
+			<ref bean="CPBECpDettaglioGatewayNew"/>
+		</property>
+		<property name="CPBECpGestioneRPT">
+			<ref bean="CPBECpGestioneRPT"/>
+		</property>
+		<property name="CPBECpGestioneStatiRpt">
+			<ref bean="CPBECpGestioneStatiRpt"/>
+		</property>
+		<property name="CPBECpGestioneRT">
+			<ref bean="CPBECpGestioneRT"/>
+		</property>
+		<property name="CPBECpDettaglioRPT">
+			<ref bean="CPBECpDettaglioRPT"/>
+		</property>
+		<property name="CPBECpRicercaEnti">
+			<ref bean="CPBECpRicercaEnti"/>
+		</property>
+		<property name="CPBECpGestioneEnti">
+			<ref bean="CPBECpGestioneEnti"/>
+		</property>
+		<property name="CPBECpInformativePsp">
+			<ref bean="CPBECpInformativePsp"/>
+		</property>
+		<property name="CPBECpDettaglioInformativaPsp">
+			<ref bean="CPBECpDettaglioInformativaPsp"/>
+		</property>
+		<property name="CPBECpFlussoRiversamento">
+			<ref bean="CPBECpFlussoRiversamento"/>
+		</property>
+		<property name="CPBECpDettaglioFlussoRiversamento">
+			<ref bean="CPBECpDettaglioFlussoRiversamento"/>
+		</property>
+		<property name="CPBECpFlussoSingoloPagamento">
+			<ref bean="CPBECpFlussoSingoloPagamento"/>
+		</property>
+		<property name="CPBECpVerificaFlussi">
+			<ref bean="CPBECpVerificaFlussi"/>
+		</property>
+		<property name="CPBECpStatisticheTranzazioni">
+			<ref bean="CPBECpStatisticheTranzazioni"/>
+		</property>
+	</bean>
+	
+	<!-- bean relativi ai singoli content panel -->
+	<bean id="CPBECpHomePage" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpHomePage">
+	</bean>
+	<bean id="CPBECpGestioneGiornaleEventi" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneGiornaleEventi">
+	</bean>
+	<bean id="CPBECpDettaglioGiornaleEventi" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioGiornaleEventi">
+	</bean>
+	<bean id="CPBECpGestioneTransazioni" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneTransazioni">
+	</bean>
+	<bean id="CPBECpDettaglioTransazione" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioTransazione">
+	</bean>
+	<bean id="CPBECpGestioneApplicazioni" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneApplicazioni">
+	</bean>
+	<bean id="CPBECpGestioneUtenti" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneUtenti">
+	</bean>
+	<bean id="CPBECpDettaglioApplicazione" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioApplicazione">
+	</bean>
+	<bean id="CPBECpDettaglioApplicazioneNew" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioApplicazioneNew">
+	</bean>
+	<bean id="CPBECpGestioneGW_PM" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneGW_PM">
+	</bean>
+	<bean id="CPBECpDettaglioGateway" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioGateway">
+	</bean>
+	<bean id="CPBECpDettaglioPaymentMode" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioPaymentMode">
+	</bean>
+	<bean id="CPBECpDettaglioUtenti" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioUtenti">
+	</bean>
+	<bean id="CPBECpGestioneAuditing" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneAuditing">
+	</bean>
+	<bean id="CPBECpStoricoErrori" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpStoricoErrori">
+	</bean>
+	<bean id="CPBECpRicercaParametriConfigurazioneBO" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpRicercaParametriConfigurazioneBO">
+	</bean>
+	<bean id="CPBECpDettaglioParametroConfigurazioneBO" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioParametroConfigurazioneBO">
+	</bean>
+	<bean id="CPBECpEliminaParametroConfigurazioneBO" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpEliminaParametroConfigurazioneBO">
+	</bean>
+	<bean id="CPBECpGestioneGruppi" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneGruppi">
+	</bean>
+	<bean id="CPBECpDettaglioGruppo" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioGruppo">
+	</bean>
+	<bean id="CPBECpDettaglioGatewayNewClone" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioGatewayNewClone">
+	</bean>
+	<bean id="CPBECpDettaglioGatewayNew" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioGatewayNew">
+	</bean>
+	<bean id="CPBECpGestioneRPT" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneRPT">
+	</bean>
+	<bean id="CPBECpGestioneStatiRpt" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneStatiRpt">
+	</bean>
+	<bean id="CPBECpGestioneRT" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneRT">
+	</bean>
+	<bean id="CPBECpDettaglioRPT" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioRPT">
+	</bean>
+	<bean id="CPBECpRicercaEnti" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpRicercaEnti">
+	</bean>
+	<bean id="CPBECpGestioneEnti" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpGestioneEnti">
+	</bean>
+	<bean id="CPBECpInformativePsp" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpInformativePsp">
+	</bean>
+	<bean id="CPBECpDettaglioInformativaPsp" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioInformativaPsp">
+	</bean>
+	<bean id="CPBECpFlussoRiversamento" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpFlussoRiversamento">
+	</bean>
+	<bean id="CPBECpDettaglioFlussoRiversamento" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpDettaglioFlussoRiversamento">
+	</bean>
+	<bean id="CPBECpFlussoSingoloPagamento" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpFlussoSingoloPagamento">
+	</bean>
+	<bean id="CPBECpVerificaFlussi" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpVerificaFlussi">
+	</bean>
+	<bean id="CPBECpStatisticheTranzazioni" class="it.csi.mdp.mdpboweb.business.mdpbackoffice.CPBECpStatisticheTranzazioni">
+	</bean>
+	
+	
+	
+	<!-- helper per le funzioni di securizzazione -->
+	<bean id="springSecurityHelper" class="it.csi.mdp.mdpboweb.business.SecurityHelper">
+
+	</bean>
+	
+	<!--PROTECTED REGION ID(R585863764) ENABLED START-->
+		<!-- Inserire qui configurazioni aggiuntive da iniettare nel bean prinicipale -->
+
+		<bean id="GestoreMDPBackOffice" class="it.csi.mdp.mdpboweb.business.mgr.GestoreMDPBackOffice">
+		</bean>
+		
+		<bean id="GestoreMDPNODONAZIONALEBackOffice" class="it.csi.mdp.mdpboweb.business.mgr.GestoreMDPNODONAZIONALEBackOffice">
+		</bean>
+		
+		<bean id="GestoreCoreMdpBackOffice" class="it.csi.mdp.mdpboweb.business.mgr.GestoreCoreMdpBackOffice">
+		</bean>
+	
+	<!--PROTECTED REGION END-->
+
+</beans>

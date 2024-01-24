@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/META-INF/beanContext.xml,/WEB-INF/dao-beans.xml,/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+
+
+	
+		
+	<context-param>
+		<param-name>logoutURL</param-name>
+		<param-value>@LOGOUT_URL@</param-value>
+	</context-param>
+
+
+
+	<context-param>
+		<param-name>localLogoutURL</param-name>
+		<param-value>@LOCAL_LOGOUT_URL@</param-value>
+	</context-param>
+
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>it.csi.mdp.mdpboweb.util.SessionListener</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+
+    <filter>
+		<filter-name>Session Guard</filter-name>
+		<filter-class>it.csi.mdp.mdpboweb.presentation.mdpboweb.filter.AppSessionGuardFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>Session Guard</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Session Guard</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+	<!-- ############################################################### 
+         definizione filter per autentication con shibboleth 
+         ###############################################################
+    -->
+
+    
+	<filter>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<filter-class>it.csi.mdp.mdpboweb.presentation.mdpboweb.filter.IrideIdAdapterFilter</filter-class>
+	</filter>
+
+    
+	<!-- ################################################################
+	     con shibboleth il filter di autenticazione non esiste
+	     (sostituito dal modulo apache)
+	     ################################################################
+	-->
+	
+	
+	
+	<!-- ################################################################
+	     il filter di adattamento iride e' il successivo dopo 
+	     l'autenticazione
+	     ################################################################
+	-->
+	<filter-mapping>
+		<filter-name>IRIDE ID Adapter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+
+
+
+
+	<filter-mapping>
+		<filter-name>ResponseOverrideFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/struts/*</url-pattern>
+	</filter-mapping>
+
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/jsp/error/notFound.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/jsp/error/fatalError.jsp</location>
+	</error-page>
+
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+
+	<distributable />
+
+	<context-param>
+		<param-name>remincl.resource.provider.sp</param-name>
+		<param-value>@@@remincl.resource.provider@@@</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>remincl.cache.time</param-name>
+		<param-value>@@@remincl.cache.time@@@</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>portal.home</param-name>
+		<param-value>@@@portal.home@@@</param-value>
+	</context-param>
+	
+
+</web-app>

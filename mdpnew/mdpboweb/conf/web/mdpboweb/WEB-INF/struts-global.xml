@@ -1,0 +1,99 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.ui.theme" value="csi" />
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<constant name="struts.multipart.parser" value="org.apache.struts2.dispatcher.multipart.JakartaMultiPartRequest" />
+	<!-- costanti per il fileUpload interceptor: settare solo se necessarie -->
+	<constant name="struts.multipart.maxSize" value="4524288" />
+	<!--<constant name="struts.multipart.saveDir" value="/tmp" />-->
+	
+	
+	
+	
+	<package name="jsp-package" extends="struts-default">
+		<interceptors>
+			<interceptor name="tableSelection" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.interceptor.TableSelectionInterceptor"/>
+			<interceptor name="methodProtection" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.interceptor.MethodProtectionInterceptor">
+				<param name="excludeMethods">execute,localLogout,ssoLogout</param>
+			</interceptor>
+			<interceptor name="paramsInterceptor" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.interceptor.ParametersInterceptor"/>
+			
+			<interceptor-stack name="jsp-stack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="tableSelection" />
+				<interceptor-ref name="static-params" />
+				<interceptor-ref name="servlet-config" />
+				<interceptor-ref name="fileUpload"/>
+				<!-- richiamare gli interceptor token e tokenSession dopo di questo -->
+				<interceptor-ref name="paramsInterceptor" />
+				<interceptor-ref name="conversionError"/>
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="validation" />
+				<interceptor-ref name="workflow" />
+				<interceptor-ref name="methodProtection" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="jsp-stack"/>
+		
+		<!-- gestione globale delle eccezioni e altri result globalmente validi -->
+		<global-results>
+			<result name="errorRuntime">/jsp/error/applicationError.jsp</result>
+			<!-- result per la restituizione di dati alle compoenenti rich U.I -->
+			<result name="provideData" type="stream">
+  				<param name="contentType">text/plain;charset=UTF-8</param>
+  				<param name="inputName">dataProviderStream</param>
+  				<param name="bufferSize">1024</param>
+  				<param name="allowCaching">false</param>
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="errorRuntime" exception="java.lang.RuntimeException"/>
+		</global-exception-mappings>
+		
+	</package>
+
+	<package name="default" extends="jsp-package" namespace="/">
+		<action name="notFoundError">
+			<result>/jsp/error/notFound.jsp</result>
+		</action>
+		<action name="fatalError">
+			<result>/jsp/error/fatalError.jsp</result>
+		</action>		
+		<action name="sessionExpired">
+			<result>/jsp/error/sessionExpired.jsp</result>
+		</action>
+		
+		<action name="HomePage" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.HomeAction">
+			<result type="chain">cpHomePage</result>
+		</action>
+		
+		<action name="Logout" class="it.csi.mdp.mdpboweb.presentation.mdpboweb.action.LogoutAction">
+			<result name="confirmLogout">/jsp/error/confirmLogout.jsp</result>
+			<result name="SSO_LOGOUT" type="redirect">
+				<param name="location">@LOGOUT_URL@</param>
+			</result>
+			<result name="LOCAL_LOGOUT" type="redirect">
+				<param name="location">@LOCAL_LOGOUT_URL@</param>
+			</result>
+		</action>
+		
+	</package>
+
+</struts>
