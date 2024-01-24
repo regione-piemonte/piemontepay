@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+
+	<sub-deployment name="${web-module-name}.war">
+		<module-alias name="epayweb.war"/>
+	
+	   <dependencies>
+	       <module name="javax.activation.api" slot="main"></module>
+	       <module name="org.apache.commons.codec" slot="main"></module>
+	       <module name="org.apache.commons.io" slot="main"></module>
+	       <module name="org.apache.commons.lang" slot="main"></module>
+	       <module name="javax.persistence.api" slot="main"></module>
+	       <module name="org.hibernate.validator" slot="main"></module>
+	       <module name="org.apache.httpcomponents" slot="main"></module>
+	       <module name="org.codehaus.jackson.jackson-core-asl" slot="main"></module>
+	       <module name="org.codehaus.jackson.jackson-jaxrs" slot="main"></module>
+	       <module name="org.codehaus.jackson.jackson-mapper-asl" slot="main"></module>
+	       <module name="org.codehaus.jackson.jackson-xc" slot="main"></module>
+	       <module name="org.javassist" slot="main"></module>
+	       <module name="org.jboss.logging" slot="main"></module>
+	       <module name="net.jcip" slot="main"></module>
+	       <module name="org.jboss.resteasy.resteasy-jaxrs" slot="main"></module>
+	       <module name="org.jboss.resteasy.resteasy-jackson-provider" slot="main"></module>
+	       <module name="org.scannotation.scannotation" slot="main"></module>
+	       <module name="javax.servlet.api" slot="main"></module>
+	       <module name="org.slf4j" slot="main"></module>
+	       <module name="org.slf4j.jcl-over-slf4j" slot="main"></module>
+	       <module name="javax.validation.api" slot="main"></module>
+	       
+	   </dependencies>
+	</sub-deployment>
+	
+</jboss-deployment-structure>

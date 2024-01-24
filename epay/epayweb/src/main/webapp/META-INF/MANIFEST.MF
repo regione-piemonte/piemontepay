@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Dependencies: org.hibernate, org.apache.cxf, org.codehaus.jackson.jackson-core-asl, org.codehaus.jackson.jackson-mapper-asl	
+

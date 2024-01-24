@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/mvc 
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Configurazione di message sources utilizzati dall'applicazione -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames" >
+            <list>
+                <value>/WEB-INF/messages/ValidationMessages</value>
+                <value>/WEB-INF/messages/mailMessages</value>
+                <value>/WEB-INF/messages/homePage</value>
+            </list>
+        </property>
+        <!-- Da impostare a 0 in sviluppo (reload ad ogni accesso), a -1 in produzione (nessun reload) -->
+		<property name="cacheSeconds" value="${messageSources.cacheSeconds}" />
+		<!-- Se il messaggio codificato non viene trovato, visualizza il codice invece di andare in eccezione -->
+		<property name="useCodeAsDefaultMessage" value="true" />
+        <property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+</beans>

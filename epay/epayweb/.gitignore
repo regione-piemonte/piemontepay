@@ -1,0 +1,10 @@
+/build/
+/dist/
+/WebContent/
+/target/
+/.settings/
+/.project
+/.classpath
+/bin/
+*.iml
+build_local_senza_ivy.xml

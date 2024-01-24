@@ -1,0 +1,27 @@
+utente piemonte.pay@gmail.com
+password csipiemonte
+
+Aggiunta di reCAPTCHA al tuo sito
+Chiave del sito: 6Lec_AgUAAAAAEtkZ-_AbMQCVB_8954Mb3wQWtXX
+Chiave segreta: 6Lec_AgUAAAAAKM56OBY09FONCcGRxoKLH6YWUhY
+
+console amministrativa:
+https://www.google.com/recaptcha/admin#list
+
+client:
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="g-recaptcha" data-sitekey="6Lec_AgUAAAAAEtkZ-_AbMQCVB_8954Mb3wQWtXX"></div>
+
+server:
+verifica in post
+URL: https://www.google.com/recaptcha/api/siteverify
+secret (obbligatoria)	6Lec_AgUAAAAAKM56OBY09FONCcGRxoKLH6YWUhY
+response (obbligatoria)	Il valore di "g-recaptcha-response"
+
+response json:
+{
+  "success": true|false,
+  "challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+  "hostname": string,         // the hostname of the site where the reCAPTCHA was solved
+  "error-codes": [...]        // optional
+}

@@ -1,0 +1,5 @@
+27/09/16
+
+Chiesta la rimozione degli hook che vengono tolti a livello di prodotto, ricordarsi 
+di richiedere la rimozione tutte le volte che si chiede la creazione di una nuova
+componente.

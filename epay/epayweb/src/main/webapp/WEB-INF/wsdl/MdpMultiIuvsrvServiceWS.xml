@@ -1,0 +1,124 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="MdpMultiIuvWSInterface" targetNamespace="http://mdpnew.csi.it/mdpmultiiuv/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mdpnew.csi.it/mdpmultiiuv/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://mdpnew.csi.it/mdpmultiiuv/" xmlns:tns="http://mdpnew.csi.it/mdpmultiiuv/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="IuvComplexResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="codiceIdentificativoEnte" type="xs:string" />
+<xs:element minOccurs="0" name="codiceVersamento" type="xs:string" />
+<xs:element minOccurs="0" name="applicationID" type="xs:string" />
+<xs:element minOccurs="0" name="timestamp" type="xs:string" />
+<xs:element minOccurs="0" name="mac" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="iuvComplex" nillable="true" type="tns:IuvComplex" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="IuvComplex">
+<xs:sequence>
+<xs:element minOccurs="0" name="auxDigit" type="xs:string" />
+<xs:element minOccurs="0" name="applicationCode" type="xs:string" />
+<xs:element minOccurs="0" name="iuvOttico" type="xs:string" />
+<xs:element minOccurs="0" name="iuv" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SOAPException" type="tns:SOAPException" />
+<xs:complexType name="SOAPException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="MissingParameterException" type="tns:MissingParameterException" />
+<xs:complexType name="MissingParameterException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="ErrorParameterException" type="tns:ErrorParameterException" />
+<xs:complexType name="ErrorParameterException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="MdpMultiIuvSrvException" type="tns:MdpMultiIuvSrvException" />
+<xs:complexType name="MdpMultiIuvSrvException">
+<xs:sequence />
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getIuvComplex">
+    <wsdl:part name="idApplicazione" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="codicePagamento" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="numeroOccorrenzeIUV" type="xsd:int">
+    </wsdl:part>
+    <wsdl:part name="timeStamp" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="mac" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIuvComplexResponse">
+    <wsdl:part name="ListaIuvComplex" type="tns:IuvComplexResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MdpMultiIuvSrvException">
+    <wsdl:part element="tns:MdpMultiIuvSrvException" name="MdpMultiIuvSrvException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MissingParameterException">
+    <wsdl:part element="tns:MissingParameterException" name="MissingParameterException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SOAPException">
+    <wsdl:part element="tns:SOAPException" name="SOAPException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ErrorParameterException">
+    <wsdl:part element="tns:ErrorParameterException" name="ErrorParameterException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MdpMultiIuvWSInterface">
+    <wsdl:operation name="getIuvComplex">
+      <wsdl:input message="tns:getIuvComplex" name="getIuvComplex">
+    </wsdl:input>
+      <wsdl:output message="tns:getIuvComplexResponse" name="getIuvComplexResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ErrorParameterException" name="ErrorParameterException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MdpMultiIuvSrvException" name="MdpMultiIuvSrvException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MissingParameterException" name="MissingParameterException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPException" name="SOAPException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MdpMultiIuvWSInterfaceSoapBinding" type="tns:MdpMultiIuvWSInterface">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getIuvComplex">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="getIuvComplex">
+        <soap:body namespace="http://mdpnew.csi.it/mdpmultiiuv/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getIuvComplexResponse">
+        <soap:body namespace="http://mdpnew.csi.it/mdpmultiiuv/" use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ErrorParameterException">
+        <soap:fault name="ErrorParameterException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MdpMultiIuvSrvException">
+        <soap:fault name="MdpMultiIuvSrvException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MissingParameterException">
+        <soap:fault name="MissingParameterException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPException">
+        <soap:fault name="SOAPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MdpMultiIuvWSInterface">
+    <wsdl:port binding="tns:MdpMultiIuvWSInterfaceSoapBinding" name="MdpMultiIuvWSPort">
+      <soap:address location="http://tst-applogic.reteunitaria.piemonte.it/mdpmultiiuv/MdpMultiIuvsrvServiceWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

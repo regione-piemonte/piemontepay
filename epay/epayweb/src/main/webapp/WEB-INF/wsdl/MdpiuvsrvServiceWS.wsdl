@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="MdpiuvWSInterface" targetNamespace="http://mdpnew.csi.it/mdpiuv/" xmlns:ns1="http://jaxb.dev.java.net/array" xmlns:ns2="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mdpnew.csi.it/mdpiuv/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://mdpnew.csi.it/mdpiuv/" xmlns:tns="http://mdpnew.csi.it/mdpiuv/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="IuvComplex">
+<xs:sequence>
+<xs:element minOccurs="0" name="iuv" type="xs:string" />
+<xs:element minOccurs="0" name="iuvComplex" type="xs:base64Binary" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType final="#all" name="IuvComplexArray">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="tns:IuvComplex" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SOAPException" type="tns:SOAPException" />
+<xs:complexType name="SOAPException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="SystemException" type="tns:SystemException" />
+<xs:complexType name="SystemException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="CSIException" type="tns:CSIException" />
+<xs:complexType name="CSIException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:element name="MdpIuvSrvException" type="tns:MdpIuvSrvException" />
+<xs:complexType name="MdpIuvSrvException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="UnrecoverableException" type="tns:UnrecoverableException" />
+<xs:complexType name="UnrecoverableException">
+<xs:sequence>
+<xs:element name="nestedExcClassName" nillable="true" type="xs:string" />
+<xs:element name="stackTraceMessage" nillable="true" type="xs:string" />
+<xs:element name="nestedExcMsg" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema targetNamespace="http://jaxb.dev.java.net/array" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType final="#all" name="stringArray">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="MdpIuvSrvException">
+    <wsdl:part element="tns:MdpIuvSrvException" name="MdpIuvSrvException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMultiIUVResponse">
+    <wsdl:part name="listaIuv" type="ns1:stringArray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSingleIUVComplexResponse">
+    <wsdl:part name="iuvComplexResponse" type="tns:IuvComplex">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SOAPException">
+    <wsdl:part element="tns:SOAPException" name="SOAPException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMultiIUVComplex">
+    <wsdl:part name="idApplicazione" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="codicePagamento" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="numeroOccorrenzeIUV" type="xsd:int">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMultiIUVComplexResponse">
+    <wsdl:part name="iuvComplexResponse" type="tns:IuvComplexArray">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSingleIUVResponse">
+    <wsdl:part name="iuv" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CSIException">
+    <wsdl:part element="tns:CSIException" name="CSIException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SystemException">
+    <wsdl:part element="tns:SystemException" name="SystemException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSingleIUVComplex">
+    <wsdl:part name="idApplicazione" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="codicePagamento" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMultiIUV">
+    <wsdl:part name="idApplicazione" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="numeroOccorrenzeIUV" type="xsd:int">
+    </wsdl:part>
+    <wsdl:part name="codicePagamento" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSingleIUV">
+    <wsdl:part name="idApplicazione" type="xsd:string">
+    </wsdl:part>
+    <wsdl:part name="codicePagamento" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MdpiuvWSInterface">
+    <wsdl:operation name="getSingleIUVComplex">
+      <wsdl:input message="tns:getSingleIUVComplex" name="getSingleIUVComplex">
+    </wsdl:input>
+      <wsdl:output message="tns:getSingleIUVComplexResponse" name="getSingleIUVComplexResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MdpIuvSrvException" name="MdpIuvSrvException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPException" name="SOAPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSingleIUV">
+      <wsdl:input message="tns:getSingleIUV" name="getSingleIUV">
+    </wsdl:input>
+      <wsdl:output message="tns:getSingleIUVResponse" name="getSingleIUVResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MdpIuvSrvException" name="MdpIuvSrvException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPException" name="SOAPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMultiIUVComplex">
+      <wsdl:input message="tns:getMultiIUVComplex" name="getMultiIUVComplex">
+    </wsdl:input>
+      <wsdl:output message="tns:getMultiIUVComplexResponse" name="getMultiIUVComplexResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MdpIuvSrvException" name="MdpIuvSrvException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPException" name="SOAPException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMultiIUV">
+      <wsdl:input message="tns:getMultiIUV" name="getMultiIUV">
+    </wsdl:input>
+      <wsdl:output message="tns:getMultiIUVResponse" name="getMultiIUVResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SystemException" name="SystemException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:CSIException" name="CSIException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:MdpIuvSrvException" name="MdpIuvSrvException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:SOAPException" name="SOAPException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MdpiuvWSInterfaceSoapBinding" type="tns:MdpiuvWSInterface">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getSingleIUVComplex">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="getSingleIUVComplex">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSingleIUVComplexResponse">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MdpIuvSrvException">
+        <soap:fault name="MdpIuvSrvException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPException">
+        <soap:fault name="SOAPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSingleIUV">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="getSingleIUV">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSingleIUVResponse">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MdpIuvSrvException">
+        <soap:fault name="MdpIuvSrvException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPException">
+        <soap:fault name="SOAPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMultiIUVComplex">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="getMultiIUVComplex">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMultiIUVComplexResponse">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MdpIuvSrvException">
+        <soap:fault name="MdpIuvSrvException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPException">
+        <soap:fault name="SOAPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMultiIUV">
+      <soap:operation soapAction="" style="rpc" />
+      <wsdl:input name="getMultiIUV">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMultiIUVResponse">
+        <soap:body namespace="http://mdpnew.csi.it/mdpiuv/" use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <soap:fault name="SystemException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <soap:fault name="CSIException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="MdpIuvSrvException">
+        <soap:fault name="MdpIuvSrvException" use="literal" />
+      </wsdl:fault>
+      <wsdl:fault name="SOAPException">
+        <soap:fault name="SOAPException" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MdpiuvWSInterface">
+    <wsdl:port binding="tns:MdpiuvWSInterfaceSoapBinding" name="MdpiuvWSPort">
+      <soap:address location="http://tst-applogic.reteunitaria.piemonte.it/mdpiuv/MdpiuvsrvServiceWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

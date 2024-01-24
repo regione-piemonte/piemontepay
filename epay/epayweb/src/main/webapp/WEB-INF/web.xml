@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<display-name>POSC Portale di Gestione</display-name>
+	<description>Front end per l'utente</description>
+
+	<!-- <distributable/> -->
+
+	<!-- Filtro che permette di specificare la codifica dei caratteri per le 
+		request. Vedi http://static.springsource.org/spring/docs/current/javadoc-api/org/springframework/web/filter/CharacterEncodingFilter.html -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+
+		<!-- Imposta la codifica da utilizzare per le request -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+
+		<!-- La codifica configurata sopra sovrascriverà le eventuali codifiche 
+			specificate per la request. Verra' inoltre applicata come codifica di default 
+			alla response. -->
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Spring -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/*.xml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Spring MVC -->
+	<servlet>
+		<servlet-name>epayweb</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+	      <description>file di configurazione</description>
+	      <param-name>contextConfigLocation</param-name>  
+	      <!-- 
+	           I file di configurazione della servlet di Spring MVC sono tutti i file *.xml 
+	           sotto la cartella spring del classpath.
+	      -->
+	      <param-value>classpath:spring/*.xml</param-value>
+	    </init-param>
+	    
+	    <init-param>
+        	<param-name>throwExceptionIfNoHandlerFound</param-name>
+        	<param-value>true</param-value>
+    	</init-param>
+	    
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>epayweb</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!--  Shibboleth -->
+<!-- 	
+	<filter>
+		<filter-name>Shibboleth filter</filter-name>
+		<filter-class>it.csi.shibboleth.shibfilter.ShibbolethFilter</filter-class>
+ -->		
+		<!-- init-param>
+			<param-name>IRIDE_ID_SESSIONATTR</param-name>
+			<param-value>iride2_id</param-value>
+		</init-param> -->
+	
+		<!-- init-param>
+			<param-name>NO_CHECK_PAGE</param-name>
+			<param-value>attiliqStartServlet,error.jsp,failure.jsp,fatalError,sessionExpired.jsp,Logout</param-value>
+		</init-param> -->
+<!-- 
+	</filter>
+ 	
+	<filter-mapping>
+		<filter-name>Shibboleth filter</filter-name>
+		<url-pattern>/private/*</url-pattern>
+	</filter-mapping>
+ -->
+ 
+	<!-- Welcome -->
+	<welcome-file-list>
+		<welcome-file>/epayweb/index.html</welcome-file>
+	</welcome-file-list>
+	<!-- mine -->
+	
+	<mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+
+</web-app>
