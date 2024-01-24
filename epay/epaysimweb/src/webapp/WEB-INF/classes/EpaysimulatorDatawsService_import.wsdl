@@ -1,0 +1,798 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://epaysim.interfacews.epaysim.epay.csi.it/" name="EpaysimulatorDataws" targetNamespace="http://epaysim.interfacews.epaysim.epay.csi.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/types" xmlns:ns1="http://www.csi.it/epay/epaywso/rendicontazione-ext" elementFormDefault="qualified" targetNamespace="http://www.csi.it/epay/epaywso/types" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaywso/rendicontazione-ext"/>
+
+  <xs:element name="EPaywsoServiceResponse" type="tns:ResponseType"/>
+
+  <xs:element name="trasmettiFlussoRendicontazioneExtRequestType" type="ns1:TrasmettiFlussoRendicontazioneExtRequestType"/>
+
+  <xs:complexType name="SoggettoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonaFisica" type="tns:PersonaFisicaType"/>
+      <xs:element minOccurs="0" name="PersonaGiuridica" type="tns:PersonaGiuridicaType"/>
+      <xs:element name="IdentificativoUnivocoFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="Indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="Civico" type="xs:string"/>
+      <xs:element minOccurs="0" name="CAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="Localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="Nazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="EMail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaFisicaType">
+    <xs:sequence>
+      <xs:element name="Cognome" type="xs:string"/>
+      <xs:element name="Nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaGiuridicaType">
+    <xs:sequence>
+      <xs:element name="RagioneSociale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PosizioneDebitoriaType">
+    <xs:sequence>
+      <xs:element name="IdPosizioneDebitoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="IUV" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodiceAvviso" type="xs:string"/>
+      <xs:element name="CodiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="DescrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="Codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="Messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EndpointType">
+    <xs:sequence>
+      <xs:element default="http" name="Protocol" type="xs:string"/>
+      <xs:element name="Host" type="xs:string"/>
+      <xs:element name="Context" type="xs:string"/>
+      <xs:element minOccurs="0" name="Port" type="xs:int"/>
+      <xs:element minOccurs="0" name="CredenzialiAutenticazione">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NomeUtente" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoAggiornamentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieAggiornate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaAggiornata" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element name="Result" type="tns:ResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoInserimentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieInserite">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaInserita" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/rendicontazione-ext" xmlns:ns1="http://www.csi.it/epay/epaywso/types" targetNamespace="http://www.csi.it/epay/epaywso/rendicontazione-ext" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaywso/types"/>
+
+  <xs:element name="TrasmettiFlussoRendicontazioneExtRequest" type="tns:TrasmettiFlussoRendicontazioneExtRequestType"/>
+
+  <xs:complexType name="PagamentoIntermediatoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="DatiSingoliPagamenti">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" name="DatiSingoloPagamento" type="tns:DatiSingoloPagamentoType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DatiSingoloPagamentoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="IUV" type="xs:string"/>
+      <xs:element form="qualified" name="IUR" type="xs:string"/>
+      <xs:element form="qualified" name="IndiceDatiPagamento" type="xs:int"/>
+      <xs:element form="qualified" name="CodiceEsitoPagamento" type="xs:string"/>
+      <xs:element form="qualified" name="SingoloImportoPagato" type="xs:decimal"/>
+      <xs:element form="qualified" name="DataEsitoSingoloPagamento" type="xs:date"/>
+      <xs:element form="qualified" name="CodiceVersamento" type="xs:string"/>
+      <xs:element form="qualified" name="DatiSpecificiRiscossione" type="xs:string"/>
+      <xs:element form="qualified" name="DescrizioneCausaleVersamento" type="xs:string"/>
+      <xs:element form="qualified" name="TransactionId" type="xs:string"/>
+      <xs:element form="qualified" name="AnagraficaPagatore" type="ns1:SoggettoType"/>
+      <xs:element form="qualified" name="AnagraficaVersante" type="ns1:SoggettoType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TrasmettiFlussoRendicontazioneExtRequestType">
+    <xs:sequence>
+      <xs:element form="qualified" name="Testata" type="tns:TestataFlussoRendicontazioneExtType"/>
+      <xs:element form="qualified" name="FlussoRiversamento" type="xs:base64Binary"/>
+      <xs:element form="qualified" name="PagamentiIntermediati">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="PagamentoIntermediato" type="tns:PagamentoIntermediatoType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TestataFlussoRendicontazioneExtType">
+    <xs:sequence>
+      <xs:element form="qualified" name="IdMessaggio" type="xs:string"/>
+      <xs:element form="qualified" name="DataOraMessaggio" type="xs:dateTime"/>
+      <xs:element form="qualified" name="CFEnteCreditore" type="xs:string"/>
+      <xs:element form="qualified" name="DenominazioneEnte" type="xs:string"/>
+      <xs:element form="qualified" name="IdPSP" type="xs:string"/>
+      <xs:element form="qualified" name="DenominazionePSP" type="xs:string"/>
+      <xs:element form="qualified" name="IdentificativoFlusso" type="xs:string"/>
+      <xs:element form="qualified" name="IdentificativoUnivocoRegolamento" type="xs:string"/>
+      <xs:element form="qualified" name="DataRegolamento" type="xs:date"/>
+      <xs:element form="qualified" name="NumeroTotalePagamentiFlusso" type="xs:integer"/>
+      <xs:element form="qualified" name="NumeroTotalePagamentiIntermediati" type="xs:integer"/>
+      <xs:element form="qualified" name="ImportoTotalePagamentiFlusso" type="xs:decimal"/>
+      <xs:element form="qualified" name="ImportoTotalePagamentiIntermediati" type="xs:decimal"/>
+      <xs:element form="qualified" name="ElencoCodiciVersamento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="CodiceVersamento" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://epaysim.interfacews.epaysim.epay.csi.it/" xmlns:ns1="http://epaymodric.interfacews.epaymodric.epay.csi.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://epaysim.interfacews.epaysim.epay.csi.it/">
+  <xs:import namespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/"/>
+  <xs:element name="giornaleDiCassa" type="tns:giornaleDiCassa"/>
+  <xs:element name="giornaleDiCassaResponse" type="tns:giornaleDiCassaResponse"/>
+  <xs:element name="inserisciProvvisorio" type="tns:inserisciProvvisorio"/>
+  <xs:element name="inserisciProvvisorioResponse" type="tns:inserisciProvvisorioResponse"/>
+  <xs:element name="ricercaDettaglioPagoPa" type="tns:ricercaDettaglioPagoPa"/>
+  <xs:element name="ricercaDettaglioPagoPaResponse" type="tns:ricercaDettaglioPagoPaResponse"/>
+  <xs:element name="ricercaFlussiInErrore" type="tns:ricercaFlussiInErrore"/>
+  <xs:element name="ricercaFlussiInErroreResponse" type="tns:ricercaFlussiInErroreResponse"/>
+  <xs:element name="ricercaFlusso" type="tns:ricercaFlusso"/>
+  <xs:element name="ricercaFlussoResponse" type="tns:ricercaFlussoResponse"/>
+  <xs:element name="ricercaProvvisori" type="tns:ricercaProvvisori"/>
+  <xs:element name="ricercaProvvisoriResponse" type="tns:ricercaProvvisoriResponse"/>
+  <xs:element name="ricercaSintesiPagoPa" type="tns:ricercaSintesiPagoPa"/>
+  <xs:element name="ricercaSintesiPagoPaResponse" type="tns:ricercaSintesiPagoPaResponse"/>
+  <xs:element name="updateEsitoStatoElaborazioneFlusso" type="tns:updateEsitoStatoElaborazioneFlusso"/>
+  <xs:element name="updateEsitoStatoElaborazioneFlussoResponse" type="tns:updateEsitoStatoElaborazioneFlussoResponse"/>
+  <xs:complexType name="ricercaProvvisori">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listaProvvisoriDaCercare" type="tns:dtoInputWsRicercaProvvisori"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsRicercaProvvisori">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="dataA" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dataDa" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="idStatoFlusso" type="xs:string"/>
+          <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentInput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="caller" type="tns:callerInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="callerInputDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceApplicativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="principal" type="tns:principalInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="principalInputDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceRuolo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaProvvisoriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dtoOutputWsProvvisori"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsProvvisori">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="provvisori" nillable="true" type="tns:dtoProvvisorio"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsEsito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoProvvisorio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="annoProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataMovimento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoProvvisorio" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="stato" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaSintesiPagoPa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:flussoSintesiPagopaDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flussoSintesiPagopaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accertamentoAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="accertamentoNumero" type="xs:int"/>
+      <xs:element minOccurs="0" name="articolo" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="capitolo" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="codiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idIstitutoRicevente" type="xs:long"/>
+      <xs:element minOccurs="0" name="importoQuotaAggregazione" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroVersQuotaAggregazione" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="pianoDeiConti" type="xs:string"/>
+      <xs:element minOccurs="0" name="provvisorioAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="provvisorioNro" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="simTFlussoDettaglioPagopas" nillable="true" type="tns:flussoDettaglioPagopaDTO"/>
+      <xs:element minOccurs="0" name="simTFlussoOriginePagopa" type="tns:flussoOriginePagopaDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flussoDettaglioPagopaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accertamentoAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="accertamentoNumero" type="xs:int"/>
+      <xs:element minOccurs="0" name="anagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codicefiscalePagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataPagamento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCausaleVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="esitoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="identificativoUnicoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUnicoVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoSingoloVersamento" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="indiceSingoloVersamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="simTFlussoSintesiPagopa" type="tns:flussoSintesiPagopaDTO"/>
+      <xs:element minOccurs="0" name="statoInvioFruitore" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoAnagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="transactionid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flussoOriginePagopaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="dataInserimento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataRegolamento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataoraFlusso" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ibanRiversamentoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="idElaborazione" type="xs:long"/>
+      <xs:element minOccurs="0" name="idMessaggio" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoPsp" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUnivocoRegolamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoTotalePagamenti" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="importoTotalePagamentiIntermediati" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroTotalePagamenti" type="xs:int"/>
+      <xs:element minOccurs="0" name="numeroTotalePagamentiIntermediati" type="xs:int"/>
+      <xs:element minOccurs="0" name="codiceFiscaleEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="statoElaborazioneFlusso" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaSintesiPagoPaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:flussoSintesiPagopaOutputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flussoSintesiPagopaOutputDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accertamentoAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="accertamentoNumero" type="xs:int"/>
+      <xs:element minOccurs="0" name="articolo" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="capitolo" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="cfEnteRicevente" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idFlussoOrigine" type="xs:long"/>
+      <xs:element minOccurs="0" name="importoQuotaAggregazione" type="xs:decimal"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listaFlussiDettaglio" nillable="true" type="tns:flussoDettaglioPagopaOutputDTO"/>
+      <xs:element minOccurs="0" name="numeroVersQuotaAggregazione" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="pianoDeiConti" type="xs:string"/>
+      <xs:element minOccurs="0" name="provvisorioAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="provvisorioNro" type="xs:int"/>
+      <xs:element minOccurs="0" name="utenteInserimento" type="xs:string"/>
+      <xs:element minOccurs="0" name="utenteModifica" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flussoDettaglioPagopaOutputDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accertamentoAnno" type="xs:int"/>
+      <xs:element minOccurs="0" name="accertamentoNumero" type="xs:int"/>
+      <xs:element minOccurs="0" name="anagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codicefiscalePagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataInserimento" type="xs:anySimpleType"/>
+      <xs:element minOccurs="0" name="dataModifica" type="xs:anySimpleType"/>
+      <xs:element minOccurs="0" name="dataPagamento" type="xs:anySimpleType"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCausaleVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="esitoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idFlussoSintesi" type="xs:long"/>
+      <xs:element minOccurs="0" name="identificativoUnicoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUnicoVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoSingoloVersamento" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="indiceSingoloVersamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="simTFlussoSintesiPagopa" type="tns:flussoSintesiPagopaDTO"/>
+      <xs:element minOccurs="0" name="statoInvioFruitore" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoAnagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="transactionid" type="xs:string"/>
+      <xs:element minOccurs="0" name="utenteInserimento" type="xs:string"/>
+      <xs:element minOccurs="0" name="utenteModifica" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="giornaleDiCassa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:giornaleDiCassaInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="giornaleDiCassaInputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+           <xs:element minOccurs="0" name="identificativoFlussoBT" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+    <xs:complexType name="giornaleDiCassaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:giornaleDiCassaOutputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+     <xs:complexType name="giornaleDiCassaOutputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="giornaleDiCassaDTO" type="tns:giornaleDiCassaDTO"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciProvvisorio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:inserisciProvvisorioInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciProvvisorioInputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="provvisorioDTOList" nillable="true" type="tns:provvisorioDTO"/>
+          <xs:element minOccurs="0" name="xmlFlusso" type="xs:string"/>         
+          <xs:element minOccurs="0" name="identificativoFlussoBT" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="provvisorioDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="annoProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscaleEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="utenteInsVar" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataInsVar" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataMovimento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoProvvisorio" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="stato" type="xs:string"/>
+      <xs:element minOccurs="0" name="idGiornaleDiCassa" type="xs:int"/>
+      <xs:element minOccurs="0" name="utenteModifica" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataModifica" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciProvvisorioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:inserisciProvvisorioOutputResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciProvvisorioOutputResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="inserisciProvvisorioOutputDTOList" nillable="true" type="tns:inserisciProvvisorioOutputDTO"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMessaggio" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStato" type="xs:int"/>
+      <xs:element minOccurs="0" name="descrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciProvvisorioOutputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="provvisorioDTO" type="tns:provvisorioDTO"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="updateEsitoStatoElaborazioneFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:updateEsitoStatoElaborazioneFlussoInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateEsitoStatoElaborazioneFlussoInputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="identificativiFlussoOrigineList" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="nuovoStato" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="updateEsitoStatoElaborazioneFlussoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:updateEsitoStatoElaborazioneFlussoOutputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="updateEsitoStatoElaborazioneFlussoOutputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:ricercaFlussoInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoInputDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateEnd" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dateStart" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+          <xs:element minOccurs="0" name="statoElaborazioneFlusso" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaFlussoOutputResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoOutputResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="testata" nillable="true" type="tns:flussoOriginePagopaDTO"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiInErrore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:ricercaFlussoErroreInputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoErroreInputDTO">
+    <xs:complexContent>
+      <xs:extension base="ns1:dtoBaseContabilizzatore">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+          <xs:element minOccurs="0" name="dataFlussoDa" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dataFlussoA" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="identificativoPSP" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiInErroreResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:ricercaFlussoErroreOutputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoErroreOutputDTO">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="ricercaDettaglioPagoPa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:flussoDettaglioPagopaDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaDettaglioPagoPaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:flussoDettaglioPagopaOutputDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="giornaleDiCassaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="dataInserimento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="xml" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlussoBT" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EpaysimulatorException" type="tns:EpaysimulatorException"/>
+  <xs:complexType name="EpaysimulatorException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DatatypeConfigurationException" type="tns:DatatypeConfigurationException"/>
+  <xs:complexType name="DatatypeConfigurationException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://epaymodric.interfacews.epaymodric.epay.csi.it/" targetNamespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/" version="1.0">
+
+  <xs:element name="EpaymodricException" type="tns:EpaymodricException"/>
+
+  <xs:element name="Exception" type="tns:Exception"/>
+
+  <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+
+  <xs:complexType name="dtoBaseContabilizzatore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="risposta" type="tns:dtoBaseResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dtoBaseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+      <xs:element minOccurs="0" name="stacktrace" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dtpOutputElaborazione">
+    <xs:complexContent>
+      <xs:extension base="tns:dtoBaseContabilizzatore">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="idElaborazione" type="xs:long"/>
+          <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+          <xs:element minOccurs="0" name="risultatoOutputEstemporanea" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UnrecoverableException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EpaymodricException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ricercaProvvisori">
+    <wsdl:part element="ns1:ricercaProvvisori" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaSintesiPagoPa">
+    <wsdl:part element="ns1:ricercaSintesiPagoPa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussoResponse">
+    <wsdl:part element="ns1:ricercaFlussoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="giornaleDiCassa">
+    <wsdl:part element="ns1:giornaleDiCassa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciProvvisorio">
+    <wsdl:part element="ns1:inserisciProvvisorio" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaSintesiPagoPaResponse">
+    <wsdl:part element="ns1:ricercaSintesiPagoPaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateEsitoStatoElaborazioneFlussoResponse">
+    <wsdl:part element="ns1:updateEsitoStatoElaborazioneFlussoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaDettaglioPagoPa">
+    <wsdl:part element="ns1:ricercaDettaglioPagoPa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaDettaglioPagoPaResponse">
+    <wsdl:part element="ns1:ricercaDettaglioPagoPaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="giornaleDiCassaResponse">
+    <wsdl:part element="ns1:giornaleDiCassaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciProvvisorioResponse">
+    <wsdl:part element="ns1:inserisciProvvisorioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaProvvisoriResponse">
+    <wsdl:part element="ns1:ricercaProvvisoriResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateEsitoStatoElaborazioneFlusso">
+    <wsdl:part element="ns1:updateEsitoStatoElaborazioneFlusso" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlusso">
+    <wsdl:part element="ns1:ricercaFlusso" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DatatypeConfigurationException">
+    <wsdl:part element="ns1:DatatypeConfigurationException" name="DatatypeConfigurationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EpaysimulatorException">
+    <wsdl:part element="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiInErroreResponse">
+    <wsdl:part element="ns1:ricercaFlussiInErroreResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiInErrore">
+    <wsdl:part element="ns1:ricercaFlussiInErrore" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EpaysimulatorDataws">
+    <wsdl:operation name="ricercaProvvisori">
+      <wsdl:input message="ns1:ricercaProvvisori" name="ricercaProvvisori">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaProvvisoriResponse" name="ricercaProvvisoriResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaSintesiPagoPa">
+      <wsdl:input message="ns1:ricercaSintesiPagoPa" name="ricercaSintesiPagoPa">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaSintesiPagoPaResponse" name="ricercaSintesiPagoPaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+     <wsdl:operation name="ricercaGiornaleDiCassa">
+      <wsdl:input message="ns1:giornaleDiCassa" name="giornaleDiCassa">
+    </wsdl:input>
+      <wsdl:output message="ns1:giornaleDiCassaResponse" name="giornaleDiCassaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciProvvisorio">
+      <wsdl:input message="ns1:inserisciProvvisorio" name="inserisciProvvisorio">
+    </wsdl:input>
+      <wsdl:output message="ns1:inserisciProvvisorioResponse" name="inserisciProvvisorioResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="updateEsitoStatoElaborazioneFlusso">
+      <wsdl:input message="ns1:updateEsitoStatoElaborazioneFlusso" name="updateEsitoStatoElaborazioneFlusso">
+    </wsdl:input>
+      <wsdl:output message="ns1:updateEsitoStatoElaborazioneFlussoResponse" name="updateEsitoStatoElaborazioneFlussoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlusso">
+      <wsdl:input message="ns1:ricercaFlusso" name="ricercaFlusso">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaFlussoResponse" name="ricercaFlussoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:DatatypeConfigurationException" name="DatatypeConfigurationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiInErrore">
+      <wsdl:input message="ns1:ricercaFlussiInErrore" name="ricercaFlussiInErrore">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaFlussiInErroreResponse" name="ricercaFlussiInErroreResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaDettaglioPagoPa">
+      <wsdl:input message="ns1:ricercaDettaglioPagoPa" name="ricercaDettaglioPagoPa">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaDettaglioPagoPaResponse" name="ricercaDettaglioPagoPaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaysimulatorException" name="EpaysimulatorException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

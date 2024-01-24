@@ -1,0 +1,811 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://interfacews.epaycatalogws.epay.csi.it/" name="Epaycatalogws" targetNamespace="http://interfacews.epaycatalogws.epay.csi.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfacews.epaycatalogws.epay.csi.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://interfacews.epaycatalogws.epay.csi.it/">
+  <xs:element name="aggiornaEnte" type="tns:aggiornaEnte"/>
+  <xs:element name="aggiornaEnteResponse" type="tns:aggiornaEnteResponse"/>
+  <xs:element name="getEnte" type="tns:getEnte"/>
+  <xs:element name="getEnteResponse" type="tns:getEnteResponse"/>
+  <xs:element name="getMessaggi" type="tns:getMessaggi"/>
+  <xs:element name="getMessaggiResponse" type="tns:getMessaggiResponse"/>
+  <xs:element name="getOpzioniCodiceVersamento" type="tns:getOpzioniCodiceVersamento"/>
+  <xs:element name="getOpzioniCodiceVersamentoResponse" type="tns:getOpzioniCodiceVersamentoResponse"/>
+  <xs:element name="getOpzioniMacrotipo" type="tns:getOpzioniMacrotipo"/>
+  <xs:element name="getOpzioniMacrotipoResponse" type="tns:getOpzioniMacrotipoResponse"/>
+  <xs:element name="getOpzioniModalitaAcquisizioneProvvisori" type="tns:getOpzioniModalitaAcquisizioneProvvisori"/>
+  <xs:element name="getOpzioniModalitaAcquisizioneProvvisoriResponse" type="tns:getOpzioniModalitaAcquisizioneProvvisoriResponse"/>
+  <xs:element name="getOpzioniPeriodicitaSchedulazioneRiconciliazione" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazione"/>
+  <xs:element name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse"/>
+  <xs:element name="getOpzioniStatoAggiornamentoEnte" type="tns:getOpzioniStatoAggiornamentoEnte"/>
+  <xs:element name="getOpzioniStatoAggiornamentoEnteResponse" type="tns:getOpzioniStatoAggiornamentoEnteResponse"/>
+  <xs:element name="getOpzioniTematica" type="tns:getOpzioniTematica"/>
+  <xs:element name="getOpzioniTematicaResponse" type="tns:getOpzioniTematicaResponse"/>
+  <xs:element name="getOpzioniTipoOutputRiconciliazione" type="tns:getOpzioniTipoOutputRiconciliazione"/>
+  <xs:element name="getOpzioniTipoOutputRiconciliazioneResponse" type="tns:getOpzioniTipoOutputRiconciliazioneResponse"/>
+  <xs:element name="getOpzioniTipologiaAccertamento" type="tns:getOpzioniTipologiaAccertamento"/>
+  <xs:element name="getOpzioniTipologiaAccertamentoResponse" type="tns:getOpzioniTipologiaAccertamentoResponse"/>
+  <xs:element name="ricercaEnte" type="tns:ricercaEnte"/>
+  <xs:element name="ricercaEnteResponse" type="tns:ricercaEnteResponse"/>
+  <xs:element name="ricercaVoceEntrata" type="tns:ricercaVoceEntrata"/>
+  <xs:element name="ricercaVoceEntrataResponse" type="tns:ricercaVoceEntrataResponse"/>
+  <xs:element name="testResources" type="tns:testResources"/>
+  <xs:element name="testResourcesResponse" type="tns:testResourcesResponse"/>
+  <xs:complexType name="ricercaVoceEntrata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaVoceEntrataInput" type="tns:ricercaVoceEntrataInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codice" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentInput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="caller" type="tns:callerInputDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="callerInputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceApplicativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="principal" type="tns:principalInputDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="principalInputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceRuolo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaVoceEntrataOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaVoceEntrataOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMessaggio" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStato" type="xs:int"/>
+      <xs:element minOccurs="0" name="descrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResources">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="testResourcesInput" type="tns:testResourcesInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResourcesInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="testResourcesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:testResourcesOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResourcesOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniStatoAggiornamentoEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="opzioni" nillable="true" type="tns:decodificaOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="decodificaOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniMacrotipoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaEnteInput" type="tns:ricercaEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cap" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+          <xs:element minOccurs="0" name="localita" type="xs:string"/>
+          <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaEnteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cap" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneUtenteAmministratore" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idUtenteAmministratore" type="xs:long"/>
+      <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipologiaAccertamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipoOutputRiconciliazioneOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazioneOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getEnteInput" type="tns:getEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ente" type="tns:getEnteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cap" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscaleUtenteVariazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceModalitaAcquisizioneProvvisori" type="xs:string"/>
+      <xs:element minOccurs="0" name="codicePeriodicitaSchedulazioneRiconciliazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipoOutputRiconciliazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologiaAccertamento" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamentoAssociati" nillable="true" type="tns:getEnteOutputCodiceVersamentoAssociatoDto"/>
+      <xs:element minOccurs="0" name="dataVariazione" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneUtenteAmministratore" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="giornoSchedulazione" type="xs:int"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idUtenteAmministratore" type="xs:long"/>
+      <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoContent" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="logoContentType" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoFileName" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoFileSize" type="xs:int"/>
+      <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutputCodiceVersamentoAssociatoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematicaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTematicaOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematicaOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazioneOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="modificaEnteInput" type="tns:aggiornaEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cancellaLogo" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="cap" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceModalitaAcquisizioneProvvisori" type="xs:string"/>
+          <xs:element minOccurs="0" name="codicePeriodicitaSchedulazioneRiconciliazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipoOutputRiconciliazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipologiaAccertamento" type="xs:string"/>
+          <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="giornoSchedulazione" type="xs:int"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="idCodiciVersamentoAssociati" nillable="true" type="xs:long"/>
+          <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+          <xs:element minOccurs="0" name="localita" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoContent" type="xs:base64Binary"/>
+          <xs:element minOccurs="0" name="logoContentType" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoFileName" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoFileSize" type="xs:int"/>
+          <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisori">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniModalitaAcquisizioneProvvisoriOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisoriOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getMessaggi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getMessaggiInput" type="tns:getMessaggiInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getMessaggiOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="messaggi" nillable="true" type="tns:getMessaggiOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceApplicativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceBreve" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceLingua" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EpaycatalogwsException" type="tns:EpaycatalogwsException"/>
+  <xs:complexType name="EpaycatalogwsException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+  <xs:complexType name="UnrecoverableException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ricercaVoceEntrata">
+    <wsdl:part element="ns1:ricercaVoceEntrata" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    <wsdl:part element="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamentoEnte">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamentoEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="testResourcesResponse">
+    <wsdl:part element="ns1:testResourcesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EpaycatalogwsException">
+    <wsdl:part element="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaEnte">
+    <wsdl:part element="ns1:ricercaEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaEnteResponse">
+    <wsdl:part element="ns1:ricercaEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCodiceVersamentoResponse">
+    <wsdl:part element="ns1:getOpzioniCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    <wsdl:part element="ns1:getOpzioniModalitaAcquisizioneProvvisoriResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="ns1:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEnte">
+    <wsdl:part element="ns1:getEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaVoceEntrataResponse">
+    <wsdl:part element="ns1:ricercaVoceEntrataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTematica">
+    <wsdl:part element="ns1:getOpzioniTematica" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoOutputRiconciliazioneResponse">
+    <wsdl:part element="ns1:getOpzioniTipoOutputRiconciliazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamentoEnteResponse">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamentoEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    <wsdl:part element="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessaggi">
+    <wsdl:part element="ns1:getMessaggi" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="testResources">
+    <wsdl:part element="ns1:testResources" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTematicaResponse">
+    <wsdl:part element="ns1:getOpzioniTematicaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCodiceVersamento">
+    <wsdl:part element="ns1:getOpzioniCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniMacrotipo">
+    <wsdl:part element="ns1:getOpzioniMacrotipo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaAccertamento">
+    <wsdl:part element="ns1:getOpzioniTipologiaAccertamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoOutputRiconciliazione">
+    <wsdl:part element="ns1:getOpzioniTipoOutputRiconciliazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniMacrotipoResponse">
+    <wsdl:part element="ns1:getOpzioniMacrotipoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaAccertamentoResponse">
+    <wsdl:part element="ns1:getOpzioniTipologiaAccertamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEnteResponse">
+    <wsdl:part element="ns1:getEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessaggiResponse">
+    <wsdl:part element="ns1:getMessaggiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaEnte">
+    <wsdl:part element="ns1:aggiornaEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniModalitaAcquisizioneProvvisori">
+    <wsdl:part element="ns1:getOpzioniModalitaAcquisizioneProvvisori" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaEnteResponse">
+    <wsdl:part element="ns1:aggiornaEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Epaycatalogws">
+    <wsdl:operation name="ricercaVoceEntrata">
+      <wsdl:input message="ns1:ricercaVoceEntrata" name="ricercaVoceEntrata">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaVoceEntrataResponse" name="ricercaVoceEntrataResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <wsdl:input message="ns1:testResources" name="testResources">
+    </wsdl:input>
+      <wsdl:output message="ns1:testResourcesResponse" name="testResourcesResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniStatoAggiornamentoEnte">
+      <wsdl:input message="ns1:getOpzioniStatoAggiornamentoEnte" name="getOpzioniStatoAggiornamentoEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniStatoAggiornamentoEnteResponse" name="getOpzioniStatoAggiornamentoEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniCodiceVersamento">
+      <wsdl:input message="ns1:getOpzioniCodiceVersamento" name="getOpzioniCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniCodiceVersamentoResponse" name="getOpzioniCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniMacrotipo">
+      <wsdl:input message="ns1:getOpzioniMacrotipo" name="getOpzioniMacrotipo">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniMacrotipoResponse" name="getOpzioniMacrotipoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaEnte">
+      <wsdl:input message="ns1:ricercaEnte" name="ricercaEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaEnteResponse" name="ricercaEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaAccertamento">
+      <wsdl:input message="ns1:getOpzioniTipologiaAccertamento" name="getOpzioniTipologiaAccertamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipologiaAccertamentoResponse" name="getOpzioniTipologiaAccertamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipoOutputRiconciliazione">
+      <wsdl:input message="ns1:getOpzioniTipoOutputRiconciliazione" name="getOpzioniTipoOutputRiconciliazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipoOutputRiconciliazioneResponse" name="getOpzioniTipoOutputRiconciliazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEnte">
+      <wsdl:input message="ns1:getEnte" name="getEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:getEnteResponse" name="getEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTematica">
+      <wsdl:input message="ns1:getOpzioniTematica" name="getOpzioniTematica">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTematicaResponse" name="getOpzioniTematicaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+      <wsdl:input message="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazione" name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaEnte">
+      <wsdl:input message="ns1:aggiornaEnte" name="aggiornaEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaEnteResponse" name="aggiornaEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniModalitaAcquisizioneProvvisori">
+      <wsdl:input message="ns1:getOpzioniModalitaAcquisizioneProvvisori" name="getOpzioniModalitaAcquisizioneProvvisori">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniModalitaAcquisizioneProvvisoriResponse" name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMessaggi">
+      <wsdl:input message="ns1:getMessaggi" name="getMessaggi">
+    </wsdl:input>
+      <wsdl:output message="ns1:getMessaggiResponse" name="getMessaggiResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaycatalogwsException" name="EpaycatalogwsException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

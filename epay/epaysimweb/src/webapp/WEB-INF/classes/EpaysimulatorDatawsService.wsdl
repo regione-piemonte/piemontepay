@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://epaysim.business.epaysim.epay.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://epaysim.interfacews.epaysim.epay.csi.it/" name="EpaysimulatorDatawsService" targetNamespace="http://epaysim.business.epaysim.epay.csi.it/">
+  <wsdl:import location="EpaysimulatorDatawsService_import.wsdl" namespace="http://epaysim.interfacews.epaysim.epay.csi.it/">
+    </wsdl:import>
+  <wsdl:binding name="EpaysimulatorDatawsServiceSoapBinding" type="ns1:EpaysimulatorDataws">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ricercaProvvisori">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaProvvisori">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaProvvisoriResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaSintesiPagoPa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaSintesiPagoPa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaSintesiPagoPaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaGiornaleDiCassa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="giornaleDiCassa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="giornaleDiCassaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciProvvisorio">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="inserisciProvvisorio">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inserisciProvvisorioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="updateEsitoStatoElaborazioneFlusso">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="updateEsitoStatoElaborazioneFlusso">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateEsitoStatoElaborazioneFlussoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlusso">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaFlusso">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaFlussoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="DatatypeConfigurationException">
+        <soap:fault name="DatatypeConfigurationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiInErrore">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaFlussiInErrore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaFlussiInErroreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaDettaglioPagoPa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaDettaglioPagoPa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaDettaglioPagoPaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaysimulatorException">
+        <soap:fault name="EpaysimulatorException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EpaysimulatorDatawsService">
+    <wsdl:port binding="tns:EpaysimulatorDatawsServiceSoapBinding" name="EpaysimulatorDatawsPort">
+      <soap:address location="http://localhost:8081/epaysim/EpaysimulatorDatawsService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

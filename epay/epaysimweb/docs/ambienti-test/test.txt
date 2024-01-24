@@ -1,0 +1,3 @@
+ssh -l tst-jboss640-065 tst-jbfarm21.csi.it
+
+ssh -l tst-jboss640-065 tst-jbfarm22.csi.it

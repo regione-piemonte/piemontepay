@@ -1,0 +1,37 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+a[data-toggle="collapse"] .rotate {
+   -webkit-transition: all 0.2s ease-out;
+   -moz-transition: all 0.2s ease-out;
+   -ms-transition: all 0.2s ease-out;
+   -o-transition: all 0.2s ease-out;
+   transition: all 0.2s ease-out;
+   -moz-transform: rotate(180deg);
+   -ms-transform: rotate(180deg);
+   -webkit-transform: rotate(180deg);
+   transform: rotate(180deg);
+}
+a[data-toggle="collapse"].collapsed .rotate {
+   -moz-transform: rotate(180deg);
+   -ms-transform: rotate(180deg);
+   -webkit-transform: rotate(180deg);
+   transform: rotate(180deg);
+}
+
+a[data-toggle="collapse"].collapsed {
+	color: none;
+}
+
+.glyphicon-chevron-down:before {
+    content: "\e114";
+}
+
+.anch {
+	/* color: #496684; */
+	color: unset; 
+	text-decoration: none;
+	opacity: 0.95
+}

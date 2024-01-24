@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<!-- mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.CodiceVersamento</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.codiceversamento.RicercaCodiceVersamentoOutputDto</class-b>
+		
+		<field><a>macrotipo.codice</a><b>codiceMacrotipo</b></field>
+		<field><a>macrotipo.descrizione</a><b>descrizioneMacrotipo</b></field>
+		
+		<field><a>tematica.codice</a><b>codiceTematica</b></field>
+		<field><a>tematica.descrizione</a><b>descrizioneTematica</b></field>
+		
+		<field><a>voceEntrata.id</a><b>idVoceEntrata</b></field>
+		<field><a>voceEntrata.codice</a><b>codiceVoceEntrata</b></field>
+		<field><a>voceEntrata.descrizione</a><b>descrizioneVoceEntrata</b></field>
+		
+		<field><a>tipoPagamento.codice</a><b>codiceTipoPagamento</b></field>
+		<field><a>tipoPagamento.descrizione</a><b>descrizioneTipoPagamento</b></field>
+	</mapping>  -->
+
+</mappings>

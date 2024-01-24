@@ -1,0 +1,163 @@
+### Eclipse Workspace Patch 1.0
+#P epaysimweb
+Index: src/java/it/csi/epay/epaysimweb/frontend/HomeController.java
+===================================================================
+--- src/java/it/csi/epay/epaysimweb/frontend/HomeController.java	(revision 2619)
++++ src/java/it/csi/epay/epaysimweb/frontend/HomeController.java	(working copy)
+@@ -32,8 +32,8 @@
+     @RequestMapping ( value = "sessione-scaduta" )
+     public String sessioneScaduta ( Model model, HttpServletRequest request, HttpServletResponse response ) {
+         response.setStatus ( HttpStatus.FORBIDDEN.value () );
+-        model.addAttribute ( "message", "La tua sessione � scaduta. Esegui nuovamente il login" );
+-        return "error";
++        model.addAttribute ( "message", "La tua sessione e' scaduta. Esegui nuovamente il login" );
++        return "accessdenied";
+     }
+ 
+     @RequestMapping ( value = "accesso-negato" )
+Index: src/java/it/csi/epay/epaysimweb/security/FilterToGetTimeOut.java
+===================================================================
+--- src/java/it/csi/epay/epaysimweb/security/FilterToGetTimeOut.java	(nonexistent)
++++ src/java/it/csi/epay/epaysimweb/security/FilterToGetTimeOut.java	(working copy)
+@@ -0,0 +1,38 @@
++package it.csi.epay.epaysimweb.security;
++import java.io.IOException;
++
++import javax.servlet.FilterChain;
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpServletResponse;
++
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
++import org.springframework.web.filter.OncePerRequestFilter;
++
++import it.csi.epay.epaysimweb.common.config.LogConfig;
++
++public class FilterToGetTimeOut extends OncePerRequestFilter {
++
++    private static final Logger LOGGER = LoggerFactory.getLogger ( LogConfig.HANDLER_SECURITY );
++
++    @Override
++    public void doFilterInternal ( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain ) throws IOException {
++        try {
++            if ( ( request.getRequestURI ().equals ( "/epaysimweb/" ) || request.getRequestURI ().equals ( "/epaysimweb/home" ) )
++                            && request.getSession ().getAttribute ( "home" ) == null ) {
++
++                response.sendRedirect ( "home" ); //After login page
++                request.getSession ().setAttribute ( "home", "home" );
++
++            } else if ( request.getSession ().isNew () ) {
++                logger.info ( "[FilterToGetTimeOut::doFilterInternal] <" + request.getRequestURI () + "> NUOVA SESSIONE DOVUTA AD UN TIMEOUT" );
++                response.sendRedirect ( "http://www.google.com" );
++            }
++
++            filterChain.doFilter ( request, response );
++        } catch ( Exception e ) {
++            logger.error ( "[FilterToGetTimeOut::doFilterInternal] ERROR : " + e );
++
++        }
++    }
++}
+\ No newline at end of file
+Index: src/java/it/csi/epay/epaysimweb/security/ShibbolethAuthenticationFilter.java
+===================================================================
+--- src/java/it/csi/epay/epaysimweb/security/ShibbolethAuthenticationFilter.java	(revision 2798)
++++ src/java/it/csi/epay/epaysimweb/security/ShibbolethAuthenticationFilter.java	(working copy)
+@@ -35,7 +35,6 @@
+         String token = null;
+         // CODICE FISCALE ENTE in arrivo da epaypa
+         String codiceEnte = request.getParameter ( "CF_ENTE" );
+-
+         logger.info ( "[ShibbolethAuthenticationFilter::getPreAuthenticatedPrincipal] <" + request.getRequestURI () + "> (CF_ENTE::" + codiceEnte + ")" );
+         try {
+             if ( "enabled".equalsIgnoreCase ( shibbTestMode ) ) {
+@@ -57,8 +56,6 @@
+         }
+         logger.info ( "[ShibbolethAuthenticationFilter::getPreAuthenticatedPrincipal] <" + request.getRequestURI () + "> (token::" + token + ")" );
+ 
+-
+-
+         return principal;
+     }
+ 
+Index: buildfiles/build.properties
+===================================================================
+--- buildfiles/build.properties	(revision 2560)
++++ buildfiles/build.properties	(working copy)
+@@ -4,7 +4,7 @@
+ 
+ # - [Definizione del Prodotto] -----------------------------------------------
+   company-name = C.S.I. Piemonte 
+-pathStandalone = C\:\\jboss-eap-6.4\\standalone\\deployments
++  pathStandalone = C\:\\lavoro_app\\servers\\jboss6.4.0.GA\\standalone\\deployments
+   prodotto     = epay
+   contesto     = epaysimweb
+   componente   = epaysimweb
+Index: conf/spring/epaysimweb/security-context.xml
+===================================================================
+--- conf/spring/epaysimweb/security-context.xml	(revision 2560)
++++ conf/spring/epaysimweb/security-context.xml	(working copy)
+@@ -35,6 +35,7 @@
+ 	<http pattern="/ris/**" security="none" />
+ 	<http pattern="/login-fallito" security="none" />
+ 	<http pattern="/spring_security_login" security="none" />
++	<http pattern="/sessione-scaduta" security="none" />
+ 	
+ 	<http auto-config="true" use-expressions="true" disable-url-rewriting="true">
+ 
+@@ -51,7 +52,9 @@
+ 		<!-- Abilitazione della pre-autententicazione (shibboleth) -->
+ 		<custom-filter position="PRE_AUTH_FILTER"
+ 			ref="siteminderFilter" />
++			
+ 
++
+ 		<!-- Path del form di login (quello di shibboleth) -->
+ 		<!-- <form-login always-use-default-target="true" login-page="/" default-target-url="/" 
+ 			/> -->
+@@ -63,7 +66,7 @@
+ 
+ 		<!-- Se la sessione non è valida effettua il redirect su... -->
+ 		<session-management
+-			invalid-session-url="/login/timeout">
++			invalid-session-url="/sessione-scaduta">
+ 			<!-- Numero massimo di sessioni concorrenti -->
+ 			<concurrency-control max-sessions="10"
+ 				error-if-maximum-exceeded="false" expired-url="/sessione-scaduta" />
+@@ -104,5 +107,7 @@
+ 	<!-- Bean che conterrà la logica per autenticare l'utente -->
+ 	<beans:bean id='userDetailsService'
+ 		class="it.csi.epay.epaysimweb.security.UserDetailsService" />
++		
+ 
++
+ </beans:beans>
+Index: src/webapp/WEB-INF/web.xml
+===================================================================
+--- src/webapp/WEB-INF/web.xml	(revision 2560)
++++ src/webapp/WEB-INF/web.xml	(working copy)
+@@ -85,7 +85,7 @@
+ 
+ 	<!-- Timeout della sessione (30 minuti) -->
+ 	<session-config>
+-		<session-timeout>30</session-timeout>
++		<session-timeout>1</session-timeout>
+ 		<!-- Accetta solo cookie http -->
+ 		<cookie-config>
+ 			<http-only>true</http-only>
+@@ -93,5 +93,14 @@
+ 	</session-config>
+ 	
+ 	<distributable/>
++	
++	<filter>
++        <filter-name>FilterToGetTimeOut </filter-name> 
++        <filter-class>it.csi.epay.epaysimweb.security.FilterToGetTimeOut </filter-class> 
++    </filter>
++    <filter-mapping> 
++        <filter-name>FilterToGetTimeOut</filter-name> 
++        <url-pattern>/*</url-pattern> 
++    </filter-mapping> 
+ 
+ </web-app>
+\ No newline at end of file
