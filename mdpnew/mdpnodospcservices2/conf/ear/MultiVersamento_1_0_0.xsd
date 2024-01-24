@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:mdp="www.csi.it/mdp" targetNamespace="www.csi.it/mdp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="DatiMarcaBolloDigitale">
+		<xs:sequence>
+			<xs:element name="tipoBollo" type="xs:string" minOccurs="1"/>
+			<xs:element name="hashDocumento" type="xs:string" minOccurs="1"/>
+			<xs:element name="provinciaResidenza" type="xs:string" minOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DatiAccertamentoRPT">
+		<xs:sequence>
+			<xs:element name="annoAccertamento" type="xs:integer" minOccurs="1"/>
+			<xs:element name="numeroAccertamento" type="xs:integer" minOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="DatiSingoloVersamentoRPT">
+		<xs:sequence>
+			<xs:element name="importoSingoloVersamento" type="xs:decimal" minOccurs="1"/>
+			<xs:element name="commissioneCaricoPA" type="xs:decimal" minOccurs="0" />
+			<xs:element name="credenzialiPagatore" type="xs:string" minOccurs="0" />
+			<xs:element name="causaleVersamento" type="xs:string" minOccurs="1"/>
+			<xs:element name="datiSpecificiRiscossione" type="xs:string" minOccurs="1"/>
+			<xs:element name="datiMarcaBolloDigitale" type="mdp:DatiMarcaBolloDigitale"	minOccurs="0" />
+			<xs:element name="datiAccertamento" type="mdp:DatiAccertamentoRPT" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="elencoDatiVersamento">
+		<xs:sequence>
+			<xs:element name="datiSingoloVersamento" type="mdp:DatiSingoloVersamentoRPT" nillable="false" minOccurs="1" maxOccurs="5" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="ElencoDatiVersamento" type="mdp:elencoDatiVersamento" nillable="false"/>
+
+</xs:schema>
+
+

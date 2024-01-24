@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="Serviziofruitoremdp" 
+        targetNamespace="http://serviziofruitore.interfacews.mdp.nodospc.csi.it/" 
+		xmlns:tns="http://serviziofruitore.interfacews.mdp.nodospc.csi.it/" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://serviziofruitore.interfacews.mdp.nodospc.csi.it/" xmlns:tns="http://serviziofruitore.interfacews.mdp.nodospc.csi.it/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="ChiediDatiPagamentoException" type="tns:ChiediDatiPagamentoException" />
+<xs:element name="RiceviRTException" type="tns:RiceviRTException" />
+<xs:element name="UnrecoverableException" type="tns:UnrecoverableException" />
+<xs:element name="VerificaDatiPagamentoException" type="tns:VerificaDatiPagamentoException" />
+<xs:element name="chiediDatiPagamento" type="tns:chiediDatiPagamento" />
+<xs:element name="chiediDatiPagamentoResponse" type="tns:chiediDatiPagamentoResponse" />
+<xs:element name="riceviRT" type="tns:riceviRT" />
+<xs:element name="riceviRTResponse" type="tns:riceviRTResponse" />
+<xs:element name="verificaDatiPagamento" type="tns:verificaDatiPagamento" />
+<xs:element name="verificaDatiPagamentoResponse" type="tns:verificaDatiPagamentoResponse" />
+<xs:complexType name="riceviRT">
+<xs:sequence>
+<xs:element minOccurs="0" name="parametri" type="tns:parametriRiceviRT" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="parametriRiceviRT">
+<xs:sequence>
+<xs:element name="applicationId" type="xs:string" />
+<xs:element name="transactionId" type="xs:string" />
+<xs:element name="dataOraMsgRicevuta" type="xs:date" />
+<xs:element name="idMsgRicevuta" type="xs:string" />
+<xs:element minOccurs="0" name="tipoFirma" type="xs:string" />
+<xs:element name="iuv" type="xs:string" />
+<xs:element name="codEsitoPagamento" type="xs:string" />
+<xs:element name="descEsitoPagamento" type="xs:string" />
+<xs:element name="idMsgRichiesta" type="xs:string" />
+<xs:element name="rtData" tns:expectedContentTypes="application/octet-stream" type="xs:base64Binary" xmlns:tns="http://www.w3.org/2005/05/xmlmime" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="riceviRTResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="result" type="tns:esitoRiceviRT" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="esitoRiceviRT">
+<xs:sequence>
+<xs:element minOccurs="0" name="esito" type="xs:string" />
+<xs:element minOccurs="0" name="codiceErrore" type="xs:string" />
+<xs:element minOccurs="0" name="messaggioErrore" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="RiceviRTException">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="UnrecoverableException">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="riceviEsito">
+<xs:sequence>
+<xs:element minOccurs="0" name="parametri" type="tns:parametriRiceviEsito" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="parametriRiceviEsito">
+<xs:sequence>
+<xs:element name="applicationId" type="xs:string" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" />
+<xs:element minOccurs="0" name="dataOraMsgRicevuta" type="xs:date" />
+<xs:element minOccurs="0" name="dataEsitoSingoloPagamento" type="xs:date" />
+<xs:element name="idMsgRicevuta" type="xs:string" />
+<xs:element minOccurs="0" name="tipoFirma" type="xs:string" />
+<xs:element name="iuv" type="xs:string" />
+<xs:element name="codEsitoPagamento" type="xs:string" />
+<xs:element minOccurs="0" name="descEsitoPagamento" type="xs:string" />
+<xs:element minOccurs="0" name="idMsgRichiesta" type="xs:string" />
+<xs:element minOccurs="0" name="rtData" ns2:expectedContentTypes="application/octet-stream" type="xs:base64Binary" xmlns:ns2="http://www.w3.org/2005/05/xmlmime" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+<xs:element name="identificativoUnivocoRiscossione" type="xs:string" />
+<xs:element name="importoPagato" type="xs:decimal" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="elencoParametriAggiuntivi" type="tns:ChiaveValore" />
+<xs:element name="rtPresente" type="xs:boolean" />
+<xs:element name="identificativoPSP" type="xs:string" />
+<xs:element name="denominazionePSP" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ChiaveValore">
+<xs:sequence>
+<xs:element name="chiave" type="xs:string" />
+<xs:element minOccurs="0" name="valore" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="esitoRiceviEsito">
+<xs:sequence>
+<xs:element minOccurs="0" name="esito" type="xs:string" />
+<xs:element minOccurs="0" name="codiceErrore" type="xs:string" />
+<xs:element minOccurs="0" name="messaggioErrore" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="verificaDatiPagamento">
+<xs:sequence>
+<xs:element minOccurs="0" name="parametri" type="tns:parametriVerificaDatiPagamento" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="parametriVerificaDatiPagamento">
+<xs:sequence>
+<xs:element name="iuv" type="xs:string" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="verificaDatiPagamentoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="result" type="tns:esitoVerificaDatiPagamento" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="esitoVerificaDatiPagamento">
+<xs:sequence>
+<xs:element name="esito" type="xs:string" />
+<xs:element minOccurs="0" name="codiceErrore" type="xs:string" />
+<xs:element minOccurs="0" name="messaggioErrore" type="xs:string" />
+<xs:element name="importoDovuto" type="xs:decimal" />
+<xs:element minOccurs="0" name="ibanAccredito" type="xs:string" />
+<xs:element minOccurs="0" name="bicAccredito" type="xs:string" />
+<xs:element minOccurs="0" name="credenzialiPagatore" type="xs:string" />
+<xs:element name="causaleVersamento" type="xs:string" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+<xs:element minOccurs="0" name="dataFineValiditaPagamento " type="xs:date"/>
+<xs:element minOccurs="0" name="descrizionePagamento" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="VerificaDatiPagamentoException">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="chiediDatiPagamento">
+<xs:sequence>
+<xs:element minOccurs="0" name="parametri" type="tns:parametriChiediDatiPagamento" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="parametriChiediDatiPagamento">
+<xs:sequence>
+<xs:element name="iuv" type="xs:string" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+<xs:element name="importoVersamento" type="xs:decimal" />
+<xs:element name="transactionId" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="chiediDatiPagamentoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="result" type="tns:esitoChiediDatiPagamento" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="esitoChiediDatiPagamento">
+<xs:sequence>
+<xs:element name="esito" type="xs:string" />
+<xs:element minOccurs="0" name="codErrore" type="xs:string" />
+<xs:element minOccurs="0" name="messaggioErrore" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="tea" nillable="true" type="tns:transazioneExtraAttribute" />
+<xs:element name="timestamp" type="xs:string" />
+<xs:element name="mac" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="transazioneExtraAttribute">
+<xs:sequence>
+<xs:element name="extraAttributeId" type="xs:long" />
+<xs:element minOccurs="0" name="name" type="xs:string" />
+<xs:element minOccurs="0" name="value" type="xs:string" />
+<xs:element minOccurs="0" name="transactionId" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ChiediDatiPagamentoException">
+<xs:sequence />
+</xs:complexType>
+<xs:element name="riceviEsito" nillable="true" type="tns:riceviEsito" />
+<xs:element name="riceviEsitoResponse" type="tns:riceviEsitoResponse" />
+<xs:complexType name="riceviEsitoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="result" type="tns:esitoRiceviEsito" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="chiediDatiPagamentoResponse">
+    <wsdl:part element="tns:chiediDatiPagamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="riceviRT">
+    <wsdl:part element="tns:riceviRT" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="riceviEsitoResponse">
+    <wsdl:part element="tns:riceviEsitoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="riceviRTResponse">
+    <wsdl:part element="tns:riceviRTResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="verificaDatiPagamento">
+    <wsdl:part element="tns:verificaDatiPagamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ChiediDatiPagamentoException">
+    <wsdl:part element="tns:ChiediDatiPagamentoException" name="ChiediDatiPagamentoException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="verificaDatiPagamentoResponse">
+    <wsdl:part element="tns:verificaDatiPagamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="VerificaDatiPagamentoException">
+    <wsdl:part element="tns:VerificaDatiPagamentoException" name="VerificaDatiPagamentoException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="chiediDatiPagamento">
+    <wsdl:part element="tns:chiediDatiPagamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RiceviRTException">
+    <wsdl:part element="tns:RiceviRTException" name="RiceviRTException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RiceviEsitoException">
+    <wsdl:part element="tns:RiceviRTException" name="RiceviEsitoException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="riceviEsito">
+    <wsdl:part name="parametri" type="tns:parametriRiceviEsito">
+      </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Serviziofruitoremdp">
+
+    <wsdl:operation name="riceviRT">
+      <wsdl:input message="tns:riceviRT" name="riceviRT">
+    </wsdl:input>
+      <wsdl:output message="tns:riceviRTResponse" name="riceviRTResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:RiceviRTException" name="RiceviRTException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="riceviEsito"><wsdl:input message="tns:riceviEsito" name="riceviEsito">
+    </wsdl:input><wsdl:output message="tns:riceviEsitoResponse" name="riceviEsitoResponse">
+    </wsdl:output><wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault><wsdl:fault message="tns:RiceviEsitoException" name="RiceviEsitoException">
+    </wsdl:fault></wsdl:operation>
+     
+    <wsdl:operation name="verificaDatiPagamento">
+      <wsdl:input message="tns:verificaDatiPagamento" name="verificaDatiPagamento">
+    </wsdl:input>
+      <wsdl:output message="tns:verificaDatiPagamentoResponse" name="verificaDatiPagamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:VerificaDatiPagamentoException" name="VerificaDatiPagamentoException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="chiediDatiPagamento">
+      <wsdl:input message="tns:chiediDatiPagamento" name="chiediDatiPagamento">
+    </wsdl:input>
+      <wsdl:output message="tns:chiediDatiPagamentoResponse" name="chiediDatiPagamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ChiediDatiPagamentoException" name="ChiediDatiPagamentoException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="ServiziofruitoremdpSoapBinding" type="tns:Serviziofruitoremdp">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+  
+    <wsdl:operation name="riceviRT">
+	 <soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="riceviRT"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	   <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output name="riceviRTResponse"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:output>
+      <wsdl:fault name="UnrecoverableException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	   <soap:fault name="UnrecoverableException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+      <wsdl:fault name="RiceviRTException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="RiceviRTException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+    </wsdl:operation>
+	
+    <wsdl:operation name="riceviEsito" >
+	<soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="riceviEsito" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:input>
+      <wsdl:output name="riceviEsitoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:output>
+      <wsdl:fault name="UnrecoverableException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="UnrecoverableException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+      <wsdl:fault name="RiceviEsitoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="RiceviEsitoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+    </wsdl:operation>
+	
+    <wsdl:operation name="verificaDatiPagamento">
+	<soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="verificaDatiPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:input>
+      <wsdl:output name="verificaDatiPagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:output>
+      <wsdl:fault name="VerificaDatiPagamentoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="VerificaDatiPagamentoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="UnrecoverableException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+    </wsdl:operation>
+	
+    <wsdl:operation name="chiediDatiPagamento">
+	<soap:operation soapAction="" style="document" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input name="chiediDatiPagamento" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:input>
+      <wsdl:output name="chiediDatiPagamentoResponse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:output>
+      <wsdl:fault name="ChiediDatiPagamentoException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="ChiediDatiPagamentoException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	  <soap:fault name="UnrecoverableException" use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:fault>
+    </wsdl:operation>
+	
+  </wsdl:binding>
+  
+  <wsdl:service name="Serviziofruitoremdp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:port binding="tns:ServiziofruitoremdpSoapBinding" name="Serviziofruitoremdp" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <soap:address location="http://serviziofruitore.mdp.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+  
+</wsdl:definitions>

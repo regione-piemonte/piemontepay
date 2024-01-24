@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<RT xmlns="http://www.digitpa.gov.it/schemas/2011/Pagamenti/"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.digitpa.gov.it/schemas/2011/Pagamenti/ file:///D:/progettiJava/mdp/mdpnodospcclient/docs/PagInf_RPT_RT_6_0_1.xsd">
+  <versioneOggetto>string</versioneOggetto>
+  <dominio>
+    <identificativoDominio>string</identificativoDominio>
+    <identificativoStazioneRichiedente>string</identificativoStazioneRichiedente>
+  </dominio>
+  <identificativoMessaggioRicevuta>string</identificativoMessaggioRicevuta>
+  <dataOraMessaggioRicevuta>1697-02-01T00:00:00Z</dataOraMessaggioRicevuta>
+  <riferimentoMessaggioRichiesta>TST000000000030874</riferimentoMessaggioRichiesta>
+  <riferimentoDataRichiesta>1973-04-04</riferimentoDataRichiesta>
+  <istitutoAttestante>
+    <identificativoUnivocoAttestante>
+      <tipoIdentificativoUnivoco>A</tipoIdentificativoUnivoco>
+      <codiceIdentificativoUnivoco>string</codiceIdentificativoUnivoco>
+    </identificativoUnivocoAttestante>
+    <denominazioneAttestante>string</denominazioneAttestante>
+    <codiceUnitOperAttestante>string</codiceUnitOperAttestante>
+    <denomUnitOperAttestante>string</denomUnitOperAttestante>
+    <indirizzoAttestante>string</indirizzoAttestante>
+    <civicoAttestante>string</civicoAttestante>
+    <capAttestante>string</capAttestante>
+    <localitaAttestante>string</localitaAttestante>
+    <provinciaAttestante>string</provinciaAttestante>
+    <nazioneAttestante>PR</nazioneAttestante>
+  </istitutoAttestante>
+  <enteBeneficiario>
+    <identificativoUnivocoBeneficiario>
+      <tipoIdentificativoUnivoco>G</tipoIdentificativoUnivoco>
+      <codiceIdentificativoUnivoco>string</codiceIdentificativoUnivoco>
+    </identificativoUnivocoBeneficiario>
+    <denominazioneBeneficiario>string</denominazioneBeneficiario>
+    <codiceUnitOperBeneficiario>string</codiceUnitOperBeneficiario>
+    <denomUnitOperBeneficiario>string</denomUnitOperBeneficiario>
+    <indirizzoBeneficiario>string</indirizzoBeneficiario>
+    <civicoBeneficiario>string</civicoBeneficiario>
+    <capBeneficiario>string</capBeneficiario>
+    <localitaBeneficiario>string</localitaBeneficiario>
+    <provinciaBeneficiario>string</provinciaBeneficiario>
+    <nazioneBeneficiario>UN</nazioneBeneficiario>
+  </enteBeneficiario>
+  <soggettoVersante>
+    <identificativoUnivocoVersante>
+      <tipoIdentificativoUnivoco>F</tipoIdentificativoUnivoco>
+      <codiceIdentificativoUnivoco>string</codiceIdentificativoUnivoco>
+    </identificativoUnivocoVersante>
+    <anagraficaVersante>string</anagraficaVersante>
+    <indirizzoVersante>string</indirizzoVersante>
+    <civicoVersante>string</civicoVersante>
+    <capVersante>string</capVersante>
+    <localitaVersante>string</localitaVersante>
+    <provinciaVersante>string</provinciaVersante>
+    <nazioneVersante>SA</nazioneVersante>
+    <e-mailVersante>qxQ-Ki-ME.s-8.Srg@v1-sny-EDI77-h7Plj-G9-iTp9Y.1oB-FA</e-mailVersante>
+  </soggettoVersante>
+  <soggettoPagatore>
+    <identificativoUnivocoPagatore>
+      <tipoIdentificativoUnivoco>F</tipoIdentificativoUnivoco>
+      <codiceIdentificativoUnivoco>string</codiceIdentificativoUnivoco>
+    </identificativoUnivocoPagatore>
+    <anagraficaPagatore>string</anagraficaPagatore>
+    <indirizzoPagatore>string</indirizzoPagatore>
+    <civicoPagatore>string</civicoPagatore>
+    <capPagatore>string</capPagatore>
+    <localitaPagatore>string</localitaPagatore>
+    <provinciaPagatore>string</provinciaPagatore>
+    <nazionePagatore>MO</nazionePagatore>
+    <e-mailPagatore>1FFA.g-t+aKzLg@99-RZ-nbpr-o.5wA</e-mailPagatore>
+  </soggettoPagatore>
+  <datiPagamento>
+    <codiceEsitoPagamento>1</codiceEsitoPagamento>
+    <importoTotalePagato>0</importoTotalePagato>
+    <identificativoUnivocoVersamento>string</identificativoUnivocoVersamento>
+    <CodiceContestoPagamento>string</CodiceContestoPagamento>
+    <datiSingoloPagamento>
+      <singoloImportoPagato>0</singoloImportoPagato>
+      <esitoSingoloPagamento>string</esitoSingoloPagamento>
+      <dataEsitoSingoloPagamento>1973-04-04</dataEsitoSingoloPagamento>
+      <identificativoUnivocoRiscossione>string</identificativoUnivocoRiscossione>
+      <causaleVersamento>string</causaleVersamento>
+      <datiSpecificiRiscossione>1/vdEblQbfGYA6Uz4pwASpjvQSLSdDQAS47ZNk5JRsXA0eDVzQ159sLvwu4L6J8iClB11xuMUcuw1gklfUJnPvxqXw8py7dHyyVdjvdhq5yrSLWVt1gZvSW9TeR6tUGwKK</datiSpecificiRiscossione>
+    </datiSingoloPagamento>
+    <datiSingoloPagamento>
+      <singoloImportoPagato>0</singoloImportoPagato>
+      <esitoSingoloPagamento>string</esitoSingoloPagamento>
+      <dataEsitoSingoloPagamento>1973-04-04</dataEsitoSingoloPagamento>
+      <identificativoUnivocoRiscossione>string</identificativoUnivocoRiscossione>
+      <causaleVersamento>string</causaleVersamento>
+      <datiSpecificiRiscossione>1/ebphtbv9R5JUmqBSlABuKzisymuHbHoL1FWM</datiSpecificiRiscossione>
+    </datiSingoloPagamento>
+    <datiSingoloPagamento>
+      <singoloImportoPagato>0</singoloImportoPagato>
+      <esitoSingoloPagamento>string</esitoSingoloPagamento>
+      <dataEsitoSingoloPagamento>1973-04-04</dataEsitoSingoloPagamento>
+      <identificativoUnivocoRiscossione>string</identificativoUnivocoRiscossione>
+      <causaleVersamento>string</causaleVersamento>
+      <datiSpecificiRiscossione>2/ZQjtp4azmwnndWWoPkdrClBhwNaFNA6BtUSYRKiwGKpX5k3Gsbux3YwYtwICR7g32gHSkJtcgMfk</datiSpecificiRiscossione>
+    </datiSingoloPagamento>
+  </datiPagamento>
+</RT>

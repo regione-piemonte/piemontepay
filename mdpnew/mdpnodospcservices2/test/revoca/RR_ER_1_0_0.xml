@@ -1,0 +1,50 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RR xmlns="http://www.digitpa.gov.it/schemas/2011/Pagamenti/Revoche/">
+    <versioneOggetto>6.2.0</versioneOggetto>
+    <dominio>
+        <identificativoDominio>00429440068</identificativoDominio>
+        <identificativoStazioneRichiedente>01995120019_01</identificativoStazioneRichiedente>
+    </dominio>
+    <identificativoMessaggioRevoca>19</identificativoMessaggioRevoca>
+    <dataOraMessaggioRevoca>2019-11-27T15:50:57</dataOraMessaggioRevoca>
+    <istitutoAttestante>
+        <identificativoUnivocoMittente>
+            <tipoIdentificativoUnivoco>B</tipoIdentificativoUnivoco>
+            <codiceIdentificativoUnivoco>BCITITMM</codiceIdentificativoUnivoco>
+        </identificativoUnivocoMittente>
+        <denominazioneMittente>Intesa Sanpaolo</denominazioneMittente>
+    </istitutoAttestante>
+    <soggettoVersante>
+        <identificativoUnivocoVersante>
+            <tipoIdentificativoUnivoco>F</tipoIdentificativoUnivoco>
+            <codiceIdentificativoUnivoco>ANONIMO</codiceIdentificativoUnivoco>
+        </identificativoUnivocoVersante>
+        <anagraficaVersante>ANONIMO</anagraficaVersante>
+    </soggettoVersante>
+    <soggettoPagatore>
+        <identificativoUnivocoPagatore>
+            <tipoIdentificativoUnivoco>F</tipoIdentificativoUnivoco>
+            <codiceIdentificativoUnivoco>TSTPNI70D01L219V</codiceIdentificativoUnivoco>
+        </identificativoUnivocoPagatore>
+        <anagraficaPagatore>Pino Test</anagraficaPagatore>
+    </soggettoPagatore>
+    <datiRevoca>
+        <importoTotaleRevocato>10.00</importoTotaleRevocato>
+        <identificativoUnivocoVersamento>22200280521093906</identificativoUnivocoVersamento>
+        <codiceContestoPagamento>202001281200</codiceContestoPagamento>
+        <tipoRevoca>1</tipoRevoca>
+        <datiSingolaRevoca>
+            <singoloImportoRevocato>10.00</singoloImportoRevocato>
+            <identificativoUnivocoRiscossione>9/301020065</identificativoUnivocoRiscossione>
+            <causaleRevoca>uno</causaleRevoca>
+            <datiAggiuntiviRevoca>due</datiAggiuntiviRevoca>
+        </datiSingolaRevoca>
+    </datiRevoca>
+</RR>

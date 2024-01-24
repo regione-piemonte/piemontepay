@@ -1,0 +1,239 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "EpayAPI",
+		"description": "Epay open API",
+		"version": "1.0.0",
+		"contact": {
+			"name": "API Support",
+			"url": "http://epay.csi.it",
+			"email": "assistenza.epay@csi.it"
+		}
+	},
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/accessoChiamanteEsternoSincrono": {
+			"post": {
+				"description": "Accesso chiamante esterno per pagamento sincrono",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Informazioni per la generazione dell'URL per il pagamento",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/AccessoChiamanteEsternoSincronoInput"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "IUV ed URL per il pagamento",
+						"schema": {
+							"$ref": "#/definitions/AccessoChiamanteEsternoSincronoOutput"
+						}
+					}
+				}
+			}
+		},
+		"/profile": {
+			"get": {
+				"description": "Returns profile info",
+				"responses": {
+					"200": {
+						"description": "Profile info",
+						"schema": {
+							"$ref": "#/definitions/ProfileInfoResponse"
+						}
+					}
+				}
+			}
+		},
+		"/status": {
+			"get": {
+				"description": "Returns backend services status",
+				"responses": {
+					"200": {
+						"description": "Backend status",
+						"schema": {
+							"$ref": "#/definitions/StatusResponse"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"AccessoChiamanteEsternoSincronoInput": {
+			"type": "object",
+			"properties": {
+				"codiceChiamante": {
+					"required": true,
+					"type": "string"
+				},
+				"ipChiamante": {
+					"required": false,
+					"type": "string"
+				},
+				"identificativoPagamento": {
+					"required": true,
+					"type": "string"
+				},
+				"password": {
+					"required": true,
+					"type": "string"
+				},
+				"codiceFiscalePartitaIVAPagatore": {
+					"required": true,
+					"type": "string"
+				},
+				"nome": {
+					"required": false,
+					"type": "string"
+				},
+				"cognome": {
+					"required": false,
+					"type": "string"
+				},
+				"ragioneSociale": {
+					"required": false,
+					"type": "string"
+				},
+				"email": {
+					"required": false,
+					"type": "string"
+				},
+				"codiceFiscaleEnte": {
+					"required": true,
+					"type": "string"
+				},
+				"tipoPagamento": {
+					"required": true,
+					"type": "string"
+				},
+				"causale": {
+					"required": true,
+					"type": "string"
+				},
+				"importo": {
+					"required": true,
+					"type": "number",
+					"format": "double"
+				},
+				"timestampChiamata": {
+					"required": true,
+					"type": "string",
+					"format": "date-time"
+				},
+				"componentiPagamento": {
+					"required": false,
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/AccessoChiamanteEsternoSincronoComponentePagamentoInput"
+					}
+				}
+			}
+		},
+		"AccessoChiamanteEsternoSincronoComponentePagamentoInput": {
+			"type": "object",
+			"properties": {
+				"progressivo": {
+					"required": true,
+					"type": "number"
+				},
+				"importo": {
+					"required": true,
+					"type": "number",
+					"format": "double"
+				},
+				"causale": {
+					"required": true,
+					"type": "string"
+				},
+				"datiSpecificiRiscossione": {
+					"required": true,
+					"type": "string"
+				},
+				"annoAccertamento": {
+					"required": true,
+					"type": "number"
+				},
+				"numeroAccertamento": {
+					"required": true,
+					"type": "string"
+				}
+			}
+		},
+		"AccessoChiamanteEsternoSincronoOutput": {
+			"type": "object",
+			"properties": {
+				"identificativoPagamento": {
+					"type": "string"
+				},
+				"iuv": {
+					"type": "string"
+				},
+				"urlWisp": {
+					"type": "string"
+				},
+				"codiceEsito": {
+					"type": "string",
+					"enum": [
+						"000",
+						"100",
+						"200",
+						"300"
+					]
+				},
+				"descrizioneEsito": {
+					"type": "string"
+				}
+			}
+		},
+		"ProfileInfoResponse": {
+			"type": "object",
+			"properties": {
+				"versione": {
+					"type": "string"
+				},
+				"ambiente": {
+					"type": "string"
+				},
+				"componente": {
+					"type": "string"
+				},
+				"prodotto": {
+					"type": "string"
+				}
+			}
+		},
+		"StatusResponse": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string",
+					"enum": [
+						"UP",
+						"DOWN",
+						"UNKNOWN",
+						"WARNING"
+					]
+				},
+				"message": {
+					"type": "string"
+				},
+				"responseTime": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}

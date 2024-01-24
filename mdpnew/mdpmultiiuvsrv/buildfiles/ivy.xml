@@ -1,0 +1,109 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivy-module version="2.0">
+
+	<info organisation="csipiemonte" module="mdpmultiiuvsrv" />
+
+	<dependencies>
+
+		<!-- librerie per il logging applicativo e la misurazione 
+		     delle performance. Nota: la piattaforma jboss impone l'utilizzo della
+		     versione 1.2.14. 
+		     -->		
+		<dependency org="apache" name="log4j" rev="1.2.14">
+			<artifact name="log4j-1.2.14" type="jar" />
+		</dependency>
+
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.0">
+			<artifact name="util-perf-1.0.0" type="jar" />
+		</dependency>
+
+		<!-- librerie per l'implementazione di monitoraggio e diagnostica -->
+		<dependency org="csipiemonte" name="coop-diag" rev="1.2.1">
+			<artifact name="coop-diag-1.2.1" type="jar" />
+		</dependency>
+		
+		<!-- librerie per la realizzazioen dei test unitari -->
+		<dependency org="others" name="junit" rev="3.8.1">
+			<artifact name="junit-3.8.1" type="jar" />
+		</dependency>
+
+		<!-- librerie Core di C.S.I -->
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+			<artifact name="csi-core-1.4.5" type="jar" />
+			<artifact name="csi-ejb-1.4.5" type="jar" />
+			<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+			<artifact name="csi-rmi-1.4.5" type="jar" />
+			<artifact name="csi-stadapter-1.4.5" type="jar" />
+			<artifact name="csi-tools-1.4.5" type="jar" />
+		</dependency>
+	    
+	    <!-- librerie necessarie pe ri binding WSFAD -->
+	    <dependency org="csipiemonte" name="wsadp" rev="2.0.2">
+	    	<artifact name="wsadp-2.0.2" type="jar" /> 
+	    </dependency>
+	    
+	    <!-- librerie necessarie se si attiva il supporto coop trace
+	         (specifiche per la target platform JBoss43. 
+	    -->
+	    
+	    <dependency org="csipiemonte" name="coop-trace" rev="1.2.0">
+	    	<artifact name="coop-trace-1.2.0" type="jar" />
+	    </dependency>
+	    
+	    <!-- dipendenze per svcflow -->
+	    <dependency org="csipiemonte" name="svcflow" rev="1.2.0">
+	    	<artifact name="svcflow-1.2.0" type="jar" />
+	    </dependency>
+	    
+	    
+        <!-- librerie specifiche della target platform JBoss43 -->
+		<dependency org="others" name="jboss" rev="4.3.0">
+			<artifact name="jboss-j2ee-4.3.0" type="jar" />
+			<artifact name="jboss-servlet-api-4.3.0" type="jar" /> 
+		</dependency>
+		
+	    
+	    <!-- dipendenze necessarie per la compilazione o per i test -->
+	    <dependency org="apache" name="axis" rev="1.4">
+			<artifact name="axis-jaxrpc-1.4" type="jar" />
+		</dependency>
+		
+		<dependency org="apache" name="axis-ant" rev="1.4">
+			<artifact name="axis-ant-1.4" type="jar" />
+		</dependency>
+		
+		<dependency org="others" name="spring-full" rev="2.5.5">
+			<artifact name="spring-2.5.5" type="jar" />
+		</dependency>
+	    
+	     <dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
+	     
+	     <dependency org="apache" name="cxf" rev="2.2.5" />
+	   
+	    <dependency org="sun" name="jaxb" rev="2.1.12">
+			<artifact name="jaxb-impl-2.1.12" type="jar" />
+		</dependency>
+		
+		 <dependency org="codehaus" name="xstream" rev="1.3.1">
+            <artifact name="xstream-1.3.1" type="jar" />
+         </dependency>
+
+		<dependency org="apache" name="commons-codec" rev="1.4">
+			<artifact name="commons-codec-1.4" type="jar" />
+		</dependency>		 
+		
+		<!-- Joda Time -->
+		<dependency org="joda" name="joda-time" rev="1.6">
+			<artifact name="joda-time-1.6" type="jar" />
+		</dependency>		
+          
+	</dependencies>
+
+</ivy-module>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+xmlns:cxf="http://cxf.apache.org/core"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:jaxws="http://cxf.apache.org/jaxws"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+http://cxf.apache.org/core
+http://cxf.apache.org/schemas/core.xsd
+http://www.springframework.org/schema/context  
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+
+http://cxf.apache.org/jaxws
+http://cxf.apache.org/schemas/jaxws.xsd">
+
+<import resource="springMain.xml" />
+
+	<context:annotation-config/>
+	
+	<!-- web service implementation definition RT -->
+	<bean id="pagamentiRT" class="it.csi.mdp.mdpnodospcservices.business.pagrt.PagamentiTelematiciRTImpl">
+		<!-- <property name="gestionaleBusiness" ref="gestionaleBL" />-->
+	</bean>
+
+
+	<!-- web service end point definition RT -->
+	<jaxws:endpoint id="pagamentiRTWs"	implementor="#pagamentiRT"	address="/PagamentiTelematiciRT">
+		<jaxws:features>
+    		<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+
+
+
+</beans>

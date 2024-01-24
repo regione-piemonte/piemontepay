@@ -1,0 +1,9 @@
+/.classpath
+/.project
+/build/*
+/.settings/*
+/dist/*
+/lib/*
+/bin/
+/build/
+*.iml

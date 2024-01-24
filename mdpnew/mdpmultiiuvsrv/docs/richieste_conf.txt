@@ -1,0 +1,52 @@
+INC000001323022  ottobre 2016
+
+Buongiorno,
+  con la presente si richiede la creazione di 3 Jkmount sull'ambiente di TEST all'interno del VH:
+  
+   tst-applogic-e2nmsf2.csi.it
+   
+I primi due puntano alla medesima partizione Jboss, il terzo ad una partizione differente. 
+Di seguito si riportano gli estremi per la configurazione:
+
+
+JkMount /mdpcoreservices   part254lb
+JkMount /mdpcoreservices/*  part254lb
+
+JkMount /mdpiuv   part254lb
+JkMount /mdpiuv/*  part254lb
+
+worker.list= .....  ,part254node11, part254node12, part254lb
+
+Se dovesse essere necessario predisporre il worker riporto i dati della partizione JBoss di test:
+
+tst-jboss43cp09-01.csi.it
+tst-jboss43cp09-02.csi.it
+part254
+
+-------------------------
+
+JkMount /mdpmultiiuv   partSELF143lb
+JkMount /mdpmultiiuv/*  partSELF143lb
+
+worker.list= .....  ,partSELF143node11, partSELF143node12, partSELF143lb
+
+Anche in questo caso  se dovesse essere necessario predisporre il worker riporto i dati della partizione JBoss di test:
+
+tst-spjbosscp09-01.self.csi.it
+tst-spjbosscp09-02.self.csi.it
+partSELF143
+
+Rimango a disposizione nel caso servano ulteriori informazioni,
+Grazie
+Saluti
+
+Irene Etzi
+
+
+
+tst-spjbosscp09-01.self.csi.it
+tst-spjbosscp09-02.self.csi.it
+partSELF143
+
+
+http://tst-applogic-e2nmsf.csi.it/mdpmultiiuv/MdpMultiIuvsrvServiceWS?wsdl

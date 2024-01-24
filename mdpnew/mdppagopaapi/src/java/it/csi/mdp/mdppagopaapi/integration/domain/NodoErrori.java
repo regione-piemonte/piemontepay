@@ -1,0 +1,82 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+package it.csi.mdp.mdppagopaapi.integration.domain;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+
+/**
+ * The persistent class for the nodo_errori database table.
+ * 
+ */
+@Entity
+@Table(name="nodo_errori")
+@NamedQuery(name="NodoErrori.findAll", query="SELECT n FROM NodoErrori n")
+public class NodoErrori implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@SequenceGenerator(name="NODO_ERRORI_ID_GENERATOR", sequenceName="NODO_ERRORI_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="NODO_ERRORI_ID_GENERATOR")
+	private Integer id;
+
+	private Timestamp data;
+
+	private String descrizione;
+
+	@Column(name="transaction_id")
+	private String transactionId;
+
+	//bi-directional many-to-one association to Application
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Application application;
+
+	public NodoErrori() {
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Timestamp getData() {
+		return this.data;
+	}
+
+	public void setData(Timestamp data) {
+		this.data = data;
+	}
+
+	public String getDescrizione() {
+		return this.descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public String getTransactionId() {
+		return this.transactionId;
+	}
+
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+
+	public Application getApplication() {
+		return this.application;
+	}
+
+	public void setApplication(Application application) {
+		this.application = application;
+	}
+
+}

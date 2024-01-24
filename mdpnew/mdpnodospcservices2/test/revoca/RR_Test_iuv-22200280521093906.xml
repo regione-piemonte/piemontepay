@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<pay_i:RR xmlns:pay_i="http://www.digitpa.gov.it/schemas/2011/Pagamenti/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="/opt/proctele/resources/PagInf_RPT_RT_6_2_0.xsd">
+   <pay_i:versioneOggetto>6.0</pay_i:versioneOggetto>
+   <pay_i:dominio>
+      <pay_i:identificativoDominio>00429440068</pay_i:identificativoDominio>
+   </pay_i:dominio>
+   <pay_i:identificativoMessaggioRicevuta>0TST0000000000827002</pay_i:identificativoMessaggioRicevuta>
+   <pay_i:dataOraMessaggioRicevuta>2020-01-28T16:43:51.767+01:00</pay_i:dataOraMessaggioRicevuta>
+   <pay_i:riferimentoMessaggioRichiesta>TST000000000082700</pay_i:riferimentoMessaggioRichiesta>
+   <pay_i:riferimentoDataRichiesta>2020-01-28</pay_i:riferimentoDataRichiesta>
+   <pay_i:istitutoAttestante>
+      <pay_i:identificativoUnivocoAttestante>
+         <pay_i:tipoIdentificativoUnivoco>B</pay_i:tipoIdentificativoUnivoco>
+         <pay_i:codiceIdentificativoUnivoco>BCITITMM</pay_i:codiceIdentificativoUnivoco>
+      </pay_i:identificativoUnivocoAttestante>
+      <pay_i:denominazioneAttestante>Intesa Sanpaolo</pay_i:denominazioneAttestante>
+   </pay_i:istitutoAttestante>
+   <pay_i:enteBeneficiario>
+      <pay_i:identificativoUnivocoBeneficiario>
+         <pay_i:tipoIdentificativoUnivoco>G</pay_i:tipoIdentificativoUnivoco>
+         <pay_i:codiceIdentificativoUnivoco>00429440068</pay_i:codiceIdentificativoUnivoco>
+      </pay_i:identificativoUnivocoBeneficiario>
+      <pay_i:denominazioneBeneficiario>Comune di Alessandria</pay_i:denominazioneBeneficiario>
+      <pay_i:indirizzoBeneficiario>Piazza della Liberta</pay_i:indirizzoBeneficiario>
+      <pay_i:civicoBeneficiario>1</pay_i:civicoBeneficiario>
+      <pay_i:capBeneficiario>15121</pay_i:capBeneficiario>
+      <pay_i:localitaBeneficiario>Alessandria</pay_i:localitaBeneficiario>
+      <pay_i:provinciaBeneficiario>AL</pay_i:provinciaBeneficiario>
+      <pay_i:nazioneBeneficiario>IT</pay_i:nazioneBeneficiario>
+   </pay_i:enteBeneficiario>
+   <pay_i:soggettoPagatore>
+      <pay_i:identificativoUnivocoPagatore>
+         <pay_i:tipoIdentificativoUnivoco>F</pay_i:tipoIdentificativoUnivoco>
+         <pay_i:codiceIdentificativoUnivoco>TSTPNI70D01L219V</pay_i:codiceIdentificativoUnivoco>
+      </pay_i:identificativoUnivocoPagatore>
+      <pay_i:anagraficaPagatore>Pino Test</pay_i:anagraficaPagatore>
+      <pay_i:e-mailPagatore>servizio.mdp@csi.it</pay_i:e-mailPagatore>
+   </pay_i:soggettoPagatore>
+   <pay_i:datiPagamento>
+      <pay_i:codiceEsitoPagamento>0</pay_i:codiceEsitoPagamento>
+      <pay_i:importoTotalePagato>10.00</pay_i:importoTotalePagato>
+      <pay_i:identificativoUnivocoVersamento>22200280521093906</pay_i:identificativoUnivocoVersamento>
+      <pay_i:CodiceContestoPagamento>202001281200</pay_i:CodiceContestoPagamento>
+      <pay_i:datiSingoloPagamento>
+         <pay_i:singoloImportoPagato>10.00</pay_i:singoloImportoPagato>
+         <pay_i:esitoSingoloPagamento>PAGATA</pay_i:esitoSingoloPagamento>
+         <pay_i:dataEsitoSingoloPagamento>2020-01-28</pay_i:dataEsitoSingoloPagamento>
+         <pay_i:identificativoUnivocoRiscossione>0000TST000000000082700</pay_i:identificativoUnivocoRiscossione>
+         <pay_i:causaleVersamento>/RFB/22200280521093906/10.00</pay_i:causaleVersamento>
+         <pay_i:datiSpecificiRiscossione>9/301020065</pay_i:datiSpecificiRiscossione>
+      </pay_i:datiSingoloPagamento>
+   </pay_i:datiPagamento>
+</pay_i:RR>

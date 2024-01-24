@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<DiagnosticEngineConfig>
+  <!-- il caller che segue e' stato inserito per non far fallire il caricamento
+       della configurazione -->
+  <Caller
+    classe = "it.csi.coopdiag.engine.plugin.fs.FSCaller"
+    name = "DUMMY_FS"
+    codSistema = "mdp"
+    codRisorsa = "mdp_FS"
+    codTipoRisorsa = "fs-rw"
+    descrTipoRisorsa = "File system">
+    <Properties>
+      <Property name="path.root" value="."/>
+      <Property name="path.permission" value="rw"/>
+      <Property name="path.filetoread" value="TAPPO.txt"/>
+    </Properties>
+  </Caller>
+
+</DiagnosticEngineConfig>
+	
