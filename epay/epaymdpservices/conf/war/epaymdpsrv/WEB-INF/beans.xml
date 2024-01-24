@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans  xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:jee="http://www.springframework.org/schema/jee"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http\://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+		                    http://www.springframework.org/schema/jee 
+		                    http\://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-3.1.xsd">
+
+	<jee:remote-slsb id="parametro" jndi-name="java:global/epayservices/epayservices-ejb/ParametroFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.ParametroFacade"/>
+	
+	<jee:remote-slsb id="pagamento" jndi-name="java:global/epayservices/epayservices-ejb/PagamentoFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.PagamentoFacade"/>
+	
+	<jee:remote-slsb id="ente" jndi-name="java:global/epayservices/epayservices-ejb/EnteFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.EnteFacade"/>  
+	        
+	<!--<bean id ="ente" class="org.springframework.ejb.access.LocalStetelessSessionProxyFactoryBean">
+	       <property name="jndiName" value="java:global/epayservices/epayservices-ejb/EnteFacade" />
+	       <property name="businessInterface" value="it.csi.epay.epayservices.interfaces.ejb.EnteFacade" />
+	</bean> -->    
+	    
+	<!-- <bean id="epayservices" class="it.csi.epay.epaymdpservices.integration.epayservices.EpayservicesBean">
+	    <property name="enteFacade" ref="ente"/>
+	</bean> 
+	
+	<bean id="resourceBean" class="it.csi.epay.epaymdpservices.business.TestResourcesBean">
+	    <property name="epayservices" ref="epayservices"/>
+	</bean> -->        
+	
+</beans>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<project basedir="." name="epaymdpservices" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="default">
+	<description>Build file di progetto</description>
+	
+	<property file="buildfiles/build.properties" />		
+	<property file="buildfiles/${target}.properties" />
+	
+	<echo message="Loading build properties..." />
+	<echo message="basedir: ${basedir}" />
+	<echo message="lib: ${lib}" />
+	<echo message="build: ${build}" />
+	<echo message="src: ${src}" />
+	<echo message="conf: ${conf}" />
+	<echo message="dist: ${dist}" />
+	<echo message="docs: ${docs}" />
+	<echo message="temp: ${temp}" />
+	
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>		
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # public target: show-vars                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="show-vars" depends="init" description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************" />
+		<echo message="********  ${product-name} environment  *******" />
+		<echo message="*****************************************" />
+		<echo message="Runtime :" />
+		<echo message="JAVA_HOME = ${env.JAVA_HOME}" />
+		<echo message="JAVA_HOME_CLIENT = ${env.JAVA_HOME_CLIENT}" />
+		<echo message="JAVA_HOME_SERVER = ${env.JAVA_HOME_SERVER}" />
+		<echo message="ANT_HOME = ${env.ANT_HOME}" />
+		<echo message="IVY_VERSION = ${env.IVY_VERSION}" />
+		<echo message="" />
+		<echo message="Classpath :" />
+		<echo message="CLASS_PATH = ${classpath}" />
+		<echo message="" />
+		<echo message="" />
+		<echo message="Application :" />
+		<echo message="VERSION = ${product-version}" />
+		<echo message="" />
+	</target>	
+		
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: default # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="default" description="Eseguire il build per l'environment specificato a linea di comando con -Dtarget=${target} o per tutti gli environment (se non specificato).">
+		
+		<echo message="Target default....." />
+		
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+
+		<!--<antcall target="clean-all" />-->
+		<antcall target="${first-call}" />		
+	 			
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: all-targets # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="all-targets"
+		description="Esegue il build per le varie distribuzioni in sequenza.">
+
+		<antcall target="distribution">
+			<param name="target" value="dev-rp-01" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="tst-rp-01" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="coll-rp-01" />
+		</antcall>
+
+		<antcall target="distribution">
+			<param name="target" value="prod-rp-01" />
+		</antcall>
+	</target>	
+	
+	<!-- ############################################################# -->
+	<!-- # Target: distribution # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="distribution" description="Costruisce il tar per la distribuzione."
+		depends="package-all">
+		<echo>====== Creating distribution for ${target} ...</echo>
+		<echo>====== Basedir: ${build}/archives/${target} ... </echo>
+		<tar tarfile="${dist}/${target}/${componente}-${version}.tar"
+			basedir="${build}/archives/${target}" includes="*.ear">
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt" />
+			</tarfileset>
+			<tarfileset file="build/temp/conf/ejb/${webapp}/${componente}-*.xml" />
+		</tar>
+		<delete>
+			<fileset dir="${dist}/${target}" excludes="**/*.tar" />
+		</delete>	
+	</target>	
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: package-all # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all"
+		description="esegue il packaging di ogni componente del prodotto">
+		<property file="buildfiles/${target}.properties" />
+		<antcall target="package-ear" inheritall="true" />
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-ear                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear" depends="environment-recreate,compile-all,package-war" description="costruisce l&apos;ear">
+		<copy todir="${temp}/${target}/lib">
+			<!-- librerie infrastrutturali o client di servizi fruiti -->
+			<fileset dir="${lib}"
+				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs} ${spring.libs}"
+				excludes="commons-codec-1.3.jar" />
+			<fileset dir="${build}/archives/${target}" includes="*client*.jar,${clientinterfacename}*.jar" />
+		</copy>
+		<ear appxml="${temp}/conf/ear/application.xml" destfile="${build}/archives/${target}/${componente}.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war"
+				excludes="*client*.jar, ${clientinterfacename}*.jar" />
+			<fileset dir="${temp}/${target}">
+				<include name="**/*" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+			</manifest>
+		</ear>		
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-war # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-war" description="Genera il war per lo strato web.">
+		<echo message="COSTRUISCO IL WAR ${webapp}"></echo>
+
+		<copy file="buildfiles/${target}.properties" tofile="${temp}/conf/war/${contesto}/META-INF/env.properties" />
+		<echo message="copio buildfiles/${target}.properties SU env su ${build}/classes/META-INF/env.properties" />
+		
+		<copy todir="${build}/classes">
+			<fileset dir="${conf}/war/${contesto}/WEB-INF" />
+		</copy>
+		<echo message="copio le classi di WS ${prodotto}/${componente}" />
+		<war destfile="${build}/archives/${target}/${war-file-name}.war"
+			webxml="${temp}/conf/war/${contesto}/WEB-INF/web.xml" roundup="false"
+			manifest="${temp}/conf/war/${contesto}/META-INF/MANIFEST.MF">
+			<webinf dir="${temp}/conf/war/${contesto}/WEB-INF"
+				includes="cxf.xml,jboss-web.xml,beans.xml,jboss-deployment-structure.xml" />
+			<classes dir="${build}/classes"
+				includes="it/csi/${prodotto}/${componente}/**,env.properties" />
+			<lib dir="${lib}" includes="${war-libs-filter}" />
+			<metainf dir="${temp}/conf/war/${contesto}/META-INF/" includes="env.properties" />	
+			<metainf dir="${temp}/conf/war/${contesto}/META-INF/" includes="*.xsd" />
+		</war>
+	</target>	
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-recreate # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-recreate" depends="environment-config">
+	    <echo message="DELETE ${temp}/conf"></echo>
+	    <delete dir="${temp}/conf" />
+	    <echo message="CREATE ${temp}/conf"></echo>
+		<mkdir dir="${temp}/conf" />
+		<echo message="COPY ${conf} TO DIR ${temp}/conf"></echo>
+		<copy todir="${temp}/conf" overwrite="true">
+			<fileset dir="${conf}" />
+			<filterset refid="propertiesToChange" />
+		</copy>
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-config # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-config"
+		description="Predispone le configurazioni dipendenti dall'ambiente.">		
+		<echo message="====== gestire qui i replace delle variabile d'ambiente" />
+		<filterset id="propertiesToChange">
+			<!--<filter token="wsdl.host" value="${wsdl.host}" />-->
+			<filter token="cluster" value="${DISTRIBUTABLE}" />
+		</filterset>
+		<!--<echo message="====== wsdl.host ${wsdl.host}" />-->
+	</target>	
+	
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+	<classpath>
+		<fileset dir="${basedir}/src/java/jaxws">
+			<include name="**/*.jar" />
+		</fileset>
+	</classpath>
+	</taskdef>
+
+	<target name="wsdl2java">
+		<property name="wsdl_sportello_to_wso" value="${basedir}/docs/wsdl/Sportello2EPaywsoProxy.wsdl" />
+		<!--
+		<property name="wsdl_sportello_to_wso" value="http://dev-srv-epay.bilancio.csi.it/wso001/services/Sportello2EPaywsoProxy?wsdl"/>
+		-->
+		<wsimport wsdl="${wsdl_sportello_to_wso}" destdir="${basedir}/bin" sourcedestdir="${src-java}" keep="true" verbose="true" package="it.csi.epay.epaymdpservices.webservices.epaywso">
+		</wsimport>
+	</target>
+		
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: init                                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<echo message="Init target..." />		
+    	<condition property="target" value="dev">
+      		<equals arg1="${target}" arg2="$${target}" />
+    	</condition>
+
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${build}/temp/${target}/lib" />
+		<mkdir dir="${build}/archives/${target}" />
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/javadoc" />		
+		<mkdir dir="${build}/cache" />
+	</target>	
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: compile-all                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="compile-all" depends="clean-classes,init,load-dependencies"
+		description="Compila tutti i sorgenti.">
+		<echo message="===> Target: ${target}" />
+		<javac fork="jes" srcdir="${src}/java" destdir="${build}/classes"
+			optimize="on" deprecation="on" compiler="modern" debug="true"
+			debuglevel="lines,vars,source" encoding="ISO-8859-1">
+			<classpath refid="library.ref" />
+		</javac>
+	</target>	
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: resolve-dependencies # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="resolve-dependencies" description="carica le librerie dal repository remoto">
+		<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		<ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: load-dependencies # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies" depends="resolve-dependencies"
+		description="Risolve le dipendenze esterne.">
+		<ivy:retrieve pattern="lib/[artifact].[type]" />		
+
+	</target>		
+	
+	<!-- clean targets -->
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-all # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+		depends="clean-archives, clean-classes, clean-dist, clean-javadoc, clean-cache, clean-temp" />
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-cache # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-cache" description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" />
+		<delete dir="${lib}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-temp # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-temp"
+		description="Rimuove la cartella dei files temporanei di build.">
+		<delete dir="${temp}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-archives # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-archives"
+		description="Rimuove la cartella degli archivi (war, ear, ...).">
+		<delete dir="${build}/archives" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-dist # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-dist" description="Rimuove la cartella delle distribuzioni.">
+		<delete dir="${dist}" />
+	</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-classes # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-classes" description="Rimuove la cartella dei sorgenti compilati.">
+		<delete dir="${build}/classes" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-javadoc # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-javadoc" description="Rimuove la cartella temporanea dei javadoc.">
+		<delete dir="${build}/javadoc" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: clean-web-inf # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_clean-web-inf"
+		description="Rimuove il contenuto di lib e classes della web application (per run locali).">
+		<delete dir="${web}/WEB-INF/classes" />
+		<delete dir="${web}/WEB-INF/lib" />
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DEPLOY]: __DEPLOY-LOCAL-JBOSS                            # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<macrodef name="deploy-jboss">
+		<attribute name="target" />
+		<sequential>
+			<property name="target" value="@{target}" />
+			<echo>Target: ${target}</echo>
+			
+			<antcall target="distribution"/>
+			<property file="buildfiles/${target}.properties" />
+			<echo>Copy EAR to : ${jBoss.deploy.dir}</echo>
+			<copy todir="${jBoss.deploy.dir}" verbose="true" overwrite="true">
+				<fileset dir="${build}/archives/${target}" id="ear">
+					<include name="${componente}.war"/>
+				</fileset>
+			</copy>
+			<delete dir="config" />
+		</sequential>
+	</macrodef>
+
+	<target name="__DEPLOY-LOCAL-JBOSS" description="Deploy dell'applicazione nell'ambiente dev">
+		<deploy-jboss target="${user.name}" />
+	</target>	
+
+	
+</project>

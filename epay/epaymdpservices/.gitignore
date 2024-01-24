@@ -1,0 +1,10 @@
+/.classpath
+/.project
+/build/*
+/dist/*
+/lib/*
+/build/
+
+/.settings/org.jboss.ide.eclipse.as.core.prefs
+*.iml
+/bin/

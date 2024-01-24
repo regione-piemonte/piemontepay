@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee/" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6" 
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/application_7.xsd">			 
+  
+  <display-name>epaymdpservices</display-name>
+  <module>
+    <java>epaymdpservices.war</java>
+  </module>
+  <library-directory>lib</library-directory>
+</application>

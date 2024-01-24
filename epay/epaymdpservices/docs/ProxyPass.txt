@@ -1,0 +1,10 @@
+proxypass VH tst-applogic-nmsf2e.csi.it:
+
+ProxyPass /epaymdpservices/ http://dev-srv-epay.bilancio.csi.it/epaymdpservices/
+ProxyPassReverse /epaymdpservices/ http://dev-srv-epay.bilancio.csi.it/epaymdpservices/
+
+
+proxypass VH applogic-nmsf2e.csi.it:
+
+ProxyPass /epaymdpservices/ http://dev-srv-epay.bilancio.csi.it/epaymdpservices/
+ProxyPassReverse /epaymdpservices/ http://dev-srv-epay.bilancio.csi.it/epaymdpservices/
