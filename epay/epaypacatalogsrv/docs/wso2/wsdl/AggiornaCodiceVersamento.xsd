@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/coopapplicativapec" xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/coopapplicativapec"
+	elementFormDefault="qualified">
+	
+	<import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes_addendum.xsd" />
+	
+	<element name="AggiornaCodiceVersamentoRequest">
+		<complexType>
+			<sequence>
+				<element name="ProtocolloAggiornamentoAzione" type="types:ProtocolloAggiornamentoAzioneType"/>
+				<element name="CodiceVersamento" type="tns:CodiceVersamentoType"/>
+				<element name="IdOperazione" type="types:String35Type"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="CodiceVersamentoType">
+		<sequence>
+			<element name="CFEnte" type="types:String16Type"/>
+			<element name="Codice" type="types:CodiceVersamentoType"/>
+			<element name="Descrizione" type="types:String16Type" minOccurs="0"/>
+			<element name="VoceEntrata" type="types:String16Type"/>
+			<element name="TipoPagamento" type="tns:TipoPagamentoType"/>
+			<element name="Iban" type="types:IBANType" minOccurs="0"/>
+			<element name="Bic" type="types:String35Type" minOccurs="0"/>
+			<element name="InvioFlussi" type="boolean"/>
+			<element name="Email" type="types:EMailAddress" minOccurs="0"/>
+			<element name="Annullato" type="boolean"/>
+		</sequence>
+	</complexType>
+	
+	<simpleType name="TipoPagamentoType">
+	<restriction base="string">
+	<!-- lista di carico -->
+		<enumeration value="LDC" />
+	<!-- pagamento spontaneo -->
+		<enumeration value="PS" />
+	<!-- redirect sincrona -->
+		<enumeration value="REDS" />
+	</restriction>
+	</simpleType>
+
+	
+	<element name="AggiornaCodiceVersamentoResponse">
+		<complexType>
+			<sequence>
+				<element name="esito" type="types:ResponseType" />
+			</sequence>
+		</complexType>
+	</element>
+	
+</schema>

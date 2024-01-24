@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.Utente</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.utente.RicercaUtenteOutputDto</class-b>
+		
+		<field><a>nome</a><b>nome</b></field>
+	</mapping>
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.Utente</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.utente.GetUtenteOutputDto</class-b>
+		
+		<field><a>nome</a><b>nome</b></field>
+	</mapping>
+
+</mappings>

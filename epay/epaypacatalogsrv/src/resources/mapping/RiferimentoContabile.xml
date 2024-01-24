@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.RiferimentoContabile</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.riferimentocontabile.RicercaRiferimentoContabileOutputDto</class-b>
+		
+<!-- 		<field><a>tipologiaDatoSpecificoRiscossione.codice</a><b>codiceTipologiaDatoSpecificoRiscossione</b></field> -->
+<!-- 		<field><a>tipologiaDatoSpecificoRiscossione.descrizione</a><b>descrizioneTipologiaDatoSpecificoRiscossione</b></field> -->
+		
+		<field><a>codiceVersamento.ente.denominazione</a><b>nomeEnte</b></field>
+		<field><a>codiceVersamento.ente.codiceTipoEnteCreditore</a><b>tipoEnte</b></field>
+
+		
+		<field><a>tassonomia.descrTipoServizio</a><b>descrizioneDatoSpecificoRiscossione</b></field>
+		<field><a>tassonomia.dataInizioValidita</a><b>dataInizioValiditaCodiceTassonomico</b></field>
+		<field><a>tassonomia.dataFineValidita</a><b>dataFineValiditaCodiceTassonomico</b></field>
+		<field><a>tassonomia.datiSpecificiIncasso</a><b>datoSpecificoRiscossioneTassonomia</b></field>
+		<field><a>tassonomia.tipoServizio</a><b>tipoServizio</b></field>
+		<field><a>descrizioneDatoSpecificoRiscossione</a><b>descrizioneDatoSpecificoRiscossioneRifCont</b></field>
+		
+		
+		
+		
+		
+		<field><a>codiceVersamento.id</a><b>idCodiceVersamento</b></field>
+		<field><a>codiceVersamento.codice</a><b>codiceCodiceVersamento</b></field>
+		<field><a>codiceVersamento.descrizione</a><b>descrizioneCodiceVersamento</b></field>
+			
+		
+		<field><a>codiceVersamento.tipoPagamento.codice</a><b>tipologiaCodiceVersamento</b></field>
+		<field><a>codiceVersamento.email</a><b>mailCodiceVersamento</b></field>
+<!-- 		<field><a>codiceVersamento.compilazioneNote</a><b>noteCodiceVersamento</b></field>  campo presente con la RDI-46 -->
+		<field><a>codiceVersamento.fattura</a><b>fatturaCodiceVersamento</b></field>
+		<field><a>codiceVersamento.iban</a><b>ibanCodiceVersamento</b></field>
+		<field><a>codiceVersamento.ibanAppoggio</a><b>ibanAppoggioCodiceVersamento</b></field>
+		<field><a>codiceVersamento.modalitaIntegrazione.codice</a><b>modalitaIntegrazioneCodiceVersamento</b></field>
+		<field><a>codiceVersamento.flagAnnullato</a><b>statoCodiceVersamento</b></field>
+		
+		
+		<field><a>codiceVersamento.voceEntrata.codice</a><b>codiceVoceEntrata</b></field>
+		<field><a>codiceVersamento.voceEntrata.descrizione</a><b>descrizioneVoceEntrata</b></field>
+		
+		<field><a>codiceVersamento.voceEntrata.macrotipo.codice</a><b>codiceMacrotipo</b></field>
+		<field><a>codiceVersamento.voceEntrata.macrotipo.descrizione</a><b>descrizioneMacrotipo</b></field>
+		
+		<field><a>codiceVersamento.voceEntrata.tematica.codice</a><b>codiceTematica</b></field>
+		<field><a>codiceVersamento.voceEntrata.tematica.descrizione</a><b>descrizioneTematica</b></field>
+	</mapping>
+	
+ 
+ 
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.RiferimentoContabile</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.riferimentocontabile.GetRiferimentoContabileOutputDto</class-b>
+		
+<!-- 		<field><a>tipologiaDatoSpecificoRiscossione.codice</a><b>codiceTipologiaDatoSpecificoRiscossione</b></field> -->
+<!-- 		<field><a>tipologiaDatoSpecificoRiscossione.descrizione</a><b>descrizioneTipologiaDatoSpecificoRiscossione</b></field> -->
+
+		<field><a>tassonomia.descrTipoServizio</a><b>descrizioneDatoSpecificoRiscossione</b></field>
+		<field><a>tassonomia.dataInizioValidita</a><b>dataInizioValiditaCodiceTassonomico</b></field>
+		<field><a>tassonomia.dataFineValidita</a><b>dataFineValiditaCodiceTassonomico</b></field>
+		<field><a>tassonomia.datiSpecificiIncasso</a><b>datoSpecificoRiscossioneTassonomia</b></field>
+		<field><a>tassonomia.tipoServizio</a><b>tipoServizioTassonomia</b></field>
+		<field><a>tassonomia.codTipologiaServizio</a><b>codiceTipoServizioTassonomia</b></field>
+		<field><a>tassonomia.id</a><b>idTassonomia</b></field>
+		<field><a>descrizioneDatoSpecificoRiscossione</a><b>descrizioneDatoSpecificoRiscossioneRifCont</b></field>
+		
+		
+		<field><a>codiceVersamento.id</a><b>idCodiceVersamento</b></field>
+		<field><a>codiceVersamento.codice</a><b>codiceCodiceVersamento</b></field>
+		<field><a>codiceVersamento.descrizione</a><b>descrizioneCodiceVersamento</b></field>
+		
+		<field><a>codiceVersamento.voceEntrata.codice</a><b>codiceVoceEntrata</b></field>
+		<field><a>codiceVersamento.voceEntrata.descrizione</a><b>descrizioneVoceEntrata</b></field>
+		
+		<field><a>codiceVersamento.voceEntrata.macrotipo.codice</a><b>codiceMacrotipo</b></field>
+		<field><a>codiceVersamento.voceEntrata.macrotipo.descrizione</a><b>descrizioneMacrotipo</b></field>
+		
+		<field><a>codiceVersamento.voceEntrata.tematica.codice</a><b>codiceTematica</b></field>
+		<field><a>codiceVersamento.voceEntrata.tematica.descrizione</a><b>descrizioneTematica</b></field>
+
+		<field><a>statoAggiornamento.codice</a><b>codiceStatoAggiornamento</b></field>
+		<field><a>statoAggiornamento.descrizione</a><b>descrizioneStatoAggiornamento</b></field>
+	</mapping>
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.StoricoRiferimentoContabile</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.riferimentocontabile.RicercaRiferimentoContabileStoricoOutputDto</class-b>
+		
+		<field><a>tipologiaDatoSpecificoRiscossione.codice</a><b>codiceTipologiaDatoSpecificoRiscossione</b></field>
+		<field><a>tipologiaDatoSpecificoRiscossione.descrizione</a><b>descrizioneTipologiaDatoSpecificoRiscossione</b></field>
+		
+		<field><a>statoAggiornamento.codice</a><b>codiceStatoAggiornamento</b></field>
+		<field><a>statoAggiornamento.descrizione</a><b>descrizioneStatoAggiornamento</b></field>
+	</mapping>
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.StoricoRiferimentoContabile</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.riferimentocontabile.GetRiferimentoContabileStoricoOutputDto</class-b>
+		
+		<field><a>tipologiaDatoSpecificoRiscossione.codice</a><b>codiceTipologiaDatoSpecificoRiscossione</b></field>
+		<field><a>tipologiaDatoSpecificoRiscossione.descrizione</a><b>descrizioneTipologiaDatoSpecificoRiscossione</b></field>
+
+		<field><a>statoAggiornamento.codice</a><b>codiceStatoAggiornamento</b></field>
+		<field><a>statoAggiornamento.descrizione</a><b>descrizioneStatoAggiornamento</b></field>
+	</mapping>
+
+</mappings>

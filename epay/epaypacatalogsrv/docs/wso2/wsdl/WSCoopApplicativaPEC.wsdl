@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.csi.it/epay/epaywso/coopapplicativapec" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:types="http://www.csi.it/epay/epaywso/types"
+	name="CoopApplicativaPEC" 
+	targetNamespace="http://www.csi.it/epay/epaywso/coopapplicativapec">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="AggiornaEnte.xsd"/>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="AggiornaRiferimentoContabile.xsd"/>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="AggiornaCodiceVersamento.xsd"/>
+	  <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="ConfermaOperazione.xsd"/>
+	  <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="AnnullaOperazione.xsd"/>
+	  <xsd:import namespace="http://www.csi.it/epay/epaywso/coopapplicativapec" schemaLocation="TestResources.xsd"/>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes_addendum.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AggiornaEnte">
+    <wsdl:part element="tns:AggiornaEnteRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AggiornaEnteResponse">
+    <wsdl:part element="tns:AggiornaEnteResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AggiornaCodiceVersamento">
+    <wsdl:part element="tns:AggiornaCodiceVersamentoRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AggiornaCodiceVersamentoResponse">
+    <wsdl:part element="tns:AggiornaCodiceVersamentoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AggiornaRiferimentoContabile">
+    <wsdl:part element="tns:AggiornaRiferimentoContabileRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AggiornaRiferimentoContabileResponse">
+    <wsdl:part element="tns:AggiornaRiferimentoContabileResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ConfermaOperazione">
+    <wsdl:part element="tns:ConfermaOperazioneRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ConfermaOperazioneResponse">
+    <wsdl:part element="tns:ConfermaOperazioneResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AnnullaOperazione">
+    <wsdl:part element="tns:AnnullaOperazioneRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AnnullaOperazioneResponse">
+    <wsdl:part element="tns:AnnullaOperazioneResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="TestResources">
+    <wsdl:part element="tns:TestResourcesRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="TestResourcesResponse">
+    <wsdl:part element="tns:TestResourcesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="CoopApplicativaPEC">
+    <wsdl:operation name="AggiornaEnte">
+      <wsdl:input message="tns:AggiornaEnte"/>
+      <wsdl:output message="tns:AggiornaEnteResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaCodiceVersamento">
+      <wsdl:input message="tns:AggiornaCodiceVersamento"/>
+      <wsdl:output message="tns:AggiornaCodiceVersamentoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaRiferimentoContabile">
+      <wsdl:input message="tns:AggiornaRiferimentoContabile"/>
+      <wsdl:output message="tns:AggiornaRiferimentoContabileResponse"/>
+    </wsdl:operation>
+	<wsdl:operation name="ConfermaOperazione">
+      <wsdl:input message="tns:ConfermaOperazione"/>
+      <wsdl:output message="tns:ConfermaOperazioneResponse"/>
+    </wsdl:operation>
+	<wsdl:operation name="AnnullaOperazione">
+      <wsdl:input message="tns:AnnullaOperazione"/>
+      <wsdl:output message="tns:AnnullaOperazioneResponse"/>
+    </wsdl:operation>
+	<wsdl:operation name="TestResources">
+      <wsdl:input message="tns:TestResources"/>
+      <wsdl:output message="tns:TestResourcesResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CoopApplicativaPEC" type="tns:CoopApplicativaPEC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+	<wsdl:operation name="AggiornaEnte">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/AggiornaEnte" style="document"/>
+      <wsdl:input name="AggiornaEnteRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AggiornaEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="AggiornaCodiceVersamento">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/AggiornaCodiceVersamento" style="document"/>
+      <wsdl:input name="AggiornaCodiceVersamentoRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AggiornaCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="AggiornaRiferimentoContabile">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/AggiornaRiferimentoContabile" style="document"/>
+      <wsdl:input name="AggiornaRiferimentoContabileRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AggiornaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="ConfermaOperazione">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/ConfermaOperazione" style="document"/>
+      <wsdl:input name="ConfermaOperazioneRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ConfermaOperazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="AnnullaOperazione">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/AnnullaOperazione" style="document"/>
+      <wsdl:input name="AnnullaOperazioneRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AnnullaOperazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="TestResources">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/coopapplicativapec/TestResources" style="document"/>
+      <wsdl:input name="TestResourcesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TestResourcesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CoopApplicativaPEC">
+    <wsdl:port binding="tns:CoopApplicativaPEC" name="CoopApplicativaPEC">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

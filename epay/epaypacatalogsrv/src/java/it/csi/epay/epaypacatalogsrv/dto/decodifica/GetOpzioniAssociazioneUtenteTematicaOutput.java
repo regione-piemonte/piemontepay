@@ -1,0 +1,27 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+package it.csi.epay.epaypacatalogsrv.dto.decodifica;
+
+import java.util.List;
+
+import it.csi.epay.epaypacatalogsrv.dto.ParentOutput;
+
+
+public class GetOpzioniAssociazioneUtenteTematicaOutput extends ParentOutput {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<GetOpzioniAssociazioneUtenteTematicaTematicaOutputDto> tematiche;
+
+    public List<GetOpzioniAssociazioneUtenteTematicaTematicaOutputDto> getTematiche () {
+        return tematiche;
+    }
+
+    public void setTematiche ( List<GetOpzioniAssociazioneUtenteTematicaTematicaOutputDto> tematiche ) {
+        this.tematiche = tematiche;
+    }
+
+}

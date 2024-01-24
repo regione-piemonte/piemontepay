@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/coopapplicativapec" xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/coopapplicativapec"
+	elementFormDefault="qualified">
+	
+	<import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes_addendum.xsd" />
+	
+	<element name="AggiornaEnteRequest">
+		<complexType>
+			<sequence>
+				<element name="Ente" type="tns:EnteType"/>
+				<element name="CodiciVersamento" type="tns:CodiciVersamentoType" />
+				<element name="IdOperazione" type="types:String35Type"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="EnteType">
+		<sequence>
+			<element name="CodiceFiscale" type="types:String16Type"/>
+			<element name="Denominazione" type="types:String250Type"/>
+			<element name="Indirizzo" type="types:String70Type"/>
+			<element name="Civico" type="types:String16Type"/>
+			<element name="Localita" type="types:String100Type"/>
+			<element name="Cap" type="types:String5Type"/>
+			<element name="SiglaProvincia" type="types:String2Type"/>
+			<element name="Email" type="types:EMailAddress" minOccurs="0"/>
+			<element name="Gs1Gln" type="types:String35Type" minOccurs="0"/>
+			<element name="Cbill" type="types:String35Type" minOccurs="0"/>
+			<element name="Iban" type="types:IBANType" minOccurs="0" />
+			<element name="Bic" type="types:String35Type" minOccurs="0" />
+			<element name="EntePlurintermediato" type="boolean"/>
+			<element name="RiconciliazioneVersamenti" type="boolean"/>
+			<element name="Accertamento" type="boolean"/>
+			<element name="RicezioneErrori" type="boolean"/>
+			<element name="TipologiaAccertamento" type="tns:TipologiaAccertamentoType"/>
+			<element name="ModalitaAcquisizioneProvvisori" type="tns:ModalitaAcquisizioneProvvisoriType"/>
+			<element name="RicezioneFlussoBaseRendicontazione" type="boolean"/>
+			<element name="PeriodicitaSchedulazioneRiconciliazione" type="tns:PeriodicitaSchedulazioneType"/>
+			<element name="GiornoSchedulazione" type="tns:GiornoDelMeseType" minOccurs="0"/>
+			<element name="QualsiasiCodiceVersamento" type="boolean"/>
+			<element name="ModalitaDiIntegrazione" type="tns:ModalitaDiIntegrazioneType"/>
+			<element name="Logo" type="base64Binary" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<simpleType name="TipologiaAccertamentoType">
+	<restriction base="string">
+	<!-- unico -->
+		<enumeration value="UNI" />
+	<!-- per incasso -->
+		<enumeration value="PIN" />
+	</restriction>
+	</simpleType>
+
+	<simpleType name="ModalitaAcquisizioneProvvisoriType">
+		<restriction base="string">
+		<!-- Portale Enti Creditori (caricamento manuale) -->
+			<enumeration value="CAM" />
+		<!-- Sistema Contabile -->
+			<enumeration value="CON" />
+		<!-- Senza provvisori -->
+			<enumeration value="NES" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="PeriodicitaSchedulazioneType">
+		<restriction base="string">
+			<!-- singolo flusso -->
+			<enumeration value="SGF" />
+			<!-- giornaliera -->
+			<enumeration value="GIO" />
+			<!-- settimanale -->
+			<enumeration value="SET" />
+			<!-- mensile -->
+			<enumeration value="MEN" />
+			<!-- bimestrale -->
+			<enumeration value="BIM" />
+			<!-- trimestrale -->
+			<enumeration value="TRI" />
+			<!-- quadrimestrale -->
+			<enumeration value="QUA" />
+			<!-- semestrale -->
+			<enumeration value="SEM" />
+			<!-- annuale -->
+			<enumeration value="ANN" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="GiornoDelMeseType">
+		<restriction base="integer">
+			<minInclusive value="1" />
+			<maxInclusive value="30" />
+		</restriction>
+	</simpleType>
+	
+	<complexType name="CodiciVersamentoType">
+		<sequence>
+			<element name="ElencoCodiciVersamento">
+				<complexType>
+					<sequence>
+						<element name="CodiceVersamento" type="types:CodiceVersamentoType" minOccurs="0" maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	
+	<element name="AggiornaEnteResponse">
+		<complexType>
+			<sequence>
+				<element name="esito" type="types:ResponseType" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<simpleType name="ModalitaDiIntegrazioneType">
+		<restriction base="string">
+		<!-- Portale Enti Creditori -->
+			<enumeration value="PEC" />
+		<!-- Servizi -->
+			<enumeration value="SRV" />
+		<!-- Entrambi -->
+			<enumeration value="ALL" />
+		</restriction>
+	</simpleType>
+	
+</schema>
+
+	

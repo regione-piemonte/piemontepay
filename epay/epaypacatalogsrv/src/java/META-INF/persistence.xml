@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="epaypacatalogsrv">
+		<class>it.csi.epay.epaypacatalogsrv.model.MacrotipoPpay</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.ModalitaAcquisizioneProvvisori</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.PeriodicitaSchedulazioneRiconciliazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TematicaPpay</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TipologiaAccertamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Ente</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EnteLight</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.CategoriaCdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Cdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Utente</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Errore</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StatoAggiornamentoEnte</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.VoceEntrata</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StoricoEnte</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AbstractChangeTrackedParentEntity</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AbstractCSILogAuditedParentEntity</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Operazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Sottoscrittore</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Transazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.LogTransazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Servizio</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StatoAggiornamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TipoPagamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TipologiaDatoSpecificoRiscossione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.CodiceVersamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.CodiceVersamentoLight</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StoricoCodiceVersamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.RiferimentoContabile</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Fruitore</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteCdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteCduPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteCodiceVersamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteCodiceVersamentoPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteTematica</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteTematicaPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneEnteCodiceVersamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneEnteCodiceVersamentoPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AuditAction</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.CsiLogAudit</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Configurazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StatoEmail</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TemplateEmail</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Email</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AbstractPropagableParentEntity</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.ModalitaIntegrazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.MappaturaEnteEpaypa</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.MappaturaCodiceVersamentoEpaypa</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaDCategoriaCdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRProfiloCodVer</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRProfiloCodVerPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRRuoloCdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRRuoloCduPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteEnte</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteEntePK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteProfilo</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteProfiloPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteRuolo</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaRUtenteRuoloPK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTCdu</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTCodiceVersamento</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTEnte</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTProfilo</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTRuolo</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.EpaypaTUtente</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteEnte</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.AssociazioneUtenteEntePK</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.StoricoRiferimentoContabile</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.MappaturaRiferimentoContabileEpaypa</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.LogMigrazione</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.TematicheDaEscludere</class>
+		<class>it.csi.epay.epaypacatalogsrv.model.Tassonomia</class>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/coopapplicativapec"
+	xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/coopapplicativapec"
+	elementFormDefault="qualified">
+
+	<import namespace="http://www.csi.it/epay/epaywso/types"
+		schemaLocation="EPaywsoCommonTypes_addendum.xsd" />
+
+	<element name="TestResourcesRequest">
+		<complexType>
+			<sequence>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="TestResourcesResponse">
+		<complexType>
+			<sequence>
+				<element name="esito" type="types:ResponseType" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

@@ -1,0 +1,16 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivy-module version="1.0">
+    <info
+        organisation="csipiemonte"
+        module="epaypacatalogsrv-epaypacatalogsrv-client"
+        revision="1.0.0" />
+    <publications>
+        <artifact name="epaypacatalogsrv-epaypacatalogsrv-client-1.0.0" type="jar" />   
+    </publications>
+</ivy-module>

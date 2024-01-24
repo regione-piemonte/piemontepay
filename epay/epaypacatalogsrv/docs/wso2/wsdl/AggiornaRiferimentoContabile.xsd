@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/coopapplicativapec" xmlns:types="http://www.csi.it/epay/epaywso/types"
+	targetNamespace="http://www.csi.it/epay/epaywso/coopapplicativapec"
+	elementFormDefault="qualified">
+	
+	<import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes_addendum.xsd" />
+	
+	<element name="AggiornaRiferimentoContabileRequest">
+		<complexType>
+			<sequence>
+				<element name="ProtocolloAggiornamentoAzione" type="types:ProtocolloAggiornamentoAzioneType"/>
+				<element name="RiferimentoContabile" type="tns:RiferimentoContabileType"/>
+				<element name="IdOperazione" type="types:String35Type"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="RiferimentoContabileType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="types:String16Type"/>
+			<element name="CodiceVersamento" type="types:CodiceVersamentoType"/>
+			<element name="DataInizioValidita" type="date"/>
+			<element name="DataFineValidita" type="date" minOccurs="0"/>
+			<element name="TipologiaDatoSpecificoRiscossione" type="tns:TipologiaDatoSpecificoRiscossioneType" minOccurs="0"/>
+			<element name="DatoSpecificoRiscossione" type="types:String140Type" minOccurs="0"/>
+			<element name="DescrizioneDatoSpecificoRiscossione" type="types:String80Type" minOccurs="0"/>
+			<element name="AnnoEsercizio" type="types:AnnoType"/>
+			<element name="AnnoAccertamento" type="types:AnnoType" minOccurs="0"/>
+			<element name="NumeroAccertamento" type="types:Numero6CifreType" minOccurs="0"/>
+			<element name="NumeroCapitolo" type="types:Numero6CifreType" minOccurs="0"/>
+			<element name="NumeroArticolo" type="types:Numero6CifreType" minOccurs="0"/>
+			<element name="LivelloPDC" type="types:String50Type" minOccurs="0"/>
+			<element name="Titolo" type="types:String200Type" minOccurs="0"/>
+			<element name="CodiceTipologia" type="types:String200Type" minOccurs="0"/>
+			<element name="CodiceCategoria" type="types:String200Type" minOccurs="0"/>
+			<element name="ChiaveIntersistema" type="types:String50Type"/>
+		</sequence>
+	</complexType>
+	
+	<simpleType name="TipologiaDatoSpecificoRiscossioneType">
+		<restriction base="string">
+			<enumeration value="SIOPE" />
+			<enumeration value="ENTE" />
+		</restriction>
+	</simpleType>
+
+	<element name="AggiornaRiferimentoContabileResponse">
+		<complexType>
+			<sequence>
+				<element name="esito" type="types:ResponseType" />
+			</sequence>
+		</complexType>
+	</element>
+	
+</schema>
+
+	

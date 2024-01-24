@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.Ente</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.ente.GetEnteOutputDto</class-b>
+		
+<!-- 		<field><a>utenteAmministratore.id</a><b>idUtenteAmministratore</b></field> -->
+<!-- 		<field><a>utenteAmministratore.nome</a><b>descrizioneUtenteAmministratore</b></field> -->
+		
+		<field><a>statoAggiornamentoEnte.codice</a><b>codiceStatoAggiornamento</b></field>
+		<field><a>statoAggiornamentoEnte.descrizione</a><b>descrizioneStatoAggiornamento</b></field>
+
+		<field><a>modalitaAcquisizioneProvvisori.codice</a><b>codiceModalitaAcquisizioneProvvisori</b></field>
+		<field><a>PeriodicitaSchedulazioneRiconciliazione.codice</a><b>codicePeriodicitaSchedulazioneRiconciliazione</b></field>
+		<field><a>tipologiaAccertamento.codice</a><b>codiceTipologiaAccertamento</b></field>
+<!-- FIX-INTEGRAZIONE		<field><a>modalitaIntegrazione.codice</a><b>codiceModalitaIntegrazione</b></field> -->
+		
+		<field><a>codiciVersamento</a><b>codiciVersamentoAssociati</b></field>
+	</mapping>
+
+	<mapping>
+		<class-a>it.csi.epay.epaypacatalogsrv.model.CodiceVersamento</class-a>
+		<class-b>it.csi.epay.epaypacatalogsrv.dto.ente.GetEnteOutputCodiceVersamentoAssociatoDto</class-b>
+	</mapping>
+
+</mappings>
