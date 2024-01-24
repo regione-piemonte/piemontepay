@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TLD del CSI -->
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+	<tlib-version>1.0</tlib-version>
+	<short-name>include</short-name>
+	<uri>http://www.csipiemonte.it/HttpUtils</uri>
+	<function>
+		<name>include</name>
+		<function-class>it.csi.epay.epaypacatalogweb.util.HttpUtils</function-class>
+		<function-signature>java.lang.String getResource(java.lang.String, java.lang.String)</function-signature>
+	</function>
+</taglib>

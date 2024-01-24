@@ -1,0 +1,154 @@
+package it.csi.epay.epaypacatalogweb.model.riferimentocontabile;
+
+import java.io.Serializable;
+
+
+public class RicercaRiferimentoContabileFiltroVO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
+
+	private Long idCodiceVersamento;
+
+	private String descrizioneCodiceVersamento;
+
+	private String descrizioneCompletaCodiceVersamentoSelezionato;
+
+	private String codiceMacrotipo;
+
+	private String codiceTematica;
+
+	private String codiceVoceEntrata;
+
+	private Boolean ancheRiferimentiNonInVita;
+
+<<<<<<< HEAD
+    private String descrizioneVoceEntrata;
+    
+    private Integer annoEsercizio;
+
+    @Override
+    public String toString () {
+        return "RicercaRiferimentoContabileFiltroVO [id=" + id + ", idCodiceVersamento=" + idCodiceVersamento + ", descrizioneCodiceVersamento="
+            + descrizioneCodiceVersamento + ", descrizioneCompletaCodiceVersamentoSelezionato=" + descrizioneCompletaCodiceVersamentoSelezionato
+            + ", codiceMacrotipo=" + codiceMacrotipo + ", codiceTematica=" + codiceTematica + ", codiceVoceEntrata=" + codiceVoceEntrata
+            + ", ancheRiferimentiNonInVita=" + ancheRiferimentiNonInVita + ", descrizioneVoceEntrata=" + descrizioneVoceEntrata 
+            +", anno sercizio=" + annoEsercizio 
+            + "]";
+    }
+=======
+	private String descrizioneVoceEntrata;
+
+	private Boolean multibeneficiarioCheckbox;
+>>>>>>> origin/RDI-45
+
+	@Override
+	public String toString() {
+		return "RicercaRiferimentoContabileFiltroVO{" +
+						"id=" + id +
+						", idCodiceVersamento=" + idCodiceVersamento +
+						", descrizioneCodiceVersamento='" + descrizioneCodiceVersamento + '\'' +
+						", descrizioneCompletaCodiceVersamentoSelezionato='" + descrizioneCompletaCodiceVersamentoSelezionato + '\'' +
+						", codiceMacrotipo='" + codiceMacrotipo + '\'' +
+						", codiceTematica='" + codiceTematica + '\'' +
+						", codiceVoceEntrata='" + codiceVoceEntrata + '\'' +
+						", ancheRiferimentiNonInVita=" + ancheRiferimentiNonInVita +
+						", descrizioneVoceEntrata='" + descrizioneVoceEntrata + '\'' +
+						", multibeneficiarioCheckbox=" + multibeneficiarioCheckbox +
+						'}';
+	}
+
+	public String getDescrizioneCompletaCodiceVersamentoSelezionato () {
+		return descrizioneCompletaCodiceVersamentoSelezionato;
+	}
+
+	public void setDescrizioneCompletaCodiceVersamentoSelezionato ( String descrizioneCompletaCodiceVersamentoSelezionato ) {
+		this.descrizioneCompletaCodiceVersamentoSelezionato = descrizioneCompletaCodiceVersamentoSelezionato;
+	}
+
+	public String getDescrizioneVoceEntrata () {
+		return descrizioneVoceEntrata;
+	}
+
+	public void setDescrizioneVoceEntrata ( String descrizioneVoceEntrata ) {
+		this.descrizioneVoceEntrata = descrizioneVoceEntrata;
+	}
+
+	public String getCodiceVoceEntrata () {
+		return codiceVoceEntrata;
+	}
+
+	public void setCodiceVoceEntrata ( String codiceVoceEntrata ) {
+		this.codiceVoceEntrata = codiceVoceEntrata;
+	}
+
+	public Long getId () {
+		return id;
+	}
+
+	public void setId ( Long id ) {
+		this.id = id;
+	}
+
+	public Long getIdCodiceVersamento () {
+		return idCodiceVersamento;
+	}
+
+	public void setIdCodiceVersamento ( Long idCodiceVersamento ) {
+		this.idCodiceVersamento = idCodiceVersamento;
+	}
+
+	public String getDescrizioneCodiceVersamento () {
+		return descrizioneCodiceVersamento;
+	}
+
+	public void setDescrizioneCodiceVersamento ( String descrizioneCodiceVersamento ) {
+		this.descrizioneCodiceVersamento = descrizioneCodiceVersamento;
+	}
+
+	public String getCodiceMacrotipo () {
+		return codiceMacrotipo;
+	}
+
+	public void setCodiceMacrotipo ( String codiceMacrotipo ) {
+		this.codiceMacrotipo = codiceMacrotipo;
+	}
+
+	public String getCodiceTematica () {
+		return codiceTematica;
+	}
+
+	public void setCodiceTematica ( String codiceTematica ) {
+		this.codiceTematica = codiceTematica;
+	}
+
+	public Boolean getAncheRiferimentiNonInVita () {
+		return ancheRiferimentiNonInVita;
+	}
+
+<<<<<<< HEAD
+	public Integer getAnnoEsercizio() {
+		return annoEsercizio;
+	}
+
+	public void setAnnoEsercizio(Integer annoEsercizio) {
+		this.annoEsercizio = annoEsercizio;
+	}
+    
+    
+
+=======
+	public void setAncheRiferimentiNonInVita ( Boolean ancheRiferimentiNonInVita ) {
+		this.ancheRiferimentiNonInVita = ancheRiferimentiNonInVita;
+	}
+
+	public Boolean getMultibeneficiarioCheckbox() {
+		return multibeneficiarioCheckbox;
+	}
+
+	public void setMultibeneficiarioCheckbox(Boolean multibeneficiarioCheckbox) {
+		this.multibeneficiarioCheckbox = multibeneficiarioCheckbox;
+	}
+>>>>>>> origin/RDI-45
+}

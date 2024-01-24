@@ -1,0 +1,94 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans" xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Configurazione di Spring Security -->
+
+	<beans:bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" />
+
+	<!-- Filter chain di Spring security: in questo caso ogni url (pattern="/**") ha la stessa configurazione -->
+	<!-- https://docs.spring.io/spring-security/site/docs/3.0.x/reference/security-filter-chain.html -->
+	<beans:bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+		<beans:constructor-arg>
+			<beans:list>
+				<filter-chain pattern="/**" filters="
+           securityContextPersistenceFilterWithASCTrue,
+           formLoginFilter,
+           exceptionTranslationFilter,
+           filterSecurityInterceptor" />
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+	
+	<!-- 	Sul path di logout e sulle risorse statiche non applica alcuna sicurezza -->
+	<http pattern="/logout" security="none" />
+	<http pattern="/ris/**" security="none" />
+	<http pattern="/spring_security_login" security="none" />
+	<http pattern="/login-fallito" security="none" />
+	<http pattern="/ente-scaduto" security="none" />
+	<http pattern="/accesso-negato" security="none" />
+	<http pattern="/login-req" security="none" />
+	<!-- 	<http pattern="/sessione-scaduta" security="none" /> -->
+	<!-- 	<http pattern="/j_security_logout" security="none" /> -->
+	
+	<http auto-config="true" use-expressions="true" disable-url-rewriting="true">
+	
+		<!-- 	Nel caso di un utente non abilitato / autententicato effettua il redirect su... -->
+		<access-denied-handler error-page="/accesso-negato" />
+	
+		<!-- 		Per tutte le pagine bisogna ALMENO alvere il ruolo "UTENTE" -->
+		<intercept-url pattern="/**" access="hasRole('ROLE_UTENTE')" />
+	
+		<!-- Abilitazione della pre-autententicazione (shibboleth) -->
+		<custom-filter position="PRE_AUTH_FILTER" ref="siteminderFilter" />
+	
+		<!-- Path del form di login (quello di shibboleth) -->
+		<!-- <form-login always-use-default-target="true" login-page="/login" default-target-url="/" /> -->
+	
+		<!-- Azioni da fare in caso di logout -->
+		<logout logout-url="/j_security_logout" 
+			logout-success-url="http://tst-www.sistemapiemonte.it/Shibboleth.sso/Logout" 
+			delete-cookies="JSESSIONID" 
+			invalidate-session="true" 
+		/>
+	
+		<!-- Se la sessione non è valida effettua il redirect su... -->
+		<session-management invalid-session-url="/login-req">
+			<!-- 		Numero massimo di sessioni concorrenti -->
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/login-req" />
+		</session-management>
+	</http>
+		
+	<!-- Authentication manager (sempre Shibboleth) -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="preauthAuthProvider" />
+	</authentication-manager>
+
+	<!-- Configurazione dei bean di shiboboleth -->
+	<beans:bean id="siteminderFilter" class="it.csi.epay.epaypacatalogweb.security.ShibbolethAuthenticationFilter">
+		<beans:property name="shibbIdentity" value="Shib-Iride-IdentitaDigitale" />
+		<beans:property name="shibbTestMode" value="true" />
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+	</beans:bean>
+
+	<beans:bean id="preauthAuthProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+		<beans:property name="preAuthenticatedUserDetailsService">
+			<beans:bean id="userDetailsServiceWrapper" class="it.csi.epay.epaypacatalogweb.security.ShibbolethUserDetailsServiceWrapper">
+				<beans:property name="userDetailsService" ref="userDetailsService" />
+				<beans:property name="irideAPP" value="ATTESTAWEB" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- 	Bean che conterrà la logica per autenticare l'utente -->
+	<beans:bean id='userDetailsService' class="it.csi.epay.epaypacatalogweb.security.UserDetailsService" />
+
+</beans:beans>

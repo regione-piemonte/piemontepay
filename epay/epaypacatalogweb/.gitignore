@@ -1,0 +1,10 @@
+/bin/
+/build/
+/dist/
+/lib/
+/target/
+/.classpath
+.settings/
+.tern-project
+*.xlsx#
+*.iml

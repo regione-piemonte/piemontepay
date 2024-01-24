@@ -1,0 +1,169 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6b2c5dbc-829d-4a44-b964-a82f265b22b0" activeEnvironment="Default" name="mock-service-gestione-enti" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="fe0956ca-7ca4-4222-ad6c-60bd4c6ad3f7" wsaVersion="NONE" name="MockServiceGestioneEnti_SoapBinding" type="wsdl" bindingName="{http://it.csi.epaypacatalogweb/services/mockservicegestioneenti}MockServiceGestioneEnti_SoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/fabfenogli/workspaces/ws-eng-0/epaypacatalogweb/docs/local/mock/mock-service-gestione-enti.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/fabfenogli/workspaces/ws-eng-0/epaypacatalogweb/docs/local/mock/mock-service-gestione-enti.wsdl"><con:part><con:url>file:/C:/Users/fabfenogli/workspaces/ws-eng-0/epaypacatalogweb/docs/local/mock/mock-service-gestione-enti.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MockServiceGestioneEnti" targetNamespace="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti" xmlns:tns="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti" xmlns:types="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="testResourcesOutput">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="codice" type="xsd:string"/>
+            <xsd:element name="descrizione" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="testResourcesInput">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="codice" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ricercaEntiOutput" maxOccurs="unbounded" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="codiceFiscale" type="xsd:string"/>
+            <xsd:element name="denominazione" type="xsd:string"/>
+            <xsd:element name="indirizzo" type="xsd:string"/>
+            <xsd:element name="localita" type="xsd:string"/>
+            <xsd:element name="cap" type="xsd:string"/>
+            <xsd:element name="provincia" type="xsd:string"/>
+            <xsd:element name="flagFlussoRendicontazione" type="xsd:string"/>
+            <xsd:element name="flagPlurimandatario" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ricercaEntiInput">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="codiceFiscale" type="xsd:string"/>
+            <xsd:element name="denominazione" type="xsd:string"/>
+            <xsd:element name="indirizzo" type="xsd:string"/>
+            <xsd:element name="localita" type="xsd:string"/>
+            <xsd:element name="cap" type="xsd:string"/>
+            <xsd:element name="provincia" type="xsd:string"/>
+            <xsd:element name="flagFlussoRendicontazione" type="xsd:string"/>
+            <xsd:element name="flagPlurimandatario" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TestResourcesInputMessage">
+    <wsdl:part name="input" element="types:testResourcesInput"/>
+  </wsdl:message>
+  <wsdl:message name="TestResourcesOutputMessage">
+    <wsdl:part name="output" element="types:testResourcesOutput"/>
+  </wsdl:message>
+  <wsdl:message name="RicercaEntiInputMessage">
+    <wsdl:part name="input" element="types:ricercaEntiInput"/>
+  </wsdl:message>
+  <wsdl:message name="RicercaEntiOutputMessage">
+    <wsdl:part name="output" element="types:ricercaEntiOutput"/>
+  </wsdl:message>
+  <wsdl:portType name="MockServiceGestioneEnti_PortType">
+    <wsdl:operation name="testResources">
+      <wsdl:input message="tns:TestResourcesInputMessage"/>
+      <wsdl:output message="tns:TestResourcesOutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaEnti">
+      <wsdl:input message="tns:RicercaEntiInputMessage"/>
+      <wsdl:output message="tns:RicercaEntiOutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MockServiceGestioneEnti_SoapBinding" type="tns:MockServiceGestioneEnti_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="testResources">
+      <soap:operation soapAction="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/testResources"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaEnti">
+      <soap:operation soapAction="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/ricercaEnti"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MockServiceGestioneEnti_Service">
+    <wsdl:documentation>Mock Service Gestione Enti</wsdl:documentation>
+    <wsdl:port name="MockServiceGestioneEnti_Port" binding="tns:MockServiceGestioneEnti_SoapBinding">
+      <soap:address location="http://localhost:8088/MockServiceGestioneEnti"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://fabfenogliw:8081/mockMockServiceGestioneEnti_SoapBinding</con:endpoint><con:endpoint>http://fabfenogliw:8088/mockMockServiceGestioneEnti_SoapBinding</con:endpoint><con:endpoint>http://localhost:8081/MockServiceGestioneEnti</con:endpoint><con:endpoint>http://localhost:8088/MockServiceGestioneEnti</con:endpoint></con:endpoints><con:operation id="c5ae3b51-abdb-4d90-997a-72f06c8e77e9" isOneWay="false" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/ricercaEnti" name="ricercaEnti" bindingOperationName="ricercaEnti" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7a89a6c0-2ac8-4571-9591-482d9451167b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/mockMockServiceGestioneEnti_SoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:moc="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <moc:ricercaEntiInput>\r
+         <moc:codiceFiscale>?</moc:codiceFiscale>\r
+         <moc:denominazione>?</moc:denominazione>\r
+         <moc:indirizzo>?</moc:indirizzo>\r
+         <moc:localita>?</moc:localita>\r
+         <moc:cap>?</moc:cap>\r
+         <moc:provincia>?</moc:provincia>\r
+         <moc:flagFlussoRendicontazione>?</moc:flagFlussoRendicontazione>\r
+         <moc:flagPlurimandatario>?</moc:flagPlurimandatario>\r
+      </moc:ricercaEntiInput>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/ricercaEnti"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="40bd1a1f-5464-4212-acfa-f3c082849e7a" isOneWay="false" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/testResources" name="testResources" bindingOperationName="testResources" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="519488dc-7895-48cf-8293-919ce1c87ae1" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/MockServiceGestioneEnti</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:moc="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <moc:testResourcesInput>\r
+         <moc:codice>?</moc:codice>\r
+      </moc:testResourcesInput>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/testResources"/></con:call></con:operation></con:interface><con:mockService id="857de10e-7667-4d06-8570-cf1d1c9af6b5" port="8088" path="/mockMockServiceGestioneEnti_SoapBinding" host="fabfenogliw" name="MockServiceGestioneEnti_SoapBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ricercaEnti" id="903a8700-aa7d-4687-a4fb-b182e55220ed" interface="MockServiceGestioneEnti_SoapBinding" operation="ricercaEnti"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="37599693-ce13-47cd-a80a-0d3d7d147cc0" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:moc="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <moc:ricercaEntiOutput>
+         <moc:codiceFiscale>AAAAAA00A00A001A</moc:codiceFiscale>
+         <moc:denominazione>ENTE 1</moc:denominazione>
+         <moc:indirizzo>INDIRIZZO 1</moc:indirizzo>
+         <moc:localita>LOCALITA' 1</moc:localita>
+         <moc:cap>10001</moc:cap>
+         <moc:provincia>PROVINCIA 1</moc:provincia>
+         <moc:flagFlussoRendicontazione>S</moc:flagFlussoRendicontazione>
+         <moc:flagPlurimandatario>S</moc:flagPlurimandatario>
+      </moc:ricercaEntiOutput>
+      <moc:ricercaEntiOutput>
+         <moc:codiceFiscale>AAAAAA00A00A002A</moc:codiceFiscale>
+         <moc:denominazione>ENTE 2</moc:denominazione>
+         <moc:indirizzo>INDIRIZZO 2</moc:indirizzo>
+         <moc:localita>LOCALITA' 2</moc:localita>
+         <moc:cap>10002</moc:cap>
+         <moc:provincia>PROVINCIA 2</moc:provincia>
+         <moc:flagFlussoRendicontazione>S</moc:flagFlussoRendicontazione>
+         <moc:flagPlurimandatario>S</moc:flagPlurimandatario>
+      </moc:ricercaEntiOutput>
+      <moc:ricercaEntiOutput>
+         <moc:codiceFiscale>AAAAAA00A00A003A</moc:codiceFiscale>
+         <moc:denominazione>ENTE 3</moc:denominazione>
+         <moc:indirizzo>INDIRIZZO 3</moc:indirizzo>
+         <moc:localita>LOCALITA' 3</moc:localita>
+         <moc:cap>10003</moc:cap>
+         <moc:provincia>PROVINCIA 3</moc:provincia>
+         <moc:flagFlussoRendicontazione>S</moc:flagFlussoRendicontazione>
+         <moc:flagPlurimandatario>S</moc:flagPlurimandatario>
+      </moc:ricercaEntiOutput>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/ricercaEnti"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="testResources" id="147340a2-ec73-4913-8e0c-223f2014aa81" interface="MockServiceGestioneEnti_SoapBinding" operation="testResources"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="b8c9e8a5-5054-49cb-be4e-4698857a102f" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:moc="http://it.csi.epaypacatalogweb/types/mockservicegestioneenti">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <moc:testResourcesOutput>
+         <moc:codice>OK</moc:codice>
+         <moc:descrizione>Service is online</moc:descrizione>
+      </moc:testResourcesOutput>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://it.csi.epaypacatalogweb/services/mockservicegestioneenti/testResources"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

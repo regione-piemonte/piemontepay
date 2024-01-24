@@ -1,0 +1,40 @@
+### Eclipse Workspace Patch 1.0
+#P epaypacatalogweb
+Index: conf/spring/epaypacatalogweb/security-context.xml
+===================================================================
+--- conf/spring/epaypacatalogweb/security-context.xml	(revision 2392)
++++ conf/spring/epaypacatalogweb/security-context.xml	(working copy)
+@@ -68,7 +68,7 @@
+ 
+ 		<!-- Se la sessione non è valida effettua il redirect su... -->
+ 		<session-management
+-			invalid-session-url="/login/timeout">
++			invalid-session-url="/sessione-scaduta">
+ 			<!-- Numero massimo di sessioni concorrenti -->
+ 			<concurrency-control max-sessions="10"
+ 				error-if-maximum-exceeded="false" expired-url="/sessione-scaduta" />
+Index: buildfiles/build.properties
+===================================================================
+--- buildfiles/build.properties	(revision 2392)
++++ buildfiles/build.properties	(working copy)
+@@ -5,7 +5,7 @@
+ # - [Definizione del Prodotto] -----------------------------------------------
+   company-name = C.S.I. Piemonte 
+   prodotto     = epay
+- pathStandalone= C\:\\jboss-eap-6.4\\standalone\\deployments
++  pathStandalone= C\:\\lavoro_app\\servers\\jboss6.4.0.GA\\standalone\\deployments
+   contesto     = epaypacatalogweb
+   componente   = epaypacatalogweb
+   webapp       = ${contesto}
+@@ -12,9 +12,9 @@
+   version      = 1.0.0
+ 
+ # - [Definizione dei files di output] ----------------------------------------
+-  ear-file-name  = ${componente}web
++  ear-file-name  = ${componente}
+   dist-file-name = epaypacatalogweb-${version}
+-  war-file-name  = ${contesto}web
++  war-file-name  = ${contesto}
+ 
+ # - [Cartelle di build] ------------------------------------------------------
+   integration = integration

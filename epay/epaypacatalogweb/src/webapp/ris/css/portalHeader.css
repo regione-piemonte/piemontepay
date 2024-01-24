@@ -1,0 +1,70 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+div#portalHeader, div#portalHeader_title, #portalHeader_title h1 a {
+    height: auto !important;
+    min-height: 30px;
+}
+div#portalHeader_title {background: none repeat scroll 0 0 #D3D3D3;  color: #295A7E; overflow: hidden; padding: 2px 0px 2px 10px; }
+div#portalHeader_title h1 { margin: 0; padding: 0; font-size: 25px;}
+div#portalHeader_title h1 a:link, 
+div#portalHeader_title h1 a:active, 
+div#portalHeader_title h1 a:visited,
+div#portalHeader_title h1 a:hover{ color: #0153A9;text-decoration:none;  font-size: 25px;  line-height: 20px;}
+
+span.languages { position: absolute; top: 10px; right: 10px; font-size: 17px; }
+
+div#portalFooter div.clearer {clear: both;}
+div.footerBox {
+    clear: both;
+    height: auto !important;
+    min-height: 0;
+    overflow: hidden !important;
+    padding: 5px 0;
+    width: 100%;
+	padding: 5px 30px;
+	margin:0 auto;
+   
+}
+
+div#portalFooter {
+    background: none repeat scroll 0 0 #666666;
+    clear: both;
+    color: #E1E1E1;
+    font-size: 0.95em;
+    height: auto !important;
+    min-height: 0;
+    overflow: hidden !important;
+    padding: 5px 0;
+    width: 100%;
+}
+div#portalFooter a {
+    color: #FFFFFF;
+    font-weight: normal;
+}
+div#portalFooter div.riferimentiPortale strong, div#portalFooter div.riferimentiPortale span {
+    display: block;
+}
+div#portalFooter div.riferimentiPortale strong a {
+    font-weight: bold;
+}
+div#portalFooter div.riferimentiPortale, div.numeroVerde {
+    float: left;
+    padding-left: 0;
+    width: 30%;
+}
+div#portalFooter div.boxDX {
+    float: right;
+    width: 15%;
+}
+
+div#portalFooter div.boxCentro {
+    width: 30%;
+}
+div#portalFooter div.boxSX {
+
+    width: 40%;
+}

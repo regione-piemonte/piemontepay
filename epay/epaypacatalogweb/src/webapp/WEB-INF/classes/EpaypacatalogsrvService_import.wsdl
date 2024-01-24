@@ -1,0 +1,2410 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://interfacews.epaypacatalogsrv.epay.csi.it/" name="Epaypacatalogsrv" targetNamespace="http://interfacews.epaypacatalogsrv.epay.csi.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfacews.epaypacatalogsrv.epay.csi.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://interfacews.epaypacatalogsrv.epay.csi.it/">
+  <xs:element name="aggiornaCduUtente" type="tns:aggiornaCduUtente"/>
+  <xs:element name="aggiornaCduUtenteResponse" type="tns:aggiornaCduUtenteResponse"/>
+  <xs:element name="aggiornaCodiceVersamento" type="tns:aggiornaCodiceVersamento"/>
+  <xs:element name="aggiornaCodiceVersamentoResponse" type="tns:aggiornaCodiceVersamentoResponse"/>
+  <xs:element name="aggiornaEnte" type="tns:aggiornaEnte"/>
+  <xs:element name="aggiornaEnteResponse" type="tns:aggiornaEnteResponse"/>
+  <xs:element name="aggiornaRiferimentoContabile" type="tns:aggiornaRiferimentoContabile"/>
+  <xs:element name="aggiornaRiferimentoContabileResponse" type="tns:aggiornaRiferimentoContabileResponse"/>
+  <xs:element name="aggiornaTematicheUtente" type="tns:aggiornaTematicheUtente"/>
+  <xs:element name="aggiornaTematicheUtenteResponse" type="tns:aggiornaTematicheUtenteResponse"/>
+  <xs:element name="aggiornaUtente" type="tns:aggiornaUtente"/>
+  <xs:element name="aggiornaUtenteResponse" type="tns:aggiornaUtenteResponse"/>
+  <xs:element name="autorizzaEsportazioneDati" type="tns:autorizzaEsportazioneDati"/>
+  <xs:element name="autorizzaEsportazioneDatiResponse" type="tns:autorizzaEsportazioneDatiResponse"/>
+  <xs:element name="eliminaCodiceVersamento" type="tns:eliminaCodiceVersamento"/>
+  <xs:element name="eliminaCodiceVersamentoResponse" type="tns:eliminaCodiceVersamentoResponse"/>
+  <xs:element name="eliminaRiferimentoContabile" type="tns:eliminaRiferimentoContabile"/>
+  <xs:element name="eliminaRiferimentoContabileResponse" type="tns:eliminaRiferimentoContabileResponse"/>
+  <xs:element name="eliminaUtente" type="tns:eliminaUtente"/>
+  <xs:element name="eliminaUtenteResponse" type="tns:eliminaUtenteResponse"/>
+  <xs:element name="getCodiceVersamento" type="tns:getCodiceVersamento"/>
+  <xs:element name="getCodiceVersamentoResponse" type="tns:getCodiceVersamentoResponse"/>
+  <xs:element name="getEnte" type="tns:getEnte"/>
+  <xs:element name="getEnteResponse" type="tns:getEnteResponse"/>
+  <xs:element name="getMessaggi" type="tns:getMessaggi"/>
+  <xs:element name="getMessaggiResponse" type="tns:getMessaggiResponse"/>
+  <xs:element name="getOpzioniAssociazioneUtenteCdu" type="tns:getOpzioniAssociazioneUtenteCdu"/>
+  <xs:element name="getOpzioniAssociazioneUtenteCduResponse" type="tns:getOpzioniAssociazioneUtenteCduResponse"/>
+  <xs:element name="getOpzioniAssociazioneUtenteTematica" type="tns:getOpzioniAssociazioneUtenteTematica"/>
+  <xs:element name="getOpzioniAssociazioneUtenteTematicaResponse" type="tns:getOpzioniAssociazioneUtenteTematicaResponse"/>
+  <xs:element name="getOpzioniCategoriaRiferimentoContabile" type="tns:getOpzioniCategoriaRiferimentoContabile"/>
+  <xs:element name="getOpzioniCategoriaRiferimentoContabileResponse" type="tns:getOpzioniCategoriaRiferimentoContabileResponse"/>
+  <xs:element name="getOpzioniCodiceVersamento" type="tns:getOpzioniCodiceVersamento"/>
+  <xs:element name="getOpzioniCodiceVersamentoResponse" type="tns:getOpzioniCodiceVersamentoResponse"/>
+  <xs:element name="getOpzioniMacrotipo" type="tns:getOpzioniMacrotipo"/>
+  <xs:element name="getOpzioniMacrotipoResponse" type="tns:getOpzioniMacrotipoResponse"/>
+  <xs:element name="getOpzioniModalitaAcquisizioneProvvisori" type="tns:getOpzioniModalitaAcquisizioneProvvisori"/>
+  <xs:element name="getOpzioniModalitaAcquisizioneProvvisoriResponse" type="tns:getOpzioniModalitaAcquisizioneProvvisoriResponse"/>
+  <xs:element name="getOpzioniPeriodicitaSchedulazioneRiconciliazione" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazione"/>
+  <xs:element name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse"/>
+  <xs:element name="getOpzioniStatoAggiornamento" type="tns:getOpzioniStatoAggiornamento"/>
+  <xs:element name="getOpzioniStatoAggiornamentoEnte" type="tns:getOpzioniStatoAggiornamentoEnte"/>
+  <xs:element name="getOpzioniStatoAggiornamentoEnteResponse" type="tns:getOpzioniStatoAggiornamentoEnteResponse"/>
+  <xs:element name="getOpzioniStatoAggiornamentoResponse" type="tns:getOpzioniStatoAggiornamentoResponse"/>
+  <xs:element name="getOpzioniTematica" type="tns:getOpzioniTematica"/>
+  <xs:element name="getOpzioniTematicaResponse" type="tns:getOpzioniTematicaResponse"/>
+  <xs:element name="getOpzioniTipoOutputRiconciliazione" type="tns:getOpzioniTipoOutputRiconciliazione"/>
+  <xs:element name="getOpzioniTipoOutputRiconciliazioneResponse" type="tns:getOpzioniTipoOutputRiconciliazioneResponse"/>
+  <xs:element name="getOpzioniTipoPagamento" type="tns:getOpzioniTipoPagamento"/>
+  <xs:element name="getOpzioniTipoPagamentoResponse" type="tns:getOpzioniTipoPagamentoResponse"/>
+  <xs:element name="getOpzioniTipologiaAccertamento" type="tns:getOpzioniTipologiaAccertamento"/>
+  <xs:element name="getOpzioniTipologiaAccertamentoResponse" type="tns:getOpzioniTipologiaAccertamentoResponse"/>
+  <xs:element name="getOpzioniTipologiaDatoSpecificoRiscossione" type="tns:getOpzioniTipologiaDatoSpecificoRiscossione"/>
+  <xs:element name="getOpzioniTipologiaDatoSpecificoRiscossioneResponse" type="tns:getOpzioniTipologiaDatoSpecificoRiscossioneResponse"/>
+  <xs:element name="getOpzioniTipologiaRiferimentoContabile" type="tns:getOpzioniTipologiaRiferimentoContabile"/>
+  <xs:element name="getOpzioniTipologiaRiferimentoContabileResponse" type="tns:getOpzioniTipologiaRiferimentoContabileResponse"/>
+  <xs:element name="getProfilazioneUtenteCorrente" type="tns:getProfilazioneUtenteCorrente"/>
+  <xs:element name="getProfilazioneUtenteCorrenteResponse" type="tns:getProfilazioneUtenteCorrenteResponse"/>
+  <xs:element name="getRiferimentoContabile" type="tns:getRiferimentoContabile"/>
+  <xs:element name="getRiferimentoContabileResponse" type="tns:getRiferimentoContabileResponse"/>
+  <xs:element name="getUtente" type="tns:getUtente"/>
+  <xs:element name="getUtenteResponse" type="tns:getUtenteResponse"/>
+  <xs:element name="inserisciCodiceVersamento" type="tns:inserisciCodiceVersamento"/>
+  <xs:element name="inserisciCodiceVersamentoResponse" type="tns:inserisciCodiceVersamentoResponse"/>
+  <xs:element name="inserisciRiferimentoContabile" type="tns:inserisciRiferimentoContabile"/>
+  <xs:element name="inserisciRiferimentoContabileResponse" type="tns:inserisciRiferimentoContabileResponse"/>
+  <xs:element name="inserisciUtente" type="tns:inserisciUtente"/>
+  <xs:element name="inserisciUtenteResponse" type="tns:inserisciUtenteResponse"/>
+  <xs:element name="ricercaCodiceVersamento" type="tns:ricercaCodiceVersamento"/>
+  <xs:element name="ricercaCodiceVersamentoResponse" type="tns:ricercaCodiceVersamentoResponse"/>
+  <xs:element name="ricercaEnte" type="tns:ricercaEnte"/>
+  <xs:element name="ricercaEnteResponse" type="tns:ricercaEnteResponse"/>
+  <xs:element name="ricercaRiferimentoContabile" type="tns:ricercaRiferimentoContabile"/>
+  <xs:element name="ricercaRiferimentoContabileResponse" type="tns:ricercaRiferimentoContabileResponse"/>
+  <xs:element name="ricercaUtente" type="tns:ricercaUtente"/>
+  <xs:element name="ricercaUtenteResponse" type="tns:ricercaUtenteResponse"/>
+  <xs:element name="ricercaVoceEntrata" type="tns:ricercaVoceEntrata"/>
+  <xs:element name="ricercaVoceEntrataResponse" type="tns:ricercaVoceEntrataResponse"/>
+  <xs:element name="testResources" type="tns:testResources"/>
+  <xs:element name="testResourcesResponse" type="tns:testResourcesResponse"/>
+  <xs:complexType name="getProfilazioneUtenteCorrente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getProfilazioneUtenteCorrenteInput" type="tns:getProfilazioneUtenteCorrenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentInput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="caller" type="tns:callerInputDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="callerInputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceApplicativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="ip" type="xs:string"/>
+      <xs:element minOccurs="0" name="principal" type="tns:principalInputDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="principalInputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getProfilazioneUtenteCorrenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ente" type="tns:getProfilazioneUtenteCorrenteEnteOutputDto"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="tematiche" nillable="true" type="tns:getProfilazioneUtenteCorrenteTematicaOutputDto"/>
+          <xs:element minOccurs="0" name="utente" type="tns:getProfilazioneUtenteCorrenteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="parentOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMessaggio" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStato" type="xs:int"/>
+      <xs:element minOccurs="0" name="descrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteEnteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneUtenteAmministratore" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idUtenteAmministratore" type="xs:long"/>
+      <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="localita" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteCduOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteTematicaOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamento" nillable="true" type="tns:getProfilazioneUtenteCorrenteCodiceVersamentoOutputDto"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagVisibilitaTotale" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getProfilazioneUtenteCorrenteOutputDto">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="cdu" nillable="true" type="tns:getProfilazioneUtenteCorrenteCduOutputDto"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniPeriodicitaSchedulazioneRiconciliazioneOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="opzioni" nillable="true" type="tns:decodificaOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="decodificaOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getUtenteInput" type="tns:getUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="utente" type="tns:getUtenteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getUtenteOutputDto">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="cdu" nillable="true" type="tns:getUtenteAssociazioneCduOutputDto"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="tematiche" nillable="true" type="tns:getUtenteAssociazioneTematicaOutputDto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtenteAssociazioneCduOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtenteAssociazioneTematicaOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamento" nillable="true" type="tns:getUtenteAssociazioneCodiceVersamentoOutputDto"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagVisibilitaTotale" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtenteAssociazioneCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaUtenteInput" type="tns:ricercaUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceCategoriaCdu" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceCdu" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="nome" type="xs:string"/>
+          <xs:element minOccurs="0" name="soloUtentiInVita" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaUtenteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaUtenteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMessaggi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getMessaggiInput" type="tns:getMessaggiInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getMessaggiOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="messaggi" nillable="true" type="tns:getMessaggiOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getMessaggiOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceApplicativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceBreve" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceLingua" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaRiferimentoContabileInput" type="tns:ricercaRiferimentoContabileInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaRiferimentoContabileInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneCodiceVersamento" type="xs:string"/>
+          <xs:element minOccurs="0" name="idCodiceVersamento" type="xs:long"/>
+          <xs:element minOccurs="0" name="soloRiferimentiInVita" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaRiferimentoContabileOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaRiferimentoContabileOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="annoAccertamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceCodiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologia" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologiaDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="datoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCodiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneErroreAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTipologia" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValiditaCodiceTassonomico" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValiditaCodiceTassonomico" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="descrizioneVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idCodiceVersamento" type="xs:long"/>
+      <xs:element minOccurs="0" name="livelloPdc" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroAccertamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="numeroArticolo" type="xs:int"/>
+      <xs:element minOccurs="0" name="numeroCapitolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="titolo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="autorizzaEsportazioneDati">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="autorizzaEsportazioneDatiInput" type="tns:autorizzaEsportazioneDatiInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="autorizzaEsportazioneDatiInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="entity" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="idList" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="autorizzaEsportazioneDatiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:autorizzaEsportazioneDatiOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="autorizzaEsportazioneDatiOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematicaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTematicaOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTematicaOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteCdu">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteCduResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniAssociazioneUtenteCduOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteCduOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="categorie" nillable="true" type="tns:getOpzioniAssociazioneUtenteCduCategoriaCduOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteCduCategoriaCduOutputDto">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="cdu" nillable="true" type="tns:getOpzioniAssociazioneUtenteCduCduOutputDto"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteCduCduOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getRiferimentoContabileInput" type="tns:getRiferimentoContabileInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRiferimentoContabileInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="riferimentoContabile" type="tns:getRiferimentoContabileOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getRiferimentoContabileOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="annoAccertamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceCodiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologia" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologiaDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="datoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneCodiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneDatoSpecificoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneErroreAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTipologia" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFineValiditaCodiceTassonomico" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizioValiditaCodiceTassonomico" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="descrizioneVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idCodiceVersamento" type="xs:long"/>
+      <xs:element minOccurs="0" name="livelloPdc" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroAccertamento" type="xs:int"/>
+      <xs:element minOccurs="0" name="numeroArticolo" type="xs:int"/>
+      <xs:element minOccurs="0" name="numeroCapitolo" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="titolo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getEnteInput" type="tns:getEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ente" type="tns:getEnteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cap" type="xs:string"/>
+      <xs:element minOccurs="0" name="cbill" type="xs:string"/>
+      <xs:element minOccurs="0" name="civico" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceModalitaAcquisizioneProvvisori" type="xs:string"/>
+      <xs:element minOccurs="0" name="codicePeriodicitaSchedulazioneRiconciliazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipologiaAccertamento" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamentoAssociati" nillable="true" type="tns:getEnteOutputCodiceVersamentoAssociatoDto"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneErroreAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneUtenteAmministratore" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="giornoSchedulazione" type="xs:int"/>
+      <xs:element minOccurs="0" name="gs1Gln" type="xs:string"/>
+      <xs:element minOccurs="0" name="iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idUtenteAmministratore" type="xs:long"/>
+      <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoContent" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="logoContentType" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoFileName" type="xs:string"/>
+      <xs:element minOccurs="0" name="logoFileSize" type="xs:int"/>
+      <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getEnteOutputCodiceVersamentoAssociatoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteTematica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteTematicaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniAssociazioneUtenteTematicaOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteTematicaOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="tematiche" nillable="true" type="tns:getOpzioniAssociazioneUtenteTematicaTematicaOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteTematicaTematicaOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamento" nillable="true" type="tns:getOpzioniAssociazioneUtenteTematicaCodiceVersamentoOutputDto"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniAssociazioneUtenteTematicaCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getCodiceVersamentoInput" type="tns:getCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceVersamento" type="tns:getCodiceVersamentoOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bic" type="xs:string"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVersamentoPadre" type="tns:getCodiceVersamentoOutputDto"/>
+      <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciVersamentoCollegati" nillable="true" type="tns:getCodiceVersamentoOutputDto"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneErroreAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTipoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagInvioFlussi" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idVoceEntrata" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaDatoSpecificoRiscossione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaDatoSpecificoRiscossioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipologiaDatoSpecificoRiscossioneOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaDatoSpecificoRiscossioneOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="inserisciCodiceVersamentoInput" type="tns:inserisciCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bic" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipoPagamento" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="flagInvioFlussi" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="iban" type="xs:string"/>
+          <xs:element minOccurs="0" name="idCodiceVersamentoPadre" type="xs:long"/>
+           <xs:element minOccurs="0" name="bicAppoggio" type="xs:string"/>
+           <xs:element minOccurs="0" name="ibanAppoggio" type="xs:string"/>
+          <xs:element minOccurs="0" name="fattura" type="xs:boolean"/> 
+          <xs:element minOccurs="0" name="flagMbSecondario" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagMbPrimario" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:inserisciCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="risultatoInserimento" type="tns:inserisciCodiceVersamentoOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="eliminaUtenteInput" type="tns:eliminaUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="eliminaUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:eliminaUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceRisultatoSincronizzazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneRisultatoSincronizzazione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipologiaRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniStatoAggiornamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaVoceEntrataInput" type="tns:ricercaVoceEntrataInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codice" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaVoceEntrataOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaVoceEntrataOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaVoceEntrataOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aggiornaRiferimentoContabileInput" type="tns:aggiornaRiferimentoContabileInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaRiferimentoContabileInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="annoAccertamento" type="xs:int"/>
+          <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+          <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceDatoSpecificoRiscossione" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipologia" type="xs:string"/>
+          <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="livelloPdc" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroAccertamento" type="xs:int"/>
+          <xs:element minOccurs="0" name="numeroArticolo" type="xs:int"/>
+          <xs:element minOccurs="0" name="numeroCapitolo" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroEsercizio" type="xs:int"/>
+          <xs:element minOccurs="0" name="titolo" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniStatoAggiornamentoEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniStatoAggiornamentoEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaCodiceVersamentoInput" type="tns:ricercaCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+          <xs:element minOccurs="0" name="iban" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaCodiceVersamentoOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaCodiceVersamentoOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bic" type="xs:string"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceTipoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneMacrotipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTematica" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneTipoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneVoceEntrata" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagInvioFlussi" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagVirtuale" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idVoceEntrata" type="xs:long"/>
+	  <xs:element minOccurs="0" name="flagMbSecondario" type="xs:boolean"/>
+	  <xs:element minOccurs="0" name="flagMbPrimario" type="xs:boolean"/>
+      
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaEnteInput" type="tns:ricercaEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cap" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+          <xs:element minOccurs="0" name="localita" type="xs:string"/>
+          <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:ricercaEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRisultatiTotali" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="risultati" nillable="true" type="tns:ricercaEnteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ricercaEnteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cap" type="xs:string"/>
+      <xs:element minOccurs="0" name="cbill" type="xs:string"/>
+      <xs:element minOccurs="0" name="civico" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStatoAggiornamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneUtenteAmministratore" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="gs1Gln" type="xs:string"/>
+      <xs:element minOccurs="0" name="iban" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idUtenteAmministratore" type="xs:long"/>
+      <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCategoriaRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCategoriaRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniCategoriaRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCategoriaRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaTematicheUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aggiornaTematicheUtenteInput" type="tns:aggiornaTematicheUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaTematicheUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="tematiche" nillable="true" type="tns:aggiornaTematicheUtenteTematicaInputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaTematicheUtenteTematicaInputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="flagVisibilitaTotale" type="xs:boolean"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="idCodiciVersamento" nillable="true" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaTematicheUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaTematicheUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaTematicheUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceRisultatoSincronizzazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneRisultatoSincronizzazione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisori">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniModalitaAcquisizioneProvvisoriOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniModalitaAcquisizioneProvvisoriOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="modificaEnteInput" type="tns:aggiornaEnteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cancellaLogo" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="cap" type="xs:string"/>
+          <xs:element minOccurs="0" name="cbill" type="xs:string"/>
+          <xs:element minOccurs="0" name="civico" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceModalitaAcquisizioneProvvisori" type="xs:string"/>
+          <xs:element minOccurs="0" name="codicePeriodicitaSchedulazioneRiconciliazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipologiaAccertamento" type="xs:string"/>
+          <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagEntePlurintermediato" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagQualsiasiCodiceVersamento" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneFlussoBaseRendicontazione" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRicezioneFlussoRendicontazione" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="flagRiconciliazioneVersamenti" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="giornoSchedulazione" type="xs:int"/>
+          <xs:element minOccurs="0" name="gs1Gln" type="xs:string"/>
+          <xs:element minOccurs="0" name="iban" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="idCodiciVersamentoAssociati" nillable="true" type="xs:long"/>
+          <xs:element minOccurs="0" name="indirizzo" type="xs:string"/>
+          <xs:element minOccurs="0" name="localita" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoContent" type="xs:base64Binary"/>
+          <xs:element minOccurs="0" name="logoContentType" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoFileName" type="xs:string"/>
+          <xs:element minOccurs="0" name="logoFileSize" type="xs:int"/>
+          <xs:element minOccurs="0" name="siglaProvincia" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaEnteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaEnteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceRisultatoSincronizzazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneRisultatoSincronizzazione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="inserisciRiferimentoContabileInput" type="tns:inserisciRiferimentoContabileInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciRiferimentoContabileInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="annoAccertamento" type="xs:int"/>
+          <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+          <xs:element minOccurs="0" name="codiceCategoria" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipologia" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipologiaDatoSpecificoRiscossione" type="xs:string"/>
+          <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="datoSpecificoRiscossione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneDatoSpecificoRiscossione" type="xs:string"/>
+          <xs:element minOccurs="0" name="idCodiceVersamento" type="xs:long"/>
+          <xs:element minOccurs="0" name="livelloPdc" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroAccertamento" type="xs:int"/>
+          <xs:element minOccurs="0" name="numeroArticolo" type="xs:int"/>
+          <xs:element minOccurs="0" name="numeroCapitolo" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroEsercizio" type="xs:int"/>
+          <xs:element minOccurs="0" name="titolo" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:inserisciRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="risultatoInserimento" type="tns:inserisciRiferimentoContabileOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciRiferimentoContabileOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="inserisciUtenteInput" type="tns:inserisciUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+          <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="nome" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:inserisciUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="risultatoInserimento" type="tns:inserisciUtenteOutputDto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="inserisciUtenteOutputDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aggiornaCodiceVersamentoInput" type="tns:aggiornaCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bic" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceTipoPagamento" type="xs:string"/>
+          <xs:element minOccurs="0" name="codiceVoceEntrata" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="flagInvioFlussi" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="iban" type="xs:string"/>
+          <xs:element minOccurs="0" name="ibanAppoggio" type="xs:string"/>
+           <xs:element minOccurs="0" name="bicAppoggio" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+	      <xs:element minOccurs="0" name="flagMbSecondario" type="xs:boolean"/>
+	      <xs:element minOccurs="0" name="flagMbPrimario" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipoOutputRiconciliazioneOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoOutputRiconciliazioneOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoPagamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoPagamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipoPagamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipoPagamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCduUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aggiornaCduUtenteInput" type="tns:aggiornaCduUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCduUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="codiciCdu" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCduUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaCduUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaCduUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceRisultatoSincronizzazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneRisultatoSincronizzazione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="eliminaRiferimentoContabile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="eliminaRiferimentoContabileInput" type="tns:eliminaRiferimentoContabileInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaRiferimentoContabileInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="eliminaRiferimentoContabileResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:eliminaRiferimentoContabileOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaRiferimentoContabileOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="testResources">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="testResourcesInput" type="tns:testResourcesInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResourcesInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="testResourcesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:testResourcesOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResourcesOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="eliminaCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="eliminaCodiceVersamentoInput" type="tns:eliminaCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="eliminaCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:eliminaCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminaCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniCodiceVersamentoInput" type="tns:getOpzioniCodiceVersamentoInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamentoInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="soloBase" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniCodiceVersamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniCodiceVersamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+       <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="opzioni" nillable="true" type="tns:decodificaCodiciVersamentoOutputDto"/>
+    </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="decodificaCodiciVersamentoOutputDto">
+   <xs:complexContent>
+      <xs:extension base="tns:decodificaOutputDto">
+       <xs:sequence>
+        <xs:element minOccurs="0" name="tipoPagamento" type="xs:string"/>
+    </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniMacrotipoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniMacrotipoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aggiornaUtenteInput" type="tns:aggiornaUtenteInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaUtenteInput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+          <xs:element minOccurs="0" name="cognome" type="xs:string"/>
+          <xs:element minOccurs="0" name="dataFineValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="dataInizioValidita" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="nome" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aggiornaUtenteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:aggiornaUtenteOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaUtenteOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:parentOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codiceRisultatoSincronizzazione" type="xs:string"/>
+          <xs:element minOccurs="0" name="descrizioneRisultatoSincronizzazione" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="getOpzioniInput" type="tns:getOpzioniInput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:getOpzioniTipologiaAccertamentoOutput"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getOpzioniTipologiaAccertamentoOutput">
+    <xs:complexContent>
+      <xs:extension base="tns:getOpzioniOutput">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EpaypacatalogsrvException" type="tns:EpaypacatalogsrvException"/>
+  <xs:complexType name="EpaypacatalogsrvException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+  <xs:complexType name="UnrecoverableException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getProfilazioneUtenteCorrente">
+    <wsdl:part element="ns1:getProfilazioneUtenteCorrente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    <wsdl:part element="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtente">
+    <wsdl:part element="ns1:getUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaUtente">
+    <wsdl:part element="ns1:ricercaUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessaggi">
+    <wsdl:part element="ns1:getMessaggi" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaRiferimentoContabile">
+    <wsdl:part element="ns1:ricercaRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="autorizzaEsportazioneDati">
+    <wsdl:part element="ns1:autorizzaEsportazioneDati" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTematica">
+    <wsdl:part element="ns1:getOpzioniTematica" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaRiferimentoContabileResponse">
+    <wsdl:part element="ns1:eliminaRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniAssociazioneUtenteCdu">
+    <wsdl:part element="ns1:getOpzioniAssociazioneUtenteCdu" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EpaypacatalogsrvException">
+    <wsdl:part element="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciCodiceVersamentoResponse">
+    <wsdl:part element="ns1:inserisciCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaCodiceVersamentoResponse">
+    <wsdl:part element="ns1:ricercaCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaTematicheUtenteResponse">
+    <wsdl:part element="ns1:aggiornaTematicheUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    <wsdl:part element="ns1:getOpzioniModalitaAcquisizioneProvvisoriResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEnte">
+    <wsdl:part element="ns1:getEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniAssociazioneUtenteTematica">
+    <wsdl:part element="ns1:getOpzioniAssociazioneUtenteTematica" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaDatoSpecificoRiscossione">
+    <wsdl:part element="ns1:getOpzioniTipologiaDatoSpecificoRiscossione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciCodiceVersamento">
+    <wsdl:part element="ns1:inserisciCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaUtente">
+    <wsdl:part element="ns1:eliminaUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaVoceEntrataResponse">
+    <wsdl:part element="ns1:ricercaVoceEntrataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamento">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    <wsdl:part element="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCodiceVersamentoResponse">
+    <wsdl:part element="ns1:getCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaVoceEntrata">
+    <wsdl:part element="ns1:ricercaVoceEntrata" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaRiferimentoContabile">
+    <wsdl:part element="ns1:aggiornaRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="autorizzaEsportazioneDatiResponse">
+    <wsdl:part element="ns1:autorizzaEsportazioneDatiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamentoEnte">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamentoEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniAssociazioneUtenteCduResponse">
+    <wsdl:part element="ns1:getOpzioniAssociazioneUtenteCduResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="testResourcesResponse">
+    <wsdl:part element="ns1:testResourcesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCodiceVersamentoResponse">
+    <wsdl:part element="ns1:getOpzioniCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaEnteResponse">
+    <wsdl:part element="ns1:ricercaEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCategoriaRiferimentoContabile">
+    <wsdl:part element="ns1:getOpzioniCategoriaRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaTematicheUtente">
+    <wsdl:part element="ns1:aggiornaTematicheUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniModalitaAcquisizioneProvvisori">
+    <wsdl:part element="ns1:getOpzioniModalitaAcquisizioneProvvisori" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaEnte">
+    <wsdl:part element="ns1:aggiornaEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaCodiceVersamentoResponse">
+    <wsdl:part element="ns1:aggiornaCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaEnteResponse">
+    <wsdl:part element="ns1:aggiornaEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciUtenteResponse">
+    <wsdl:part element="ns1:inserisciUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEnteResponse">
+    <wsdl:part element="ns1:getEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciUtente">
+    <wsdl:part element="ns1:inserisciUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaDatoSpecificoRiscossioneResponse">
+    <wsdl:part element="ns1:getOpzioniTipologiaDatoSpecificoRiscossioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaRiferimentoContabileResponse">
+    <wsdl:part element="ns1:getOpzioniTipologiaRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaRiferimentoContabileResponse">
+    <wsdl:part element="ns1:aggiornaRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaCduUtente">
+    <wsdl:part element="ns1:aggiornaCduUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTematicaResponse">
+    <wsdl:part element="ns1:getOpzioniTematicaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="testResources">
+    <wsdl:part element="ns1:testResources" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaCodiceVersamento">
+    <wsdl:part element="ns1:eliminaCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRiferimentoContabileResponse">
+    <wsdl:part element="ns1:getRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCodiceVersamento">
+    <wsdl:part element="ns1:getOpzioniCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaUtente">
+    <wsdl:part element="ns1:aggiornaUtente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaAccertamento">
+    <wsdl:part element="ns1:getOpzioniTipologiaAccertamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaUtenteResponse">
+    <wsdl:part element="ns1:eliminaUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaCduUtenteResponse">
+    <wsdl:part element="ns1:aggiornaCduUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaUtenteResponse">
+    <wsdl:part element="ns1:aggiornaUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRiferimentoContabile">
+    <wsdl:part element="ns1:getRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciRiferimentoContabileResponse">
+    <wsdl:part element="ns1:inserisciRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoOutputRiconciliazioneResponse">
+    <wsdl:part element="ns1:getOpzioniTipoOutputRiconciliazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoPagamentoResponse">
+    <wsdl:part element="ns1:getOpzioniTipoPagamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaCodiceVersamentoResponse">
+    <wsdl:part element="ns1:eliminaCodiceVersamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamentoEnteResponse">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamentoEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniStatoAggiornamentoResponse">
+    <wsdl:part element="ns1:getOpzioniStatoAggiornamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="ns1:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCodiceVersamento">
+    <wsdl:part element="ns1:getCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaRiferimentoContabile">
+    <wsdl:part element="ns1:getOpzioniTipologiaRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniAssociazioneUtenteTematicaResponse">
+    <wsdl:part element="ns1:getOpzioniAssociazioneUtenteTematicaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProfilazioneUtenteCorrenteResponse">
+    <wsdl:part element="ns1:getProfilazioneUtenteCorrenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaCodiceVersamento">
+    <wsdl:part element="ns1:ricercaCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaEnte">
+    <wsdl:part element="ns1:ricercaEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciRiferimentoContabile">
+    <wsdl:part element="ns1:inserisciRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtenteResponse">
+    <wsdl:part element="ns1:getUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaCodiceVersamento">
+    <wsdl:part element="ns1:aggiornaCodiceVersamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessaggiResponse">
+    <wsdl:part element="ns1:getMessaggiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniMacrotipoResponse">
+    <wsdl:part element="ns1:getOpzioniMacrotipoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoOutputRiconciliazione">
+    <wsdl:part element="ns1:getOpzioniTipoOutputRiconciliazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipoPagamento">
+    <wsdl:part element="ns1:getOpzioniTipoPagamento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniTipologiaAccertamentoResponse">
+    <wsdl:part element="ns1:getOpzioniTipologiaAccertamentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniCategoriaRiferimentoContabileResponse">
+    <wsdl:part element="ns1:getOpzioniCategoriaRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eliminaRiferimentoContabile">
+    <wsdl:part element="ns1:eliminaRiferimentoContabile" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaUtenteResponse">
+    <wsdl:part element="ns1:ricercaUtenteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getOpzioniMacrotipo">
+    <wsdl:part element="ns1:getOpzioniMacrotipo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaRiferimentoContabileResponse">
+    <wsdl:part element="ns1:ricercaRiferimentoContabileResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Epaypacatalogsrv">
+    <wsdl:operation name="getProfilazioneUtenteCorrente">
+      <wsdl:input message="ns1:getProfilazioneUtenteCorrente" name="getProfilazioneUtenteCorrente">
+    </wsdl:input>
+      <wsdl:output message="ns1:getProfilazioneUtenteCorrenteResponse" name="getProfilazioneUtenteCorrenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+      <wsdl:input message="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazione" name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse" name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUtente">
+      <wsdl:input message="ns1:getUtente" name="getUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:getUtenteResponse" name="getUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaUtente">
+      <wsdl:input message="ns1:ricercaUtente" name="ricercaUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaUtenteResponse" name="ricercaUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMessaggi">
+      <wsdl:input message="ns1:getMessaggi" name="getMessaggi">
+    </wsdl:input>
+      <wsdl:output message="ns1:getMessaggiResponse" name="getMessaggiResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaRiferimentoContabile">
+      <wsdl:input message="ns1:ricercaRiferimentoContabile" name="ricercaRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaRiferimentoContabileResponse" name="ricercaRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="autorizzaEsportazioneDati">
+      <wsdl:input message="ns1:autorizzaEsportazioneDati" name="autorizzaEsportazioneDati">
+    </wsdl:input>
+      <wsdl:output message="ns1:autorizzaEsportazioneDatiResponse" name="autorizzaEsportazioneDatiResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTematica">
+      <wsdl:input message="ns1:getOpzioniTematica" name="getOpzioniTematica">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTematicaResponse" name="getOpzioniTematicaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniAssociazioneUtenteCdu">
+      <wsdl:input message="ns1:getOpzioniAssociazioneUtenteCdu" name="getOpzioniAssociazioneUtenteCdu">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniAssociazioneUtenteCduResponse" name="getOpzioniAssociazioneUtenteCduResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRiferimentoContabile">
+      <wsdl:input message="ns1:getRiferimentoContabile" name="getRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:getRiferimentoContabileResponse" name="getRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEnte">
+      <wsdl:input message="ns1:getEnte" name="getEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:getEnteResponse" name="getEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniAssociazioneUtenteTematica">
+      <wsdl:input message="ns1:getOpzioniAssociazioneUtenteTematica" name="getOpzioniAssociazioneUtenteTematica">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniAssociazioneUtenteTematicaResponse" name="getOpzioniAssociazioneUtenteTematicaResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCodiceVersamento">
+      <wsdl:input message="ns1:getCodiceVersamento" name="getCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getCodiceVersamentoResponse" name="getCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaDatoSpecificoRiscossione">
+      <wsdl:input message="ns1:getOpzioniTipologiaDatoSpecificoRiscossione" name="getOpzioniTipologiaDatoSpecificoRiscossione">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipologiaDatoSpecificoRiscossioneResponse" name="getOpzioniTipologiaDatoSpecificoRiscossioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciCodiceVersamento">
+      <wsdl:input message="ns1:inserisciCodiceVersamento" name="inserisciCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:inserisciCodiceVersamentoResponse" name="inserisciCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaUtente">
+      <wsdl:input message="ns1:eliminaUtente" name="eliminaUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:eliminaUtenteResponse" name="eliminaUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaRiferimentoContabile">
+      <wsdl:input message="ns1:getOpzioniTipologiaRiferimentoContabile" name="getOpzioniTipologiaRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipologiaRiferimentoContabileResponse" name="getOpzioniTipologiaRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniStatoAggiornamento">
+      <wsdl:input message="ns1:getOpzioniStatoAggiornamento" name="getOpzioniStatoAggiornamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniStatoAggiornamentoResponse" name="getOpzioniStatoAggiornamentoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaVoceEntrata">
+      <wsdl:input message="ns1:ricercaVoceEntrata" name="ricercaVoceEntrata">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaVoceEntrataResponse" name="ricercaVoceEntrataResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaRiferimentoContabile">
+      <wsdl:input message="ns1:aggiornaRiferimentoContabile" name="aggiornaRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaRiferimentoContabileResponse" name="aggiornaRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniStatoAggiornamentoEnte">
+      <wsdl:input message="ns1:getOpzioniStatoAggiornamentoEnte" name="getOpzioniStatoAggiornamentoEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniStatoAggiornamentoEnteResponse" name="getOpzioniStatoAggiornamentoEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaCodiceVersamento">
+      <wsdl:input message="ns1:ricercaCodiceVersamento" name="ricercaCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaCodiceVersamentoResponse" name="ricercaCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaEnte">
+      <wsdl:input message="ns1:ricercaEnte" name="ricercaEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaEnteResponse" name="ricercaEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniCategoriaRiferimentoContabile">
+      <wsdl:input message="ns1:getOpzioniCategoriaRiferimentoContabile" name="getOpzioniCategoriaRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniCategoriaRiferimentoContabileResponse" name="getOpzioniCategoriaRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaTematicheUtente">
+      <wsdl:input message="ns1:aggiornaTematicheUtente" name="aggiornaTematicheUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaTematicheUtenteResponse" name="aggiornaTematicheUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniModalitaAcquisizioneProvvisori">
+      <wsdl:input message="ns1:getOpzioniModalitaAcquisizioneProvvisori" name="getOpzioniModalitaAcquisizioneProvvisori">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniModalitaAcquisizioneProvvisoriResponse" name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaEnte">
+      <wsdl:input message="ns1:aggiornaEnte" name="aggiornaEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaEnteResponse" name="aggiornaEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciRiferimentoContabile">
+      <wsdl:input message="ns1:inserisciRiferimentoContabile" name="inserisciRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:inserisciRiferimentoContabileResponse" name="inserisciRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciUtente">
+      <wsdl:input message="ns1:inserisciUtente" name="inserisciUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:inserisciUtenteResponse" name="inserisciUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCodiceVersamento">
+      <wsdl:input message="ns1:aggiornaCodiceVersamento" name="aggiornaCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaCodiceVersamentoResponse" name="aggiornaCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipoOutputRiconciliazione">
+      <wsdl:input message="ns1:getOpzioniTipoOutputRiconciliazione" name="getOpzioniTipoOutputRiconciliazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipoOutputRiconciliazioneResponse" name="getOpzioniTipoOutputRiconciliazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipoPagamento">
+      <wsdl:input message="ns1:getOpzioniTipoPagamento" name="getOpzioniTipoPagamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipoPagamentoResponse" name="getOpzioniTipoPagamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCduUtente">
+      <wsdl:input message="ns1:aggiornaCduUtente" name="aggiornaCduUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaCduUtenteResponse" name="aggiornaCduUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaRiferimentoContabile">
+      <wsdl:input message="ns1:eliminaRiferimentoContabile" name="eliminaRiferimentoContabile">
+    </wsdl:input>
+      <wsdl:output message="ns1:eliminaRiferimentoContabileResponse" name="eliminaRiferimentoContabileResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <wsdl:input message="ns1:testResources" name="testResources">
+    </wsdl:input>
+      <wsdl:output message="ns1:testResourcesResponse" name="testResourcesResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaCodiceVersamento">
+      <wsdl:input message="ns1:eliminaCodiceVersamento" name="eliminaCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:eliminaCodiceVersamentoResponse" name="eliminaCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniCodiceVersamento">
+      <wsdl:input message="ns1:getOpzioniCodiceVersamento" name="getOpzioniCodiceVersamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniCodiceVersamentoResponse" name="getOpzioniCodiceVersamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniMacrotipo">
+      <wsdl:input message="ns1:getOpzioniMacrotipo" name="getOpzioniMacrotipo">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniMacrotipoResponse" name="getOpzioniMacrotipoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaUtente">
+      <wsdl:input message="ns1:aggiornaUtente" name="aggiornaUtente">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaUtenteResponse" name="aggiornaUtenteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaAccertamento">
+      <wsdl:input message="ns1:getOpzioniTipologiaAccertamento" name="getOpzioniTipologiaAccertamento">
+    </wsdl:input>
+      <wsdl:output message="ns1:getOpzioniTipologiaAccertamentoResponse" name="getOpzioniTipologiaAccertamentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:EpaypacatalogsrvException" name="EpaypacatalogsrvException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

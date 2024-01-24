@@ -1,0 +1,723 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://business.epaypacatalogsrv.epay.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://interfacews.epaypacatalogsrv.epay.csi.it/" name="EpaypacatalogsrvService" targetNamespace="http://business.epaypacatalogsrv.epay.csi.it/">
+  <wsdl:import location="EpaypacatalogsrvService_import.wsdl" namespace="http://interfacews.epaypacatalogsrv.epay.csi.it/">
+    </wsdl:import>
+  <wsdl:binding name="EpaypacatalogsrvServiceSoapBinding" type="ns1:Epaypacatalogsrv">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getProfilazioneUtenteCorrente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getProfilazioneUtenteCorrente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProfilazioneUtenteCorrenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniPeriodicitaSchedulazioneRiconciliazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniPeriodicitaSchedulazioneRiconciliazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMessaggi">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMessaggi">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMessaggiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="autorizzaEsportazioneDati">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="autorizzaEsportazioneDati">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="autorizzaEsportazioneDatiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTematica">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTematica">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTematicaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniAssociazioneUtenteCdu">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniAssociazioneUtenteCdu">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniAssociazioneUtenteCduResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEnte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEnte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniAssociazioneUtenteTematica">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniAssociazioneUtenteTematica">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniAssociazioneUtenteTematicaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaDatoSpecificoRiscossione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTipologiaDatoSpecificoRiscossione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTipologiaDatoSpecificoRiscossioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="inserisciCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inserisciCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="eliminaUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eliminaUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTipologiaRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTipologiaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniStatoAggiornamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniStatoAggiornamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniStatoAggiornamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaVoceEntrata">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaVoceEntrata">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaVoceEntrataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniStatoAggiornamentoEnte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniStatoAggiornamentoEnte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniStatoAggiornamentoEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaEnte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaEnte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniCategoriaRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniCategoriaRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniCategoriaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaTematicheUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaTematicheUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaTematicheUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniModalitaAcquisizioneProvvisori">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniModalitaAcquisizioneProvvisori">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniModalitaAcquisizioneProvvisoriResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaEnte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaEnte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="inserisciRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inserisciRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="inserisciUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inserisciUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipoOutputRiconciliazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTipoOutputRiconciliazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTipoOutputRiconciliazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipoPagamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTipoPagamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTipoPagamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaCduUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaCduUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaCduUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaRiferimentoContabile">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="eliminaRiferimentoContabile">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eliminaRiferimentoContabileResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="testResources">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="testResourcesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="eliminaCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="eliminaCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eliminaCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniCodiceVersamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniCodiceVersamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniCodiceVersamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniMacrotipo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniMacrotipo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniMacrotipoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaUtente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaUtente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaUtenteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getOpzioniTipologiaAccertamento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getOpzioniTipologiaAccertamento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getOpzioniTipologiaAccertamentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EpaypacatalogsrvException">
+        <soap:fault name="EpaypacatalogsrvException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EpaypacatalogsrvService">
+    <wsdl:port binding="tns:EpaypacatalogsrvServiceSoapBinding" name="EpaypacatalogsrvPort">
+         <soap:address location="http://dev-srv-epay.bilancio.csi.it/epaypacatalogsrvApplEpaypacatalogsrvWs/EpaypacatalogsrvService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

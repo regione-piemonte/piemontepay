@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!-- Servlet 3.0 -->
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<display-name>epaypacatalogweb</display-name>
+
+	<!-- Path del contesto principale di spring core (non di spring mvc) -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring/application-context.xml
+		</param-value>
+	</context-param>
+
+	<!-- Carica il contesto di spring allo startup -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+	    <listener-class>
+	        org.springframework.web.context.request.RequestContextListener
+	    </listener-class>
+	</listener>
+
+	<!-- Richiesto affinche' il controllo sulle sessioni concorrenti funzioni nel modo corretto -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+
+	<!-- Abilitazione della filter chain di Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<!-- E agganciamento della stessa alla servlet principale di Spring MVC (tutte le request) -->
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<servlet-name>appServlet</servlet-name>
+	</filter-mapping>
+
+	<!-- Filtro per forzare l'encoding a UTF-8 (per visualizzare correttamente i caratteri speciali) -->
+	<filter>
+		<filter-name>encoding-filter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encoding-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Configurazione di Spring MVC: -->
+
+	<!-- Servlet principale: tutte le request finiscono prima qua -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- La servlet viene inizializzata caricando il contesto di spring MVC -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+		</init-param>
+		<!-- Carica subtito la servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+
+
+	<!-- Timeout della sessione (30 minuti) -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+		<!-- Accetta solo cookie http -->
+		<cookie-config>
+			<http-only>true</http-only>
+		</cookie-config>
+	</session-config>
+	
+	<distributable/>
+
+</web-app>

@@ -1,0 +1,2074 @@
+### Eclipse Workspace Patch 1.0
+#P epaypacatalogweb
+Index: src/java/it/csi/epay/epaypacatalogweb/frontend/CodiceVersamentoController.java
+===================================================================
+--- src/java/it/csi/epay/epaypacatalogweb/frontend/CodiceVersamentoController.java	(revision 3459)
++++ src/java/it/csi/epay/epaypacatalogweb/frontend/CodiceVersamentoController.java	(working copy)
+@@ -25,7 +25,6 @@
+ import it.csi.epay.epaypacatalogweb.business.manager.AuthorizationManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.CodiceVersamentoManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.DecodificheManager;
+-import it.csi.epay.epaypacatalogweb.business.manager.EnteManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.EsportazioneManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.VoceEntrataManager;
+ import it.csi.epay.epaypacatalogweb.common.Constants;
+@@ -42,7 +41,6 @@
+ import it.csi.epay.epaypacatalogweb.model.codiceversamento.RicercaCodiceVersamentoFiltroVO;
+ import it.csi.epay.epaypacatalogweb.model.codiceversamento.RisultatoRicercaCodiceVersamentoVO;
+ import it.csi.epay.epaypacatalogweb.model.codiceversamento.validators.GestioneCodiceVersamentoValidator;
+-import it.csi.epay.epaypacatalogweb.model.gestioneente.EnteVO;
+ import it.csi.epay.epaypacatalogweb.model.ppay.MacrotipoPPayVO;
+ import it.csi.epay.epaypacatalogweb.model.ppay.RicercaVoceEntrataPPayFiltroVO;
+ import it.csi.epay.epaypacatalogweb.model.ppay.TematicaPPayVO;
+@@ -59,6 +57,8 @@
+ 
+     private static final String PAGINA_MODIFICA = "/codice-versamento/modifica/index";
+ 
++    private static final String PAGINA_NUOVO = "/codice-versamento/nuovo/index";
++
+     private static final String PAGINA_VISUALIZZA = "/codice-versamento/visualizza/index";
+ 
+     private static final String PAGINA_RICERCA = "/codice-versamento/ricerca/index";
+@@ -107,6 +107,10 @@
+ 
+     private static final String PAGINA_MODALE_VE_RISULTATI = "/codice-versamento/modifica/modale-voci-entrata/tabella_risultati";
+ 
++    private static final String MEX_COD_VERS_TIPO_PAGA_SPONT = "MEX_COD_VERS_TIPO_PAGA_SPONT";
++
++    private static final String CODICE_MEX_COD_VERS_TIPO_PAGA_SPONT = "SUGGEST_COD_VERS_TIPO_PAGA_SPONT";
++
+     @Autowired
+     private CodiceVersamentoManager codiceVersamentoManager;
+ 
+@@ -150,7 +154,7 @@
+         model.addAttribute ( MODEL_MACROTIPI, OpzioneComboVO.getOpzioni ( macrotipi ) );
+         model.addAttribute ( MODEL_VOCI_ENTRATA, vociEntrata );
+         model.addAttribute ( MODEL_VOCI_ENTRATA + "_JS", serializeForJavascript ( vociEntrata ) );
+-        
++
+         //FIX-INTEGRAZIONE
+         model.addAttribute ( "listaOpzioniModalitaIntegrazione", modalitaIntegrazione );
+     }
+@@ -161,7 +165,7 @@
+         List<GenericVO> tipiPagamento = decodificheManager.getListaOpzioniTipoPagamento ();
+         List<VoceEntrataPPayVO> vociEntrata = voceEntrataManager.getOpzioniVoceEntrata ();
+         List<GenericVO> modalitaIntegrazione = decodificheManager.getListaOpzioniModalitaIntegrazione ();
+-        
++
+         model.addAttribute ( MODEL_TEMATICHE, OpzioneComboVO.getOpzioni ( tematiche ) );
+         model.addAttribute ( MODEL_MACROTIPI, OpzioneComboVO.getOpzioni ( macrotipi ) );
+         model.addAttribute ( MODEL_TIPI_PAGAMENTO, tipiPagamento );
+@@ -170,6 +174,10 @@
+ 
+         //FIX-INTEGRAZIONE
+         model.addAttribute ( "listaOpzioniModalitaIntegrazione", modalitaIntegrazione);
++
++        //ENG:RDI-046
++        model.addAttribute ( MEX_COD_VERS_TIPO_PAGA_SPONT, decodificheManager.getTestoMessaggio ( CODICE_MEX_COD_VERS_TIPO_PAGA_SPONT ) );
++
+     }
+ 
+     public void loadComboboxesModificaCollegato ( Model model ) {
+@@ -207,7 +215,7 @@
+ 
+                 for ( RisultatoRicercaCodiceVersamentoVO elemento: list ) {
+                     elemento.setInserimentoConsentito ( false );
+-                    
++
+                     for ( UserDetailsInfoTematica tematicaVisibile: user.getTematiche () ) {
+                         if ( tematicaVisibile.getCodice ().equals ( elemento.getCodiceTematica () ) ) {
+                             if ( tematicaVisibile.getFlagVisibilitaTotale () != null && tematicaVisibile.getFlagVisibilitaTotale () ) {
+@@ -216,7 +224,7 @@
+                             break;
+                         }
+                     }
+-                    
++
+                     if(elemento.getTematicaEsclusa() != null && elemento.getTematicaEsclusa ().booleanValue () == true) {
+                         elemento.setInserimentoConsentito ( false );
+                     }
+@@ -358,7 +366,8 @@
+ 
+         try {
+             popolaModelModifica ( model, null, null, SCENARIO_NUOVO, null );
+-            return PAGINA_MODIFICA;
++            //ENG:RDI-046
++            return PAGINA_NUOVO;
+         } catch ( OperationFailedException e ) {
+             throw new RuntimeException ( e );
+         }
+@@ -371,7 +380,8 @@
+ 
+         try {
+             popolaModelModifica ( model, null, null, SCENARIO_NUOVO, codiceVoceEntrata );
+-            return PAGINA_MODIFICA;
++             //ENG:RDI-046
++            return PAGINA_NUOVO;
+         } catch ( OperationFailedException e ) {
+             throw new RuntimeException ( e );
+         }
+@@ -478,7 +488,8 @@
+ 
+             String validationResultsKey = "org.springframework.validation.BindingResult.modifica_codice_versamento";
+             model.addAttribute ( validationResultsKey, bindingResult.getModel ().get ( validationResultsKey ) );
+-            return PAGINA_MODIFICA;
++            //ENG:RDI-046
++            return PAGINA_NUOVO;
+         } else {
+             return "redirect:" + URL_RICERCA;
+         }
+@@ -535,7 +546,8 @@
+ 
+             String validationResultsKey = "org.springframework.validation.BindingResult.modifica_codice_versamento";
+             model.addAttribute ( validationResultsKey, bindingResult.getModel ().get ( validationResultsKey ) );
+-            return PAGINA_MODIFICA;
++            //ENG:RDI-046
++            return PAGINA_NUOVO;
+         } else {
+             return "redirect:" + URL_RICERCA;
+         }
+@@ -817,7 +829,7 @@
+     @RequestMapping ( value = "/json/ricerca-voci-entrata-disponibili", method = RequestMethod.GET )
+     public @ResponseBody List<VoceEntrataPPayVO> ricercaVociEntrataDisponibiliJson (
+         @Valid @ModelAttribute ( MODEL_FILTRO_RICERCA ) RicercaVoceEntrataPPayFiltroVO filtro,
+-            BindingResult bindingResult ) {
++        BindingResult bindingResult ) {
+ 
+         if ( bindingResult.hasErrors () ) {
+             throw new RuntimeException ( "Parametri non validi" );
+Index: src/webapp/views/riferimento-contabile/ricerca/tabella_risultati.jsp
+===================================================================
+--- src/webapp/views/riferimento-contabile/ricerca/tabella_risultati.jsp	(revision 3459)
++++ src/webapp/views/riferimento-contabile/ricerca/tabella_risultati.jsp	(working copy)
+@@ -22,6 +22,9 @@
+ 				class="riferimento-contabile riga-messaggio-nessun-riferimento"
+ 				custom-id-codice-versamento="${ riga_codice_versamento.id }"
+ 				custom-numero-riferimenti="${ riga_codice_versamento.numeroRiferimentiInVita }"
++				custom-ps-rif-cont="${riga_codice_versamento.codiceTipoPagamento == 'PS' 
++				and not empty riga_codice_versamento.riferimentiContabili
++				and riga_codice_versamento.riferimentiContabili.size() gt 0 ? 0 : 1}";
+ 			>
+ 				<td data-key="descrizioneCodiceVersamento" data-order="<c:out value="${riga_codice_versamento.codice}" /> - <c:out value="${riga_codice_versamento.descrizione}" />">
+ 					<%-- 						<c:out value="${riga.codiceCodiceVersamento}" /> - <c:out value="${riga.descrizioneCodiceVersamento}" /> --%>
+@@ -55,7 +58,11 @@
+ 				class="riga-${riga.inVita ? 'in-vita' : 'non-in-vita'} riferimento-contabile"
+ 				custom-id-codice-versamento="${ riga_codice_versamento.id }"
+ 				custom-numero-riferimenti="${ riga_codice_versamento.numeroRiferimentiInVita }"
+-			>
++				custom-ps-rif-cont="${riga_codice_versamento.codiceTipoPagamento == 'PS' 
++				and not empty riga_codice_versamento.riferimentiContabili
++				and riga_codice_versamento.riferimentiContabili.size() gt 0 ? 0 : 1}";
++			>			
++			
+ 				<td data-key="descrizioneCodiceVersamento" data-order="<c:out value="${riga_codice_versamento.codice}" /> - <c:out value="${riga_codice_versamento.descrizione}" /> ">
+ 					<%-- 						<c:out value="${riga.codiceCodiceVersamento}" /> - <c:out value="${riga.descrizioneCodiceVersamento}" /> --%>
+ 				</td>
+@@ -149,6 +156,9 @@
+ 				class="riferimento-contabile riga-messaggio-non-mostrati"
+ 				custom-id-codice-versamento="${ riga_codice_versamento.id }"
+ 				custom-numero-riferimenti="${ riga_codice_versamento.numeroRiferimentiInVita }"
++				custom-ps-rif-cont="${riga_codice_versamento.codiceTipoPagamento == 'PS' 
++				and not empty riga_codice_versamento.riferimentiContabili
++				and riga_codice_versamento.riferimentiContabili.size() gt 0 ? 0 : 1}";
+ 			>
+ 				<td data-key="descrizioneCodiceVersamento" data-order="<c:out value="${riga_codice_versamento.codice}" /> - <c:out value="${riga_codice_versamento.descrizione}" />">
+ 					<%-- 						<c:out value="${riga.codiceCodiceVersamento}" /> - <c:out value="${riga.descrizioneCodiceVersamento}" /> --%>
+Index: src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp	(working copy)
+@@ -0,0 +1,17 @@
++<div class="row-fluid">
++	<div class="span12">
++		<ul class="breadcrumb">
++			<li>
++				<a href="${context}${webappConfig.epaypaHome}${webappConfig.requestParam}<sec:authentication property="principal.ente.codiceFiscale" />"><spring:message code="home" /></a> <span class="divider"></span>
++			</li>
++			<li>
++				<a href="${context}/codici-versamento/ricerca"><spring:message code="codiceversamento.breadcrumb.ricercacodiciversamento" /></a>
++				<span class="divider"></span>
++			</li>
++			<li class="active">
++				${scenario == 'modifica' ? 'Modifica' : 'Nuovo' } 
++				<spring:message code="filter.codiceversamento" />
++			</li>
++		</ul>
++	</div>
++</div>
+Index: src/webapp/views/codice-versamento/nuovo/index.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/index.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/index.jsp	(working copy)
+@@ -0,0 +1,107 @@
++<%@ include file="../../include/head.jsp"%>
++
++<body>
++	<%@ include file="../../include/portal-header.jsp"%>
++	<%@ include file="breadcrumb.jsp"%>
++	<div class="container-fluid">
++		<div class="row-fluid">
++			<div class="contentPage">
++
++				<form:form 
++					id="modifica_codice_versamento" 
++					class="form-horizontal"
++					method="post" 
++					commandName="modifica_codice_versamento" modelAttribute="modifica_codice_versamento"
++					action="${context}/codici-versamento/${scenario == 'modifica' ? 'modifica/' : 'inserisci'}${scenario == 'modifica' ? modifica_codice_versamento.id : ''}"
++					track-changes="true"
++				>
++					<fieldset>
++
++						<h3>${scenario == 'modifica' ? 'Modifica' : 'Inserisci'} <spring:message code="filter.codiceversamento" /></h3>
++
++						<br />
++
++						<div class="step-content">
++							<div class="step-pane active">
++
++								<h4><spring:message code="index.parametri" /></h4>
++
++								<div class="row-fluid">
++									<p>
++										<span><spring:message code="index.campicontrassegnatida" /></span>
++										<span class="required"><spring:message code="index.asterisco" /></span>
++										<span><spring:message code="index.sonoobbligatori" /></span>
++									</p>
++								</div>
++
++								<div class="container-fluid">
++									<div class="row-fluid" id="formParametriContainer">
++										<%@ include file="form_parametri.jsp"%>
++									</div>
++								</div>
++
++								<c:if test="${scenario.equals('modifica')}">
++									<h4><spring:message code="codiceversamento.index.codiciversamentocollegati" /></h4>
++								
++									<div class="col-sm-12"  id="formCodiciCollegatiContainer">
++										<%@ include file="form_codici_collegati.jsp"%>
++									</div>
++									<div class="row-fluid">
++										<p class="margin-medium">
++										
++											<c:if test="${visibilita_totale}">
++												<sec:authorize access="hasRole('INSERISCI_CODICE_VERSAMENTO')">
++													<a id="insert" href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/nuovo?source=modifica" 
++														class="btn btn-primary btn-action pull-left"
++													>
++														<spring:message code="codiceversamento.modifica.index.associanuovocodiceversamento" />
++													</a>
++												</sec:authorize>
++											</c:if>
++											
++											<c:if test="${not empty modifica_codice_versamento.codiciVersamentoCollegati}">
++											<a id="formSubmitButtonScaricaCSV" class="btn btn-secondary btn-action pull-right"
++												href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/esporta-csv"  
++												style="margin-right: 0em;"
++											>
++												<span class="fas fa-file-alt"></span>
++												<spring:message code="scaricafilecsv" />
++											</a> 
++											<a id="formSubmitButtonScaricaExcel" class="btn btn-secondary btn-action pull-right"
++												href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/esporta-excel" 
++												style="margin-right: 1em;"
++											>
++												<span class="fas fa-file-excel"></span>
++												<spring:message code="scaricafileexcel" />
++											</a>
++											</c:if>
++											
++										</p>
++									</div>
++									
++									<br />
++								</c:if>
++								
++								<div class="row-fluid">
++									<p class="margin-medium">
++										<a id="buttonClean" class="btn btn-secondary btn-action"><spring:message code="button.cleanup" /></a>
++									</p>
++								</div>
++							</div>
++						</div>
++
++						<p class="margin-medium">
++							<a class="btn btn-secondary btn-action" id="buttonBack"><spring:message code="button.back" /></a>
++							<button type="button" id="buttonSave" class="btn btn-primary btn-action pull-right"><spring:message code="button.save" /></button>
++						</p>
++					</fieldset>
++				</form:form>
++			</div>
++		</div>
++	</div>
++	
++	<%@ include file="modale-voci-entrata/index.jsp"%>
++	
++	<%@ include file="script.jsp"%>
++	<%@ include file="../../include/portal-footer.jsp"%>
++</body>
+Index: src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/breadcrumb.jsp	(working copy)
+@@ -0,0 +1,17 @@
++<div class="row-fluid">
++	<div class="span12">
++		<ul class="breadcrumb">
++			<li>
++				<a href="${context}${webappConfig.epaypaHome}${webappConfig.requestParam}<sec:authentication property="principal.ente.codiceFiscale" />"><spring:message code="home" /></a> <span class="divider"></span>
++			</li>
++			<li>
++				<a href="${context}/codici-versamento/ricerca"><spring:message code="codiceversamento.breadcrumb.ricercacodiciversamento" /></a>
++				<span class="divider"></span>
++			</li>
++			<li class="active">
++				${scenario == 'modifica' ? 'Modifica' : 'Nuovo' } 
++				<spring:message code="filter.codiceversamento" />
++			</li>
++		</ul>
++	</div>
++</div>
+Index: src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp	(working copy)
+@@ -0,0 +1,59 @@
++
++<table id="results" class="table table-hover tab_left dataTable no-footer">
++	<thead>
++		<tr>
++			<th><spring:message code="form.ricerca.codice" /></th>
++			<th><spring:message code="form.ricerca.descrizione" /></th>
++			<th><spring:message code="iban" /></th>
++			<th><spring:message code="bic" /></th>
++			<th></th>
++		</tr>
++	</thead>
++
++	<tbody>
++		<c:forEach var="riga" items="${modifica_codice_versamento.codiciVersamentoCollegati}">
++		<tr>
++			<td data-key="codice">
++				<c:out value="${riga.codice}" />
++			</td>
++			<td data-key="descrizione">
++				<c:out value="${riga.descrizione}" />
++			</td>
++			<td data-key="iban">
++				<c:out value="${riga.iban}" > -- </c:out>
++			</td>
++			<td data-key="bic">
++				<c:out value="${riga.bic}" > -- </c:out>
++			</td>
++			<td>
++				<sec:authorize access="hasRole('MODIFICA_CODICE_VERSAMENTO') or hasRole('ELIMINA_CODICE_VERSAMENTO')">
++					<div id="tableRowActions" class="btn-group">
++						<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
++							<spring:message code="table.actions" /> <span class="caret"></span>
++						</button>
++						<ul class="dropdown-menu pull-right">
++							<li>
++								<a class="modificaAction" href="${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/visualizza/${riga.id}?source=modifica">
++									<spring:message code="codiceversamento.modifica.formcodicicollegati.visualizzacodiceversamentocollegato" />
++								</a>
++								<sec:authorize access="hasRole('MODIFICA_CODICE_VERSAMENTO')">
++									<a class="modificaAction" href="${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/modifica/${riga.id}?source=modifica">
++										<spring:message code="codiceversamento.modifica.formcodicicollegati.modificacodiceversamentocollegato" />
++									</a>
++								</sec:authorize>
++								<sec:authorize access="hasRole('ELIMINA_CODICE_VERSAMENTO')">
++									<a class="eliminaAction" 
++										onclick="eliminaCodiceVersamentoCollegato(${riga.id})">
++										<spring:message code="codiceversamento.modifica.formcodicicollegati.eliminacodiceversamentocollegato" />
++									</a>
++								</sec:authorize>
++							</li>
++						</ul>
++					</div>
++				</sec:authorize>
++			</td>
++		</tr>
++		</c:forEach>
++		
++	</tbody>
++</table>
+Index: src/webapp/views/codice-versamento/nuovo/form_parametri.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/form_parametri.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/form_parametri.jsp	(working copy)
+@@ -0,0 +1,210 @@
++<c:set var="w00" value="2" />
++<c:set var="w01" value="10" />
++<c:set var="w04" value="4" />
++<c:set var="w05" value="2" />
++
++<style>
++  /* Popover */
++  .popover {
++    top: 0px !important; 
++    left: 34% !important;
++    display: block !important;
++    border-color: red !important;
++    width:500px !important;
++    max-width: 600px !important;
++  }
++  /* Popover Header */
++  .popover-title {
++    font-size: 28px !important;
++    text-align:center !important;
++  }
++  /* Popover Body */
++  .popover-content {
++    padding: 5px !important;
++  }
++  /* Popover Arrow */
++  .arrow {
++    border-right-color: red !important;
++    top: 15px  !important;
++  }
++</style>
++
++<c:if test="${scenario ne 'modifica'}">
++<div class="container-fluid">
++	<div class="row-fluid mb-1">
++		<div class="form-group ">
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01} controls">
++				<a class="btn btn-primary btn-action" onclick="apriModaleVociEntrata()"><spring:message code="codiceversamento.modifica.cercavoceentratappay" /></a>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}"></div>
++		</div>
++	</div>
++</div>
++</c:if>
++
++<div class="container-fluid mb-1">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-2 control-label" for="codice"><spring:message code="filter.codiceversamento" /></label>
++			<div class="col-sm-10 controls">
++			
++				<div class="input-group input-group-inline">
++			  		<span class="input-group-addon input-codice-prefisso" id="container-codice-codice-versamento"><c:out value='${modifica_codice_versamento.codice}' /></span>
++					<form:input class="form-control input-descrizione-codice-versamento" path="descrizione" id="descrizione" maxlength="140" />
++				</div>
++				
++				<form:hidden path="codice" id="codice" />				
++			</div>
++			
++			<div class="col-sm-3">
++				<form:errors path="codice" cssClass="error" />
++			</div>
++			<div class="col-sm-9">
++				<form:errors path="descrizione" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid mb-1">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-2 control-label required" for="codiceVoceEntrata"><spring:message code="codiceversamento.form.voceentratappay" /></label>
++			<div class="col-sm-10 controls">
++				<form:hidden path="codiceVoceEntrata" />
++
++				<div class="input-group input-group-inline">
++			  		<span class="input-group-addon input-codice-prefisso" id="container-codice-voce-entrata"><c:out value='${modifica_codice_versamento.codiceVoceEntrata}' /></span>
++					<form:input class="form-control input-descrizione-voce-entrata" path="descrizioneVoceEntrata" id="descrizioneVoceEntrata" readonly="true" />
++				</div>
++				
++			</div>
++			
++			<div class="col-sm-2"></div>
++			<div class="col-sm-10">
++				<form:errors path="codiceVoceEntrata" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label required" for="codiceTipoPagamento"><spring:message code="tipopagamento" /></label>
++			<div class="col-sm-${w01} controls" readonly="true">
++				<form:select path="codiceTipoPagamento" class="form-control input-tipo-pagamento" >
++							 <!-- data-explanation="${fn:escapeXml( MEX_COD_VERS_TIPO_PAGA_SPONT )}"> -->
++					<form:option value=""><spring:message code="form.ricerca.qualsiasi" /></form:option>
++					<form:options items="${modelTipiPagamento}" 
++						itemLabel="descrizione" itemValue="codice" />
++				</form:select>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="codiceTipoPagamento" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="iban"><spring:message code="iban" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control view-uppercase input-iban" path="iban" maxlength="35" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="iban" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="bic"><spring:message code="bic" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control view-uppercase input-bic" path="bic" maxlength="11" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="bic" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="codiceModalitaIntegrazione"><spring:message code="ente.forms.formmodificaente.modalitaintegrazione" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:select path="codiceModalitaIntegrazione"
++					class="form-control input-modalita-integrazione">
++					<form:option value="" label="--- scegli ---" />
++					<form:options items="${listaOpzioniModalitaIntegrazione}"
++						itemValue="codice" itemLabel="descrizione" />
++				</form:select>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="codiceModalitaIntegrazione" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group " style="height: 20px;">
++			<label class="col-sm-${w00} control-label" for="flagInvioFlussi"><spring:message code="flaginvioflussi" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:checkbox class="checkbox-inline" path="flagInvioFlussi" id="flagInvioFlussi" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="flagInvioFlussi" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="email" id="eMailLabel"><spring:message code="filter.email" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control input-email" path="email" maxlength="250" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="email" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++<!-- RDI-027.15: TOGLIERE IL CAMPO Stato Attività Aggiornamento -->  
++<%-- 
++<c:if test="${scenario.equals('modifica')}">
++	<div class="container-fluid">
++		<div class="row-fluid">
++			<div class="form-group ">
++				<label class="col-sm-${w00} control-label" for="descrizioneStatoAggiornamento"><spring:message code="statoattivitaaggiornamento" /></label>
++				<div class="col-sm-${w01} controls">
++					<form:input class="form-control input-stato-aggiornamento" path="descrizioneStatoAggiornamento" readonly="true" />
++				</div>
++				<div class="col-sm-${w00}"></div>
++				<div class="col-sm-${w01}">
++					<form:errors path="descrizioneStatoAggiornamento" cssClass="error" />
++				</div>
++			</div>
++		</div>
++	</div>
++</c:if>
++--%>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/nuovo/index.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/index.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/index.jsp	(working copy)
+@@ -0,0 +1,107 @@
++<%@ include file="../../include/head.jsp"%>
++
++<body>
++	<%@ include file="../../include/portal-header.jsp"%>
++	<%@ include file="breadcrumb.jsp"%>
++	<div class="container-fluid">
++		<div class="row-fluid">
++			<div class="contentPage">
++
++				<form:form 
++					id="modifica_codice_versamento" 
++					class="form-horizontal"
++					method="post" 
++					commandName="modifica_codice_versamento" modelAttribute="modifica_codice_versamento"
++					action="${context}/codici-versamento/${scenario == 'modifica' ? 'modifica/' : 'inserisci'}${scenario == 'modifica' ? modifica_codice_versamento.id : ''}"
++					track-changes="true"
++				>
++					<fieldset>
++
++						<h3>${scenario == 'modifica' ? 'Modifica' : 'Inserisci'} <spring:message code="filter.codiceversamento" /></h3>
++
++						<br />
++
++						<div class="step-content">
++							<div class="step-pane active">
++
++								<h4><spring:message code="index.parametri" /></h4>
++
++								<div class="row-fluid">
++									<p>
++										<span><spring:message code="index.campicontrassegnatida" /></span>
++										<span class="required"><spring:message code="index.asterisco" /></span>
++										<span><spring:message code="index.sonoobbligatori" /></span>
++									</p>
++								</div>
++
++								<div class="container-fluid">
++									<div class="row-fluid" id="formParametriContainer">
++										<%@ include file="form_parametri.jsp"%>
++									</div>
++								</div>
++
++								<c:if test="${scenario.equals('modifica')}">
++									<h4><spring:message code="codiceversamento.index.codiciversamentocollegati" /></h4>
++								
++									<div class="col-sm-12"  id="formCodiciCollegatiContainer">
++										<%@ include file="form_codici_collegati.jsp"%>
++									</div>
++									<div class="row-fluid">
++										<p class="margin-medium">
++										
++											<c:if test="${visibilita_totale}">
++												<sec:authorize access="hasRole('INSERISCI_CODICE_VERSAMENTO')">
++													<a id="insert" href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/nuovo?source=modifica" 
++														class="btn btn-primary btn-action pull-left"
++													>
++														<spring:message code="codiceversamento.modifica.index.associanuovocodiceversamento" />
++													</a>
++												</sec:authorize>
++											</c:if>
++											
++											<c:if test="${not empty modifica_codice_versamento.codiciVersamentoCollegati}">
++											<a id="formSubmitButtonScaricaCSV" class="btn btn-secondary btn-action pull-right"
++												href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/esporta-csv"  
++												style="margin-right: 0em;"
++											>
++												<span class="fas fa-file-alt"></span>
++												<spring:message code="scaricafilecsv" />
++											</a> 
++											<a id="formSubmitButtonScaricaExcel" class="btn btn-secondary btn-action pull-right"
++												href="${context}/codici-versamento/${id_codice_versamento}/codici-versamento-collegati/esporta-excel" 
++												style="margin-right: 1em;"
++											>
++												<span class="fas fa-file-excel"></span>
++												<spring:message code="scaricafileexcel" />
++											</a>
++											</c:if>
++											
++										</p>
++									</div>
++									
++									<br />
++								</c:if>
++								
++								<div class="row-fluid">
++									<p class="margin-medium">
++										<a id="buttonClean" class="btn btn-secondary btn-action"><spring:message code="button.cleanup" /></a>
++									</p>
++								</div>
++							</div>
++						</div>
++
++						<p class="margin-medium">
++							<a class="btn btn-secondary btn-action" id="buttonBack"><spring:message code="button.back" /></a>
++							<button type="button" id="buttonSave" class="btn btn-primary btn-action pull-right"><spring:message code="button.save" /></button>
++						</p>
++					</fieldset>
++				</form:form>
++			</div>
++		</div>
++	</div>
++	
++	<%@ include file="modale-voci-entrata/index.jsp"%>
++	
++	<%@ include file="script.jsp"%>
++	<%@ include file="../../include/portal-footer.jsp"%>
++</body>
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp	(working copy)
+@@ -0,0 +1,90 @@
++<form id="entry-ricerca-vocientrata" name="entry-ricerca-vocientrata" >
++	<fieldset>
++		<div class="container-fluid">
++			<div class="row-fluid">
++				<div class="form-group ">
++					<label class="col-sm-12 control-label">
++					<form:errors path="id" cssClass="boxedError" /></label>    
++				</div>
++			</div>
++		</div>
++		
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label" for="codice"><spring:message code="form.ricerca.codice" />
++					</label>
++					<div class="col-sm-9 controls">
++						<input type="text" name="codice" class="form-control input-filtro-codice-voce-entrata" id="codice" />
++					</div>
++				</div>
++			</div>
++		</div>
++		
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label" for="descrizione"><spring:message code="form.ricerca.descrizione" />
++					</label>
++					<div class="col-sm-9 controls">
++						<input type="text" class="form-control input-filtro-descrizione-voce-entrata" id="descrizione" name="descrizione" />
++					</div>
++				</div>
++			</div>
++		</div>
++
++
++		<div class="container-fluid">
++			<div class="row-fluid">
++				<div class="form-group ">
++					<label class="col-sm-2 control-label"
++						for="entry-ricerca-listedicarico_idCodVersamento"><spring:message code="form.ricerca.tematica" />
++					</label>
++					<div class="col-sm-9 controls">
++						<select name="codiceTematica" class="form-control input-filtro-tematica">
++							<option value=""><spring:message code="form.ricerca.qualsiasi" /></option>
++							<c:forEach var="opzione" items="${modelTematiche}">
++								<option value="${opzione.codice}">
++									<c:out value="${opzione.codiceDescrizione}" />
++								</option>
++							</c:forEach>
++						</select>
++
++					</div>
++				</div>
++			</div>
++		</div>
++				
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label"
++						for="entry-ricerca-listedicarico_idCodVersamento"><spring:message code="form.ricerca.macrotipo" />
++					</label>
++					<div class="col-sm-9 controls">
++						<select name="codiceMacrotipo" class="form-control input-filtro-macrotipo">
++							<option value=""><spring:message code="form.ricerca.qualsiasi" /></option>
++							<c:forEach var="opzione" items="${modelMacrotipi}">
++								<option value="${opzione.codice}">
++									<c:out value="${opzione.codiceDescrizione}" />
++								</option>
++							</c:forEach>
++						</select>
++
++					</div>
++				</div>
++
++			</div>
++		</div>
++
++		<div class="row-fluid">
++			<p class="margin-medium">
++				<a id="formSubmitButtonPulisciVE" class="btn btn-secondary btn-action" onclick="pulisciRicercaVE()"><spring:message code="button.cleanup" /></a> 
++				<a class="btn btn-primary btn-action pull-right" id="formSubmitButtonCercaVE" onclick="eseguiRicercaVE()"><spring:message code="button.search" /></a>
++			</p>
++		</div>
++	</fieldset>
++</form>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp	(working copy)
+@@ -0,0 +1,27 @@
++<div class="modal" tabindex="-1" role="dialog" id="modalRicercaVoceEntrata">
++	<div class="modal-dialog modal-lg" role="document">
++		<div class="modal-content">
++			<div class="modal-header">
++				<h4 class="modal-title"><spring:message code="codiceversamento.modifica.cercavoceentratappay" /></h4>
++				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
++					<span aria-hidden="true">&times;</span>
++				</button>
++			</div>
++			<div class="modal-body">
++				<div class="row" id="row-filtri-ve">
++					<div class="col-sm-12">
++						<%@ include file="form.jsp"%>
++					</div>
++				</div>
++				<div class="row" id="row-risultati-ve">
++					<div class="col-sm-12">
++						
++					</div>
++				</div>
++			</div>
++			<div class="modal-footer">
++				<button type="button" class="btn btn-secondary btn-action" data-dismiss="modal"><spring:message code="button.cancel" /></button>
++			</div>
++		</div>
++	</div>
++</div>
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp	(working copy)
+@@ -0,0 +1,42 @@
++<%@ include file="../../../include/head_ajax.jsp"%>
++
++<div id="rendered">
++
++	<c:if test="${lista_risultati_ve_vuota}">
++	<div class ="col-sm-12">
++		<p class="alert alert-warning">
++			<spring:message code="validation.noResultAllowed" />
++		</p>
++	</div>
++	</c:if>
++	
++	<c:if test ="${not empty lista_risultati_ve}">
++	<div class ="col-sm-12">
++		<table id="results-ve" class="table table-hover tab_left dataTable no-footer" auto-data-table>
++			<thead>
++			<tr>
++				<th><spring:message code="form.ricerca.codice" /></th>
++				<th><spring:message code="form.ricerca.descrizione" /></th>
++				<th><spring:message code="form.ricerca.tematica" /></th>
++				<th><spring:message code="form.ricerca.macrotipo" /></th>
++				<th></th>
++			</tr>
++			</thead>
++			<tbody>
++				<c:forEach var="result" items="${lista_risultati_ve}">
++				<tr>
++					<td data-key="codice"><c:out value="${result.codice}"/></td>
++					<td data-key="descrizione"><c:out value="${result.descrizione}"/></td>
++					<td data-key="descrizioneTematica"><c:out value="${result.descrizioneTematica}"/></td>
++					<td data-key="descrizioneMacrotipo"><c:out value="${result.descrizioneMacrotipo}"/></td>
++					<td>
++						<a class="btn btn-primary btn-action pull-right" onclick="selezionaVoceEntrata('${result.codice}')"><spring:message code="button.select" /></a>
++					</td>
++				</tr>
++				</c:forEach>
++			</tbody>
++		</table>
++	</div>
++	
++	</c:if>
++</div>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/nuovo/script.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/script.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/script.jsp	(working copy)
+@@ -0,0 +1,274 @@
++<script>
++var table_selector_ve = "#results-ve";
++
++function eliminaCodiceVersamentoCollegato(target) {
++	chiediConfermaEliminazione("Si e' sicuri di eliminare il codice versamento collegato selezionato?", function() {
++		window.location.href = '${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/elimina/' + target + '?source=modifica';
++	});	
++}
++
++function apriModaleVociEntrata() {
++	var modal = $("#modalRicercaVoceEntrata");
++	modal.modal("show");
++}
++
++function selezionaVoceEntrata(codice) {
++	var voce = getVoceEntrataByCodice(codice);
++
++	$("#codice").val(voce.codice);
++	$("#descrizione").val(voce.descrizione);
++	$("#codiceVoceEntrata").val(voce.codice);
++	$("#descrizioneVoceEntrata").val(voce.descrizione);
++	$("#descrizioneCompletaVoceEntrata").val(voce.codice + " - " + voce.descrizione);
++	$("#container-codice-codice-versamento").html(voce.codice);
++	$("#container-codice-voce-entrata").html(voce.codice);
++
++	var modal = $("#modalRicercaVoceEntrata");
++	modal.modal("hide");
++
++	setTimeout(function() {
++		$("#descrizione").focus()
++	}, 250);
++}
++
++function pulisciRicercaVE() {
++	clearPage(table_selector_ve);
++	$("#modalRicercaVoceEntrata input:not([readonly])").val("");
++	$("#modalRicercaVoceEntrata select").val("");
++	$("#modalRicercaVoceEntrata input[type=checkbox]").prop("checked", false);
++	$("#row-risultati-ve").html("");
++}
++
++function eseguiRicercaVE() {
++	clearPage(table_selector_ve);
++	$("#row-risultati-ve").html("<div class='container-fluid'> <div class='row'> <div class='col-sm-12' style='text-align:center;'> ricerca in corso ... </div> </div> </div>");
++	$("#row-risultati-ve").load(
++		'${context}/codici-versamento/ajax/ricerca-voci-entrata-disponibili #rendered', 
++		$("#entry-ricerca-vocientrata").serialize(),
++		function() {
++			
++			$(table_selector_ve).DataTable({
++				order: [],
++				columnDefs: [ 
++					{ orderable: false, targets: [$("#results th").size() - 1] } 
++				]
++			});
++
++			 $("#modalRicercaVoceEntrata").find('.modal-body').css({
++	              'width': 'auto',
++	              'height': 'auto', 
++	              'max-height': '100%'
++	         });
++		}
++	);
++}
++
++function getVociEntrata() {
++	var options = <c:out value="${modelVociEntrata_JS}" escapeXml="false"  />;
++	
++	return options;
++};
++
++function getVoceEntrataByCodice(codice) {
++	var input = getVociEntrata();
++
++	for (var i = 0; i < input.length; i ++) {
++		if (input[i].codice == codice) {
++			return input[i];
++		}
++	}
++	
++	return null;
++}
++
++$( document ).ready(function() {
++	
++	$('#results').DataTable({
++		order: [],
++		columnDefs: [ 
++			{ orderable: false, targets: [$("#results th").size() - 1] } 
++		]		
++	});
++
++	function getNumeroCodiciCollegati() {
++		return ${scenario.equals('modifica') ? modifica_codice_versamento.getCodiciVersamentoCollegati().size() : 0};
++	}
++	
++	function getScenario() {
++		return '${scenario}';
++	}
++
++	function isNuovo() {
++		return getScenario() === 'nuovo';
++	}
++
++	function isModifica() {
++		return getScenario() === 'modifica';
++	}
++	
++	$("#buttonSave").on('click',function(){
++		$("#modifica_codice_versamento").submit();
++	});
++	
++	$("#buttonBack").on('click',function(){
++		location = baseLocation + "codici-versamento/ricerca";
++	});
++	
++	$("#buttonClean").on('click',function(){
++		$("#modifica_codice_versamento").setDirty();
++		
++		$("#formParametriContainer input:not([readonly]):not(.voceEntrata)").val("");
++
++// 		if (isNuovo() || getNumeroCodiciCollegati() == 0) {
++// 			$("#formParametriContainer .voceEntrata").val("");	
++// 		}
++		
++		$("#formParametriContainer select").val("");
++		$("#formParametriContainer input[type=checkbox]").prop("checked", false);
++		// $("#descrizioneVoceEntrata").val("");
++		$("span.error").html("");
++
++		if (isNuovo()) {
++			$("#container-codice-codice-versamento").html("");
++			$("#container-codice-voce-entrata").html("");
++			$("#codiceVoceEntrata").val("");
++			$("#descrizioneVoceEntrata").val("");
++		}
++	});
++
++	$("#flagInvioFlussi").on('change',function(){
++		syncForm();
++	});
++
++
++	if (false && (isNuovo() || getNumeroCodiciCollegati() == 0)) {
++		$("#codiceVoceEntrata").autocomplete({
++			minLength : 1,
++			source : getAutocompleteVociEntrata(),
++			select : function(event, ui) {
++				if (ui.item.val == -1) {
++	                $(this).val("");
++	                $("#descrizioneVoceEntrata").val("");
++	                $("#descrizione").val("");
++	                $("#codice").val("");
++	                return false;
++				} else {
++					var voce = getVoceEntrataByCodice(ui.item.label);
++	               	$("#descrizioneVoceEntrata").val(voce.descrizione);
++	               	$("#descrizione").val(voce.descrizione);
++	               	$("#codice").val(voce.codice);
++				}
++			},
++			change: function (e, u) {
++	            if (u.item == null) {
++	                $(this).val("");
++	                $("#descrizioneVoceEntrata").val("");
++	                $("#descrizione").val("");
++	                $("#codice").val("");
++	                return false;
++	            }
++	        }
++		});
++	} else {
++		$("#codiceVoceEntrata").attr("readonly", "readonly");
++	}
++	
++	function getVociEntrata() {
++		var options = <c:out value="${modelVociEntrata_JS}" escapeXml="false"  />;
++		
++		return options;
++	};
++
++	function getCodiciVociEntrata() {
++		var input = getVociEntrata();
++		var output = [];
++
++		for (var i = 0; i < input.length; i ++) {
++			output.push(input[i].codice);
++		}
++		
++		return output;
++	}
++
++	function getAutocompleteVociEntrata() {
++		if (true) {
++			return getCodiciVociEntrata() ;
++		}
++	}
++	
++	function getVoceEntrataByCodice(codice) {
++		var input = getVociEntrata();
++
++		for (var i = 0; i < input.length; i ++) {
++			if (input[i].codice == codice) {
++				return input[i];
++			}
++		}
++		
++		return null;
++	}
++
++	$("#iban,#bic").on('change',function(){
++		syncForm();
++	});
++	
++	function syncForm(initial) {
++		var sourceElement = $("#flagInvioFlussi");
++		var targetElement = $("#eMailLabel");
++		if (sourceElement.prop("checked")) {
++			targetElement.addClass("required");
++		} else {
++			targetElement.removeClass("required");
++		}
++
++		var ibanField = $("#iban");
++		var bicField = $("#bic");
++		
++		var ibanEmpty = !ibanField.val();
++		var bicEmpty = !bicField.val();
++		if (!ibanEmpty || !bicEmpty) {
++			$("label[for='iban']").addClass("required");
++			$("label[for='bic']").addClass("required");
++		} else {
++			$("label[for='iban']").removeClass("required");
++			$("label[for='bic']").removeClass("required");
++		}
++		
++	} 
++	
++	var valoreInizialeCodiceVoceEntrata = $("#codiceVoceEntrata").val();
++	if (valoreInizialeCodiceVoceEntrata) {
++		var voceInizialeCodiceVoceEntrata = getVoceEntrataByCodice(valoreInizialeCodiceVoceEntrata);
++       	$("#descrizioneVoceEntrata").val(voceInizialeCodiceVoceEntrata.descrizione);
++       	$("#codice").val(voceInizialeCodiceVoceEntrata.codice);
++	}
++
++	var valoreInizialeCodice = $("#codice").val();
++	if (valoreInizialeCodice) {
++       	$("#container-codice-codice-versamento").html(valoreInizialeCodice);
++	}
++
++	syncForm(true);
++	
++	scrollToFirstError();
++	
++	
++	$("#codiceTipoPagamento").on('change',function(){
++		if ($("#codiceTipoPagamento").val() == 'PS') {
++			$("#codiceTipoPagamento").popover({
++		        trigger: 'manual',
++		        placement: 'right',
++		        content: function() {
++		           var message = "<c:out value='${MEX_COD_VERS_TIPO_PAGA_SPONT}' escapeXml='false'/>";
++		             return message;
++		        }
++		    });
++		    $("#codiceTipoPagamento").popover("show");
++		} else {
++			$("#codiceTipoPagamento").popover('hide');
++		}
++	});
++});
++
++
++</script>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/modifica/form_parametri.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/modifica/form_parametri.jsp	(revision 3459)
++++ src/webapp/views/codice-versamento/modifica/form_parametri.jsp	(working copy)
+@@ -68,8 +68,8 @@
+ 	<div class="row-fluid">
+ 		<div class="form-group ">
+ 			<label class="col-sm-${w00} control-label required" for="codiceTipoPagamento"><spring:message code="tipopagamento" /></label>
+-			<div class="col-sm-${w01} controls">
+-				<form:select path="codiceTipoPagamento" class="form-control input-tipo-pagamento">
++			<div class="col-sm-${w01} controls" readonly="true">
++				<form:select path="codiceTipoPagamento" class="form-control input-tipo-pagamento" readonly="true" disabled="true">
+ 					<form:option value=""><spring:message code="form.ricerca.qualsiasi" /></form:option>
+ 					<form:options items="${modelTipiPagamento}" 
+ 						itemLabel="descrizione" itemValue="codice" />
+Index: src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/form_codici_collegati.jsp	(working copy)
+@@ -0,0 +1,59 @@
++
++<table id="results" class="table table-hover tab_left dataTable no-footer">
++	<thead>
++		<tr>
++			<th><spring:message code="form.ricerca.codice" /></th>
++			<th><spring:message code="form.ricerca.descrizione" /></th>
++			<th><spring:message code="iban" /></th>
++			<th><spring:message code="bic" /></th>
++			<th></th>
++		</tr>
++	</thead>
++
++	<tbody>
++		<c:forEach var="riga" items="${modifica_codice_versamento.codiciVersamentoCollegati}">
++		<tr>
++			<td data-key="codice">
++				<c:out value="${riga.codice}" />
++			</td>
++			<td data-key="descrizione">
++				<c:out value="${riga.descrizione}" />
++			</td>
++			<td data-key="iban">
++				<c:out value="${riga.iban}" > -- </c:out>
++			</td>
++			<td data-key="bic">
++				<c:out value="${riga.bic}" > -- </c:out>
++			</td>
++			<td>
++				<sec:authorize access="hasRole('MODIFICA_CODICE_VERSAMENTO') or hasRole('ELIMINA_CODICE_VERSAMENTO')">
++					<div id="tableRowActions" class="btn-group">
++						<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
++							<spring:message code="table.actions" /> <span class="caret"></span>
++						</button>
++						<ul class="dropdown-menu pull-right">
++							<li>
++								<a class="modificaAction" href="${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/visualizza/${riga.id}?source=modifica">
++									<spring:message code="codiceversamento.modifica.formcodicicollegati.visualizzacodiceversamentocollegato" />
++								</a>
++								<sec:authorize access="hasRole('MODIFICA_CODICE_VERSAMENTO')">
++									<a class="modificaAction" href="${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/modifica/${riga.id}?source=modifica">
++										<spring:message code="codiceversamento.modifica.formcodicicollegati.modificacodiceversamentocollegato" />
++									</a>
++								</sec:authorize>
++								<sec:authorize access="hasRole('ELIMINA_CODICE_VERSAMENTO')">
++									<a class="eliminaAction" 
++										onclick="eliminaCodiceVersamentoCollegato(${riga.id})">
++										<spring:message code="codiceversamento.modifica.formcodicicollegati.eliminacodiceversamentocollegato" />
++									</a>
++								</sec:authorize>
++							</li>
++						</ul>
++					</div>
++				</sec:authorize>
++			</td>
++		</tr>
++		</c:forEach>
++		
++	</tbody>
++</table>
+Index: src/webapp/views/riferimento-contabile/ricerca/script.jsp
+===================================================================
+--- src/webapp/views/riferimento-contabile/ricerca/script.jsp	(revision 3459)
++++ src/webapp/views/riferimento-contabile/ricerca/script.jsp	(working copy)
+@@ -56,39 +56,41 @@
+ 				// verifico se posso inserire altri riferimenti
+ 				var elementoAzioni = $('<td />');
+ 				if (isInserimentoAllowed()) {
+-					if (firstRowJquery.attr("custom-numero-riferimenti") < 5 ) {
+-						var idCodiceVersamento = firstRowJquery.attr("custom-id-codice-versamento");
+-						elementoAzioni.html(
+-							'<div id="tableRowActions" class="btn-group">' +
+-							'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
+-							'<ul class="dropdown-menu pull-right"><li>' +
+-								'<a class="inserisciContextualAction" href="${context}/riferimenti-contabili/nuovo?codiceVersamento=' + idCodiceVersamento + '" >' +
+-								' <spring:message code="riferimenticontabili.action.inserisci" /> </a>' +
+-							'</li></ul></div>'
+-						);
+-						
+-					} else {
+-						// elementoAzioni.html('<a class="btn btn-sm inserisciContextualAction disabled"> Inserisci </a>');
+-						// elementoAzioni.html('');
+-
+-// 						elementoAzioni.html(
+-// 							'<div id="tableRowActions" class="btn-group">' +
+-// 							'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
+-// 							'<ul class="dropdown-menu pull-right"><li>' +
+-// 								'<a onclick="mostraErroreTroppiRiferimenti()" >' +
+-// 								' Inserisci riferimento contabile </a>' +
+-// 							'</li></ul></div>'
+-// 						);
+-						var idCodiceVersamento = firstRowJquery.attr("custom-id-codice-versamento");
+-						elementoAzioni.html(
+-							'<div id="tableRowActions" class="btn-group">' +
+-							'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
+-							'<ul class="dropdown-menu pull-right"><li>' +
+-								'<a class="inserisciContextualAction" href="${context}/riferimenti-contabili/nuovo?codiceVersamento=' + idCodiceVersamento + '" >' +
+-								' <spring:message code="riferimenticontabili.action.inserisci" /> </a>' +
+-							'</li></ul></div>'
+-						);
+-					}					
++					if (firstRowJquery.attr("custom-ps-rif-cont") > 0) {						
++						if (firstRowJquery.attr("custom-numero-riferimenti") < 5 ) {							
++							var idCodiceVersamento = firstRowJquery.attr("custom-id-codice-versamento");
++							elementoAzioni.html(
++								'<div id="tableRowActions" class="btn-group">' +
++								'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
++								'<ul class="dropdown-menu pull-right"><li>' +
++									'<a class="inserisciContextualAction" href="${context}/riferimenti-contabili/nuovo?codiceVersamento=' + idCodiceVersamento + '" >' +
++									' <spring:message code="riferimenticontabili.action.inserisci" /> </a>' +
++								'</li></ul></div>'
++							);
++							
++						} else {
++							// elementoAzioni.html('<a class="btn btn-sm inserisciContextualAction disabled"> Inserisci </a>');
++							// elementoAzioni.html('');
++	
++	// 						elementoAzioni.html(
++	// 							'<div id="tableRowActions" class="btn-group">' +
++	// 							'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
++	// 							'<ul class="dropdown-menu pull-right"><li>' +
++	// 								'<a onclick="mostraErroreTroppiRiferimenti()" >' +
++	// 								' Inserisci riferimento contabile </a>' +
++	// 							'</li></ul></div>'
++	// 						);
++							var idCodiceVersamento = firstRowJquery.attr("custom-id-codice-versamento");
++							elementoAzioni.html(
++								'<div id="tableRowActions" class="btn-group">' +
++								'<button class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> Azioni <span class="caret"></span></button>' +
++								'<ul class="dropdown-menu pull-right"><li>' +
++									'<a class="inserisciContextualAction" href="${context}/riferimenti-contabili/nuovo?codiceVersamento=' + idCodiceVersamento + '" >' +
++									' <spring:message code="riferimenticontabili.action.inserisci" /> </a>' +
++								'</li></ul></div>'
++							);
++						}
++					}
+ 				}
+ 				
+ 				return $('<tr/>')
+Index: src/java/it/csi/epay/epaypacatalogweb/common/Messages.java
+===================================================================
+--- src/java/it/csi/epay/epaypacatalogweb/common/Messages.java	(revision 2401)
++++ src/java/it/csi/epay/epaypacatalogweb/common/Messages.java	(working copy)
+@@ -14,6 +14,9 @@
+ 
+     public final static String USER_EXISTS = "Utente esistente";
+ 
++    public final static String LIMIT_COD_VERS_TIPO_PS
++        = "E' stato raggiunto il numero massimo di riferimenti contabili possibili per il codice versamento specificato";
++
+     static {
+     }
+ }
+Index: src/webapp/views/codice-versamento/nuovo/form_parametri.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/form_parametri.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/form_parametri.jsp	(working copy)
+@@ -0,0 +1,210 @@
++<c:set var="w00" value="2" />
++<c:set var="w01" value="10" />
++<c:set var="w04" value="4" />
++<c:set var="w05" value="2" />
++
++<style>
++  /* Popover */
++  .popover {
++    top: 0px !important; 
++    left: 34% !important;
++    display: block !important;
++    border-color: red !important;
++    width:500px !important;
++    max-width: 600px !important;
++  }
++  /* Popover Header */
++  .popover-title {
++    font-size: 28px !important;
++    text-align:center !important;
++  }
++  /* Popover Body */
++  .popover-content {
++    padding: 5px !important;
++  }
++  /* Popover Arrow */
++  .arrow {
++    border-right-color: red !important;
++    top: 15px  !important;
++  }
++</style>
++
++<c:if test="${scenario ne 'modifica'}">
++<div class="container-fluid">
++	<div class="row-fluid mb-1">
++		<div class="form-group ">
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01} controls">
++				<a class="btn btn-primary btn-action" onclick="apriModaleVociEntrata()"><spring:message code="codiceversamento.modifica.cercavoceentratappay" /></a>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}"></div>
++		</div>
++	</div>
++</div>
++</c:if>
++
++<div class="container-fluid mb-1">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-2 control-label" for="codice"><spring:message code="filter.codiceversamento" /></label>
++			<div class="col-sm-10 controls">
++			
++				<div class="input-group input-group-inline">
++			  		<span class="input-group-addon input-codice-prefisso" id="container-codice-codice-versamento"><c:out value='${modifica_codice_versamento.codice}' /></span>
++					<form:input class="form-control input-descrizione-codice-versamento" path="descrizione" id="descrizione" maxlength="140" />
++				</div>
++				
++				<form:hidden path="codice" id="codice" />				
++			</div>
++			
++			<div class="col-sm-3">
++				<form:errors path="codice" cssClass="error" />
++			</div>
++			<div class="col-sm-9">
++				<form:errors path="descrizione" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid mb-1">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-2 control-label required" for="codiceVoceEntrata"><spring:message code="codiceversamento.form.voceentratappay" /></label>
++			<div class="col-sm-10 controls">
++				<form:hidden path="codiceVoceEntrata" />
++
++				<div class="input-group input-group-inline">
++			  		<span class="input-group-addon input-codice-prefisso" id="container-codice-voce-entrata"><c:out value='${modifica_codice_versamento.codiceVoceEntrata}' /></span>
++					<form:input class="form-control input-descrizione-voce-entrata" path="descrizioneVoceEntrata" id="descrizioneVoceEntrata" readonly="true" />
++				</div>
++				
++			</div>
++			
++			<div class="col-sm-2"></div>
++			<div class="col-sm-10">
++				<form:errors path="codiceVoceEntrata" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label required" for="codiceTipoPagamento"><spring:message code="tipopagamento" /></label>
++			<div class="col-sm-${w01} controls" readonly="true">
++				<form:select path="codiceTipoPagamento" class="form-control input-tipo-pagamento" >
++							 <!-- data-explanation="${fn:escapeXml( MEX_COD_VERS_TIPO_PAGA_SPONT )}"> -->
++					<form:option value=""><spring:message code="form.ricerca.qualsiasi" /></form:option>
++					<form:options items="${modelTipiPagamento}" 
++						itemLabel="descrizione" itemValue="codice" />
++				</form:select>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="codiceTipoPagamento" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="iban"><spring:message code="iban" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control view-uppercase input-iban" path="iban" maxlength="35" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="iban" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="bic"><spring:message code="bic" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control view-uppercase input-bic" path="bic" maxlength="11" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="bic" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="codiceModalitaIntegrazione"><spring:message code="ente.forms.formmodificaente.modalitaintegrazione" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:select path="codiceModalitaIntegrazione"
++					class="form-control input-modalita-integrazione">
++					<form:option value="" label="--- scegli ---" />
++					<form:options items="${listaOpzioniModalitaIntegrazione}"
++						itemValue="codice" itemLabel="descrizione" />
++				</form:select>
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="codiceModalitaIntegrazione" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group " style="height: 20px;">
++			<label class="col-sm-${w00} control-label" for="flagInvioFlussi"><spring:message code="flaginvioflussi" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:checkbox class="checkbox-inline" path="flagInvioFlussi" id="flagInvioFlussi" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="flagInvioFlussi" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++
++<div class="container-fluid">
++	<div class="row-fluid">
++		<div class="form-group ">
++			<label class="col-sm-${w00} control-label" for="email" id="eMailLabel"><spring:message code="filter.email" /></label>
++			<div class="col-sm-${w01} controls">
++				<form:input class="form-control input-email" path="email" maxlength="250" />
++			</div>
++			<div class="col-sm-${w00}"></div>
++			<div class="col-sm-${w01}">
++				<form:errors path="email" cssClass="error" />
++			</div>
++		</div>
++	</div>
++</div>
++<!-- RDI-027.15: TOGLIERE IL CAMPO Stato Attività Aggiornamento -->  
++<%-- 
++<c:if test="${scenario.equals('modifica')}">
++	<div class="container-fluid">
++		<div class="row-fluid">
++			<div class="form-group ">
++				<label class="col-sm-${w00} control-label" for="descrizioneStatoAggiornamento"><spring:message code="statoattivitaaggiornamento" /></label>
++				<div class="col-sm-${w01} controls">
++					<form:input class="form-control input-stato-aggiornamento" path="descrizioneStatoAggiornamento" readonly="true" />
++				</div>
++				<div class="col-sm-${w00}"></div>
++				<div class="col-sm-${w01}">
++					<form:errors path="descrizioneStatoAggiornamento" cssClass="error" />
++				</div>
++			</div>
++		</div>
++	</div>
++</c:if>
++--%>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/form.jsp	(working copy)
+@@ -0,0 +1,90 @@
++<form id="entry-ricerca-vocientrata" name="entry-ricerca-vocientrata" >
++	<fieldset>
++		<div class="container-fluid">
++			<div class="row-fluid">
++				<div class="form-group ">
++					<label class="col-sm-12 control-label">
++					<form:errors path="id" cssClass="boxedError" /></label>    
++				</div>
++			</div>
++		</div>
++		
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label" for="codice"><spring:message code="form.ricerca.codice" />
++					</label>
++					<div class="col-sm-9 controls">
++						<input type="text" name="codice" class="form-control input-filtro-codice-voce-entrata" id="codice" />
++					</div>
++				</div>
++			</div>
++		</div>
++		
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label" for="descrizione"><spring:message code="form.ricerca.descrizione" />
++					</label>
++					<div class="col-sm-9 controls">
++						<input type="text" class="form-control input-filtro-descrizione-voce-entrata" id="descrizione" name="descrizione" />
++					</div>
++				</div>
++			</div>
++		</div>
++
++
++		<div class="container-fluid">
++			<div class="row-fluid">
++				<div class="form-group ">
++					<label class="col-sm-2 control-label"
++						for="entry-ricerca-listedicarico_idCodVersamento"><spring:message code="form.ricerca.tematica" />
++					</label>
++					<div class="col-sm-9 controls">
++						<select name="codiceTematica" class="form-control input-filtro-tematica">
++							<option value=""><spring:message code="form.ricerca.qualsiasi" /></option>
++							<c:forEach var="opzione" items="${modelTematiche}">
++								<option value="${opzione.codice}">
++									<c:out value="${opzione.codiceDescrizione}" />
++								</option>
++							</c:forEach>
++						</select>
++
++					</div>
++				</div>
++			</div>
++		</div>
++				
++		<div class="container-fluid">
++			<div class="row-fluid">
++
++				<div class="form-group ">
++					<label class="col-sm-2 control-label"
++						for="entry-ricerca-listedicarico_idCodVersamento"><spring:message code="form.ricerca.macrotipo" />
++					</label>
++					<div class="col-sm-9 controls">
++						<select name="codiceMacrotipo" class="form-control input-filtro-macrotipo">
++							<option value=""><spring:message code="form.ricerca.qualsiasi" /></option>
++							<c:forEach var="opzione" items="${modelMacrotipi}">
++								<option value="${opzione.codice}">
++									<c:out value="${opzione.codiceDescrizione}" />
++								</option>
++							</c:forEach>
++						</select>
++
++					</div>
++				</div>
++
++			</div>
++		</div>
++
++		<div class="row-fluid">
++			<p class="margin-medium">
++				<a id="formSubmitButtonPulisciVE" class="btn btn-secondary btn-action" onclick="pulisciRicercaVE()"><spring:message code="button.cleanup" /></a> 
++				<a class="btn btn-primary btn-action pull-right" id="formSubmitButtonCercaVE" onclick="eseguiRicercaVE()"><spring:message code="button.search" /></a>
++			</p>
++		</div>
++	</fieldset>
++</form>
+\ No newline at end of file
+Index: src/java/it/csi/epay/epaypacatalogweb/frontend/RiferimentoContabileController.java
+===================================================================
+--- src/java/it/csi/epay/epaypacatalogweb/frontend/RiferimentoContabileController.java	(revision 3459)
++++ src/java/it/csi/epay/epaypacatalogweb/frontend/RiferimentoContabileController.java	(working copy)
+@@ -27,6 +27,7 @@
+ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+ 
+ import it.csi.epay.epaypacatalogweb.business.manager.AuthorizationManager;
++import it.csi.epay.epaypacatalogweb.business.manager.CodiceVersamentoManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.DecodificheManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.EsportazioneManager;
+ import it.csi.epay.epaypacatalogweb.business.manager.RiferimentoContabileManager;
+@@ -66,6 +67,8 @@
+ 
+     private static final String URL_RICERCA = "/riferimenti-contabili/ricerca";
+ 
++    private static final String URL_NUOVO = "/riferimenti-contabili/nuovo";
++
+     private static final String MODEL_MODIFICA_RIFERIMENTO_CONTABILE = "modifica_riferimento_contabile";
+ 
+     private static final String MODEL_CHIUDI_RIFERIMENTO_CONTABILE = "chiudi_riferimento_contabile";
+@@ -360,7 +363,7 @@
+     @RequestMapping ( value = "/visualizza-storico/{idPadre}/{id}", method = RequestMethod.GET )
+     public String viewVisualizzaStoricoRiferimentoContabile ( @PathVariable ( "idPadre" ) Long idPadre, @PathVariable ( "id" ) Long id, Model model,
+         HttpServletRequest request )
+-                    throws OperationFailedException {
++                        throws OperationFailedException {
+ 
+         authorizationManager.require ( RiferimentoContabileVO.class, id, EntityAction.WRITE );
+ 
+@@ -462,6 +465,20 @@
+             model.addAttribute ( validationResultsKey, bindingResult.getModel ().get ( validationResultsKey ) );
+             return PAGINA_MODIFICA;
+         } else {
++
++            //ENG:RDI-046
++            RicercaRiferimentoContabileFiltroVO filtro = new RicercaRiferimentoContabileFiltroVO ();
++            filtro.setIdCodiceVersamento ( userInput.getIdCodiceVersamento () );
++            List<RisultatoRicercaRiferimentoContabileRaggruppatoCodiceVersamentoVO> listRifCont = riferimentoContabileManager.ricerca ( filtro );
++            if ( null != listRifCont && listRifCont.size () > 0
++                            && StringUtils.equals ( "PS", listRifCont.get ( 0 ).getCodiceTipoPagamento () )
++                            && null != listRifCont.get ( 0 ).getRiferimentiContabili ()
++                            && listRifCont.get ( 0 ).getRiferimentiContabili ().size () > 0 ) {
++                redirectAttributes.addFlashAttribute ( MODEL_MESSAGGIO_ERRORE,
++                    String.format ( Messages.ERROR_SAVING_CHANGES, Messages.LIMIT_COD_VERS_TIPO_PS ) );
++                return "redirect:" + URL_NUOVO;
++            }
++
+             try {
+                 riferimentoContabileManager.inserisci ( userInput );
+                 redirectAttributes.addFlashAttribute ( MODEL_MESSAGGIO_INFO, Messages.SAVED_SUCCESSFULLY );
+Index: src/webapp/views/codice-versamento/nuovo/script.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/script.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/script.jsp	(working copy)
+@@ -0,0 +1,274 @@
++<script>
++var table_selector_ve = "#results-ve";
++
++function eliminaCodiceVersamentoCollegato(target) {
++	chiediConfermaEliminazione("Si e' sicuri di eliminare il codice versamento collegato selezionato?", function() {
++		window.location.href = '${context}/codici-versamento/${modifica_codice_versamento.id}/codici-versamento-collegati/elimina/' + target + '?source=modifica';
++	});	
++}
++
++function apriModaleVociEntrata() {
++	var modal = $("#modalRicercaVoceEntrata");
++	modal.modal("show");
++}
++
++function selezionaVoceEntrata(codice) {
++	var voce = getVoceEntrataByCodice(codice);
++
++	$("#codice").val(voce.codice);
++	$("#descrizione").val(voce.descrizione);
++	$("#codiceVoceEntrata").val(voce.codice);
++	$("#descrizioneVoceEntrata").val(voce.descrizione);
++	$("#descrizioneCompletaVoceEntrata").val(voce.codice + " - " + voce.descrizione);
++	$("#container-codice-codice-versamento").html(voce.codice);
++	$("#container-codice-voce-entrata").html(voce.codice);
++
++	var modal = $("#modalRicercaVoceEntrata");
++	modal.modal("hide");
++
++	setTimeout(function() {
++		$("#descrizione").focus()
++	}, 250);
++}
++
++function pulisciRicercaVE() {
++	clearPage(table_selector_ve);
++	$("#modalRicercaVoceEntrata input:not([readonly])").val("");
++	$("#modalRicercaVoceEntrata select").val("");
++	$("#modalRicercaVoceEntrata input[type=checkbox]").prop("checked", false);
++	$("#row-risultati-ve").html("");
++}
++
++function eseguiRicercaVE() {
++	clearPage(table_selector_ve);
++	$("#row-risultati-ve").html("<div class='container-fluid'> <div class='row'> <div class='col-sm-12' style='text-align:center;'> ricerca in corso ... </div> </div> </div>");
++	$("#row-risultati-ve").load(
++		'${context}/codici-versamento/ajax/ricerca-voci-entrata-disponibili #rendered', 
++		$("#entry-ricerca-vocientrata").serialize(),
++		function() {
++			
++			$(table_selector_ve).DataTable({
++				order: [],
++				columnDefs: [ 
++					{ orderable: false, targets: [$("#results th").size() - 1] } 
++				]
++			});
++
++			 $("#modalRicercaVoceEntrata").find('.modal-body').css({
++	              'width': 'auto',
++	              'height': 'auto', 
++	              'max-height': '100%'
++	         });
++		}
++	);
++}
++
++function getVociEntrata() {
++	var options = <c:out value="${modelVociEntrata_JS}" escapeXml="false"  />;
++	
++	return options;
++};
++
++function getVoceEntrataByCodice(codice) {
++	var input = getVociEntrata();
++
++	for (var i = 0; i < input.length; i ++) {
++		if (input[i].codice == codice) {
++			return input[i];
++		}
++	}
++	
++	return null;
++}
++
++$( document ).ready(function() {
++	
++	$('#results').DataTable({
++		order: [],
++		columnDefs: [ 
++			{ orderable: false, targets: [$("#results th").size() - 1] } 
++		]		
++	});
++
++	function getNumeroCodiciCollegati() {
++		return ${scenario.equals('modifica') ? modifica_codice_versamento.getCodiciVersamentoCollegati().size() : 0};
++	}
++	
++	function getScenario() {
++		return '${scenario}';
++	}
++
++	function isNuovo() {
++		return getScenario() === 'nuovo';
++	}
++
++	function isModifica() {
++		return getScenario() === 'modifica';
++	}
++	
++	$("#buttonSave").on('click',function(){
++		$("#modifica_codice_versamento").submit();
++	});
++	
++	$("#buttonBack").on('click',function(){
++		location = baseLocation + "codici-versamento/ricerca";
++	});
++	
++	$("#buttonClean").on('click',function(){
++		$("#modifica_codice_versamento").setDirty();
++		
++		$("#formParametriContainer input:not([readonly]):not(.voceEntrata)").val("");
++
++// 		if (isNuovo() || getNumeroCodiciCollegati() == 0) {
++// 			$("#formParametriContainer .voceEntrata").val("");	
++// 		}
++		
++		$("#formParametriContainer select").val("");
++		$("#formParametriContainer input[type=checkbox]").prop("checked", false);
++		// $("#descrizioneVoceEntrata").val("");
++		$("span.error").html("");
++
++		if (isNuovo()) {
++			$("#container-codice-codice-versamento").html("");
++			$("#container-codice-voce-entrata").html("");
++			$("#codiceVoceEntrata").val("");
++			$("#descrizioneVoceEntrata").val("");
++		}
++	});
++
++	$("#flagInvioFlussi").on('change',function(){
++		syncForm();
++	});
++
++
++	if (false && (isNuovo() || getNumeroCodiciCollegati() == 0)) {
++		$("#codiceVoceEntrata").autocomplete({
++			minLength : 1,
++			source : getAutocompleteVociEntrata(),
++			select : function(event, ui) {
++				if (ui.item.val == -1) {
++	                $(this).val("");
++	                $("#descrizioneVoceEntrata").val("");
++	                $("#descrizione").val("");
++	                $("#codice").val("");
++	                return false;
++				} else {
++					var voce = getVoceEntrataByCodice(ui.item.label);
++	               	$("#descrizioneVoceEntrata").val(voce.descrizione);
++	               	$("#descrizione").val(voce.descrizione);
++	               	$("#codice").val(voce.codice);
++				}
++			},
++			change: function (e, u) {
++	            if (u.item == null) {
++	                $(this).val("");
++	                $("#descrizioneVoceEntrata").val("");
++	                $("#descrizione").val("");
++	                $("#codice").val("");
++	                return false;
++	            }
++	        }
++		});
++	} else {
++		$("#codiceVoceEntrata").attr("readonly", "readonly");
++	}
++	
++	function getVociEntrata() {
++		var options = <c:out value="${modelVociEntrata_JS}" escapeXml="false"  />;
++		
++		return options;
++	};
++
++	function getCodiciVociEntrata() {
++		var input = getVociEntrata();
++		var output = [];
++
++		for (var i = 0; i < input.length; i ++) {
++			output.push(input[i].codice);
++		}
++		
++		return output;
++	}
++
++	function getAutocompleteVociEntrata() {
++		if (true) {
++			return getCodiciVociEntrata() ;
++		}
++	}
++	
++	function getVoceEntrataByCodice(codice) {
++		var input = getVociEntrata();
++
++		for (var i = 0; i < input.length; i ++) {
++			if (input[i].codice == codice) {
++				return input[i];
++			}
++		}
++		
++		return null;
++	}
++
++	$("#iban,#bic").on('change',function(){
++		syncForm();
++	});
++	
++	function syncForm(initial) {
++		var sourceElement = $("#flagInvioFlussi");
++		var targetElement = $("#eMailLabel");
++		if (sourceElement.prop("checked")) {
++			targetElement.addClass("required");
++		} else {
++			targetElement.removeClass("required");
++		}
++
++		var ibanField = $("#iban");
++		var bicField = $("#bic");
++		
++		var ibanEmpty = !ibanField.val();
++		var bicEmpty = !bicField.val();
++		if (!ibanEmpty || !bicEmpty) {
++			$("label[for='iban']").addClass("required");
++			$("label[for='bic']").addClass("required");
++		} else {
++			$("label[for='iban']").removeClass("required");
++			$("label[for='bic']").removeClass("required");
++		}
++		
++	} 
++	
++	var valoreInizialeCodiceVoceEntrata = $("#codiceVoceEntrata").val();
++	if (valoreInizialeCodiceVoceEntrata) {
++		var voceInizialeCodiceVoceEntrata = getVoceEntrataByCodice(valoreInizialeCodiceVoceEntrata);
++       	$("#descrizioneVoceEntrata").val(voceInizialeCodiceVoceEntrata.descrizione);
++       	$("#codice").val(voceInizialeCodiceVoceEntrata.codice);
++	}
++
++	var valoreInizialeCodice = $("#codice").val();
++	if (valoreInizialeCodice) {
++       	$("#container-codice-codice-versamento").html(valoreInizialeCodice);
++	}
++
++	syncForm(true);
++	
++	scrollToFirstError();
++	
++	
++	$("#codiceTipoPagamento").on('change',function(){
++		if ($("#codiceTipoPagamento").val() == 'PS') {
++			$("#codiceTipoPagamento").popover({
++		        trigger: 'manual',
++		        placement: 'right',
++		        content: function() {
++		           var message = "<c:out value='${MEX_COD_VERS_TIPO_PAGA_SPONT}' escapeXml='false'/>";
++		             return message;
++		        }
++		    });
++		    $("#codiceTipoPagamento").popover("show");
++		} else {
++			$("#codiceTipoPagamento").popover('hide');
++		}
++	});
++});
++
++
++</script>
+\ No newline at end of file
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/index.jsp	(working copy)
+@@ -0,0 +1,27 @@
++<div class="modal" tabindex="-1" role="dialog" id="modalRicercaVoceEntrata">
++	<div class="modal-dialog modal-lg" role="document">
++		<div class="modal-content">
++			<div class="modal-header">
++				<h4 class="modal-title"><spring:message code="codiceversamento.modifica.cercavoceentratappay" /></h4>
++				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
++					<span aria-hidden="true">&times;</span>
++				</button>
++			</div>
++			<div class="modal-body">
++				<div class="row" id="row-filtri-ve">
++					<div class="col-sm-12">
++						<%@ include file="form.jsp"%>
++					</div>
++				</div>
++				<div class="row" id="row-risultati-ve">
++					<div class="col-sm-12">
++						
++					</div>
++				</div>
++			</div>
++			<div class="modal-footer">
++				<button type="button" class="btn btn-secondary btn-action" data-dismiss="modal"><spring:message code="button.cancel" /></button>
++			</div>
++		</div>
++	</div>
++</div>
+Index: src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp
+===================================================================
+--- src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp	(nonexistent)
++++ src/webapp/views/codice-versamento/nuovo/modale-voci-entrata/tabella_risultati.jsp	(working copy)
+@@ -0,0 +1,42 @@
++<%@ include file="../../../include/head_ajax.jsp"%>
++
++<div id="rendered">
++
++	<c:if test="${lista_risultati_ve_vuota}">
++	<div class ="col-sm-12">
++		<p class="alert alert-warning">
++			<spring:message code="validation.noResultAllowed" />
++		</p>
++	</div>
++	</c:if>
++	
++	<c:if test ="${not empty lista_risultati_ve}">
++	<div class ="col-sm-12">
++		<table id="results-ve" class="table table-hover tab_left dataTable no-footer" auto-data-table>
++			<thead>
++			<tr>
++				<th><spring:message code="form.ricerca.codice" /></th>
++				<th><spring:message code="form.ricerca.descrizione" /></th>
++				<th><spring:message code="form.ricerca.tematica" /></th>
++				<th><spring:message code="form.ricerca.macrotipo" /></th>
++				<th></th>
++			</tr>
++			</thead>
++			<tbody>
++				<c:forEach var="result" items="${lista_risultati_ve}">
++				<tr>
++					<td data-key="codice"><c:out value="${result.codice}"/></td>
++					<td data-key="descrizione"><c:out value="${result.descrizione}"/></td>
++					<td data-key="descrizioneTematica"><c:out value="${result.descrizioneTematica}"/></td>
++					<td data-key="descrizioneMacrotipo"><c:out value="${result.descrizioneMacrotipo}"/></td>
++					<td>
++						<a class="btn btn-primary btn-action pull-right" onclick="selezionaVoceEntrata('${result.codice}')"><spring:message code="button.select" /></a>
++					</td>
++				</tr>
++				</c:forEach>
++			</tbody>
++		</table>
++	</div>
++	
++	</c:if>
++</div>
+\ No newline at end of file
