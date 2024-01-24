@@ -1,0 +1,243 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+div.navbarLogin {
+	background: none repeat scroll 0 0 #fff;
+	color: #333;
+	background: url(im/PortaleRilevazioni.png) no-repeat 18px 3px #fff;
+	line-height: 40px;
+	min-height: 55px
+}
+
+div.navbarLogin p {
+	padding-left: 50px
+}
+
+.navbar-link {
+	background-image: url(im/rupar/iconErrorHead.gif);
+	padding: 5px 10px;
+	background-repeat: no-repeat;
+	background-position: 3px center
+}
+
+.navbarLogin .login-text {
+	font-weight: 700;
+	font-size: small;
+	color: #777;
+	padding-top: 12px;
+	padding-right: 10px
+}
+
+div#applicationHeader.with_image {
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	padding-left: 180px
+}
+
+div#applicationHeader h2 {
+	display: none;
+	font-size: 3em;
+	font-weight: 700;
+	margin-bottom: 0;
+	margin: 0;
+	padding: 3px 10px 0 178px
+}
+
+div#applicationHeader h2:first-letter {
+	font-size: 1.01em !important
+}
+
+div#applicationHeader h2.with_subtitle {
+	font-size: 3em;
+	letter-spacing: 1px
+}
+
+.nascosto, hr {
+	clear: none;
+	height: 0;
+	left: -10000px;
+	overflow: hidden;
+	position: absolute;
+	top: -10000px;
+	width: 0
+}
+
+div.contentPage {
+	background: none repeat scroll 0 0 #fff;
+	border: 1px solid #ddd;
+	margin-bottom: 8px;
+	padding: 15px 15px 7px
+}
+
+div.PaddcontentPage {
+	padding: 15px 15px 7px
+}
+
+a.toggle_open strong, a.toggle_close strong {
+	display: none
+}
+
+.modal {
+	min-height: 50px
+}
+
+.modal, .modal.fade.in {
+	top: 5%
+}
+
+.modal-body {
+	max-height: 370px
+}
+
+.table thead th {
+	vertical-align: top;
+	text-align: center
+}
+
+.table.tab_centered tbody td {
+	text-align: center
+}
+
+.table.tab_left, .table.tab_left tbody, .table.tab_left tbody th, .table.tab_left thead th
+	{
+	text-align: left
+}
+
+.table tbody th.tab_Center, .table thead th.tab_Center, .table tbody th.tab_Center
+	{
+	text-align: center
+}
+
+.table.fontSmall {
+	font-size: 11px
+}
+
+.table.bgColor {
+	background-color: #f4f4f4
+}
+
+.table.tab_right tbody, .table.tab_right tbody th, .table.tab_right thead th
+	{
+	text-align: right
+}
+
+.accordion-toggle span.icon {
+	background-position: -430px -94px
+}
+
+.collapsed span.icon {
+	background-position: -405px -94px
+}
+
+.loading5_img {
+	background: url(im/loading.gif) no-repeat -100px -35px transparent;
+	background-size: cover;
+	width: 300px;
+	height: 300px
+}
+
+.row-fluid .minHeightContent {
+	min-height: 370px
+}
+
+.span6 a.cr_title:hover {
+	text-decoration: none !important
+}
+
+a.cr_title {
+	background: none repeat scroll 0 0 #666;
+	background-image: url(im/arrow_down.png);
+	background-repeat: no-repeat;
+	background-size: 30px 30px;
+	background-position: 100% 0;
+	color: #fff;
+	display: block;
+	font-size: 20px;
+	font-weight: 700;
+	padding: 5px;
+	cursor: default
+}
+
+a.cr_title.arrow, a.cr_title.first_cr {
+	background-image: url(im/arrow_up.png)
+}
+
+.ulNoliststyle ul li {
+	list-style: none;
+	margin-bottom: 2px
+}
+
+.ulNoliststyle ul, .ulNoliststyle ul li ul {
+	margin-left: 0
+}
+
+.ulNoliststyle ul li ul li ul li {
+	list-style: disc
+}
+
+.ulNoliststyle ul li ul li ul {
+	margin-left: 15px
+}
+
+.ulNoliststyle ul li.accordion_info {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .055);
+	height: 140px;
+	overflow: auto
+}
+
+.accordion-heading .accordion-toggle {
+	background-color: #F2F3F5;
+	background-image: linear-gradient(to bottom, #fefefe, #dfe2e7);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FEFEFE',
+		EndColorStr='#DFE2E7');
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.gradient(startColorStr='#FEFEFE', EndColorStr='#DFE2E7')";
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
+	color: #555;
+	text-shadow: 0 1px 0 #fff;
+	font-weight: 700;
+	font-size: 13px
+}
+
+.datiVisibili1 .dl-horizontal, .datiVisibili2 .dl-horizontal {
+	margin: 0
+}
+
+.dialogAlert {
+	width: 500px;
+	margin-left: -250px
+}
+
+.dialogAlert .modal-dialog {
+	margin-bottom: 0;
+	padding: 0;
+	border: 10px solid #E63B3D;
+	background: url(im/rupar/iconError.gif) 14px 14px no-repeat;
+	border-radius: 5px
+}
+
+.dialogAlert .modal-dialog .modal-header .modal-title {
+	padding: 16px 35px 20px 60px;
+	margin: 0
+}
+
+.dialogAlert .modal-dialog .modal-footer {
+	padding: 5px 15px
+}
+
+.pagination ul {
+	width: 100%
+}
+
+.custom-width-modal {
+	width: 400px;
+	margin-left: -200px
+}
+
+#ui-datepicker-div, .datepicker, .datepicker:after {
+	z-index: 2000 !important
+}

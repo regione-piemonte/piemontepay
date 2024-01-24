@@ -1,0 +1,995 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://epaymodric.interfacews.epaymodric.epay.csi.it/" name="Epaymodric" targetNamespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://epaymodric.interfacews.epaymodric.epay.csi.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+  <xs:element name="aggiornaProvvisori" type="tns:aggiornaProvvisori"/>
+  <xs:element name="aggiornaProvvisoriResponse" type="tns:aggiornaProvvisoriResponse"/>
+  <xs:element name="aggiornaStatoElaborazione" type="tns:aggiornaStatoElaborazione"/>
+  <xs:element name="aggiornaStatoElaborazioneResponse" type="tns:aggiornaStatoElaborazioneResponse"/>
+  <xs:element name="aggiornaStatoFlusso" type="tns:aggiornaStatoFlusso"/>
+  <xs:element name="aggiornaStatoFlussoResponse" type="tns:aggiornaStatoFlussoResponse"/>
+  <xs:element name="attivaElaborazione" type="tns:attivaElaborazione"/>
+  <xs:element name="attivaElaborazioneResponse" type="tns:attivaElaborazioneResponse"/>
+  <xs:element name="elencaEnti" type="tns:elencaEnti"/>
+  <xs:element name="elencaEntiResponse" type="tns:elencaEntiResponse"/>
+  <xs:element name="emailDequeue" type="tns:emailDequeue"/>
+  <xs:element name="emailDequeueResponse" type="tns:emailDequeueResponse"/>
+  <xs:element name="eseguiElaborazione" type="tns:eseguiElaborazione"/>
+  <xs:element name="eseguiElaborazioneResponse" type="tns:eseguiElaborazioneResponse"/>
+  <xs:element name="inserisciElaborazione" type="tns:inserisciElaborazione"/>
+  <xs:element name="inserisciElaborazioneResponse" type="tns:inserisciElaborazioneResponse"/>
+  <xs:element name="lockBreak" type="tns:lockBreak"/>
+  <xs:element name="lockBreakResponse" type="tns:lockBreakResponse"/>
+  <xs:element name="lockFind" type="tns:lockFind"/>
+  <xs:element name="lockFindResponse" type="tns:lockFindResponse"/>
+  <xs:element name="ricercaFlussiDettaglio" type="tns:ricercaFlussiDettaglio"/>
+  <xs:element name="ricercaFlussiDettaglioResponse" type="tns:ricercaFlussiDettaglioResponse"/>
+  <xs:element name="ricercaFlussiSintesi" type="tns:ricercaFlussiSintesi"/>
+  <xs:element name="ricercaFlussiSintesiResponse" type="tns:ricercaFlussiSintesiResponse"/>
+  <xs:element name="ricercaFlussoOrigine" type="tns:ricercaFlussoOrigine"/>
+  <xs:element name="ricercaFlussoOrigineResponse" type="tns:ricercaFlussoOrigineResponse"/>
+  <xs:element name="ricercaStatoFlusso" type="tns:ricercaStatoFlusso"/>
+  <xs:element name="ricercaStatoFlussoResponse" type="tns:ricercaStatoFlussoResponse"/>
+  <xs:element name="salvaLogAudit" type="tns:salvaLogAudit"/>
+  <xs:element name="salvaLogAuditResponse" type="tns:salvaLogAuditResponse"/>
+  <xs:element name="spacchettaFlussiDaSpacchettareByEnte" type="tns:spacchettaFlussiDaSpacchettareByEnte"/>
+  <xs:element name="spacchettaFlussiDaSpacchettareByEnteResponse" type="tns:spacchettaFlussiDaSpacchettareByEnteResponse"/>
+  <xs:element name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso" type="tns:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso"/>
+  <xs:element name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse" type="tns:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse"/>
+  <xs:element name="testResources" type="tns:testResources"/>
+  <xs:element name="testResourcesResponse" type="tns:testResourcesResponse"/>
+  <xs:element name="trasmettiFlussiInErrorePagoPA" type="tns:trasmettiFlussiInErrorePagoPA"/>
+  <xs:element name="trasmettiFlussiInErrorePagoPAResponse" type="tns:trasmettiFlussiInErrorePagoPAResponse"/>
+  <xs:element name="trasmettiFlussiPagoPA" type="tns:trasmettiFlussiPagoPA"/>
+  <xs:element name="trasmettiFlussiPagoPAResponse" type="tns:trasmettiFlussiPagoPAResponse"/>
+  <xs:complexType name="eseguiElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEnte" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="identificativiFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="isRiesecuzione" type="xs:string"/>
+      <xs:element minOccurs="0" name="idElaborazione" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eseguiElaborazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsMotoreDiRiconciliazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsMotoreDiRiconciliazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listaErrori" nillable="true" type="tns:dtoErroreFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoUtente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="identificativoEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUtente" type="xs:string"/>
+      <xs:element minOccurs="0" name="ruoloUtente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsEsito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoErroreFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataAggiornamentoStato" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneAggiuntivaErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneErrore" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipologia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lockFind">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:dtoInputWsLock"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsLock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscaleEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFine" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizio" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idUtente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lockFindResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" type="tns:dtoOutputWsLock"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsLock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dataFine" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataInizio" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="descrizioneEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="idUtente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResources">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dummy" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="testResourcesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="attivaElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:dtoInputWsAttivaElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsAttivaElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscaleEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="daFrontend" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="idElaborazionePrecedente" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="attivaElaborazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsMotoreDiRiconciliazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:dtoInputWsElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceEnte" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="flussiDaElaborare" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="isRiesecuzione" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="statoDaImpostare" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inserisciElaborazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtpOutputWsElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtpOutputWsElaborazione">
+    <xs:complexContent>
+      <xs:extension base="tns:dtoBaseContabilizzatore">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="idElaborazione" type="xs:long"/>
+          <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+          <xs:element minOccurs="0" name="risultatoOutputEstemporanea" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="dtoBaseContabilizzatore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="risposta" type="tns:dtoBaseResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoBaseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+      <xs:element minOccurs="0" name="stacktrace" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiDettaglio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaFlussoDettaglio" type="tns:dtoInputWsRicercaFlussoDettaglio"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsRicercaFlussoDettaglio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="idFlussoSintesi" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiDettaglioResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" type="tns:dtoOutputWsFlussoDettaglio"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsFlussoDettaglio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="flussiDettaglio" nillable="true" type="tns:dtoFlussoDettaglio"/>
+      <xs:element minOccurs="0" name="flussoSintesi" type="tns:dtoFlussoSintesi"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoFlussoDettaglio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="anagraficaPagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceFiscalePagatore" type="xs:string"/>
+      <xs:element minOccurs="0" name="codiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="esitoPagamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="flussoSintesi" type="tns:dtoFlussoSintesi"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="idTransaction" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUnicoRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoUnicoVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoSingoloVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="indiceSingoloVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="statoInvioFruitore" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoFlussoSintesi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceVersamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiSpecificiDiRiscossione" type="xs:string"/>
+      <xs:element minOccurs="0" name="flussoOrigine" type="tns:dtoFlussoOrigine"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoQuotaAggregazione" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listaVersamenti" nillable="true" type="tns:dtoFlussoDettaglio"/>
+      <xs:element minOccurs="0" name="numeroVersamentoQuotaAggregazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="provvisorioAnno" type="xs:string"/>
+      <xs:element minOccurs="0" name="provvisorioNumero" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoFlussoOrigine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contatoreTentativi" type="xs:int"/>
+      <xs:element minOccurs="0" name="dataInserimento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataOraFlusso" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ibanRiversamentoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoIstitutoRicevente" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoPsp" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoTotalePagamenti" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroTotalePagamenti" type="xs:int"/>
+      <xs:element minOccurs="0" name="statoFlusso" type="tns:dtoStatoFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoStatoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceStato" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizioneStato" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaStatoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaStatoFlusso" type="tns:dtoInputWsRicercaStatoFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsRicercaStatoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaStatoFlussoResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" type="tns:dtoOutputWsStatoFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsStatoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="statiFlusso" nillable="true" type="tns:dtoStatoFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="salvaLogAudit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="logAudit" type="tns:dtoInputWsLogAudit"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsLogAudit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codappmodify" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataOra" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="dtoAuditAction" type="tns:dtoAuditAction"/>
+      <xs:element minOccurs="0" name="idaction" type="xs:string"/>
+      <xs:element minOccurs="0" name="uniqueid" type="xs:int"/>
+      <xs:element minOccurs="0" name="utente" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoAuditAction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="idaction" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="salvaLogAuditResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoInputWsLogAudit"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaStatoElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idElaborazione" type="xs:long"/>
+      <xs:element minOccurs="0" name="nuovaStatoElaborazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="utenteModifica" type="tns:dtoUtente"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaStatoElaborazioneResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsAggiornaStatoElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsAggiornaStatoElaborazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="es" type="xs:string"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element minOccurs="0" name="risultato" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="elencaEnti">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="elencaEntiResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dtoOutputWsEnti"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsEnti">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="enti" nillable="true" type="tns:dtoEnte"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="denominazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="emailEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="entePlurintermediato" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagAccertamento" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRicezioneErrori" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="flagRiconciliazione" type="xs:boolean"/>
+      <xs:element name="giornoSchedulazione" type="xs:int"/>
+      <xs:element minOccurs="0" name="ibanTesoreria" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+      <xs:element name="periodicitaSchedulazione" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lockBreak">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lockBreakResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trasmettiFlussiInErrorePagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="input" type="tns:dtoInputWsTrasmettiFlussiInErrorePagoPA"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsTrasmettiFlussiInErrorePagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="idFlusso" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trasmettiFlussiInErrorePagoPAResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsTrasmettiFlussiInErrorePagoPA"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsTrasmettiFlussiInErrorePagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element minOccurs="0" name="flussiInErroreXml" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:dtoInputWsSpacchettamentoFlussoRendicontazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsSpacchettamentoFlussoRendicontazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscaleEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="idFlussoOrigine" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtpOutputWsElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trasmettiFlussiPagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="input" type="tns:dtoInputWsTrasmettiFlussiPagoPA"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsTrasmettiFlussiPagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="idFlusso" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="trasmettiFlussiPagoPAResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsTrasmettiFlussiPagoPA"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsTrasmettiFlussiPagoPA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element minOccurs="0" name="flussoRiconciliazioneXml" type="xs:string"/>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaProvvisori">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="listaProvvisoriDaAggiornare" type="tns:dtoInputWsAggiornaProvvisori"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsAggiornaProvvisori">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="dtoProvvisorioList" nillable="true" type="tns:dtoProvvisorio"/>
+      <xs:element minOccurs="0" name="dtoUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="identificativoEnte" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoProvvisorio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="annoEsercizio" type="xs:int"/>
+      <xs:element minOccurs="0" name="annoProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="causale" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataFine" type="xs:anySimpleType"/>
+      <xs:element minOccurs="0" name="dataMovimento" type="xs:anySimpleType"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="importoDisponibilita" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="importoProvvisorio" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="numeroProvvisorio" type="xs:int"/>
+      <xs:element minOccurs="0" name="stato" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoMovimento" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaProvvisoriResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsEsito"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaStatoFlusso">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+      <xs:element minOccurs="0" name="nuovoStatoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="utente" type="tns:dtoUtente"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aggiornaStatoFlussoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtoOutputWsCambioStatoFlusso"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsCambioStatoFlusso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoOrigine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaFlussoOrigine" type="tns:dtoInputWsRicercaFlussoOrigine"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsRicercaFlussoOrigine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="dataElaborazioneA" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dataElaborazioneDa" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="idStatoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoFlusso" type="xs:string"/>
+      <xs:element minOccurs="0" name="identificativoIstitutoRicevente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussoOrigineResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" type="tns:dtoOutputWsFlussoOrigine"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsFlussoOrigine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="flussiOrigine" nillable="true" type="tns:dtoFlussoOrigine"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="spacchettaFlussiDaSpacchettareByEnte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="tns:dtoInputWsAcquisizioneFlussoRendicontazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsAcquisizioneFlussoRendicontazione">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codiceFiscale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="spacchettaFlussiDaSpacchettareByEnteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:dtpOutputWsElaborazione"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="emailDequeue">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="emailDequeueResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiSintesi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ricercaFlussoSintesi" type="tns:dtoInputWsRicercaFlussoSintesi"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoInputWsRicercaFlussoSintesi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="idFlussoOrigine" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ricercaFlussiSintesiResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="result" type="tns:dtoOutputWsFlussoSintesi"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoOutputWsFlussoSintesi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datiUtente" type="tns:dtoUtente"/>
+      <xs:element minOccurs="0" name="esito" type="tns:dtoOutputWsEsito"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="flussiSintesi" nillable="true" type="tns:dtoFlussoSintesi"/>
+      <xs:element minOccurs="0" name="flussoOrigine" type="tns:dtoFlussoOrigine"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+  <xs:complexType name="UnrecoverableException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EpaymodricException" type="tns:EpaymodricException"/>
+  <xs:complexType name="EpaymodricException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="testResourcesResponse">
+    <wsdl:part element="ns1:testResourcesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eseguiElaborazioneResponse">
+    <wsdl:part element="ns1:eseguiElaborazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lockBreakResponse">
+    <wsdl:part element="ns1:lockBreakResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EpaymodricException">
+    <wsdl:part element="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciElaborazione">
+    <wsdl:part element="ns1:inserisciElaborazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiDettaglio">
+    <wsdl:part element="ns1:ricercaFlussiDettaglio" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="elencaEnti">
+    <wsdl:part element="ns1:elencaEnti" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trasmettiFlussiInErrorePagoPAResponse">
+    <wsdl:part element="ns1:trasmettiFlussiInErrorePagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="ns1:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="inserisciElaborazioneResponse">
+    <wsdl:part element="ns1:inserisciElaborazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiSintesiResponse">
+    <wsdl:part element="ns1:ricercaFlussiSintesiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lockBreak">
+    <wsdl:part element="ns1:lockBreak" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trasmettiFlussiInErrorePagoPA">
+    <wsdl:part element="ns1:trasmettiFlussiInErrorePagoPA" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+    <wsdl:part element="ns1:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiDettaglioResponse">
+    <wsdl:part element="ns1:ricercaFlussiDettaglioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="salvaLogAuditResponse">
+    <wsdl:part element="ns1:salvaLogAuditResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trasmettiFlussiPagoPAResponse">
+    <wsdl:part element="ns1:trasmettiFlussiPagoPAResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaProvvisori">
+    <wsdl:part element="ns1:aggiornaProvvisori" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaStatoFlusso">
+    <wsdl:part element="ns1:aggiornaStatoFlusso" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussoOrigine">
+    <wsdl:part element="ns1:ricercaFlussoOrigine" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="spacchettaFlussiDaSpacchettareByEnte">
+    <wsdl:part element="ns1:spacchettaFlussiDaSpacchettareByEnte" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="emailDequeue">
+    <wsdl:part element="ns1:emailDequeue" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="eseguiElaborazione">
+    <wsdl:part element="ns1:eseguiElaborazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lockFind">
+    <wsdl:part element="ns1:lockFind" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaStatoFlussoResponse">
+    <wsdl:part element="ns1:aggiornaStatoFlussoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="testResources">
+    <wsdl:part element="ns1:testResources" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="attivaElaborazione">
+    <wsdl:part element="ns1:attivaElaborazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse">
+    <wsdl:part element="ns1:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaStatoFlusso">
+    <wsdl:part element="ns1:ricercaStatoFlusso" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="salvaLogAudit">
+    <wsdl:part element="ns1:salvaLogAudit" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="elencaEntiResponse">
+    <wsdl:part element="ns1:elencaEntiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaStatoElaborazione">
+    <wsdl:part element="ns1:aggiornaStatoElaborazione" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaStatoFlussoResponse">
+    <wsdl:part element="ns1:ricercaStatoFlussoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussoOrigineResponse">
+    <wsdl:part element="ns1:ricercaFlussoOrigineResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="attivaElaborazioneResponse">
+    <wsdl:part element="ns1:attivaElaborazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lockFindResponse">
+    <wsdl:part element="ns1:lockFindResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trasmettiFlussiPagoPA">
+    <wsdl:part element="ns1:trasmettiFlussiPagoPA" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaProvvisoriResponse">
+    <wsdl:part element="ns1:aggiornaProvvisoriResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="emailDequeueResponse">
+    <wsdl:part element="ns1:emailDequeueResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="aggiornaStatoElaborazioneResponse">
+    <wsdl:part element="ns1:aggiornaStatoElaborazioneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="spacchettaFlussiDaSpacchettareByEnteResponse">
+    <wsdl:part element="ns1:spacchettaFlussiDaSpacchettareByEnteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ricercaFlussiSintesi">
+    <wsdl:part element="ns1:ricercaFlussiSintesi" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Epaymodric">
+    <wsdl:operation name="eseguiElaborazione">
+      <wsdl:input message="ns1:eseguiElaborazione" name="eseguiElaborazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:eseguiElaborazioneResponse" name="eseguiElaborazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="lockFind">
+      <wsdl:input message="ns1:lockFind" name="lockFind">
+    </wsdl:input>
+      <wsdl:output message="ns1:lockFindResponse" name="lockFindResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <wsdl:input message="ns1:testResources" name="testResources">
+    </wsdl:input>
+      <wsdl:output message="ns1:testResourcesResponse" name="testResourcesResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="attivaElaborazione">
+      <wsdl:input message="ns1:attivaElaborazione" name="attivaElaborazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:attivaElaborazioneResponse" name="attivaElaborazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciElaborazione">
+      <wsdl:input message="ns1:inserisciElaborazione" name="inserisciElaborazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:inserisciElaborazioneResponse" name="inserisciElaborazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiDettaglio">
+      <wsdl:input message="ns1:ricercaFlussiDettaglio" name="ricercaFlussiDettaglio">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaFlussiDettaglioResponse" name="ricercaFlussiDettaglioResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaStatoFlusso">
+      <wsdl:input message="ns1:ricercaStatoFlusso" name="ricercaStatoFlusso">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaStatoFlussoResponse" name="ricercaStatoFlussoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="salvaLogAudit">
+      <wsdl:input message="ns1:salvaLogAudit" name="salvaLogAudit">
+    </wsdl:input>
+      <wsdl:output message="ns1:salvaLogAuditResponse" name="salvaLogAuditResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaStatoElaborazione">
+      <wsdl:input message="ns1:aggiornaStatoElaborazione" name="aggiornaStatoElaborazione">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaStatoElaborazioneResponse" name="aggiornaStatoElaborazioneResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="elencaEnti">
+      <wsdl:input message="ns1:elencaEnti" name="elencaEnti">
+    </wsdl:input>
+      <wsdl:output message="ns1:elencaEntiResponse" name="elencaEntiResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="lockBreak">
+      <wsdl:input message="ns1:lockBreak" name="lockBreak">
+    </wsdl:input>
+      <wsdl:output message="ns1:lockBreakResponse" name="lockBreakResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="trasmettiFlussiInErrorePagoPA">
+      <wsdl:input message="ns1:trasmettiFlussiInErrorePagoPA" name="trasmettiFlussiInErrorePagoPA">
+    </wsdl:input>
+      <wsdl:output message="ns1:trasmettiFlussiInErrorePagoPAResponse" name="trasmettiFlussiInErrorePagoPAResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+      <wsdl:input message="ns1:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso" name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+    </wsdl:input>
+      <wsdl:output message="ns1:spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse" name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="trasmettiFlussiPagoPA">
+      <wsdl:input message="ns1:trasmettiFlussiPagoPA" name="trasmettiFlussiPagoPA">
+    </wsdl:input>
+      <wsdl:output message="ns1:trasmettiFlussiPagoPAResponse" name="trasmettiFlussiPagoPAResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaProvvisori">
+      <wsdl:input message="ns1:aggiornaProvvisori" name="aggiornaProvvisori">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaProvvisoriResponse" name="aggiornaProvvisoriResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaStatoFlusso">
+      <wsdl:input message="ns1:aggiornaStatoFlusso" name="aggiornaStatoFlusso">
+    </wsdl:input>
+      <wsdl:output message="ns1:aggiornaStatoFlussoResponse" name="aggiornaStatoFlussoResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussoOrigine">
+      <wsdl:input message="ns1:ricercaFlussoOrigine" name="ricercaFlussoOrigine">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaFlussoOrigineResponse" name="ricercaFlussoOrigineResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="spacchettaFlussiDaSpacchettareByEnte">
+      <wsdl:input message="ns1:spacchettaFlussiDaSpacchettareByEnte" name="spacchettaFlussiDaSpacchettareByEnte">
+    </wsdl:input>
+      <wsdl:output message="ns1:spacchettaFlussiDaSpacchettareByEnteResponse" name="spacchettaFlussiDaSpacchettareByEnteResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="emailDequeue">
+      <wsdl:input message="ns1:emailDequeue" name="emailDequeue">
+    </wsdl:input>
+      <wsdl:output message="ns1:emailDequeueResponse" name="emailDequeueResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiSintesi">
+      <wsdl:input message="ns1:ricercaFlussiSintesi" name="ricercaFlussiSintesi">
+    </wsdl:input>
+      <wsdl:output message="ns1:ricercaFlussiSintesiResponse" name="ricercaFlussiSintesiResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

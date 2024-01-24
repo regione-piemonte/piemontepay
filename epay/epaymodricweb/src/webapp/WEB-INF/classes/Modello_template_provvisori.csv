@@ -1,0 +1,18 @@
+Colonna ;Identificativo flusso;Data movimento;Anno esercizio;Numero provvisorio;Anno provvisorio;Importo provvisorio;Descrizione
+Descrizione;Identificativo del flusso;Data del movimento provvisorio;Anno di esercizio a cui fa riferimento il provvisorio;Numero del provvisorio;Anno del provvisorio;Importo del provvisorio;Descrizione del provvisorio
+Formato;Testo;Data (formato gg/mm/aaaa);Intero;Intero;Intero;Importo del provvisorio;Testo
+Dimensione max;35;10;Numero intero, senza separatore delle migliaia - 4;Numero intero, senza separatore delle migliaia;Numero intero, senza separatore delle migliaia - 4;Intero(8),decimali(2);100
+Obbligatorio;Si;Si;Si;Si;Si;Si;Si
+; ;;;;;;
+Esempio di file;;;;;;;
+;Identificativo flusso;Data movimento;Anno esercizio;Numero provvisorio;Anno provvisorio;Importo provvisorio;Descrizione
+;2018-09-01ITBBITM1-ENG-0;11/10/2018;2018;0;2018;12,34;Descrizione 0
+;2018-09-01ITBBITM1-ENG-1;11/10/2018;2018;1;2018;12,34;Descrizione 1
+;2018-09-01ITBBITM1-ENG-2;11/10/2018;2018;2;2018;12,34;Descrizione 2
+;2018-09-01ITBBITM1-ENG-3;11/10/2018;2018;3;2018;12,34;Descrizione 3
+;2018-09-01ITBBITM1-ENG-4;11/10/2018;2018;4;2018;12,34;Descrizione 4
+;2018-09-01ITBBITM1-ENG-5;11/10/2018;2018;5;2018;12,34;Descrizione 5
+;2018-09-01ITBBITM1-ENG-6;11/10/2018;2018;6;2018;12,34;Descrizione 6
+;2018-09-01ITBBITM1-ENG-7;11/10/2018;2018;7;2018;12,34;Descrizione 7
+;2018-09-01ITBBITM1-ENG-8;11/10/2018;2018;8;2018;12,34;Descrizione 8
+;2018-09-01ITBBITM1-ENG-9;11/10/2018;2018;9;2018;12,34;Descrizione 9

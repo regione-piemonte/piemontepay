@@ -1,0 +1,146 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+
+package it.csi.epay.epaymodricweb.integration.stubs.epaymodricws;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for dtoStatoFlusso complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="dtoStatoFlusso">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="codiceStato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="descrizioneStato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="permettiRielaborazione" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "dtoStatoFlusso", propOrder = {
+    "codiceStato",
+    "descrizioneStato",
+    "id",
+    "permettiRielaborazione"
+})
+public class DtoStatoFlusso {
+
+    protected String codiceStato;
+    protected String descrizioneStato;
+    protected String id;
+    protected Boolean permettiRielaborazione;
+
+    /**
+     * Gets the value of the codiceStato property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCodiceStato() {
+        return codiceStato;
+    }
+
+    /**
+     * Sets the value of the codiceStato property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCodiceStato(String value) {
+        this.codiceStato = value;
+    }
+
+    /**
+     * Gets the value of the descrizioneStato property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescrizioneStato() {
+        return descrizioneStato;
+    }
+
+    /**
+     * Sets the value of the descrizioneStato property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescrizioneStato(String value) {
+        this.descrizioneStato = value;
+    }
+
+    /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setId(String value) {
+        this.id = value;
+    }
+
+    /**
+     * Gets the value of the permettiRielaborazione property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isPermettiRielaborazione() {
+        return permettiRielaborazione;
+    }
+
+    /**
+     * Sets the value of the permettiRielaborazione property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setPermettiRielaborazione(Boolean value) {
+        this.permettiRielaborazione = value;
+    }
+
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util.xsd
+	
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<description>
+		<![CDATA[
+		Main Entry Point for Spring configuration.  
+		]]>
+	</description>
+
+	<!-- Abilita la configurazione via annotation -->
+	<context:annotation-config />
+
+	<!-- Indica a spring quale base package contiene i componenti da sottoporre 
+		all'IoC e alla DI -->
+	<context:component-scan
+		base-package="it.csi.epay.epaymodricweb">
+		<!-- Lascia che sia spring-mvc a processare il pacchetto web (context-scan) -->
+		<context:exclude-filter type="regex"
+			expression="it/csi/epay/epaymodricweb/frontend.*" />
+	</context:component-scan>
+
+	<!-- Registra i file di property -->
+	<context:property-placeholder
+		location="classpath:spring/*.properties" />
+
+
+	<util:properties id="application"
+		location="classpath:spring/application.properties" />
+
+	<!-- <util:properties id="messages" -->
+	<!-- location="classpath:spring/messages.properties" /> -->
+
+
+	<!-- Abilita la validazione JSR-303 -->
+	<bean
+		class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" />
+
+	<bean id="jsr303Messages"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename"
+			value="classpath:/org/hibernate/validator/ValidationMessages"></property>
+	</bean>
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="jsr303Messages"></property>
+	</bean>
+
+	<!-- Abilita l'upload di file da parte dell'utente -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2048000" />
+	</bean>
+
+	<!-- Altri file di definizione dei bean - INIZIO -->
+	<import resource="security-context.xml" />
+	<!-- Altri file di definizione dei bean - FINE -->
+
+	<!-- AOP support -->
+	<bean id='businessAspect'
+		class='it.csi.epay.epaymodricweb.common.aspects.BusinessAspect' />
+	<aop:aspectj-autoproxy>
+		<aop:include name='businessAspect' />
+	</aop:aspectj-autoproxy>
+
+	<!-- Import internationalization xml -->
+	<import resource="internationalization-context.xml" />
+	
+	
+</beans>

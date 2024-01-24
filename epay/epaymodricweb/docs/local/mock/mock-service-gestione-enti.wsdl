@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<wsdl:definitions name="MockServiceGestioneEnti"
+	targetNamespace="http://it.csi.epaymodricweb/services/mockservicegestioneenti" xmlns:tns="http://it.csi.epaymodricweb/services/mockservicegestioneenti"
+	xmlns:types="http://it.csi.epaymodricweb/types/mockservicegestioneenti" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://it.csi.epaymodricweb/types/mockservicegestioneenti"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+			attributeFormDefault="unqualified" version="1.0">
+			
+			<xsd:element name="testResourcesOutput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codice" type="xsd:string" />
+						<xsd:element name="descrizione" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="testResourcesInput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codice" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="ricercaEntiOutput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codiceFiscale" type="xsd:string" />
+						<xsd:element name="denominazione" type="xsd:string" />
+						<xsd:element name="indirizzo" type="xsd:string" />
+						<xsd:element name="localita" type="xsd:string" />
+						<xsd:element name="cap" type="xsd:string" />
+						<xsd:element name="provincia" type="xsd:string" />
+						<xsd:element name="flagFlussoRendicontazione" type="xsd:string" />
+						<xsd:element name="flagPlurimandatario" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="ricercaEntiInput">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codiceFiscale" type="xsd:string" />
+						<xsd:element name="denominazione" type="xsd:string" />
+						<xsd:element name="indirizzo" type="xsd:string" />
+						<xsd:element name="localita" type="xsd:string" />
+						<xsd:element name="cap" type="xsd:string" />
+						<xsd:element name="provincia" type="xsd:string" />
+						<xsd:element name="flagFlussoRendicontazione" type="xsd:string" />
+						<xsd:element name="flagPlurimandatario" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="TestResourcesInputMessage">
+		<wsdl:part name="input" element="types:testResourcesInput" />
+	</wsdl:message>
+
+	<wsdl:message name="TestResourcesOutputMessage">
+		<wsdl:part name="output" element="types:testResourcesOutput" />
+	</wsdl:message>
+
+	<wsdl:message name="RicercaEntiInputMessage">
+		<wsdl:part name="input" element="types:ricercaEntiInput" />
+	</wsdl:message>
+
+	<wsdl:message name="RicercaEntiOutputMessage">
+		<wsdl:part name="output" element="types:ricercaEntiOutput" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="MockServiceGestioneEnti_PortType">
+		<wsdl:operation name="testResources">
+			<wsdl:input message="tns:TestResourcesInputMessage" />
+			<wsdl:output message="tns:TestResourcesOutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ricercaEnti">
+			<wsdl:input message="tns:RicercaEntiInputMessage" />
+			<wsdl:output message="tns:RicercaEntiOutputMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="MockServiceGestioneEnti_SoapBinding" type="tns:MockServiceGestioneEnti_PortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="testResources">
+			<soap:operation
+				soapAction="http://it.csi.epaymodricweb/services/mockservicegestioneenti/testResources" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ricercaEnti">
+			<soap:operation
+				soapAction="http://it.csi.epaymodricweb/services/mockservicegestioneenti/ricercaEnti" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MockServiceGestioneEnti_Service">
+		<wsdl:documentation>Mock Service Gestione Enti</wsdl:documentation>
+		<wsdl:port name="MockServiceGestioneEnti_Port" binding="tns:MockServiceGestioneEnti_SoapBinding">
+			<soap:address location="http://localhost:8088/MockServiceGestioneEnti" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

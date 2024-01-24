@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://epaymodric.business.epaymodric.epay.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://epaymodric.interfacews.epaymodric.epay.csi.it/" name="EpaymodricService" targetNamespace="http://epaymodric.business.epaymodric.epay.csi.it/">
+  <wsdl:import location="EpaymodricService_import.wsdl" namespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+    </wsdl:import>
+  <wsdl:binding name="EpaymodricServiceSoapBinding" type="ns1:Epaymodric">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="eseguiElaborazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="eseguiElaborazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eseguiElaborazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="lockFind">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="lockFind">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lockFindResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="testResources">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="testResourcesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="attivaElaborazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="attivaElaborazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="attivaElaborazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="inserisciElaborazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="inserisciElaborazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="inserisciElaborazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiDettaglio">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaFlussiDettaglio">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaFlussiDettaglioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaStatoFlusso">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaStatoFlusso">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaStatoFlussoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="salvaLogAudit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="salvaLogAudit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="salvaLogAuditResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaStatoElaborazione">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaStatoElaborazione">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaStatoElaborazioneResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="elencaEnti">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="elencaEnti">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="elencaEntiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="lockBreak">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="lockBreak">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lockBreakResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="trasmettiFlussiInErrorePagoPA">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="trasmettiFlussiInErrorePagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="trasmettiFlussiInErrorePagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlusso">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="spacchettaFlussoDaSpacchettareByEnteByIdentificativoFlussoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="trasmettiFlussiPagoPA">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="trasmettiFlussiPagoPA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="trasmettiFlussiPagoPAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaProvvisori">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaProvvisori">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaProvvisoriResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="aggiornaStatoFlusso">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="aggiornaStatoFlusso">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="aggiornaStatoFlussoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussoOrigine">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaFlussoOrigine">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaFlussoOrigineResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="spacchettaFlussiDaSpacchettareByEnte">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="spacchettaFlussiDaSpacchettareByEnte">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="spacchettaFlussiDaSpacchettareByEnteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="emailDequeue">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="emailDequeue">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="emailDequeueResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ricercaFlussiSintesi">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="ricercaFlussiSintesi">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ricercaFlussiSintesiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EpaymodricService">
+    <wsdl:port binding="tns:EpaymodricServiceSoapBinding" name="EpaymodricPort">
+      <soap:address location="http://161.27.213.158:8081/epaymodricApplEpaymodricWs/EpaymodricService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
