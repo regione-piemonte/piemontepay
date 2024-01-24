@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!-- ##################################################### -->
+<!-- # Copyright 2006 (c) CSI Piemonte.                  # -->
+<!-- #                                                   # -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="." default="default" name="mdpboservices" xmlns:ivy="antlib:fr.jayasoft.ivy.ant">
+
+	<description>Build file per il progetto: [mdpboservices]</description>
+	<!-- -->
+	<property file="buildfiles/env.properties" />
+	<property file="buildfiles/build.properties" />
+	<property file="buildfiles/${target}.properties" />
+	<!-- -->
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+		<fileset dir="${src}/extlib">
+			<include name="**/*.jar" />
+		</fileset>
+
+	</path>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: init                                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<deltree dir="${build}"/>
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<loadproperties srcFile="buildfiles/${target}.properties" />
+		<loadproperties srcFile="buildfiles/build.properties" />
+		<deltree dir="${build}" />
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${build}/classeslib" />
+		<mkdir dir="${temp}/${target}/${earLib}" />
+		<mkdir dir="${build}/archives/${target}" />
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/javadoc" />
+		<mkdir dir="${build}/jsp" />
+		<mkdir dir="${build}/cache" />
+		<mkdir dir="${basedir}/extlib" />
+		<!--
+		<copy todir="${basedir}/extlib" overwrite="true">
+			<fileset dir="${src}/lib/build" includes="**/*.jar" />
+		</copy>
+		-->
+		<copy todir="build/temp/conf" overwrite="true">
+			<fileset dir="${conf}" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: default                                           # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="default" description="Eseguire il build per l'environment
+                       specificato a linea di comando con
+                       -Dtarget=${target} o per tutti gli
+                       environment (se non specificato).">
+
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+
+		<echo message="target: ${server}" />
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+
+		<antcall target="clean-all" />
+		<antcall target="${first-call}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-recreate                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-recreate">
+		<mkdir dir="build/temp/conf" />
+		<copy todir="build/temp/conf" overwrite="true">
+			<fileset dir="${conf}" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!--  ############################################################# -->
+	<!-- # Target: compile-all                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="compile-all" depends="init,load-dependencies" description="Compila tutti i sorgenti.">
+
+		<echo message="===> Target: ${target}" />
+		<javac srcdir="${src}/lib/src:${src}/java" destdir="${build}/classeslib" optimize="on" deprecation="on" compiler="modern" debug="true" debuglevel="lines,vars,source" excludes="it/csi/${prodotto}/core/presentation/**">
+
+			<classpath refid="library.ref" />
+		</javac>
+
+		<copy todir="${build}/classeslib">
+			<fileset dir="${src}/java" includes="**/*.properties" />
+		</copy>
+		<jar jarfile="${src}/extlib/mdpbointerfaces.jar">
+			<fileset dir="${build}/classeslib">
+				<include name="*/**" />
+
+			</fileset>
+		</jar>
+
+		<javac srcdir="${src}/java" destdir="${build}/classes" optimize="on" deprecation="on" compiler="modern" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="library.ref" />
+		</javac>
+
+		<copy todir="${build}/classes">
+			<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about                                             # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about" description="Visualizza l'elenco dei target
+                                    pubblici dello script.">
+
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about" srcfile="buildfiles/about.txt" />
+		<echo message="${about}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about-custom                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about-custom" description="Visualizza l'elenco di tutti i target,
+                       pubblici e privati
+                       (equivalente a 'ant -projecthelp')">
+
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+		<echo message="${about-custom}" />
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: all-targets                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="all-targets" description="Esegue il build per le varie distribuzioni in sequenza.">
+		<antcall target="distribution" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: distribution                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="distribution" depends="package-all" description="Costruisce il tar per la distribuzione.">
+		<echo message="====== Creating distribution for ${target} ..." />
+		<echo message="====== Basedir: ${build}/archives/${target} ..." />
+		<mkdir dir="${build}/archives/${target}/txtmail" />
+
+		<mkdir dir="${build}/archives/${target}/serviceRegistry" />
+		<copy todir="${build}/archives/${target}/serviceRegistry">
+			<fileset dir="${conf}/serviceRegistry" includes="*/**" />
+		</copy>
+		<replace file="${build}/archives/${target}/serviceRegistry/pd/defpd_bosrv.xml" token="@@@url_T3_MDPCORE@@@" value="${url_T3_MDPCORE}" />
+		<replace file="${build}/archives/${target}/serviceRegistry/deploy-descriptor.xml" token="@@@AMBIENTE@@@" value="${AMBIENTE}" />
+		<zip destfile="${build}/archives/${target}/${componente}srv-reg-${version}.zip" basedir="${build}/archives/${target}/serviceRegistry" includes="*/**" />
+		<copy todir="${build}/archives/${target}/">
+			<fileset dir="${conf}/testAgent/" includes="MdpBoServices.properties" />
+		</copy>
+ 
+		<replace file="${build}/archives/${target}/MdpBoServices.properties" token="@@@AMBIENTE@@@" value="${AMBIENTE}" />
+		<zip destfile="${build}/archives/${target}/${componente}srv-monit-${version}.zip" basedir="${build}/archives/${target}/" includes="MdpBoServices.properties" />
+
+		<mkdir dir="${build}/archives/${target}/conf" />
+		<copy todir="${build}/archives/${target}/conf">
+			<fileset dir="${conf}/" includes="skeydb.txt" />
+			<fileset dir="${conf}/" includes="FlussoRiversamento_1_0_2.xsd" />
+		</copy>
+
+		<copy todir="${build}/archives/${target}/">
+			<fileset dir="${conf}/" includes="mdpnew-ds.xml" />
+		</copy>
+		
+		<!-- <replace file="${build}/archives/${target}/mdpnew-ds.xml" token="@@@dbserver@@@" value="${dbserver}" /> 
+		<replace file="${build}/archives/${target}/mdpnew-ds.xml" token="@@@dbport@@@" value="${dbport}" />
+		<replace file="${build}/archives/${target}/mdpnew-ds.xml" token="@@@dbname@@@" value="${dbname}" />
+		<replace file="${build}/archives/${target}/mdpnew-ds.xml" token="@@@dbuser@@@" value="${dbuser}" />
+		<replace file="${build}/archives/${target}/mdpnew-ds.xml" token="@@@dbpassword@@@" value="${dbpassword}" />-->
+
+
+		<tar tarfile="${dist}/${target}/${dist-file-name}.tar" basedir="${build}/archives/${target}" includes="conf/skeydb.txt,*.ear,*.xml,**/*.dat,${componente}srv-reg-${version}.zip,${componente}srv-monit-${version}.zip" />
+		<tstamp>
+
+			<format property="TODAY_IT" pattern="dd/MM/yyyy hh:mm:ss" locale="it,IT" />
+
+		</tstamp>
+		<echo message="======environment ${target} date build ${TODAY_IT}" />
+	</target>
+	
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: resolve-dependencies                               # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="resolve-dependencies" description="carica le librerie dal repository remoto">
+		<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		<ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: internal target: load-dependencies                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies" depends="resolve-dependencies" description="Risolve le dipendenze esterne.">
+		<ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-config                                # -->
+	<!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
+		<echo message="====== gestire qui i  replace delle variabile d'ambiente" />
+
+
+
+
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all" description="esegue il packaging di ogni componente del prodotto">
+		<antcall target="package-ear" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-ear                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear" depends="environment-recreate,compile-all, commons-jar,
+                   business-ejb-jar, integration-jar,package-war,
+                   environment-config" description="costruisce l&apos;ear">
+
+		<copy todir="${temp}/${target}/${earLib}">
+			<fileset dir="${lib}" includes="${ear-libs-filter}" />
+			<!--custom jar stub dto progetto MDP-->
+			<fileset dir="${src}/extlib" includes="mdpcoreinterfaces.jar" />
+			<fileset dir="${src}/extlib" includes="mdpdao.jar" />
+			<fileset dir="${src}/extlib" includes="pagamenti.jar" />
+			<fileset dir="${src}/extlib" includes="mdpnodospcclient-integration.jar" />
+			<fileset dir="${src}/extlib" includes="mdpbointerfaces.jar" />
+			<fileset dir="${src}/extlib" includes="javamelody*.jar" />
+			<fileset dir="${src}/extlib" includes="jrobin*.jar" />
+			<fileset dir="${src}/extlib" includes="neethi*.jar" />
+		</copy>
+		<mkdir dir="${temp}/${target}/APP-INF/classes" />
+
+		<copy todir="${temp}/${target}/APP-INF/classes">
+
+			<fileset dir="${build}/classes" includes="it/csi/${prodotto}/core/interfacecxf/**/*.*" />
+		</copy>
+
+ 
+
+
+		<move file="${build}/archives/${target}/commons.jar" tofile="${temp}/${target}/${earLib}/commons.jar" />
+		<!--
+     <move file="${build}/archives/${target}/${webapp}-integration.jar" tofile="${temp}/${target}/${earLib}/${webapp}-integration.jar"/>
+     -->
+
+		<ear appxml="${temp}/conf/ear/${webapp}/META-INF/application.xml" destfile="${build}/archives/${target}/${ear-file-name}.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" />
+			<fileset dir="${temp}/${target}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${temp}/conf">
+				<include name="FlussoRiversamento_1_0_2.xsd" />
+			</fileset>
+			<metainf dir="${temp}/conf/ear/${webapp}/META-INF/" includes="weblogic-application.xml,jboss-app.xml" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+				<attribute name="Appl-Verison" value="${version}" />
+			</manifest>
+		</ear>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-war                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-war" description="Genera il war per lo strato web.">
+
+		<copy todir="${build}/classes">
+			<fileset dir="${conf}/web/${webapp}/WEB-INF" includes="struts*.xml" />
+		</copy>
+		<jar jarfile="${basedir}/lib/interfacessrv.jar">
+			<fileset dir="${build}/classeslib">
+				<include name="*/**" />
+			</fileset>
+		</jar>
+		<replace file="${build}/classes/defpdelegata.xml" token="@@@url_T3_MDPCORE@@@" value="${url_T3_MDPCORE}" />
+		<war destfile="${build}/archives/${target}/${war-file-name}.war" webxml="${build}/temp/conf/web/${webapp}/WEB-INF/web.xml" roundup="false" manifest="${build}/temp/conf/web/${webapp}/META-INF/MANIFEST.MF">
+			<webinf dir="${conf}/web/${webapp}/WEB-INF" includes="applicationContext.xml,beanContext.xml,dao-beans.xml,cxf.xml,server-config.wsdd,jboss-web.xml" />
+			<fileset dir="${srcweb}" />
+			<classes dir="${build}/jsp" includes="**" />
+
+			<classes dir="${build}/classes" includes="it/csi/${prodotto}/core/presentation/**,*.xml,env.properties" />
+
+			<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter}" />
+		</war>
+		
+		
+	</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: integration-jar                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="integration-jar" description="Genera il jar per lo strato integration.">
+	
+	<!--	<jar jarfile="${basedir}/extlib/mdpbointerfaces.jar">
+			<fileset dir="${build}/classeslib">
+				<include name="*/**" />
+			</fileset>
+		</jar> --> 
+	
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: business-ejb-jar                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="business-ejb-jar" description="Genera il jar per lo strato business.">
+
+
+
+		<copy file="buildfiles/${target}.properties" tofile="${build}/classes/env.properties" />
+
+		<jar jarfile="${build}/archives/${target}/${webapp}-business.jar" manifest="${build}/temp/conf/ejb/business/${contesto}/META-INF/MANIFEST.MF">
+			<fileset dir="${build}/classes">
+				<include name="it/csi/${prodotto}/boservices/business/manager/**/*.*" />
+				<include name="env.properties" />
+			</fileset>
+
+			<fileset dir="${build}/temp/conf/ejb/business/${contesto}/META-INF">
+
+				<include name="*.xml" />
+			</fileset>
+			<fileset dir="${build}/temp/conf/ejb/">
+
+				<include name="defpaejb.xml" />
+				<include name="axis-tasks.properties" />
+				<include name="axis-test-tasks.properties" />
+			</fileset>
+			<metainf dir="${build}/temp/conf/ejb/business/${contesto}/META-INF">
+				<patternset id="all-xml">
+					<include name="**/*.xml" />
+				</patternset>
+			</metainf>
+		</jar>
+	</target>
+
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: commons-jar                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="commons-jar" description="Genera il jar per le classi comuni.">
+		<jar destfile="${build}/archives/${target}/commons.jar" basedir="${build}/classes" includes="it/csi/${prodotto}/core/dto/**,
+                   it/csi/${prodotto}/core/exception/**,
+                   it/csi/${prodotto}/core/util/**">
+		</jar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-all" description="Rimuove tutte le cartelle temporanee." depends="clean-archives,clean-cache,clean-classes,
+                  clean-javadoc,clean-jsp,clean-temp,clean-dist" />
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-cache                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-cache" description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" failonerror="no" />
+		
+		<!-- da scommentare -->
+		<delete dir="${lib}" failonerror="no" />
+		
+	</target>
+
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-temp                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-temp" description="Rimuove la cartella dei files temporanei di build.">
+		<delete dir="${temp}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-archives                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-archives" description="Rimuove la cartella degli archivi (war, ear, ...).">
+		<delete dir="${build}/archives" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-dist                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-dist" description="Rimuove la cartella delle distribuzioni.">
+		<delete dir="${dist}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-classes                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-classes" description="Rimuove la cartella dei sorgenti compilati.">
+		<delete dir="${build}/classes" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-javadoc                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-javadoc" description="Rimuove la cartella temporanea dei javadoc.">
+		<delete dir="${build}/javadoc" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-jsp                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-jsp" description="Rimuove la cartella temporanea delle jsp compilate.">
+		<delete dir="${build}/jsp" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: _clean-web-inf                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_clean-web-inf" description="Rimuove il contenuto di lib e classes della
+                       web application (per run locali).">
+		<delete dir="${srcweb}/WEB-INF/classes" />
+		<!--da scommentare-->
+		<delete dir="${srcweb}/WEB-INF/lib" />
+	</target>
+	
+	<target name="cazzo_spostalo" depends="init">
+		<copy todir="${build}/archives/${target}/conf">
+			<fileset dir="${conf}/" includes="skeydb.txt" />
+			<fileset dir="${conf}/" includes="FlussoRiversamento_1_0_2.xsd" />
+		</copy>
+	</target>
+</project>

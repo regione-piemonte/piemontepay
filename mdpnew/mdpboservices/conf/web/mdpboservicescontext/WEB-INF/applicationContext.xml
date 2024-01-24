@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="autodetect">
+    
+<!-- Insert here your Spring Beans-->
+  <!--configurazione di un Ejb in Spring -->
+  <!-- 
+  <bean id="ejbTest" class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+    <property name="jndiName" 
+              value="mdppaymentsrv/ejb/PaymentManager" />
+    <property name="businessInterface" value="it.csi.mdp.core.business.paymentmanager.Payment" />
+  </bean>
+   --> 
+
+</beans>
+	
+ 

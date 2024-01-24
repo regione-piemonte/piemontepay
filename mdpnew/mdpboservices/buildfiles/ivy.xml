@@ -1,0 +1,154 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivy-module version="1.0">
+	<info organisation="csipiemonte" module="mdpcore" />
+	<dependencies>
+		<dependency org="apache" name="commons-beanutils" rev="1.6"/>
+		<dependency org="apache" name="commons-collections" rev="3.2"/>
+		<dependency org="apache" name="commons-digester" rev="1.8"/>
+		<dependency org="apache" name="commons-logging" rev="1.1"/>
+
+		<dependency org="others" name="freemarker" rev="2.3.8"/>
+		<dependency org="apache" name="jstl" rev="1.0"/>
+		<dependency org="opensymphony" name="ognl" rev="2.6.10"/>
+
+
+
+		<!-- si utilizza la versione "csipiemonte" di struts2-core per poter
+		     utilizzare ognl-2.6.10 -->
+		   
+		     		<dependency org="others" name="spring" rev="2.0.7">
+			<artifact name="aopalliance-1.0" type="jar" />
+			<artifact name="spring-beans-2.0.7" type="jar" />
+			<artifact name="spring-context-2.0.7" type="jar" />
+			<artifact name="spring-core-2.0.7" type="jar" />
+			<artifact name="spring-web-2.0.7" type="jar" />
+			<artifact name="spring-aop-2.0.7" type="jar" />
+			<artifact name="spring-remoting-2.0.7" type="jar" />
+			<artifact name="spring-support-2.0.7" type="jar" />
+			<artifact name="spring-jdbc-2.0.7" type="jar" />
+			<artifact name="spring-dao-2.0.7" type="jar" />
+		</dependency>
+		
+			
+		<dependency org="csipiemonte" name="struts2-core-csi" rev="2.0.11.2" />
+		<dependency org="apache" name="log4j" rev="1.2.15"/>
+		<dependency org="apache" name="struts2-spring-plugin" rev="2.0.11.2"/>
+		<dependency org="opensymphony" name="xwork" rev="2.0.5"/>
+
+		<dependency org="sun" name="servlet" rev="2.4"/>
+		<dependency org="sun" name="servlet-jsp" rev="2.0"/>
+
+		<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
+		<dependency org="csipiemonte" name="util-struts2-csitemplate" rev="1.0.1"/>
+
+		
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.1"/>
+		<dependency org="apache" name="log4j" rev="1.2.15"/>
+
+	    
+		<dependency org="sun" name="ejb" rev="2.1"/>
+		<dependency org="sun" name="servlet" rev="2.4"/>
+		<dependency org="sun" name="jms" rev="1.1"/>		
+		<dependency org="sun" name="jta" rev="1.0.1"/>
+<!-- librerie Core di C.S.I -->
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+			<artifact name="csi-core-1.4.5" type="jar" />
+			<artifact name="csi-ejb-1.4.5" type="jar" />
+			<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+			<artifact name="csi-rmi-1.4.5" type="jar" />
+			<artifact name="csi-stadapter-1.4.5" type="jar" />
+			<artifact name="csi-tools-1.4.5" type="jar" />
+		</dependency>
+			    <!-- librerie necessarie pe ri binding WSFAD -->
+	    <dependency org="csipiemonte" name="wsadp" rev="2.0.2">
+	    	<artifact name="wsadp-2.0.2" type="jar" /> 
+	    </dependency>
+	       <!-- librerie necessarie se si attiva il supporto coop trace
+	         (specifiche per la target platform WLS92. 
+	    -->
+	    
+	    <dependency org="csipiemonte" name="coop-trace" rev="1.2.0">
+	    	<artifact name="coop-trace-1.2.0" type="jar" />
+	    </dependency>
+	    	    <!-- dipendenze necessarie per la compilazione o per i test -->
+	    <dependency org="apache" name="axis" rev="1.4">
+			<artifact name="axis-jaxrpc-1.4" type="jar" />
+		</dependency>
+		
+		<dependency org="apache" name="axis-ant" rev="1.4">
+			<artifact name="axis-ant-1.4" type="jar" />
+		</dependency>
+
+		<!-- ############################################################## -->
+	    <!-- # WEBLOGIC CLIENT (solo per JBoss)                           # -->
+	    <!-- ############################################################## -->
+	    <!--  -->
+
+		<dependency org="csipiemonte" name="csi" rev="1.4.5" />
+		
+		<!--PROTECTED REGION ID(R78539213) ENABLED START-->
+		<!-- Inserire qui le dipendenze aggiuntive -->
+				<!--
+		BASE CXF DEPENDENCIES
+		-->
+
+		<dependency org="apache" name="geronimo-activation" rev="1.1" />
+		<dependency org="apache" name="geronimo-annotation" rev="1.0" />
+		<dependency org="apache" name="geronimo-javamail" rev="1.4">
+			<artifact name="geronimo-javamail_1.4_spec-1.6" type="jar" />
+		</dependency>
+		<dependency org="apache" name="geronimo-jaxws" rev="2.1" />
+		<dependency org="apache" name="geronimo-servlet" rev="2.5" />
+		<dependency org="apache" name="geronimo-ws" rev="2.0" />
+		<dependency org="apache" name="geronimo-stax" rev="1.0" />
+		<dependency org="apache" name="wss4j" rev="1.5.10" />
+        <dependency org="others" name="wsdl4j" rev="1.6.2" />
+        <dependency org="others" name="xml-resolver" rev="1.2" />
+        <dependency org="others" name="xmlschema" rev="1.4.7" />
+
+        <dependency org="sun" name="jaxb" rev="2.1">
+            <artifact name="jaxb-api-2.1" type="jar" />
+        </dependency>
+
+        <dependency org="sun" name="jaxb" rev="2.1.13">
+            <artifact name="jaxb-impl-2.1.13" type="jar" />
+        </dependency>
+
+         <dependency org="others" name="asm" rev="2.2.3">
+            <artifact name="asm-2.2.3" type="jar" />
+        </dependency>
+		<!-- 
+        <dependency org="apache" name="cxf" rev="2.2.5" transitive="false" />
+         -->
+              <dependency org="apache" name="xerces" rev="2.6.2">
+         <artifact name="xercesImpl-2.6.2" type="jar" />
+          <artifact name="xml-apis-2.6.2" type="jar" />
+      </dependency>
+		        <dependency org="sun" name="saaj" rev="1.3" >
+            <artifact name="saaj-api-1.3" type="jar" />
+        </dependency>
+        <dependency org="sun" name="saaj" rev="1.3.2" />
+        <dependency org="others" name="xmlsec" rev="1.4.4" />
+        <dependency org="csipiemonte" name="cxf" rev="2.2.12" transitive="false" /> 
+        
+        <!-- DIPENDENZA PER mdpdao -->
+        <dependency org="codehaus" name="xstream" rev="1.3.1">
+			<artifact name="xstream-1.3.1" type="jar" />
+		</dependency>
+        
+		<!--PROTECTED REGION END-->
+		
+		<!-- Gestori dei confilitti Ivy 2.0 (vanno lasciati al fondo DOPO le dipendenze) -->
+		<conflict org="csipiemonte" module="util-struts2-csitemplate" manager="all" />
+		<conflict org="sun" module="saaj" manager="all" />
+		 <conflict org="sun" module="jaxb" manager="all" />
+	</dependencies>
+
+</ivy-module>

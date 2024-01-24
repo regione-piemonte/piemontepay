@@ -1,0 +1,88 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" 
+	updateCheck="true"
+	monitoring="autodetect" 
+	dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir" />
+	
+	<!-- 
+		Mandatory Default Cache 
+		
+		- Keeps up to 1000 elements in memory, 
+		- Will expire an element if it is idle for more than 5 minutes and lives for more than 10 minutes.
+		- Does not overflow to disk
+		- Evicts Least Frequently Used entries
+	-->
+	<defaultCache
+		maxElementsInMemory="1000"
+		eternal="false"
+		timeToIdleSeconds="300"
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		memoryStoreEvictionPolicy="LFU"
+		diskSpoolBufferSizeMB="30"
+		maxElementsOnDisk="1000"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+	/>
+	
+	<!-- 
+		Standard application cache 
+		
+		- Keeps up to 1000 elements in memory, 
+		- Will expire an element if it is idle for more than 5 minutes and lives for more than 10 minutes.
+		- Does not overflow to disk
+		- Evicts Least Frequently Used entries
+	-->
+	<cache name="defaultCache" 
+		maxElementsInMemory="1000"
+		eternal="false" 
+		overflowToDisk="false"
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LFU"
+	></cache>
+
+	<!-- 
+		Configuration parameters cache 
+		
+		- Keeps up to 100 elements in memory, 
+		- Will expire an element if it is idle for more than 10 minutes and lives for more than 10 minutes.
+		- Does not overflow to disk
+		- Evicts Least Recently Used entries
+	-->
+	<cache name="configurationCache" 
+		maxElementsInMemory="100"
+		eternal="false" 
+		overflowToDisk="false"
+		timeToIdleSeconds="600" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LRU" 
+	></cache>
+
+	<!-- 
+		Message parameters cache 
+		
+		- Keeps up to 100 elements in memory, 
+		- Will expire an element if it is idle for more than 10 minutes and lives for more than 10 minutes.
+		- Does not overflow to disk
+		- Evicts Least Recently Used entries
+	-->
+	<cache name="messageCache" 
+		maxElementsInMemory="100"
+		eternal="false" 
+		overflowToDisk="false"
+		timeToIdleSeconds="600" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="LRU" 
+	></cache>
+
+</ehcache>

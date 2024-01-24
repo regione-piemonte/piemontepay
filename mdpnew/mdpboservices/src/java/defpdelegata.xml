@@ -1,0 +1,813 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<porta-delegata name="MdpBoServices">
+	<services>
+		<service name="MdpBoServices" public-interface-class="it.csi.mdp.boservices.interfacecsi.IMdpBoCsi">
+			<operations>
+			
+				<operation name="listApplicationByFlussoApplicazione" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				<operation name="setApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.Application" />
+						<param name="overwrite" type="boolean" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="getApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getApplicationById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Application" />
+				</operation>
+
+				<operation name="setApplicationDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.ApplicationDetail" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+
+				<operation name="getApplicationDetailById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getApplicationDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getAuditing" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="apps" type="java.util.List" />
+						<param name="datestart" type="java.util.Date" />
+						<param name="dateend" type="java.util.Date" />
+						<param name="actions" type="java.util.List" />
+						<param name="users" type="java.util.List" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getApplicationCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="setApplicationCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.Applicationcustomfields[]" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+
+
+				<operation name="setGateway" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.Gateway" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Gateway" />
+				</operation>
+
+				<operation name="getGatewayById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gwId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Gateway" />
+				</operation>
+				<operation name="getGateway" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="setPaymentMode" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="paymode" type="it.csi.mdp.core.business.dto.Paymentmode" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Paymentmode" />
+				</operation>
+
+				<operation name="getPaymentMode" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="getPaymentModeById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="payModeId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Paymentmode" />
+				</operation>
+				<operation name="getStatiTransazione" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="setGatewayDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.Gatewaydetail" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Gatewaydetail" />
+				</operation>
+				<operation name="getGatewayDetailByIds" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gwId" type="java.lang.String" />
+						<param name="payId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Gatewaydetail" />
+				</operation>
+				<operation name="getGatewayDetailById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gwId" type="java.lang.String" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getGatewayDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getMdpCurrency" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getMdpBckRoles" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="setMdpRole" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="role" type="it.csi.mdp.core.business.dto.MdpBckroles" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.MdpBckroles" />
+				</operation>
+				<operation name="setMdpUser" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="role" type="it.csi.mdp.core.business.dto.MdpBckusers" />
+						<param name="usergroup" type="java.util.List" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.MdpBckroles" />
+				</operation>
+				<operation name="setMdpGroup" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="group" type="it.csi.mdp.core.business.dto.MdpBckofficegroups" />
+						<param name="groupapp" type="java.util.List" />
+						<param name="grouprole" type="it.csi.mdp.core.business.dto.MdpBckrolesgroupmap" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.MdpBckofficegroups" />
+				</operation>
+				<operation name="getMdpUsers" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getMdpUsersById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="userid" type="int" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getMdpUsersByCfisc" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="cfisc" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.MdpBckusers" />
+				</operation>	
+
+				<operation name="getMdpBckGroupsByCfisc" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="cfisc" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+			
+				
+				<operation name="getMdpBckGroups" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				<operation name="getTransazioneWithFilters" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appId" type="java.lang.String" />
+						<param name="codstato" type="java.lang.String" />
+						<param name="datastart" type="java.util.Date" />
+						<param name="dataend" type="java.util.Date" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getTransazioneByApp" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="getMdpCurrencyByKey" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gatewayid" type="java.lang.String" />
+						<param name="mdpcurrencycode" type="java.lang.String" />
+						<param name="gtwcurrencycode" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.MdpCurrency" />
+				</operation>
+				<operation name="setMdpCurrency" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="ccy" type="it.csi.mdp.core.business.dto.MdpCurrency" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="getTransazione" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="getTransazioneById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idTransazione" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getTransazioneViewById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idTransazione" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="setTransazione" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="transazione" type="it.csi.mdp.core.business.dto.Transazione" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Transazione" />
+				</operation>
+				<operation name="getApplicationConfiguration" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.ApplicationConfiguration" />
+				</operation>
+				<operation name="getApplicationCustomFieldsByGateway" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appId" type="java.lang.String" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getErrorList" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="appId" type="java.lang.String" />
+						<param name="transactionId" type="java.lang.String" />
+						<param name="datastart" type="java.util.Date" />
+						<param name="dataend" type="java.util.Date" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="getAuditActionsList" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="getTransazioneViewPaged" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="pagina" type="int" />
+						<param name="transazioniPerPagina" type="int" />
+					</param-list>
+					<ret-val type="it.csi.mdp.boservices.util.VtransazioneResult" />
+				</operation>
+
+				<operation name="getTransazioneViewWithFiltersPaged" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="pagina" type="int" />
+						<param name="transazioniPerPagina" type="int" />
+					</param-list>
+					<ret-val type="it.csi.mdp.boservices.util.VtransazioneResult" />
+				</operation>
+
+				<operation name="getBoConfig" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				<operation name="setBoConfig" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="conf" type="it.csi.mdp.core.business.dto.Config" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="deleteBoConfig" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="conf" type="it.csi.mdp.core.business.dto.Config" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="getGatewayCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gwid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="setGatewayCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="app" type="it.csi.mdp.core.business.dto.Applicationcustomfields[]" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+
+				<operation name="uploadMethod" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="fileName" type="java.lang.String" />
+						<param name="fileContent" type="byte[]" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="uploadMethodForApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="fileName" type="java.lang.String" />
+						<param name="fileContent" type="byte[]" />
+						<param name="appId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="uploadMethodForApplicationGateway" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="fileName" type="java.lang.String" />
+						<param name="fileContent" type="byte[]" />
+						<param name="appId" type="java.lang.String" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.lang.String"/>
+				</operation>
+				<operation name="confirmPayment" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="transactionid" type="java.lang.String" />
+						
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Transazione" />
+				</operation>
+				<operation name="refundPayment" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="transactionid" type="java.lang.String" />
+						
+					</param-list>
+					<ret-val type="it.csi.mdp.core.business.dto.Transazione" />
+				</operation>
+				<operation name="deleteGatewayConfiguration" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="deleteApplicationDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="gatewayId" type="java.lang.String" />
+						<param name="paymodeid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="deleteApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="applicationId" type="java.lang.String" />
+					
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="deleteApplicationCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="gatewayId" type="java.lang.String" />
+					
+					</param-list>
+					<ret-val type="void"/>
+				</operation>
+				<operation name="deleteGatewayCustomFields" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>	
+				<operation name="deleteGatewayDetail" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gatewayId" type="java.lang.String" />
+						<param name="gatewaypaymodeid" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>	
+				<operation name="deleteGateway" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="gatewayId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="void"/>
+				</operation>	
+				
+				<operation name="getGiornaleEventoByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="iuv" type="java.lang.String" />
+						<param name="dataOraEvento" type="java.util.Date" />
+						<param name="identificativodominio" type="java.lang.String" />
+						<param name="identificativofruitore" type="java.lang.String" />
+						<param name="codiceContesto" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>					
+				
+				<operation name="getGiornaleEventoById" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="id" type="java.lang.Integer" />
+					</param-list>
+					<ret-val type="it.csi.mdp.boservices.dto.GiornaleEventoDTO"/>
+				</operation>				
+
+
+				<operation name="getRPTByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="id" type="java.lang.Integer" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="transactionId" type="java.lang.String" />
+						<param name="lastUpdateDa" type="java.lang.Date" />
+						<param name="lastUpdateA" type="java.lang.Date" />
+						<param name="insertUpdateDa" type="java.lang.Date" />
+						<param name="insertUpdateA" type="java.lang.Date" />
+						<param name="iuv" type="java.lang.String" />
+						<param name="idStatiRpt" type="java.lang.String" />
+						<param name="idMsgRichiesta" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+
+				<operation name="getRTByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="id" type="java.lang.Integer" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="transactionId" type="java.lang.String" />
+						<param name="lastUpdateDa" type="java.lang.Date" />
+						<param name="lastUpdateA" type="java.lang.Date" />
+						<param name="insertUpdateDa" type="java.lang.Date" />
+						<param name="insertUpdateA" type="java.lang.Date" />
+						<param name="iuv" type="java.lang.String" />
+						<param name="idEsitoPagamento" type="java.lang.String" />
+						<param name="idMsgRichiesta" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+
+				<operation name="getStatiRptAll" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+
+				<operation name="getCodiciEsitoPagamentoAll" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+
+				<operation name="insertEnte" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="enteId" type="java.lang.String" />
+						<param name="partitaIva" type="java.lang.String" />
+						<param name="descrizione" type="java.lang.String" />
+						<param name="attivo" type="java.lang.String" />
+					</param-list>
+				</operation>
+
+				<operation name="updateEnte" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="enteId" type="java.lang.String" />
+						<param name="partitaIva" type="java.lang.String" />
+						<param name="descrizione" type="java.lang.String" />
+						<param name="attivo" type="java.lang.String" />
+					</param-list>
+				</operation>
+
+				<operation name="deleteEnte" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="enteId" type="java.lang.String" />
+					</param-list>
+				</operation>
+	
+				<operation name="findEntiAll" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+				</operation>
+	
+	
+				<operation name="getEntiByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="enteId" type="java.lang.String" />
+						<param name="partitaIva" type="java.lang.String" />
+						<param name="descrizione" type="java.lang.String" />
+						<param name="attivo" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+
+				<operation name="getEntiByApplicationId" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idApplicazione" type="java.lang.String" />
+						<!-- <param name="enteId" type="java.lang.String" />  -->
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>		
+				
+				<operation name="insRelEnteApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idApplicazione" type="java.lang.String" />
+						<param name="enteId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.Integer" />
+				</operation>		
+				
+				<operation name="delRelEnteApplication" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idApplicazione" type="java.lang.String" />
+						<param name="enteId" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.Integer" />
+				</operation>
+				
+				
+				<operation name="getInformativePSPByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="idinformativapsp" type="java.lang.Integer" />
+						<param name="identificativoFlusso" type="java.lang.String" />
+						<param name="identificativoPSP" type="java.lang.String" />
+						<param name="ragioneSociale" type="java.lang.String" />
+						<param name="dataPubblicazione" type="java.util.Date" />
+						<param name="dataInizioValidita" type="java.util.Date" />
+						<param name="urlInformazioniPSP" type="java.lang.String" />
+						<param name="stornoPagamento" type="java.lang.Integer" />
+						<param name="identificativoIntermediario" type="java.lang.String" />
+						<param name="identificativoCanale" type="java.lang.String" />
+						<param name="tipoVersamento" type="java.lang.String" />
+						<param name="modelloPagamento" type="java.lang.Integer" />
+						<param name="priorita" type="java.lang.Integer" />
+						<param name="disponibilitaServizio" type="java.lang.String" />
+						<param name="descrizioneServizio" type="java.lang.String" />
+						<param name="condizioniEconomicheMassime" type="java.lang.String" />
+						<param name="urlInformazioniCanale" type="java.lang.String" />
+						<param name="datainserimento" type="java.util.Date" />
+						<param name="statoinserimento" type="java.lang.String" />
+						<param name="ordinamento" type="java.lang.Integer" />
+						<param name="origine" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+				
+				<operation name="getListaTipoversamento" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />						
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				
+				<operation name="getFlussoSingoloPagamentoByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="id" type="java.lang.Integer" />
+						<param name="idFlusso" type="java.lang.Integer" />
+						<param name="iuv" type="java.lang.String" />
+						<param name="identificativounivocoriscossione" type="java.lang.String" />
+						<param name="singoloimportopagato" type="java.lang.Double" />
+						<param name="codiceesitosingolopagamento" type="java.lang.String" />
+						<param name="dataesitosingolopagamento" type="java.util.Date" />
+						<param name="datainserimento" type="java.util.Date" />
+						<param name="datamodifica" type="java.util.Date" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="dataregolamentoDa" type="java.util.Date" />
+						<param name="dataregolamentoA" type="java.util.Date" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>	
+
+				<operation name="getFlussoRiversamentoByParam" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="id" type="java.lang.Integer" />
+						<param name="identificativopsp" type="java.lang.String" />
+						<param name="identificativoflusso" type="java.lang.String" />
+						<param name="versioneoggetto" type="java.lang.String" />
+						<param name="identificativounivocoregolamento" type="java.lang.String" />
+						<param name="identificativoistitutomittente" type="java.lang.String" />
+						<param name="identificativoistitutoricevente" type="java.lang.String" />
+						<param name="numerototalepagamenti" type="java.lang.Integer" />
+						<param name="importototalepagamenti" type="java.lang.Double" />
+						<param name="dataoraflusso" type="java.util.Date" />
+						<param name="dataregolamentoDa" type="java.util.Date" />
+						<param name="dataregolamentoA" type="java.util.Date" />
+						<param name="datainserimento" type="java.util.Date" />
+						<param name="datamodifica" type="java.util.Date" />
+						<param name="xmlflusso" type="java.lang.String" />
+						<param name="denominazionemittente" type="java.lang.String" />
+						<param name="denominazionericevente" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				<operation name="getStatisticaApplicazioneTransazione" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						<param name="applicationId" type="java.lang.String" />
+						<param name="dateDa" type="java.util.Date" />
+						<param name="dateA" type="java.util.Date" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				<operation name="estraiFlussiDaServizio" type="synch-call">
+					<param-list>
+						<param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>
+				
+				<operation name="getIbanEnteApplicationByParam" type="synch-call">
+					<param-list>
+						  <param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						  <param name="id" type="java.lang.Integer" />
+						  <param name="applicationId" type="java.lang.String" />
+						  <param name="idEnte" type="java.lang.String" />
+						  <param name="tipoversamento" type="java.lang.String" />
+						  <param name="identificativopsp" type="java.lang.String" />
+						  <param name="iban" type="java.lang.String" />
+						  <param name="dataInizioValidita" type="java.util.Date" />
+						  <param name="dataFineValidita" type="java.util.Date" />
+						  <param name="attivo" type="java.lang.String" />
+					</param-list>
+					<ret-val type="java.util.List" />
+				</operation>					
+				
+				<operation name="insertIbanEnteApplication" type="synch-call">
+					<param-list>
+						  <param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						  <!-- param name="id" type="java.lang.Integer" /-->
+						  <param name="applicationId" type="java.lang.String" />
+						  <param name="idEnte" type="java.lang.String" />
+						  <param name="tipoversamento" type="java.lang.String" />
+						  <param name="identificativopsp" type="java.lang.String" />
+						  <param name="iban" type="java.lang.String" />
+						  <param name="dataInizioValidita" type="java.util.Date" />
+						  <param name="dataFineValidita" type="java.util.Date" />
+						  <param name="attivo" type="java.lang.String" />
+					</param-list>
+				</operation>					
+				
+				<operation name="updateIbanEnteApplication" type="synch-call">
+					<param-list>
+						  <param name="auth" type="it.csi.mdp.boservices.util.Credentials" />
+						  <param name="id" type="java.lang.Integer" />
+						  <param name="applicationId" type="java.lang.String" />
+						  <param name="idEnte" type="java.lang.String" />
+						  <param name="tipoversamento" type="java.lang.String" />
+						  <param name="identificativopsp" type="java.lang.String" />
+						  <param name="iban" type="java.lang.String" />
+						  <param name="dataInizioValidita" type="java.util.Date" />
+						  <param name="dataFineValidita" type="java.util.Date" />
+						  <param name="attivo" type="java.lang.String" />
+					</param-list>
+				</operation>					
+				
+				
+				<operation name="isAlive" type="synch-call">
+					<param-list />
+
+					<ret-val type="boolean" />
+				</operation>
+				<operation name="testResources" type="synch-call">
+					<param-list />
+
+					<ret-val type="boolean" />
+				</operation>
+			</operations>
+		</service>
+	</services>
+	<config>
+		<url-pa>not-used</url-pa>
+		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+
+
+
+			<pluggable-pd name="PA_MdpBoService"
+				class="it.csi.csi.porte.ejb20.PortaDelegataEJB" url-pa="mdppaymentsrv/ejb/PA_MdpBoService">
+
+				<properties>
+					<property name="java.naming.provider.url" value="@@@url_T3_MDPCORE@@@" />
+					<property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
+				</properties>
+
+			</pluggable-pd>
+		</pluggable-pd-list>
+		<queue-manager url="" />
+	</config>
+</porta-delegata>

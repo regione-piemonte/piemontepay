@@ -1,0 +1,21 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<porta-applicativa name="MdpBoService" public-interface-class="it.csi.mdp.boservices.interfacecsi.IMdpBoCsi">
+  <listener
+    class="it.csi.csi.porte.ejb20.PortaApplicativaEJB"
+    listening-url="**NOT USED IN THIS BINDING TYPE**"
+  />
+  <adapter  class="it.csi.csi.wrapper.StatelessEJBAdapter">
+   <properties>
+     <property name="jndi-name" value="mdppaymentsrv/ejb/BoServicesManager"/>
+     <property name="home-class" value="it.csi.mdp.boservices.business.manager.BoServicesHome" />
+     <property name="remote-class" value="it.csi.mdp.boservices.business.manager.BoServices" />
+	 </properties>
+  </adapter>
+</porta-applicativa> 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ejb-jar id="ejb-jar_ID" version="2.1"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+	<description><![CDATA[No Description.]]></description>
+	<display-name><![CDATA[]]>
+	</display-name>
+
+	<enterprise-beans>
+		<session>
+			<ejb-name>BoServicesManager</ejb-name>
+			
+			<home>it.csi.mdp.boservices.business.manager.BoServicesHome</home>
+			<remote>it.csi.mdp.boservices.business.manager.BoServices</remote>
+			<local-home>it.csi.mdp.boservices.business.manager.BoServicesLocalHome</local-home>
+			<local>it.csi.mdp.boservices.business.manager.BoServicesLocal</local>
+			<ejb-class>it.csi.mdp.boservices.business.manager.BoServicesSession</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+
+		<session>
+			<display-name>PA_MdpBoService</display-name>
+			<ejb-name>PA_MdpBoService</ejb-name>
+			
+			<home>it.csi.csi.porte.ejb20.PortaApplicativaHome</home>
+			<remote>it.csi.csi.porte.ejb20.PortaApplicativaEJB</remote>
+			<ejb-class>it.csi.csi.porte.ejb20.PortaApplicativaBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+			
+			<env-entry>
+				<description />
+				<env-entry-name>defpa</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>/defpaejb.xml</env-entry-value>
+			</env-entry>
+			<ejb-local-ref>
+				<description>reference all bean che implementa il servizio</description>
+				<ejb-ref-name>BoServicesManager</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+			<local-home>it.csi.mdp.boservices.business.manager.BoServicesLocalHome</local-home>
+			<local>it.csi.mdp.boservices.business.manager.BoServicesLocal</local>
+				<ejb-link>BoServicesManager</ejb-link>
+			</ejb-local-ref>
+			<security-identity><description>***</description><use-caller-identity/></security-identity>
+		</session>
+
+	</enterprise-beans>
+
+	<assembly-descriptor>
+		<container-transaction>
+			<method>
+				<ejb-name>BoServicesManager</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>RequiresNew</trans-attribute>
+		</container-transaction>
+				<container-transaction>
+			<method>
+				<ejb-name>PA_MdpBoService</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>RequiresNew</trans-attribute>
+		</container-transaction>
+
+	</assembly-descriptor>
+</ejb-jar>
+
+
+
+

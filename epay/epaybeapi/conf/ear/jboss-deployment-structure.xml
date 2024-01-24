@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<jboss-deployment-structure
+	xmlns="urn:jboss:deployment-structure:1.2">
+	<deployment>
+		<exclusions>
+			<module name="org.springframework.spring" />
+			<module name="org.apache.cxf" />
+			<module name="org.apache.cxf.impl" />
+			<module name="asm.asm" />
+			<module name="javax.api" />
+			<module name="javax.annotation.api" />
+			<module name="javax.mail.api" />
+			<module name="javax.wsdl4j.api" />
+			<module name="javax.xml.bind.api" />
+			<module name="com.sun.xml.bind" />
+			<module name="com.sun.xml.fastinfoset" />
+			<module name="org.apache.neethi" />
+			<module name="org.apache.ws.xmlschema" />
+			<module name="org.codehaus.woodstox" />
+		</exclusions>
+		<dependencies>
+			<module name="org.apache.ws.security" slot="main"
+				export="true" meta-inf="export" />
+			<module name="org.aopalliance" slot="main" export="true"
+				meta-inf="export" />
+			<module name="asm.asm" slot="main" export="true" meta-inf="export" />
+		</dependencies>
+	</deployment>
+	<sub-deployment name="appl-be-rest.war">
+		<exclusions>
+			<module name="org.springframework.spring" />
+			<module name="org.apache.cxf" />
+			<module name="org.apache.cxf.impl" />
+			<module name="asm.asm" />
+			<module name="javax.api" />
+			<module name="javax.annotation.api" />
+			<module name="javax.mail.api" />
+			<module name="javax.wsdl4j.api" />
+			<module name="javax.xml.bind.api" />
+			<module name="com.sun.xml.bind" />
+			<module name="com.sun.xml.fastinfoset" />
+			<module name="org.apache.neethi" />
+			<module name="org.apache.ws.xmlschema" />
+			<module name="org.codehaus.woodstox" />
+		</exclusions>
+	</sub-deployment>
+</jboss-deployment-structure>

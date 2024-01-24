@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<listener>
+		<listener-class>it.csi.epay.epaybeapi.api.util.SpringApplicationContextHelper$AppServletContextListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+	</listener>
+
+	<listener>
+	    <listener-class>
+	        org.springframework.web.context.request.RequestContextListener
+	    </listener-class>
+	</listener>
+
+	<!-- 
+		replica della sessione
+	-->
+	<distributable /> 
+	
+	<!-- 
+		precedenze custom per interceptor
+	-->
+	<context-param>
+        <param-name>resteasy.interceptor.before.precedence</param-name>
+        <param-value>SECURITY : BEFORE_SECURITY</param-value>
+    </context-param>
+	<context-param>
+        <param-name>resteasy.interceptor.after.precedence</param-name>
+        <param-value>SECURITY : AFTER_SECURITY</param-value>
+    </context-param>
+
+	<!-- AUTENTICAZIONE JAAS -->
+	
+	<!-- impostazioni di security -->
+	<security-constraint>
+		<!-- A collection of protected resources along with the access mechanism -->
+		<web-resource-collection>
+			<web-resource-name>Restricted to Secure role</web-resource-name>
+			<description>protezione servizi</description>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<!-- The list of roles that can access the resource. -->
+		<auth-constraint>
+			<role-name>writer</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>applications</realm-name>
+	</login-config>
+	<security-role>
+		<role-name>writer</role-name>
+	</security-role>
+	
+</web-app>

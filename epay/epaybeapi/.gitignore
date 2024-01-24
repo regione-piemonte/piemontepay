@@ -1,0 +1,10 @@
+/.classpath
+/.project
+/build/
+/dist/
+/lib/
+/bin/*
+/.settings/*
+*.iml
+*.iml
+/bin/

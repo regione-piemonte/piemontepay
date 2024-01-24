@@ -1,0 +1,12 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<jboss-app>
+
+       <library-directory>APP-INF/lib</library-directory> 
+	   
+</jboss-app>  
