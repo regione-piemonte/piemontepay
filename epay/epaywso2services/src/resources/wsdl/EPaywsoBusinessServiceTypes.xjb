@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<bindings
+	xmlns="http://java.sun.com/xml/ns/jaxb"
+	version="2.1">
+	<bindings schemaLocation="EPaywsoBusinessServiceTypes.xsd">
+		<schemaBindings>
+			<package name="it.csi.epay.epaywsosrv.facade.dto.integrationservice" />
+		</schemaBindings>
+	</bindings>
+</bindings>

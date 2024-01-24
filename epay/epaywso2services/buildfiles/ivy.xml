@@ -1,0 +1,54 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivy-module version="1.0">
+	<info organisation="csipiemonte" module="decpsrv" />
+	<dependencies>
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.1" />
+
+		<dependency org="apache" name="commons-lang" rev="2.6" />
+<!--		<dependency org="apache" name="log4j" rev="1.2.15" />-->
+		<dependency org="apache" name="log4j" rev="2.17.0" />
+		<dependency org="apache" name="commons-lang3" rev="3.2.1"/>
+		<dependency org="apache" name="commons-collections" rev="3.2.1"/>
+
+		<dependency org="javax.inject" name="javax.inject" rev="1-redhat-1" />
+
+		<dependency org="sun" name="mail" rev="1.4.4">
+          <artifact name="mail-1.4.4-redhat-2" type="jar" />	  
+	    </dependency>	 
+
+		<dependency org="others" name="freemarker" rev="2.3.22">
+			<artifact name="freemarker-2.3.22" type="jar" />
+		</dependency>
+
+		<dependency org="others" name="jboss" rev="eap-6.0">
+			<artifact name="hibernate-jpa-2.0-api-1.0.1.Final-redhat-1" type="jar" />
+			<artifact name="hibernate-core-4.1.3.Final-redhat-1" type="jar" />
+			<artifact name="jboss-ejb-api_3.1_spec-1.0.2.Final-redhat-1" type="jar" />
+			<artifact name="jboss-transaction-api_1.1_spec-1.0.1.Final-redhat-1" type="jar" />
+		</dependency>
+
+		<!--
+			servono altri jar per WSImport, che servono solo alla generazione 
+			delle classi a partire dal wsdl (target ant: generate-ws-classes)
+			prima ancora della chiamata ad Ivy:
+
+			jaxb-impl.jar
+			jaxb-xjc.jar
+			jaxws-rt.jar
+			jaxws-tools.jar
+			stax-ex.jar
+			streambuffer.jar
+
+			ad ogni modo, questi jar non sono al momento su repart o ci sono
+			con versioni non adatte.
+		-->
+
+	</dependencies>
+
+</ivy-module>

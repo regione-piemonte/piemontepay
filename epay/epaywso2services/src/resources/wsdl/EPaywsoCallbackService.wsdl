@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="EPaywsoCallbackService" elementFormDefault="qualified"
+	targetNamespace="http://www.csi.it/epay/epaywso/callback"
+	xmlns:srv="http://www.csi.it/epay/epaywso/callback"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:srvt="http://www.csi.it/epay/epaywso/callbacktypes">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import schemaLocation="EPaywsoCallbackServiceTypes.xsd" namespace="http://www.csi.it/epay/epaywso/callbacktypes" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="AggiornamentoStatoRichiestaRequest">
+		<wsdl:part element="srvt:AggiornamentoStatoRichiestaRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornamentoStatoRichiestaResponse">
+		<wsdl:part element="srvt:AggiornamentoStatoRichiestaResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="EPaywsoCallbackService">
+		<wsdl:operation name="AggiornamentoStatoRichiesta">
+			<wsdl:input message="srv:AggiornamentoStatoRichiestaRequest" />
+			<wsdl:output message="srv:AggiornamentoStatoRichiestaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EPaywsoCallbackServiceSOAP" type="srv:EPaywsoCallbackService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="AggiornamentoStatoRichiesta">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/callback/AggiornamentoStatoRichiesta" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EPaywsoCallbackService">
+		<wsdl:port binding="srv:EPaywsoCallbackServiceSOAP" name="EPaywsoCallbackServiceSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<bindings
+	xmlns="http://java.sun.com/xml/ns/jaxb"
+	version="2.1">
+	<globalBindings generateElementProperty="false"/>
+	<bindings schemaLocation="EPaywsoCommonTypes.xsd">
+		<schemaBindings>
+			<package name="it.csi.epay.epaywsosrv.facade.dto.common" />
+		</schemaBindings>
+	</bindings>
+</bindings>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.csi.it/epay/epaywso/callbacktypes"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/callbacktypes"
+	xmlns:cmn="http://www.csi.it/epay/epaywso/types"
+	elementFormDefault="qualified">
+
+	<import schemaLocation="EPaywsoCommonTypes.xsd" namespace="http://www.csi.it/epay/epaywso/types" />
+
+	<element name="AggiornamentoStatoRichiestaRequest" />
+
+	<element name="AggiornamentoStatoRichiestaResponse" type="cmn:ResponseType" />
+</schema>

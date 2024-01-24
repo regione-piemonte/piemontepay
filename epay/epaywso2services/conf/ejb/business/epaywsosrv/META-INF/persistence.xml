@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="epaywso">
+		<jta-data-source>java:/epaywsoDS</jta-data-source>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoDEsito</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoDStatoRichiesta</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoDTipoRichiesta</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoRAppRicEsitoInvio</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoRAppRicEsitoInvioPK</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoRAppTiporicEp</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoRAppTiporicEpPK</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTApplicativo</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTCodiceVersamento</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTEndpoint</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTEnte</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTEsitoInvio</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTRichiesta</class>
+		<properties>
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="epaywso-scheduler">
+		<jta-data-source>java:/epaywsoDS</jta-data-source>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTScheduledJob</class>
+		<class>it.csi.epay.epaywsosrv.persistence.entity.EPaywsoTSchedulerLock</class>
+		<properties>
+			<property name="javax.persistence.lock.timeout" value="0" />
+		</properties>
+	</persistence-unit>
+</persistence>

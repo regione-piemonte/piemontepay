@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>scheduler.expression indica ogni quanti secondi minuti ore eseguire il job</comment>
+	<entry key="activemq.url">@@ACTIVEMQ_URL@@</entry>
+	<entry key="activemq.user">@@ACTIVEMQ_USER@@</entry>
+	<entry key="activemq.password">@@ACTIVEMQ_PASSWORD@@</entry>
+	<entry key="timer.cron.expression">@@TIMER_CRON_EXPRESSION@@</entry>
+</properties>

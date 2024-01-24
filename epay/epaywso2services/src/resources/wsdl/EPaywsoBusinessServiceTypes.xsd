@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://www.csi.it/epay/epaywso/businesstypes"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.csi.it/epay/epaywso/businesstypes"
+	xmlns:cmn="http://www.csi.it/epay/epaywso/types"
+	xmlns:cfg="http://www.csi.it/epay/epaywso/config"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	elementFormDefault="qualified">
+
+	<import schemaLocation="EPaywsoCommonTypes.xsd" namespace="http://www.csi.it/epay/epaywso/types" />
+	<import schemaLocation="EPaywsoConfigTypes.xsd" namespace="http://www.csi.it/epay/epaywso/config" />
+
+	<element name="RicercaEnteRequest" type="tns:RicercaEnteRequestType" />
+	<element name="RicercaEnteResponse" type="tns:RicercaEnteResponseType" />
+
+	<element name="RicercaConfigurazioneApplicativoRequest" type="tns:RicercaConfigurazioneApplicativoRequestType" />
+	<element name="RicercaConfigurazioneApplicativoResponse" type="tns:RicercaConfigurazioneApplicativoResponseType" />
+
+	<element name="RicercaListaConfigurazioniApplicativiRequest" type="tns:RicercaListaConfigurazioniApplicativiRequestType" />
+	<element name="RicercaListaConfigurazioniApplicativiResponse" type="tns:RicercaListaConfigurazioniApplicativiResponseType" />
+
+	<element name="LeggiRichiestaRequest" type="tns:LeggiRichiestaRequestType" />
+	<element name="LeggiRichiestaResponse" type="tns:LeggiRichiestaResponseType" />
+
+	<element name="InserisciNuovaRichiestaRequest" type="tns:InserisciNuovaRichiestaRequestType" />
+	<element name="InserisciNuovaRichiestaResponse" type="tns:InserisciNuovaRichiestaResponseType" />
+
+	<element name="AggiornaRichiestaRequest" type="tns:AggiornaRichiestaRequestType" />
+	<element name="AggiornaRichiestaResponse" type="cmn:ResponseType" />
+
+	<element name="AggiornaEsitoInvioRequest" type="tns:AggiornaEsitoInvioRequestType" />
+	<element name="AggiornaEsitoInvioResponse" type="cmn:ResponseType" />
+	
+	<element name="AggiornaRichiestaESingoloEsitoInvioRequest" type="tns:AggiornaRichiestaESingoloEsitoInvioRequestType" />
+	<element name="AggiornaRichiestaESingoloEsitoInvioResponse" type="cmn:ResponseType" />
+
+	<element name="AggiornaEsitoComplessivoRequest" type="tns:AggiornaEsitoComplessivoRequestType" />
+	<element name="AggiornaEsitoComplessivoResponse" type="cmn:ResponseType" />
+
+	<element name="DeterminaProssimoEndpointRequest" type="tns:DeterminaProssimoEndpointRequestType" />
+	<element name="DeterminaProssimoEndpointResponse" type="tns:DeterminaProssimoEndpointResponseType" />
+
+	<element name="ContaNumeroRichiesteSelezionateRequest" type="tns:ContaNumeroRichiesteSelezionateRequestType" />
+	<element name="ContaNumeroRichiesteSelezionateResponse" type="tns:ContaNumeroRichiesteSelezionateResponseType" />
+
+	<element name="RicercaRichiesteRequest" type="tns:RicercaRichiesteRequestType" />
+	<element name="RicercaRichiesteResponse" type="tns:RicercaRichiesteResponseType" />
+	
+	<element name="RicercaStatiAggregatiWsoRequest" type="tns:RicercaStatiAggregatiWsoRequestType" />
+	<element name="RicercaStatiAggregatiWsoResponse" type="tns:RicercaStatiAggregatiWsoResponseType" />
+	
+	
+	
+
+	<complexType name="EmbeddedXMLType">
+		<sequence>
+			<element name="Contenuto" type="base64Binary" xmime:expectedContentTypes="text/xml" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RicercaEnteRequestType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RicercaEnteResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="Ente" type="tns:EnteType" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="EnteType">
+		<sequence>
+			<element name="IdEnte" type="int" nillable="true" />
+			<element name="Denominazione" type="cmn:String200Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RicercaConfigurazioneApplicativoRequestType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="CodiceVersamento" type="cmn:CodiceVersamentoType" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RicercaConfigurazioneApplicativoResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="ConfigurazioneApplicativo" type="tns:ConfigurazioneApplicativoType" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RicercaListaConfigurazioniApplicativiRequestType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="CodiciVersamento" type="tns:CodiceVersamentoTypeList" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RicercaListaConfigurazioniApplicativiResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="ConfigurazioniApplicativi" type="tns:ConfigurazioneApplicativoTypeList" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ConfigurazioneApplicativoType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="DenominazioneEnte" type="cmn:String200Type" />
+			<element name="DescrizioneCodiceVersamento" type="cmn:String200Type" />
+			<element name="IdApplicativo" type="int" nillable="true" />
+			<element name="DescrizioneApplicativo" type="cmn:String200Type" />
+			<element name="Endpoint" type="cmn:EndpointType" />
+			<element name="UtenteApplicativo" type="string" />
+			<element name="MSInbound" type="string" />
+			<element name="MSOutbound" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ConfigurazioneApplicativoTypeList">
+		<sequence>
+			<element name="ConfigurazioneApplicativo" type="tns:ConfigurazioneApplicativoType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="EsitoInvioType">
+		<sequence>
+			<element name="DescrizioneApplicativo" type="cmn:String200Type" minOccurs="0" />
+			<element name="MessageStore" type="cmn:String50Type" minOccurs="0" />
+			<element name="CodiceEsitoInvio" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsitoInvio" type="cmn:String400Type" minOccurs="0" />
+			<element name="DataEsitoInvio" type="dateTime" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="EsitoInvioTypeList">
+		<sequence>
+			<element name="EsitoInvio" type="tns:EsitoInvioType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="RichiestaType">
+		<sequence>
+			<element name="IdRichiesta" type="integer" />
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" />
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" />
+			<element name="IdMessaggio" type="cmn:String35Type" />
+			<element name="CfEnteOrigine" type="cmn:String35Type" />
+			<element name="PagamentoSpontaneo" nillable="true" type="boolean" />
+			<element name="CodiceVersamento" type="cmn:CodiceVersamentoType" />
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="DataInserimentoRichiesta" type="dateTime" />
+			<element name="DataUltimaVariazione" type="dateTime" minOccurs="0" />
+			<element name="CodiceEsito" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsito" type="cmn:String400Type" minOccurs="0" />
+			<element name="EsitiInvio" type="tns:EsitoInvioTypeList" minOccurs="0" />
+			<element name="DataCallback" type="dateTime" minOccurs="0" />
+			<element name="CodiceEsitoCallback" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsitoCallback" type="cmn:String400Type" minOccurs="0" />
+			<element name="NumeroTotaleElementi" type="int" minOccurs="0" />
+			<element name="ImportoTotale" type="cmn:ImportoType" minOccurs="0" />
+			<element name="DimensioneMessaggioMB" type="cmn:DimensioneMBType" minOccurs="0" />
+			<element name="ContenutoMessaggio" type="tns:EmbeddedXMLType" />
+			<element name="ContenutoCallback" type="tns:EmbeddedXMLType" minOccurs="0" />
+			<element name="IdPSP" type="cmn:String35Type" minOccurs="0" />
+			<element name="IdFlussoRendicontazione" type="cmn:String35Type" minOccurs="0"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="RichiestaLightType">
+		<sequence>
+			<element name="IdRichiesta" type="integer" />
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" />
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" />
+			<element name="PagamentoSpontaneo" nillable="true" type="boolean" />
+			<element name="CodiceVersamento" type="cmn:CodiceVersamentoType" />
+			<element name="DataInvioAlDestinatario" type="dateTime" minOccurs="0" />
+			<element name="CodiceEsito" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="NumeroTotaleElementi" type="int" minOccurs="0" />
+			<element name="ImportoTotale" type="cmn:ImportoType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="LeggiRichiestaRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="LeggiRichiestaResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="Richiesta" type="tns:RichiestaType" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="InserisciNuovaRichiestaRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" />
+			<element name="PagamentoSpontaneo" type="boolean" minOccurs="0" />
+			<element name="CodiceVersamento" type="cmn:CodiceVersamentoType" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" />
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" />
+			<element name="IdMessaggio" type="cmn:String35Type" />
+			<element name="ContenutoMessaggio" type="tns:EmbeddedXMLType" />
+			<element name="NumeroTotaleElementi" type="int" minOccurs="0" />
+			<element name="ImportoTotale" type="cmn:ImportoType" minOccurs="0" />
+			<element name="IdPSP" type="cmn:String35Type" minOccurs="0" />
+			<element name="IdFlussoRendicontazione" type="cmn:String35Type" minOccurs="0"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="InserisciNuovaRichiestaResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="IdRichiesta" type="long" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="AggiornaRichiestaRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" minOccurs="0" />
+			<element name="CodiceEsito" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsito" type="cmn:String400Type" minOccurs="0" />
+			<element name="DataCallback" type="dateTime" minOccurs="0" />
+			<element name="CodiceEsitoCallback" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsitoCallback" type="cmn:String400Type" minOccurs="0" />
+			<element name="ContenutoCallback" type="tns:EmbeddedXMLType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="AggiornaEsitoInvioRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="IdApplicativo" type="int" nillable="true" />
+			<element name="EsitoInvio" type="tns:EsitoInvioType" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="AggiornaRichiestaESingoloEsitoInvioRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" minOccurs="0" />
+			<element name="IdApplicativo" type="int" nillable="true" minOccurs="0" />
+			<element name="DescrizioneApplicativo" type="cmn:String200Type" minOccurs="0" />
+			<element name="MessageStore" type="cmn:String50Type" minOccurs="0" />
+			<element name="CodiceEsito" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsito" type="cmn:String400Type" minOccurs="0" />
+			<element name="DataInvioAlDestinatario" type="dateTime" minOccurs="0" />
+			<element name="DataCallback" type="dateTime" minOccurs="0" />
+			<element name="CodiceEsitoCallback" type="cmn:CodiceEsitoType" minOccurs="0" />
+			<element name="DettaglioEsitoCallback" type="cmn:String400Type" minOccurs="0" />
+			<element name="ContenutoCallback" type="tns:EmbeddedXMLType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="AggiornaEsitoComplessivoRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+		</sequence>
+	</complexType>
+
+	<complexType name="DeterminaProssimoEndpointRequestType">
+		<sequence>
+			<element name="MessageUUID" type="cmn:String50Type" />
+			<element name="CodiciVersamento" type="tns:CodiceVersamentoTypeList" />
+			<element name="TolleranzaSecondi" type="int"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="DeterminaProssimoEndpointResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="ConfigurazioneApplicativo" type="tns:ConfigurazioneApplicativoType" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="ContaNumeroRichiesteSelezionateRequestType">
+		<sequence>
+			<element name="FiltroSelezione" type="tns:FiltroSelezioneRichiesteType" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ContaNumeroRichiesteSelezionateResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="NumeroRichiesteSelezionate" type="integer" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RicercaRichiesteResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="RichiesteEstratte" type="tns:RichiestaLightTypeList" minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="RicercaRichiesteRequestType">
+		<sequence>
+			<element name="FiltroSelezione" type="tns:FiltroSelezioneRichiesteType" minOccurs="0" />
+			<element name="CriteriOrdinamento" type="tns:CriterioOrdinamentoRichiestaTypeList" minOccurs="0" />
+			<element name="Paginazione" type="tns:PaginazioneType" /> 
+		</sequence>
+	</complexType>
+	
+	<complexType name="RicercaStatiAggregatiWsoRequestType">
+		<sequence>
+			<element name="RicercaStatoAggregatoWsoList" type="tns:RicercaStatiAggregatiWsoTypeList" minOccurs="0" />
+			<element name="IdTipoRichiesta" type="integer"  />
+		</sequence>
+	</complexType>
+	
+	<complexType name="RicercaStatiAggregatiWsoTypeList">
+		<sequence>
+			<element name="RicercaStatoAggregatoWso" type="tns:RicercaStatoAggregatoWsoType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="RicercaStatoAggregatoWsoType">
+		<sequence>
+			<element name="IdFlusso" type="cmn:String50Type"  /> 
+			<element name="IdMessaggio" type="cmn:String50Type"  />
+			<element name="CodiceFiscaleEnte" type="cmn:String50Type"  />
+		</sequence>
+	</complexType>
+	
+	<complexType name="RicercaStatiAggregatiWsoResponseType">
+		<complexContent>
+			<extension base="cmn:ResponseType">
+				<sequence>
+					<element name="EsitoRicercaStatiAggregatiWsoList" type="tns:EsitoRicercaStatiAggregatiWsoListTypeList"  minOccurs="0" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="EsitoRicercaStatiAggregatiWsoListTypeList">
+		<sequence>
+			<element name="EsitoRicercaStatiAggregatiWso" type="tns:EsitoRicercaStatiAggregatiWsoType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="EsitoRicercaStatiAggregatiWsoType">
+		<sequence>
+		    <element name="IdFlusso" type="cmn:String50Type" />
+		    <element name="CodFiscaleEnte" type="cmn:String50Type" />
+			<element name="StatoFlusso" type="cmn:String50Type" />
+			<element name="DatoAggiuntivoCodEsito" type="cmn:String50Type"  />
+			<element name="DatoAggiuntivoDescEsito" type="cmn:String50Type"  />
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="FiltroSelezioneRichiesteType">
+		<sequence>
+			<element name="CodiceFiscaleEnte" type="cmn:String35Type" minOccurs="0" />
+			<element name="TipoRichiesta" type="cmn:TipoRichiestaType" minOccurs="0" />
+			<element name="PagamentoSpontaneo" type="boolean" minOccurs="0" />
+			<element name="StatiRichiesta" type="tns:StatoRichiestaTypeList" minOccurs="0" />
+			<element name="CodiciVersamento" type="tns:CodiceVersamentoTypeList" minOccurs="0" />
+			<element name="DataInserimentoRichiestaDa" type="date" minOccurs="0" />
+			<element name="DataInserimentoRichiestaA" type="date" minOccurs="0" />
+			<element name="DataInvioAlDestinatarioDa" type="date" minOccurs="0" />
+			<element name="DataInvioAlDestinatarioA" type="date" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="CriterioOrdinamentoRichiestaType">
+		<sequence>
+			<element name="ColumnNameRichiesta" type="tns:ColumnNameRichiestaType" /> 
+			<element name="SortType" type="tns:SortTypeType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="PaginazioneType">
+		<sequence>
+			<element name="NumeroDiPagina" type="int" nillable="true" />
+			<element name="NumeroRighePerPagina" type="int" nillable="true" />
+		</sequence>
+	</complexType>
+
+	<complexType name="CriterioOrdinamentoRichiestaTypeList">
+		<sequence>
+			<element name="CriterioOrdinamentoRichiesta" type="tns:CriterioOrdinamentoRichiestaType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="RichiestaLightTypeList">
+		<sequence>
+			<element name="Richiesta" type="tns:RichiestaLightType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="StatoRichiestaTypeList">
+		<sequence>
+			<element name="StatoRichiesta" type="cmn:StatoRichiestaType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="CodiceVersamentoTypeList">
+		<sequence>
+			<element name="CodiceVersamento" type="cmn:CodiceVersamentoType" minOccurs="1" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+
+	<simpleType name="ColumnNameRichiestaType">
+		<restriction base="string">
+			<enumeration value="ID_RICHIESTA"/>
+			<enumeration value="CODICE_FISCALE_ENTE"/>
+			<enumeration value="ID_TIPO_RICHIESTA"/>
+			<enumeration value="ID_STATO_RICHIESTA"/>
+			<enumeration value="PAGAMENTO_SPONTANEO"/>
+			<enumeration value="CODICE_VERSAMENTO"/>
+			<enumeration value="DATA_INSERIMENTO_RICHIESTA"/>
+			<enumeration value="DATA_INVIO_AL_DESTINATARIO"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="SortTypeType">
+		<restriction base="string">
+			<enumeration value="ASC"/>
+			<enumeration value="DESC"/>
+		</restriction>
+	</simpleType>
+
+</schema>

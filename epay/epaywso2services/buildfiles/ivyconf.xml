@@ -1,0 +1,27 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<ivysettings>
+
+  <property name="repo.dir" value="${ivy.basedir}/build/repo"/>
+  <!-- Cache settings -->
+  <caches defaultCacheDir="${repo.dir}/cache" />
+  <settings defaultResolver="myUrlResolver"/>
+  
+  <!--settings caches[@defaultCacheDir]="build/cache" defaultResolver="myUrlResolver"/-->
+  <resolvers>
+    <url name="myUrlResolver">
+        <artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+        <artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
+
+        <artifact pattern="http://repart.csi.it/java/[organisation]/[module]/lib/[artifact].[type]" />
+
+        <ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+        <ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+    </url>
+  </resolvers>
+</ivysettings>

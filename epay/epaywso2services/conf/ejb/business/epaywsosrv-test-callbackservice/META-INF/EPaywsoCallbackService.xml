@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>configurazione del logging dei web-service fake</comment>
+	<entry key="log.filepath">@@ABSOLUTEPATH_TO_HOME@@</entry>
+	<entry key="log.filedir">public</entry>
+	<entry key="log.filename.prefix">Callback_</entry>
+	<entry key="log.filename.ext">txt</entry>
+	<entry key="log.encoding">UTF-8</entry>
+</properties>

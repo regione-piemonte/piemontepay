@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="EPaywsoBusinessService" elementFormDefault="qualified"
+	targetNamespace="http://www.csi.it/epay/epaywso/business"
+	xmlns:srv="http://www.csi.it/epay/epaywso/business"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:srvt="http://www.csi.it/epay/epaywso/businesstypes">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import schemaLocation="EPaywsoBusinessServiceTypes.xsd" namespace="http://www.csi.it/epay/epaywso/businesstypes" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="RicercaEnteRequest">
+		<wsdl:part element="srvt:RicercaEnteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaEnteResponse">
+		<wsdl:part element="srvt:RicercaEnteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaConfigurazioneApplicativoRequest">
+		<wsdl:part element="srvt:RicercaConfigurazioneApplicativoRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaConfigurazioneApplicativoResponse">
+		<wsdl:part element="srvt:RicercaConfigurazioneApplicativoResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaListaConfigurazioniApplicativiRequest">
+		<wsdl:part element="srvt:RicercaListaConfigurazioniApplicativiRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaListaConfigurazioniApplicativiResponse">
+		<wsdl:part element="srvt:RicercaListaConfigurazioniApplicativiResponse" name="parameters" />
+	</wsdl:message>
+    <wsdl:message name="LeggiRichiestaRequest">
+		<wsdl:part element="srvt:LeggiRichiestaRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="LeggiRichiestaResponse">
+		<wsdl:part element="srvt:LeggiRichiestaResponse" name="parameters" />
+	</wsdl:message>
+    <wsdl:message name="InserisciNuovaRichiestaRequest">
+		<wsdl:part element="srvt:InserisciNuovaRichiestaRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="InserisciNuovaRichiestaResponse">
+		<wsdl:part element="srvt:InserisciNuovaRichiestaResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaRichiestaRequest">
+		<wsdl:part element="srvt:AggiornaRichiestaRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaRichiestaResponse">
+		<wsdl:part element="srvt:AggiornaRichiestaResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaEsitoInvioRequest">
+		<wsdl:part element="srvt:AggiornaEsitoInvioRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaEsitoInvioResponse">
+		<wsdl:part element="srvt:AggiornaEsitoInvioResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaRichiestaESingoloEsitoInvioRequest">
+		<wsdl:part element="srvt:AggiornaRichiestaESingoloEsitoInvioRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaRichiestaESingoloEsitoInvioResponse">
+		<wsdl:part element="srvt:AggiornaRichiestaESingoloEsitoInvioResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaEsitoComplessivoRequest">
+		<wsdl:part element="srvt:AggiornaEsitoComplessivoRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AggiornaEsitoComplessivoResponse">
+		<wsdl:part element="srvt:AggiornaEsitoComplessivoResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="DeterminaProssimoEndpointRequest">
+		<wsdl:part element="srvt:DeterminaProssimoEndpointRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="DeterminaProssimoEndpointResponse">
+		<wsdl:part element="srvt:DeterminaProssimoEndpointResponse" name="parameters" />
+	</wsdl:message>
+    <wsdl:message name="ContaNumeroRichiesteSelezionateRequest">
+		<wsdl:part element="srvt:ContaNumeroRichiesteSelezionateRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="ContaNumeroRichiesteSelezionateResponse">
+		<wsdl:part element="srvt:ContaNumeroRichiesteSelezionateResponse" name="parameters" />
+	</wsdl:message>
+    <wsdl:message name="RicercaRichiesteRequest">
+		<wsdl:part element="srvt:RicercaRichiesteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaRichiesteResponse">
+		<wsdl:part element="srvt:RicercaRichiesteResponse" name="parameters" />
+	</wsdl:message>
+	 <wsdl:message name="RicercaStatiAggregatiWsoRequest">
+		<wsdl:part element="srvt:RicercaStatiAggregatiWsoRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="RicercaStatiAggregatiWsoResponse">
+		<wsdl:part element="srvt:RicercaStatiAggregatiWsoResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="EPaywsoBusinessService">
+		<wsdl:operation name="RicercaEnte">
+			<wsdl:input message="srv:RicercaEnteRequest" />
+			<wsdl:output message="srv:RicercaEnteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="RicercaConfigurazioneApplicativo">
+			<wsdl:input message="srv:RicercaConfigurazioneApplicativoRequest" />
+			<wsdl:output message="srv:RicercaConfigurazioneApplicativoResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="RicercaListaConfigurazioniApplicativi">
+			<wsdl:input message="srv:RicercaListaConfigurazioniApplicativiRequest" />
+			<wsdl:output message="srv:RicercaListaConfigurazioniApplicativiResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="LeggiRichiesta">
+			<wsdl:input message="srv:LeggiRichiestaRequest" />
+			<wsdl:output message="srv:LeggiRichiestaResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="InserisciNuovaRichiesta">
+			<wsdl:input message="srv:InserisciNuovaRichiestaRequest" />
+			<wsdl:output message="srv:InserisciNuovaRichiestaResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaRichiesta">
+			<wsdl:input message="srv:AggiornaRichiestaRequest" />
+			<wsdl:output message="srv:AggiornaRichiestaResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaEsitoInvio">
+			<wsdl:input message="srv:AggiornaEsitoInvioRequest" />
+			<wsdl:output message="srv:AggiornaEsitoInvioResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaRichiestaESingoloEsitoInvio">
+			<wsdl:input message="srv:AggiornaRichiestaESingoloEsitoInvioRequest" />
+			<wsdl:output message="srv:AggiornaRichiestaESingoloEsitoInvioResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaEsitoComplessivo">
+			<wsdl:input message="srv:AggiornaEsitoComplessivoRequest" />
+			<wsdl:output message="srv:AggiornaEsitoComplessivoResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="DeterminaProssimoEndpoint">
+			<wsdl:input message="srv:DeterminaProssimoEndpointRequest" />
+			<wsdl:output message="srv:DeterminaProssimoEndpointResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="ContaNumeroRichiesteSelezionate">
+			<wsdl:input message="srv:ContaNumeroRichiesteSelezionateRequest" />
+			<wsdl:output message="srv:ContaNumeroRichiesteSelezionateResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="RicercaRichieste">
+			<wsdl:input message="srv:RicercaRichiesteRequest" />
+			<wsdl:output message="srv:RicercaRichiesteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="RicercaStatiAggregatiWso">
+			<wsdl:input message="srv:RicercaStatiAggregatiWsoRequest" />
+			<wsdl:output message="srv:RicercaStatiAggregatiWsoResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EPaywsoBusinessServiceSOAP" type="srv:EPaywsoBusinessService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="RicercaEnte">
+			<soap:operation
+				soapAction="http://www.csi.it/epay/epaywso/business/RicercaEnte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RicercaConfigurazioneApplicativo">
+			<soap:operation
+				soapAction="http://www.csi.it/epay/epaywso/business/RicercaConfigurazioneApplicativo" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RicercaListaConfigurazioniApplicativi">
+			<soap:operation
+				soapAction="http://www.csi.it/epay/epaywso/business/RicercaListaConfigurazioniApplicativi" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="LeggiRichiesta">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/LeggiRichiesta" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="InserisciNuovaRichiesta">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/InserisciNuovaRichiesta" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaRichiesta">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/AggiornaRichiesta" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaEsitoInvio">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/AggiornaEsitoInvio" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaRichiestaESingoloEsitoInvio">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/AggiornaRichiestaESingoloEsitoInvio" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AggiornaEsitoComplessivo">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/AggiornaEsitoComplessivo" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeterminaProssimoEndpoint">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/DeterminaProssimoEndpoint" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ContaNumeroRichiesteSelezionate">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/ContaNumeroRichiesteSelezionate" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RicercaRichieste">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/RicercaRichieste" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RicercaStatiAggregatiWso">
+			<soap:operation soapAction="http://www.csi.it/epay/epaywso/business/RicercaStatoAggregatoWso" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EPaywsoBusinessService">
+		<wsdl:port binding="srv:EPaywsoBusinessServiceSOAP" name="EPaywsoBusinessServiceSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,22 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+  <datasource jndi-name="java:/epaywsoDS" pool-name="epaywsoDS" enabled="true">
+    <connection-url>@@CONNECTION_URL@@</connection-url>
+    <driver>postgresql</driver>
+    <pool>
+      <min-pool-size>5</min-pool-size>
+      <max-pool-size>15</max-pool-size>
+      <prefill>true</prefill>
+    </pool>
+    <security>
+      <user-name>@@USERNAME@@</user-name>
+      <password>@@PASSWORD@@</password>
+    </security>
+  </datasource>
+</datasources>
