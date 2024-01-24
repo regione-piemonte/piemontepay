@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    
+
+<bean id="applicationContextManager" class="it.csi.util.beanlocatorfactory.SpringApplicationContextManager"/>
+
+  <!--  BEAN DEI SERVIZI PER I FRUITORI -->
+  
+<bean id="delegate" class="it.csi.mdpnew.mdpcoopapplicativasrv.business.mdpcoopapplicativa.MdpcoopapplicativaImpl">
+		<property name="mdpDao" ref="mdpDao"/>
+	
+</bean>
+
+
+    <!--  SEQUENCE  
+    
+	<bean id="seqTIncassoSint" class ="org.springframework.jdbc.support.incrementer.OracleSequenceMaxValueIncrementer"> 
+		<constructor-arg ref="dataSourceScd" />
+		<constructor-arg value="SEQ_SCD_T_INCASSO_SINTETICO" />
+	</bean>
+	-->	
+	
+    
+    <!--  OGGETTI DAO 
+
+	<bean id="incassoSinteticoDao" class = "it.csi.scd.scdsrv.integration.scdsrv.dao.impl.IncassoSinteticoDaoImpl"> 
+	    <property name="seqTIncassoSint" ref="seqTIncassoSint"/>
+	    <property name="seqTImportFileCsv" ref="seqTImportFileCsv"/>
+	    <property name="seqTQuietanza" ref="seqTQuietanza"/>
+	    <property name="namedJdbcTemplate" ref="namedJdbcTemplate"/>
+	</bean>
+																								  
+	<bean id="functionInserisciIncassiDao" class = "it.csi.scd.scdsrv.integration.scdsrv.dao.impl.FunctionInserisciIncassiDaoImpl"> 
+			<constructor-arg ref="dataSourceScd" />
+	</bean>
+-->
+	<bean id="mdpDao"  class="it.csi.mdpnew.mdpcoopapplicativasrv.integration.mdpcoopapplicativa.dao.impl.MdpDaoImpl">
+	  <property name="namedJdbcTemplate" ref="namedJdbcTemplate"/>
+	</bean>
+	
+	
+	
+
+	<!--  NAMED JDBC TEMPLATE -->
+	
+	<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	  <constructor-arg ref="dataSourceScd"/>
+	</bean>
+	
+	
+	
+	<bean id="dataSourceScd" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:mdpcoopapplicativa/jdbc/MdpnewDS"/>
+		<property name="proxyInterface" value="javax.sql.DataSource"/>
+	</bean>
+
+
+</beans>

@@ -1,0 +1,40 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<porta-applicativa name="mdpcoopapplicativasrv.MdpcoopapplicativaPA"
+	public-interface-class="it.csi.mdp.mdpcoopapplicativasrv.interfacecsi.mdpcoopapplicativa.MdpcoopapplicativaSrv">
+
+	<listener class="it.csi.csi.porte.ejb20.PortaApplicativaEJB" listening-url="**NOT USED IN THIS BINDING TYPE**" />
+
+	<adapter class="it.csi.csi.wrapper.StatelessEJBAdapter">
+		<properties>
+			<property name="jndi-name"
+				value="mdpcoopapplicativasrv.ejb.MdpcoopapplicativaSrv" />
+				
+				<property name="home-class"
+				value="it.csi.mdpnew.mdpcoopapplicativasrv.business.mdpcoopapplicativa.MdpcoopapplicativaHome" />
+			<property name="remote-class"
+				value="it.csi.mdpnew.mdpcoopapplicativasrv.business.mdpcoopapplicativa.MdpcoopapplicativaRemote" />
+				
+			<!--<property name="jndi-name"
+				value="java:comp/env/MdpcoopapplicativaBean" />				
+			<property name="home-class"
+				value="it.csi.mdp.mdpcoopapplicativasrv.business.mdpcoopapplicativa.MdpcoopapplicativaLocalHome" />
+			<property name="local-class"
+				value="it.csi.mdp.mdpcoopapplicativasrv.business.mdpcoopapplicativa.MdpcoopapplicativaLocal" />
+				-->
+		</properties>
+	</adapter>
+	<options>
+    	<pre-function-handler-list>
+    	
+		</pre-function-handler-list>
+		<post-function-handler-list>
+		
+		</post-function-handler-list>
+	</options>
+</porta-applicativa>

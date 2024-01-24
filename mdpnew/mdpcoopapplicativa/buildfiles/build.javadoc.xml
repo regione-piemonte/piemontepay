@@ -1,0 +1,23 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JAVADOC" default="javadoc" basedir=".">
+
+    <target name="javadoc">
+
+    	<javadoc sourcepath="${src}/java"                 
+                 packagenames="it.csi.*"
+                 destdir="${docs}/api"
+                 access="${javadoc.access}"
+                 author="${javadoc.author}"
+                 version="${javadoc.version}"
+                 use="${javadoc.use}"
+                 windowtitle="${ant.project.name} API"
+                 doctitle="${javadoc.title}" />
+    </target>
+</project>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
+
+<jboss>
+    
+   	<enterprise-beans>
+
+    <!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>MdpcoopapplicativaBean</ejb-name>
+        <enable-call-by-reference>true</enable-call-by-reference>
+        <!-- <jndi-name>mdpcoopapplicativasrv.ejb.MdpcoopapplicativaSrv</jndi-name> -->
+        <local-jndi-name>mdpcoopapplicativasrv.ejb.MdpcoopapplicativaSrv</local-jndi-name>
+        <clustered>@@cluster</clustered>
+    </session>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>MdpcoopapplicativaPA</ejb-name>
+        <enable-call-by-reference>true</enable-call-by-reference>
+        <local-jndi-name>mdpcoopapplicativasrv.ejb.ApplMdpcoopapplicativaPA</local-jndi-name>
+        <clustered>@@cluster</clustered>
+        <!-- <jndi-name>mdpcoopapplicativasrv.ejb.ApplMdpcoopapplicativaPA</jndi-name> -->
+    </session>
+
+    
+    
+    
+   </enterprise-beans>
+
+     <!--
+       To specify your own assembly descriptor info here, add a file to your
+       XDoclet merge directory called jboss-assembly-descriptor.xml that contains
+       the <assembly-descriptor></assembly-descriptor> markup.
+     -->
+   <assembly-descriptor>
+    <!-- message destinations -->
+     <!--
+       To specify additional message-destination elements, add a file in the merge
+       directory called jboss-message-destinations.ent that contains them.
+     -->
+   </assembly-descriptor>
+
+   <resource-managers>
+   </resource-managers>
+
+  <!--
+    | for container settings, you can merge in jboss-container.xml
+    | this can contain <invoker-proxy-bindings/> and <container-configurations/>
+  -->
+
+</jboss>

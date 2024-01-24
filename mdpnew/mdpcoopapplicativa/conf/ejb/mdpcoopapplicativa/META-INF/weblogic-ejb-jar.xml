@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<weblogic-ejb-jar
+  xmlns="http://www.bea.com/ns/weblogic/90" 
+  xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>MdpcoopapplicativaBean</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+	</weblogic-enterprise-bean>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>MdpcoopapplicativaPA</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+		<jndi-name>mdpcoopapplicativasrv.ejb.ApplMdpcoopapplicativaPA</jndi-name>
+		
+		<remote-client-timeout>30</remote-client-timeout>
+		
+	</weblogic-enterprise-bean>
+	
+	
+</weblogic-ejb-jar>
