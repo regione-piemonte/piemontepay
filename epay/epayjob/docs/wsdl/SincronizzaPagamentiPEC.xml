@@ -1,0 +1,146 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.csi.it/epay/epaypa/sincronizzapagamentipec" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SincronizzaPagamentiPEC" targetNamespace="http://www.csi.it/epay/epaypa/sincronizzapagamentipec">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaypa/types" targetNamespace="http://www.csi.it/epay/epaypa/types" version="1.0">
+
+  <xs:element name="EPaypaServiceResponse" type="tns:ResponseType"/>
+
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element name="Result" type="tns:ResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="Codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="Messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaypa/sincronizzapagamentipec" xmlns:ns1="http://www.csi.it/epay/epaypa/types" targetNamespace="http://www.csi.it/epay/epaypa/sincronizzapagamentipec" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaypa/types"/>
+
+  <xs:element name="SincronizzaPagamentiRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" minOccurs="0" name="Pagamento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="IdPagamento" type="xs:long"/>
+              <xs:element minOccurs="0" name="IuvNumeroAvviso" type="xs:string"/>
+              <xs:element minOccurs="0" name="IdStato" type="xs:int"/>
+              <xs:element minOccurs="0" name="DescStato" type="xs:string"/>
+              <xs:element minOccurs="0" name="DataPagamento" type="xs:dateTime"/>
+              <xs:element minOccurs="0" name="ImportoPagato" type="xs:decimal"/>
+              <xs:element minOccurs="0" name="PagamentoSpontaneo" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SincronizzaPagamentiResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SincronizzaPagamento">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdPagamento" type="xs:long"/>
+        <xs:element minOccurs="0" name="IuvNumeroAvviso" type="xs:string"/>
+        <xs:element minOccurs="0" name="IdStato" type="xs:int"/>
+        <xs:element minOccurs="0" name="DescStato" type="xs:string"/>
+        <xs:element minOccurs="0" name="DataPagamento" type="xs:dateTime"/>
+        <xs:element minOccurs="0" name="ImportoPagato" type="xs:decimal"/>
+        <xs:element minOccurs="0" name="PagamentoSpontaneo" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TestResourcesRequest">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="TestResourcesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="esito" type="ns1:ResponseType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="TestResources">
+    <wsdl:part element="tns:TestResourcesRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TestResourcesResponse">
+    <wsdl:part element="tns:TestResourcesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SincronizzaPagamenti">
+    <wsdl:part element="tns:SincronizzaPagamentiRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SincronizzaPagamentiResponse">
+    <wsdl:part element="tns:SincronizzaPagamentiResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SincronizzaPagamentiPEC">
+    <wsdl:operation name="TestResources">
+      <wsdl:input message="tns:TestResources" name="TestResources">
+    </wsdl:input>
+      <wsdl:output message="tns:TestResourcesResponse" name="TestResourcesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SincronizzaPagamenti">
+      <wsdl:input message="tns:SincronizzaPagamenti" name="SincronizzaPagamenti">
+    </wsdl:input>
+      <wsdl:output message="tns:SincronizzaPagamentiResponse" name="SincronizzaPagamentiResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SincronizzaPagamentiPECSoapBinding" type="tns:SincronizzaPagamentiPEC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TestResources">
+      <soap:operation soapAction="http://www.csi.it/epay/epaypa/sincronizzapagamentipec/TestResources" style="document"/>
+      <wsdl:input name="TestResources">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TestResourcesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SincronizzaPagamenti">
+      <soap:operation soapAction="http://www.csi.it/epay/epaypa/sincronizzapagamentipec/SincronizzaPagamenti" style="document"/>
+      <wsdl:input name="SincronizzaPagamenti">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SincronizzaPagamentiResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SincronizzaPagamentiPEC">
+    <wsdl:port binding="tns:SincronizzaPagamentiPECSoapBinding" name="SincronizzaPagamentiPEC">
+      <soap:address location="http://907a9d9d01ab:8080/epaypaweb-business/SincronizzaPagamentiPEC/SincronizzaPagamentiPEC"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

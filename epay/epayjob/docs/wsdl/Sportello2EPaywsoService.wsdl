@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+	targetNamespace="http://www.csi.it/epay/epaywso/sportello2epaywso"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://www.csi.it/epay/epaywso/sportello2epaywso" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:cmn="http://www.csi.it/epay/epaywso/types"
+    xmlns:srv="http://www.csi.it/epay/epaywso/epaywso2enti/types"> 
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/types" schemaLocation="EPaywsoCommonTypes.xsd"/>
+      <xsd:import namespace="http://www.csi.it/epay/epaywso/epaywso2enti/types" schemaLocation="EPaywso2EntiServiceTypes.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TrasmettiNotifichePagamentoRequest">
+    <wsdl:part element="srv:TrasmettiNotifichePagamentoRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiAvvisiScadutiRequest">
+    <wsdl:part element="srv:TrasmettiAvvisiScadutiRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="Sportello2EPaywsoServiceResponse">
+    <wsdl:part element="cmn:EPaywsoServiceResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="Sportello2EPaywso">
+    <wsdl:operation name="TrasmettiNotifichePagamento">
+      <wsdl:input message="tns:TrasmettiNotifichePagamentoRequest"/>
+      <wsdl:output message="tns:Sportello2EPaywsoServiceResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="TrasmettiAvvisiScaduti">
+      <wsdl:input message="tns:TrasmettiAvvisiScadutiRequest"/>
+      <wsdl:output message="tns:Sportello2EPaywsoServiceResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Sportello2EPaywsoSOAP" type="tns:Sportello2EPaywso">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TrasmettiNotifichePagamento">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/service/TrasmettiNotifichePagamento"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrasmettiAvvisiScaduti">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/service/TrasmettiAvvisiScaduti"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sportello2EPaywso">
+    <wsdl:port binding="tns:Sportello2EPaywsoSOAP" name="Sportello2EPaywsoSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
