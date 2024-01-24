@@ -1,0 +1,5 @@
+### https://tst-mdp.piemontepay.it/mdppagopacheckout/api/landingpages/v1/urlpaymentocancel?tranId=TST000000004255218&macId=GxUFRLTwx3RapmXm4Go0kAChYL1I2YEl9kf
+
+GET {{bserURLLanding}}urlpaymentocancel?tranId=TST000000004255218&macId=GxUFRLTwx3RapmXm4Go0kAChYL1I2YEl9kf
+
+### paymento ????

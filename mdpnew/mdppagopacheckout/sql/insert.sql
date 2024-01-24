@@ -1,0 +1,16 @@
+--
+-- valori di test
+-- fieldvalue sempre encodato in base64!
+--
+-- INSERT INTO applicationcustomfields (keyid, applicationid, fieldname, fieldvalue, gateway_id, fielddescription) VALUES (DEFAULT, 'EPAY_80087670016_24', 'returnOkUrl', 'r5o6GNTpHTvKZAQQmi5PjMD2hYyDBP4WL/O2flmHGrIUB7TGO+R50M3PLlhBLRpGsyBA+GiNKp1cU0H7UnhwTQ==', 'E319020F-10E4-4D95-A338-B0AC49F3AD4A', 'nodospc v2');
+-- INSERT INTO applicationcustomfields (keyid, applicationid, fieldname, fieldvalue, gateway_id, fielddescription) VALUES (DEFAULT, 'EPAY_80087670016_24', 'returnCancelUrl', 'r5o6GNTpHTvKZAQQmi5PjMD2hYyDBP4WL/O2flmHGrKBZVQ5i/Mb3XrVeYpio0iQuCJvnXCs4m5/ZgPanthkyg==', 'E319020F-10E4-4D95-A338-B0AC49F3AD4A', 'nodospc v2');
+-- INSERT INTO applicationcustomfields (keyid, applicationid, fieldname, fieldvalue, gateway_id, fielddescription) VALUES (DEFAULT, 'EPAY_80087670016_24', 'returnErrorUrl', 'r5o6GNTpHTvKZAQQmi5PjMD2hYyDBP4WL/O2flmHGrIarbZwYbPIkVrdibxJLLRL4hFfOevFx80xoRKtt8pQaQ==', 'E319020F-10E4-4D95-A338-B0AC49F3AD4A', 'nodospc v2');
+--
+-- valori in chiaro sulla config
+--                                                                         https://tst-mdp.piemontepay.it/mdppagopacheckout/api/landingpages/v1/
+-- INSERT INTO config (key, value, descrizione) VALUES ('mdp.return.url.ok', 'http://tst-srv-pay.bilancio.csi.it/mdppagopacheckout/api/landingpages/v1/urlpaymentok', 'ok url di test');
+-- INSERT INTO config (key, value, descrizione) VALUES ('mdp.return.url.cancel', 'http://tst-srv-pay.bilancio.csi.it/mdppagopacheckout/api/landingpages/v1/urlpaymentcancel', 'cancel url di test');
+-- INSERT INTO config (key, value, descrizione) VALUES ('mdp.return.url.error', 'http://tst-srv-pay.bilancio.csi.it/mdppagopacheckout/api/landingpages/v1/urlpaymenterror', 'error url di test');
+--
+--
+-- SCRIPT AGGIORNATI IN PROGETTO APPOSITO, NON USARE QUESTI, SOLO COME ESEMPIO

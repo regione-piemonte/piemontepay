@@ -1,0 +1,17 @@
+### da error 422 da parte di pagoPA, non dovrebbe essere causa nostra
+POST {{baseURLAPI}}transactions
+Authorization: Basic {{user}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "paymentNotices": [
+    {
+      "description": "Musei - Ingressi",
+      "applicationId": "EPAY_00125680033_2",
+      "noticeNumber": "322231801901758441",
+      "amount": 5
+    }
+  ],
+  "emailNotice": "pino@test.it"
+}

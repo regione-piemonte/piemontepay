@@ -1,0 +1,123 @@
+### by Ale
+POST {{baseURLAPI}}transactions
+Authorization: Basic {{user}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "emailNotice": "simone.celia@simonecelia.it",
+  "paymentNotices": [
+    {
+      "noticeNumber": "324231721863283967",
+      "amount": 10000,
+      "description": "pagamento tassa A",
+      "applicationId": "EPAY_80087670016_24"
+    }
+  ]
+}
+
+### by Analisi, not working
+POST {{baseURLAPI}}transactions
+Authorization: Basic {{user}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "emailNotice": "my_email@mail.it",
+  "paymentNotices": [
+    {
+      "noticeNumber": "26230748520107902",
+      "amount": 10000,
+      "description": "pagamento tassa A",
+      "applicationId": "EPAY_80087670016_1"
+    },
+    {
+      "noticeNumber": "26230748520107903",
+      "amount": 5000,
+      "description": "pagamento tassa B",
+      "applicationId": "EPAY_00000000180_4"
+    }
+  ]
+}
+
+### chiamata pagoPA
+POST https://api.platform.pagopa.it/checkout/ec/v1/carts
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "emailNotice": "my_email@mail.it",
+  "idCart": " PRD000000016812423",
+  "paymentNotices": [
+    {
+      "noticeNumber": "26230748520107902",
+      "fiscalCode": " 77777777777",
+      "amount": 10000,
+      "companyName": "companyName",
+      "description": "description",
+      "allCCP": true
+    },
+    {
+      "noticeNumber": "26230748520107903",
+      "fiscalCode": "77777777777",
+      "amount": 5000,
+      "companyName": "companyName",
+      "description": "description",
+      "allCCP": true
+    }
+  ],
+  "returnUrls": {
+    "returnOkUrl": "https://www.comune.di.prova.it/pagopa/success.html",
+    "returnCancelUrl": "https://www.comune.di.prova.it/pagopa/cancel.html",
+    "returnErrorUrl": "https://www.comune.di.prova.it/pagopa/error.html"
+  }
+}
+
+### chiamata pago pa by Artan
+#POST https://api.platform.pagopa.it/checkout/ec/v1/carts
+POST https://api.uat.platform.pagopa.it/checkout/ec/v1/carts
+Accept: application/json
+Content-Type: application/json
+
+
+{
+  "emailNotice": "servizio.mdp@csi.it",
+  "paymentNotices": [
+    {
+      "noticeNumber": "324222551300022253",
+      "fiscalCode": "80087670016",
+      "amount": 1500,
+      "companyName": "Regione Piemonte",
+      "description": "description"
+    }
+  ],
+  "returnUrls": {
+    "returnOkUrl": "https://www.comune.di.prova.it/pagopa/success.html",
+    "returnCancelUrl": "https://www.comune.di.prova.it/pagopa/cancel.html",
+    "returnErrorUrl": "https://www.comune.di.prova.it/pagopa/error.html"
+  }
+}
+
+### da dati applicativo
+POST https://api.uat.platform.pagopa.it/checkout/ec/v1/carts
+Accept: application/json
+Content-Type: application/json
+
+{
+  "emailNotice" : "simone.celia@simonecelia.it",
+  "idCart" : "TST000000001298973",
+  "paymentNotices" : [ {
+    "noticeNumber" : "324231721863283967",
+    "fiscalCode" : "80087670016",
+    "amount" : 10000,
+    "companyName" : "Regione Piemonte",
+    "description" : "pagamento tassa A",
+    "allCCP" : true
+  } ],
+  "returnUrls" : {
+    "returnOkUrl" : "https://www.comune.di.prova.it/pagopa/success.html",
+    "returnCancelUrl" : "https://www.comune.di.prova.it/pagopa/cancel.html",
+    "returnErrorUrl" : "https://www.comune.di.prova.it/pagopa/error.html"
+  }
+}

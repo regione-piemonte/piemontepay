@@ -1,0 +1,6 @@
+### funziona da browser!
+GET {{bserURLLanding}}urlpaymentok?transactionId=TST000000001299626
+## http://localhost:8080/mdppagopacheckout/api/landingpages/v1/urlpaymentok?transactionId=TST000000001299626
+
+### bad request
+GET {{bserURLLanding}}urlpaymentok?transactionId=TST000000001299626_

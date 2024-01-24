@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: servizio.mdp@csi.it
+    name: MDP
+  title: Swagger PPAY api - OpenAPI 3.0.3
+  description: |-
+    Yaml mdppagopacheckout_v1.yaml. Payment service for the "Modello unico". For activation, please write to the mdp mailbox.
+
+  termsOfService: https://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.2
+servers:
+  - url: http://localhost:8080/mdppagopacheckout
+    description: dev env (pero' la generazione automatica non lo considera)
+tags:
+  - name: carts
+    description: carts
+paths:
+  /api/v1/transactions:
+    post:
+      tags:
+        - carts
+      summary: Return pagoPA URL for payment.
+      description: Receives the payment request and makes the call to pagoPA Checkout and return payment url and transaction id.
+      operationId: managePaymentRequest
+      requestBody:
+        description: Body parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Status 400 - Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - csi_auth:
+            - write:debtPosition
+components:
+  schemas:
+    Cart:
+      required:
+        - paymentNotices
+      type: object
+      properties:
+        paymentNotices:
+          type: array
+          minLength: 1
+          maxLength: 5
+          items:
+            $ref: '#/components/schemas/PaymentNotice'
+        emailNotice:
+          type: string
+          format: email
+          maxLength: 256
+          description: citizen email; provide it for notification system
+    PaymentNotice:
+      required:
+        - noticeNumber
+        - amount
+        - applicationId
+        - description
+      type: object
+      properties:
+        description:
+          description: Breve descrizione del pagamento
+          type: string
+          maxLength: 140
+        applicationId:
+          type: string
+          description: identificativo applicazione
+        noticeNumber:
+          type: string
+          description: Numero avviso, with aux-digit
+          minLength: 17
+          maxLength: 18
+        amount:
+          type: number
+          minimum: 0.009999999
+          maximum: 99999999999
+          description: Payment amount ( in euro ) of the payment notice. 0.01 = 1 cent
+    Transaction:
+      required:
+        - idTransaction
+        - paymentUrl
+      type: object
+      properties:
+        idTransaction:
+          type: string
+          description: Cart id, will be setted with TRANSACTION_ID
+        paymentUrl:
+          type: string
+          description: pagoPA url for payment
+    Error:
+      required:
+        - status
+        - code
+      type: object
+      properties:
+        status:
+          type: string
+        code:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - INTERNAL_ERROR
+            - BUSINESS_ERROR
+            - AUTHORIZATION_ERROR
+        detail:
+          type: string
+  securitySchemes:
+    csi_auth:
+      type: http
+      scheme: basic

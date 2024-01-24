@@ -1,0 +1,18 @@
+### NOTE: cambiare sempre l'identificativoPagamento
+
+POST https://tst-pay-sistemapiemonte.bilancio.csi.it/epayapi/api/v1/organizations/80087670016/paymenttypes/PN00/payment
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic epayapi_1 96wVeDM8
+
+{
+  "causale": "Emergenza Coronavirus",
+  "importo": "0.35",
+  "nome": "Antonio",
+  "cognome": "Colucci",
+  "notePerIlPagatore": "test di carico",
+  "email": "Antonio.Colucci@consulenti.csi.it",
+  "codiceFiscalePartitaIVAPagatore": "00304260409",
+  "identificativoPagamento": "PPP-02_522ba75e-3eea-47aa-8b9d-d6c3{{$random.integer()}}"
+}
+
