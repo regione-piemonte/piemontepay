@@ -1,0 +1,43 @@
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://cxf.apache.org/jaxws
+         				http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="it.csi.epay.epaysim" />
+
+	<context:property-placeholder
+		location="classpath:/config.properties" />
+
+	<bean id="epaymodricFacade"
+		class="it.csi.epay.epaysim.integration.epaymodric.facade.EpaymodricWsFacade">
+		<constructor-arg
+			value="${service.epaymodricws.endpoint}" />
+	</bean>
+
+	<bean id="jaxb2Marshaller" 
+		class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="packagesToScan">
+			<list>
+				<!-- List of java packages that contain the jaxb generated classes -->
+				<value>it.csi.epay.epaysim.dto.flussi.riconciliazioneversamentipsptypes</value>
+			</list>
+		</property>
+	</bean>
+</beans>

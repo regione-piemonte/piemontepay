@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns3="http://www.csi.it/epay/epaywso/types" xmlns:ns2="http://www.csi.it/epay/epaywso/rendicontazione-ext" xmlns:ns1="http://epaymodric.interfacews.epaymodric.epay.csi.it/" name="EpaymodricAcquisizione" targetNamespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/types" xmlns:ns1="http://www.csi.it/epay/epaywso/rendicontazione-ext" elementFormDefault="qualified" targetNamespace="http://www.csi.it/epay/epaywso/types" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaywso/rendicontazione-ext"/>
+
+  <xs:element name="EPaywsoServiceResponse" type="tns:ResponseType"/>
+
+  <xs:element name="trasmettiFlussoRendicontazioneExtRequestType" type="ns1:TrasmettiFlussoRendicontazioneExtRequestType"/>
+
+
+  <xs:complexType name="SoggettoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonaFisica" type="tns:PersonaFisicaType"/>
+      <xs:element minOccurs="0" name="PersonaGiuridica" type="tns:PersonaGiuridicaType"/>
+      <xs:element name="IdentificativoUnivocoFiscale" type="xs:string"/>
+      <xs:element minOccurs="0" name="Indirizzo" type="xs:string"/>
+      <xs:element minOccurs="0" name="Civico" type="xs:string"/>
+      <xs:element minOccurs="0" name="CAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="Localita" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="Nazione" type="xs:string"/>
+      <xs:element minOccurs="0" name="EMail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaFisicaType">
+    <xs:sequence>
+      <xs:element name="Cognome" type="xs:string"/>
+      <xs:element name="Nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonaGiuridicaType">
+    <xs:sequence>
+      <xs:element name="RagioneSociale" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResponseType">
+    <xs:sequence>
+      <xs:element name="Result" type="tns:ResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="Codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="Messaggio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PosizioneDebitoriaType">
+    <xs:sequence>
+      <xs:element name="IdPosizioneDebitoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="IUV" type="xs:string"/>
+      <xs:element minOccurs="0" name="CodiceAvviso" type="xs:string"/>
+      <xs:element name="CodiceEsito" type="xs:string"/>
+      <xs:element minOccurs="0" name="DescrizioneEsito" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EndpointType">
+    <xs:sequence>
+      <xs:element default="http" name="Protocol" type="xs:string"/>
+      <xs:element name="Host" type="xs:string"/>
+      <xs:element name="Context" type="xs:string"/>
+      <xs:element minOccurs="0" name="Port" type="xs:int"/>
+      <xs:element minOccurs="0" name="CredenzialiAutenticazione">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="NomeUtente" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoInserimentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieInserite">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaInserita" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsitoAggiornamentoType">
+    <xs:sequence>
+      <xs:element name="ElencoPosizioniDebitorieAggiornate">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="PosizioneDebitoriaAggiornata" type="tns:PosizioneDebitoriaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.csi.it/epay/epaywso/rendicontazione-ext" xmlns:ns1="http://www.csi.it/epay/epaywso/types" targetNamespace="http://www.csi.it/epay/epaywso/rendicontazione-ext" version="1.0">
+
+  <xs:import namespace="http://www.csi.it/epay/epaywso/types"/>
+
+  <xs:element name="TrasmettiFlussoRendicontazioneExtRequest" type="tns:TrasmettiFlussoRendicontazioneExtRequestType"/>
+
+  <xs:complexType name="TrasmettiFlussoRendicontazioneExtRequestType">
+    <xs:sequence>
+      <xs:element form="qualified" name="Testata" type="tns:TestataFlussoRendicontazioneExtType"/>
+      <xs:element form="qualified" name="FlussoRiversamento" type="xs:base64Binary"/>
+      <xs:element form="qualified" name="PagamentiIntermediati">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="PagamentoIntermediato" type="tns:PagamentoIntermediatoType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TestataFlussoRendicontazioneExtType">
+    <xs:sequence>
+      <xs:element form="qualified" name="IdMessaggio" type="xs:string"/>
+      <xs:element form="qualified" name="DataOraMessaggio" type="xs:dateTime"/>
+      <xs:element form="qualified" name="CFEnteCreditore" type="xs:string"/>
+      <xs:element form="qualified" name="DenominazioneEnte" type="xs:string"/>
+      <xs:element form="qualified" name="IdPSP" type="xs:string"/>
+      <xs:element form="qualified" name="DenominazionePSP" type="xs:string"/>
+      <xs:element form="qualified" name="IdentificativoFlusso" type="xs:string"/>
+      <xs:element form="qualified" name="IdentificativoUnivocoRegolamento" type="xs:string"/>
+      <xs:element form="qualified" name="DataRegolamento" type="xs:date"/>
+      <xs:element form="qualified" name="NumeroTotalePagamentiFlusso" type="xs:integer"/>
+      <xs:element form="qualified" name="NumeroTotalePagamentiIntermediati" type="xs:integer"/>
+      <xs:element form="qualified" name="ImportoTotalePagamentiFlusso" type="xs:decimal"/>
+      <xs:element form="qualified" name="ImportoTotalePagamentiIntermediati" type="xs:decimal"/>
+      <xs:element form="qualified" name="ElencoCodiciVersamento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" maxOccurs="unbounded" name="CodiceVersamento" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PagamentoIntermediatoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="DatiSingoliPagamenti">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="qualified" name="DatiSingoloPagamento" type="tns:DatiSingoloPagamentoType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DatiSingoloPagamentoType">
+    <xs:sequence>
+      <xs:element form="qualified" name="IUV" type="xs:string"/>
+      <xs:element form="qualified" name="IUR" type="xs:string"/>
+      <xs:element form="qualified" name="IndiceDatiPagamento" type="xs:int"/>
+      <xs:element form="qualified" name="CodiceEsitoPagamento" type="xs:string"/>
+      <xs:element form="qualified" name="SingoloImportoPagato" type="xs:decimal"/>
+      <xs:element form="qualified" name="DataEsitoSingoloPagamento" type="xs:date"/>
+      <xs:element form="qualified" name="CodiceVersamento" type="xs:string"/>
+      <xs:element form="qualified" name="DatiSpecificiRiscossione" type="xs:string"/>
+      <xs:element form="qualified" name="DescrizioneCausaleVersamento" type="xs:string"/>
+      <xs:element form="qualified" name="TransactionId" type="xs:string"/>
+      <xs:element form="qualified" name="AnagraficaPagatore" type="ns1:SoggettoType"/>
+      <xs:element form="qualified" name="AnagraficaVersante" type="ns1:SoggettoType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://epaymodric.interfacews.epaymodric.epay.csi.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+  <xs:complexType name="dtpOutputElaborazione">
+    <xs:complexContent>
+      <xs:extension base="tns:dtoBaseContabilizzatore">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="idElaborazione" type="xs:long"/>
+          <xs:element minOccurs="0" name="idEnte" type="xs:string"/>
+          <xs:element minOccurs="0" name="risultatoOutputEstemporanea" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="dtoBaseContabilizzatore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="risposta" type="tns:dtoBaseResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dtoBaseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="esito" type="xs:string"/>
+      <xs:element minOccurs="0" name="codice" type="xs:string"/>
+      <xs:element minOccurs="0" name="descrizione" type="xs:string"/>
+      <xs:element minOccurs="0" name="timestamp" type="xs:string"/>
+      <xs:element minOccurs="0" name="stacktrace" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnrecoverableException" type="tns:UnrecoverableException"/>
+  <xs:complexType name="UnrecoverableException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EpaymodricException" type="tns:EpaymodricException"/>
+  <xs:complexType name="EpaymodricException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="TrasmettiFlussoRendicontazioneExt">
+    <wsdl:part element="ns2:TrasmettiFlussoRendicontazioneExtRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part element="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EpaymodricException">
+    <wsdl:part element="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TrasmettiFlussoRendicontazioneExtResponse">
+    <wsdl:part element="ns3:EPaywsoServiceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="ns1:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EpaymodricAcquisizione">
+    <wsdl:operation name="TrasmettiFlussoRendicontazioneExt">
+      <wsdl:input message="ns1:TrasmettiFlussoRendicontazioneExt" name="TrasmettiFlussoRendicontazioneExt">
+    </wsdl:input>
+      <wsdl:output message="ns1:TrasmettiFlussoRendicontazioneExtResponse" name="TrasmettiFlussoRendicontazioneExtResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:UnrecoverableException" name="UnrecoverableException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:EpaymodricException" name="EpaymodricException">
+    </wsdl:fault>
+      <wsdl:fault message="ns1:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

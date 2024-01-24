@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="provvisorioDTO">
+    <xs:sequence>
+      <xs:element name="annoEsercizio" type="xs:int" minOccurs="0"/>
+      <xs:element name="annoProvvisorio" type="xs:int" minOccurs="0"/>
+      <xs:element name="causale" type="xs:string" minOccurs="0"/>
+      <xs:element name="codiceFiscaleEnte" type="xs:string" minOccurs="0"/>
+      <xs:element name="utenteInsVar" type="xs:string" minOccurs="0"/>
+      <xs:element name="dataInsVar" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dataMovimento" type="xs:dateTime" minOccurs="0"/>
+      <!-- xs:element name="descrizione" type="xs:string" minOccurs="0"/> -->
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="identificativoFlusso" type="xs:string" minOccurs="0"/>
+      <!-- xs:element name="importoDisponibilita" type="xs:decimal" minOccurs="0"/> -->
+      <xs:element name="importoProvvisorio" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="numeroProvvisorio" type="xs:int" minOccurs="0"/>
+      <xs:element name="stato" type="xs:string" minOccurs="0"/>
+      <!-- xs:element name="tipoMovimento" type="xs:string" minOccurs="0"/> -->
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="GiornaleDiCassaDTO">
+  	<xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+  	  <xs:element name="dataInserimento" type="xs:dateTime" minOccurs="0"/>
+  	  <xs:element name="xml" type="xs:string" minOccurs="0"/>
+  	</xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="testDTO">
+    <xs:sequence>
+      <xs:element name="descrizione" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

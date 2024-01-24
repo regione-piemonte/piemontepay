@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://epaymodric.business.epaymodric.epay.csi.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns4="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://epaymodric.interfacews.epaymodric.epay.csi.it/" name="EpaymodricAcquisizioneService" targetNamespace="http://epaymodric.business.epaymodric.epay.csi.it/">
+  <wsdl:import location="EpaymodricAcquisizione_import.wsdl" namespace="http://epaymodric.interfacews.epaymodric.epay.csi.it/">
+    </wsdl:import>
+  <wsdl:binding name="EpaymodricAcquisizioneServiceSoapBinding" type="ns1:EpaymodricAcquisizione">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TrasmettiFlussoRendicontazioneExt">
+      <soap:operation soapAction="http://www.csi.it/epay/epaywso/rendicontazione-ext/TrasmettiFlussoRendicontazioneExt" style="document"/>
+      <wsdl:input name="TrasmettiFlussoRendicontazioneExt">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TrasmettiFlussoRendicontazioneExtResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnrecoverableException">
+        <soap:fault name="UnrecoverableException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="EpaymodricException">
+        <soap:fault name="EpaymodricException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EpaymodricAcquisizioneService">
+    <wsdl:port binding="tns:EpaymodricAcquisizioneServiceSoapBinding" name="EpaymodricPort">
+      <soap:address location="http://localhost:8081/epaymodricApplEpaymodricWs/EpaymodricAcquisizioneService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
