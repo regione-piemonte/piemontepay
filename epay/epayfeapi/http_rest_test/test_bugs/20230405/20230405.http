@@ -1,0 +1,15 @@
+### Mariagrazia, servizio 6, 500
+POST {{baseURLAPI}}organizations/80087670016/paymenttypes/LD10/payment
+Authorization: Basic {{user}} {{pass}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "note": "prova test",
+  "importo": 10,
+  "nome": "pino",
+  "cognome": "test",
+  "ragioneSociale": "",
+  "codiceFiscalePartitaIVAPagatore": "PVSNTN31T15L219U",
+  "email": "pino@test.it"
+}

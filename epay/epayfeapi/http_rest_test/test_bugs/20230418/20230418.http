@@ -1,0 +1,16 @@
+# 500 su test utente
+POST {{baseURLAPI}}organizations/00125680033/paymenttypes/DF40/payment
+Authorization: Basic {{user}} {{pass}}
+Content-Type: application/json
+Accept: application/json
+
+{
+ "note": "prova test",
+ "importo": 3,
+ "nome": "pino",
+ "cognome": "test",
+ "ragioneSociale": "",
+ "codiceFiscalePartitaIVAPagatore": "PVSNTN31T15L219U",
+ "email": "pino@test.it"
+}
+

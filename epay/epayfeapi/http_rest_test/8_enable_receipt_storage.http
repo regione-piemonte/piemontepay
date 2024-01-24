@@ -1,0 +1,8 @@
+PUT {{baseURLAPI}}organizations/80087670016/citizens/SROLSN77S61C722O
+Authorization: Basic {{user}} {{pass}}
+Accept: application/json
+Content-Type: application/json
+
+{
+
+}

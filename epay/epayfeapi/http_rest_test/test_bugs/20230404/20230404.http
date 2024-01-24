@@ -1,0 +1,14 @@
+POST {{baseURLAPI}}organizations/80087670016/citizens/SROLSN77S61C722O/paymenttypes/NA00/debtpositions
+Authorization: Basic {{epayapi1}} {{pass}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "note": "nota di prova",
+  "importo": 3,
+  "nome": "prova",
+  "cognome": "cognome",
+  "email": "anome@lib.it"
+}
+
+###

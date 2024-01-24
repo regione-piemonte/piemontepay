@@ -1,0 +1,5 @@
+GET {{baseURLAPI}}organizations/{{ofsRegionePiemonte}}/debtpositions/{{iuvPagabile}}/payment
+Authorization: Basic {{epayapi1}} {{pass}}
+Accept: application/json
+
+###
