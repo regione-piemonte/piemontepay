@@ -1,6 +1,6 @@
 on: [pull_request]
 jobs:
- publiccode_validation:
+ publiccode_yml_validation:
    runs-on: ubuntu-latest
    name: publiccode validation
    steps:
