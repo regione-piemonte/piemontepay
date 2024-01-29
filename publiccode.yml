@@ -119,7 +119,7 @@ it:
     spid: true
   riuso:
     codiceIPA: r_piemon
-landingURL: 'https://github.com/regione-piemonte/piemontepay'
+landingURL: 'http://www.sistemapiemonte.it/cms/privati/piemontepay'
 legal:
   authorsFile: |-
     https://raw.githubusercontent.com/regione-piemonte/piemontepay/master/COPYRIGHTS.txt
@@ -130,6 +130,7 @@ localisation:
   availableLanguages:
     - it
   localisationReady: false
+logo: PIEMONTEPAY.png
 maintenance:
   contacts:
     - email: mariarosaria.napoletano@csi.it
