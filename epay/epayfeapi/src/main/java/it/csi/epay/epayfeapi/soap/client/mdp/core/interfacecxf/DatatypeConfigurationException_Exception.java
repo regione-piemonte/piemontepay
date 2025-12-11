@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class DatatypeConfigurationException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6112537439226114276L;
 
 	private DatatypeConfigurationException datatypeConfigurationException;
 

@@ -29,22 +29,22 @@ public class TipoPagamentoService {
 	}
 
 	public PagedListResultDTO<EpayTTipoPagamento> findByEnteAndTipologiaPagamentoAndLikeDescrizione (
-		EpayTEnti enteEntity,
-		EpayDTipologiaPagamento tipologiaPagamentoEntity,
-		String likeDescrizione,
-		String [] sortableFields,
-		String inputSortString,
-		int pageIndex, // N.B zero-based
-		int pageSize ) {
+					EpayTEnti enteEntity,
+					EpayDTipologiaPagamento tipologiaPagamentoEntity,
+					String likeDescrizione,
+					String[] sortableFields,
+					String inputSortString,
+					int pageIndex, // N.B zero-based
+					int pageSize ) {
 
 		return tipoPagamantoRepository.findByEnteAndTipologiaPagamentoAndLikeDescrizione (
-			enteEntity,
-			tipologiaPagamentoEntity,
-			likeDescrizione,
-			sortableFields,
-			inputSortString,
-			pageIndex,
-			pageSize );
+						enteEntity,
+						tipologiaPagamentoEntity,
+						likeDescrizione,
+						sortableFields,
+						inputSortString,
+						pageIndex,
+						pageSize );
 	}
 
 	public EpayTTipoPagamento findByTipoPagamento ( EpayTTipoPagamento tipoPagamento ) {

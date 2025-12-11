@@ -69,13 +69,14 @@ public class EpayTRegistroElaborazioni implements Serializable {
 	@Column ( name = "id_tipo_pagamento" )
 	private Long idTipoPagamento;
 
+	@SuppressWarnings ( "ALL" ) // per il cascade
 	@ManyToMany ( cascade = CascadeType.ALL )
 	@JoinTable (
 					name = "epay_r_pagamento_registro_elaborazioni", joinColumns = {
-						@JoinColumn ( name = "id_registro_elaborazioni", nullable = false )
-					},
+					@JoinColumn ( name = "id_registro_elaborazioni", nullable = false )
+	},
 					inverseJoinColumns = {
-						@JoinColumn ( name = "id_pagamento", nullable = false )
+									@JoinColumn ( name = "id_pagamento", nullable = false )
 					} )
 	private List<EpayTPagamento> epayTPagamentos;
 
@@ -200,20 +201,20 @@ public class EpayTRegistroElaborazioni implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", dataInizio:" + dataInizio +
-			", dataFine:" + dataFine +
-			", esito:" + esito +
-			", idMessaggio:" + idMessaggio +
-			", importoTotPagamenti:" + importoTotPagamenti +
-			", messageFault:" + messageFault +
-			", numPagamenti:" + numPagamenti +
-			", operazione:" + operazione +
-			", pagamentiSpontanei:" + pagamentiSpontanei +
-			", idEnte:" + idEnte +
-			", idTipoPagamento:" + idTipoPagamento +
-			// non esporre epayTPagamentos
-			// non esporre epayTRegistroElaborazioniFaults
-			" }";
+						"id:" + id +
+						", dataInizio:" + dataInizio +
+						", dataFine:" + dataFine +
+						", esito:" + esito +
+						", idMessaggio:" + idMessaggio +
+						", importoTotPagamenti:" + importoTotPagamenti +
+						", messageFault:" + messageFault +
+						", numPagamenti:" + numPagamenti +
+						", operazione:" + operazione +
+						", pagamentiSpontanei:" + pagamentiSpontanei +
+						", idEnte:" + idEnte +
+						", idTipoPagamento:" + idTipoPagamento +
+						// non esporre epayTPagamentos
+						// non esporre epayTRegistroElaborazioniFaults
+						" }";
 	}
 }

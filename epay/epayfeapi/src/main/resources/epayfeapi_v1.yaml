@@ -83,7 +83,7 @@ paths:
             type: string
             minLength: 17
             maxLength: 35
-            pattern: "[0-9]+"
+            pattern: "[a-zA-Z0-9]+"
         - name: currentPage
           in: query
           description: Page number (starts from 1)
@@ -326,7 +326,7 @@ paths:
             type: string
             minLength: 17
             maxLength: 35
-            pattern: "[0-9]+"
+            pattern: "[a-zA-Z0-9]+"
       responses:
         '200':
           description: Successful operation
@@ -822,6 +822,8 @@ components:
           type: string
         noteObbligatorie:
           type: boolean
+        importoFisso:
+          type: number
     PaymentReferences:
       type: object
       properties:

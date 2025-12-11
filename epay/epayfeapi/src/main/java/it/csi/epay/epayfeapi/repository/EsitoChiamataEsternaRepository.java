@@ -14,7 +14,4 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class EsitoChiamataEsternaRepository implements PanacheRepository<EpayDEsitoChiamataEsterna> {
 
-	public EpayDEsitoChiamataEsterna findByCodice ( String codice ) {
-		return find ( "codice", codice ).firstResult ();
-	}
 }

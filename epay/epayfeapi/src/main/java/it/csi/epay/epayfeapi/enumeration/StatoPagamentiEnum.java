@@ -25,10 +25,6 @@ public enum StatoPagamentiEnum {
 		this.id = id;
 	}
 
-	public Integer getId () {
-		return id;
-	}
-
 	static public StatoPagamentiEnum fromId ( Integer id ) {
 		for ( StatoPagamentiEnum en : StatoPagamentiEnum.values () ) {
 			if ( en.id.equals ( id ) ) {
@@ -36,6 +32,10 @@ public enum StatoPagamentiEnum {
 			}
 		}
 		return null;
+	}
+
+	public Integer getId () {
+		return id;
 	}
 
 }

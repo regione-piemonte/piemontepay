@@ -146,16 +146,16 @@ public class EpayTPagamentoSecondarioComponenti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idComponente:" + idComponente +
-			", annoAccertamento:" + annoAccertamento +
-			", causale:" + causale +
-			", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
-			", importo:" + importo +
-			", numeroAccertamento:" + numeroAccertamento +
-			", progressivo:" + progressivo +
-			", utenteUltimaModifica:" + utenteUltimaModifica +
-			", codiceTributo:" + codiceTributo +
-			// non esporre epayTPagamentoSecondarioComponentis
-			" }";
+						"idComponente:" + idComponente +
+						", annoAccertamento:" + annoAccertamento +
+						", causale:" + causale +
+						", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
+						", importo:" + importo +
+						", numeroAccertamento:" + numeroAccertamento +
+						", progressivo:" + progressivo +
+						", utenteUltimaModifica:" + utenteUltimaModifica +
+						", codiceTributo:" + codiceTributo +
+						// non esporre epayTPagamentoSecondarioComponentis
+						" }";
 	}
 }

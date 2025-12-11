@@ -5,9 +5,6 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -52,6 +51,12 @@ public class EpayTChiamataEsternaNonValida implements Serializable {
 
 	@Column ( name = "codice_chiamante", nullable = false )
 	private String codiceChiamante;
+
+	@Column ( name = "service_name", length = 256 )
+	private String serviceName;
+
+	@Column ( name = "duration" )
+	private Integer duration;
 
 	public EpayTChiamataEsternaNonValida () {
 	}
@@ -128,18 +133,34 @@ public class EpayTChiamataEsternaNonValida implements Serializable {
 		this.codiceChiamante = codiceChiamante;
 	}
 
+	public String getServiceName () {
+		return serviceName;
+	}
+
+	public void setServiceName ( String serviceName ) {
+		this.serviceName = serviceName;
+	}
+
+	public Integer getDuration () {
+		return duration;
+	}
+
+	public void setDuration ( Integer duration ) {
+		this.duration = duration;
+	}
+
 	@Override
 	public String toString () {
 		return "{ " +
-			"idChiamata:" + idChiamata +
-			", digest:" + digest +
-			", iuv:" + iuv +
-			", codiceFiscale:" + codiceFiscale +
-			", identificativoPagamento:" + identificativoPagamento +
-			", timestampChiamata:" + timestampChiamata +
-			", descrizioneErrore:" + descrizioneErrore +
-			", remoteHost:" + remoteHost +
-			", codiceChiamante:" + codiceChiamante +
-			" }";
+						"idChiamata:" + idChiamata +
+						", digest:" + digest +
+						", iuv:" + iuv +
+						", codiceFiscale:" + codiceFiscale +
+						", identificativoPagamento:" + identificativoPagamento +
+						", timestampChiamata:" + timestampChiamata +
+						", descrizioneErrore:" + descrizioneErrore +
+						", remoteHost:" + remoteHost +
+						", codiceChiamante:" + codiceChiamante +
+						" }";
 	}
 }

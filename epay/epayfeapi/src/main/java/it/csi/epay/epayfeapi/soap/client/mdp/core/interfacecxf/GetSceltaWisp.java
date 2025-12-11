@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 				"applicationId",
 				"transactionId"
 } )
+@SuppressWarnings ( "unused" )
 public class GetSceltaWisp {
 
 	protected String applicationId;

@@ -114,13 +114,13 @@ public class EpayTPagamentoSecondario implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idPagamentoSecondario:" + idPagamentoSecondario +
-			", causale:" + causale +
-			", importoComplessivo:" + importoComplessivo +
-			// non esporre epayTPagamentoSecondarioComponentis
-			// non esporre epayTPagamento
-			// non esporre epayTTipoPagamento
-			", identificativoDominio:" + identificativoDominio +
-			" }";
+						"idPagamentoSecondario:" + idPagamentoSecondario +
+						", causale:" + causale +
+						", importoComplessivo:" + importoComplessivo +
+						// non esporre epayTPagamentoSecondarioComponentis
+						// non esporre epayTPagamento
+						// non esporre epayTTipoPagamento
+						", identificativoDominio:" + identificativoDominio +
+						" }";
 	}
 }

@@ -83,6 +83,20 @@ Always tag!
 
 + ```git for-each-ref --sort=creatordate --format '%(refname) %(creatordate)' refs/tags```
 
+### localhost environment
+
+~~Add this args in the run configuration (runner VM options):~~
+
+```
+"-Dquarkus.security.users.embedded.users.epayapi1=mypass"
+"-Dquarkus.security.users.embedded.roles.epayapi1=writer,reader,user"
+"-DepaypacatalogService.authusr=epaycatalogapi_sportello"
+```
+
+~~or use ```epayfeapi.run.xml```~~
+
+Just use this argument: ```-Dquarkus.profile=local```
+
 ### DEV environment
 
 + RELEASE_DEV_GIT &rarr; https://jenkins-cd.toolchain.csi.it/job/EPAY/job/RELEASE_DEV_GIT/job/EPAY_DEV-RP-01_epayfeapi/
@@ -94,6 +108,7 @@ Always tag!
 + RELEASE_TEST_GIT &rarr; https://jenkins-cd.toolchain.csi.it/job/EPAY/job/RELEASE_TEST_GIT/job/EPAY_TEST-RP-01_epayfeapi/
 + ts-qk%-apife-epay.site03.nivolapiemonte.it
 + http://tst-srv-pay.bilancio.csi.it/epayfe/
++ ultime ricette: 3.3.0 !
 
 ### test utente environment
 

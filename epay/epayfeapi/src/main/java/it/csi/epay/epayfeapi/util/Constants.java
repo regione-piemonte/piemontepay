@@ -1,11 +1,24 @@
 /*
-* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
-*
-* SPDX-License-Identifier: EUPL-1.2 */
+ * SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+ *
+ * SPDX-License-Identifier: EUPL-1.2 */
 
 package it.csi.epay.epayfeapi.util;
 
 public final class Constants {
+
+	public static final String CF_ENTE_DEFAULT = "PagoPa"; // id 0
+
+	public static final String CONFIG_ENDPOINT_SERVICE_CART = "CONFIG_ENDPOINT_SERVICE_CART";
+
+	public static final String ERROR_APPLICATION_CODE_NOT_VALUED = "L'application code non puo' essere vuoto.";
+
+	public static final String ERROR_AUX_DIGIT_NOT_VALUED = "Il codice Aux Digit non puo' essere vuoto.";
+
+	public static final String ERROR_CODICE_AVVISO_CON_AUX_DIGIT_NOT_VALUED_AND_IUV_NOT_RF =
+					"Se il codice Aux Digit e' vuoto, il codice IUV deve iniziare per 'RF'";
+
+	public static final String ERROR_IUV_NOT_VALUED = "Il codice IUV non puo' essere vuoto.";
 
 	/*
 	 * serivizi generali
@@ -96,6 +109,8 @@ public final class Constants {
 
 	public static final String SERVICE_FIELDS_PAYMENT_TYPES__NOTE_OBBLIGATORIE = "noteObbligatorie";
 
+	public static final String SERVICE_FIELDS_PAYMENT_TYPES__IMPORTO_FISSO = "importoFisso";
+
 	// PAGAMENTO_SPONTANEO
 
 	public static final String SERVICE_FIELDS_PAGAMENTO_SPONTANEO__ORGANIZATION_FISCAL_CODE = "organizationFiscalCode";
@@ -178,6 +193,8 @@ public final class Constants {
 
 	public static final String ERROR_TIPO_PAGAMENTO_NOT_UNIQUE = "Tipo pagamento con codice versamento %s non univoco per ente con codice fiscale %s";
 
+	public static final String ERROR_TIPO_PAGAMENTO_IMPORTO_DIFFERENTE = "L'importo inserito non e' uguale a quello impostato sul tipo pagamento";
+
 	public static final String ERROR_TIPOLOGIA_PAGAMENTO_NOT_DEFINED = "Tipologia pagamento %s non definita";
 
 	public static final String ERROR_VALORE_DI_CONFIGURAZIONE_NOT_DEFINED = "Valore di configurazione non definito per codice %s";
@@ -208,13 +225,6 @@ public final class Constants {
 
 	public static final String ERROR_IUV_GENERATION = "Errore nel generare IUV da IdApplicazione [%s] e codice versamento [%s]";
 
-	public static final String ERROR_MDP_DATI_COMPONENTI_NON_CONGRUENTI
-					= "Il pagamento non puo' essere effettuato perche' risulta gia' una transazione di pagamento in corso.";
-
-	public static final String ERROR_MDP_ERRORE_GENERICO
-					=
-					"Errore in fase di pagamento o errore temporaneo di comunicazione. Si prega di riprovare piu' tardi. Se l'errore dovesse persiste contattare l'assistenza.";
-
 	public static final String ERROR_REQUIRES_COST_UPDATE_TRUE =
 					"Non e' possibile effettuare il pagamento da questo sito. Effettuare il pagamento dal sito PagoPa o rivolgersi all'ente creditore per ulteriori indicazioni";
 
@@ -226,9 +236,14 @@ public final class Constants {
 	public static final String ERROR_CAMPO_NOTE_OBBLIGATORIO = "Il campo note e' obbligatorio per codice versamento [%s]";
 
 	public static final String ERROR_IUV_NOT_FOUND_OR_INVALID_PAYMENT
-					= "Codice Iuv riferito a pagamento effettuato, annullato, in attesa di ricevuta, non piu' valido perché scaduto oppure non trovato.";
+					= "Codice Iuv riferito a pagamento effettuato, annullato, in attesa di ricevuta, non piu' valido perche' scaduto oppure non trovato.";
 
 	public static final String ERROR_IUV_IS_OF_AN_INVALID_PAYMENT = "Codice Iuv riferito a pagamento annullato, fallito o non piu' valido.";
+	
+	public static final String ERROR_IUV_IS_OF_AN_ZERO_PAYMENT = "Codice Iuv riferito a pagamento con importo a zero";
+
+	public static final String ERROR_GET_DATI_AVVISO
+	= "Errore in fase di reperimento dei dati avviso da catalog , configurazione  ENDPOINT_SERVICE_DATI_AVVISO mancante";
 
 	/*
 	 * var
@@ -245,7 +260,7 @@ public final class Constants {
 
 	public static final String REGEX_PAYMENT_TYPE = "[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]";
 
-	// zero o piu caratteri whitespace seguiti da un virgola seguita da zero o più caratteri whitespace (un whitespace sta per uno spazio, un tab, ecc.)
+	// zero o piu caratteri whitespace seguiti da un virgola seguita da zero o piu caratteri whitespace (un whitespace sta per uno spazio, un tab, ecc.)
 
 	public static final char SORT_ASCENDENT_PREFIX = '+';
 
@@ -257,23 +272,11 @@ public final class Constants {
 
 	public static final String PAGAMENTO_SPONTANEO_CODE = "PS";
 
-	public static final String BEGIN = " BEGIN";
-
 	public static final String END = " END";
 
 	public static final String SYSTEM_USER_DEFAULT = "System";
 
-	public static final String ESITO_CHIAMATA_ESTERNA_OPERAZIONE_COMPLETATA_CON_SUCCESSO = "000";
-
-	public static final String ESITO_CHIAMATA_ESTERNA_ERRORE_DATI_COMPONENTI_NON_CONGRUENTI = "300";
-
-	public static final String ESITO_CHIAMATA_ESTERNA_ERRORE_GENERICO = "100";
-
-	public static final String RPT_DUPLICATA = "RPT duplicata";
-
-	public static final String F = "F";
-
-	public static final String G = "G";
+	public static final String RF = "RF";
 
 	public static final String CODICE_PAGAMENTO__PAGATO = "0";
 
@@ -366,6 +369,8 @@ public final class Constants {
 	//
 
 	public static final String CONFIG_ENDPOINT_SERVICE_TASSONOMIA = "ENDPOINT_SERVICE_TASSONOMIA";
+	
+	public static final String CONFIG_ENDPOINT_SERVICE_DATI_AVVISO = "ENDPOINT_SERVICE_DATI_AVVISO";
 
 	public static final String REGISTRO_VERSAMENTO_ORIGINE_INSERIMENTO = "Epayfeapi - Citta' Facile";
 

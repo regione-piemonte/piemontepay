@@ -5,14 +5,13 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -62,9 +61,9 @@ public class EpayDModalitaPagamento implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idModalitaPagamento:" + idModalitaPagamento +
-			", descrizione:" + descrizione +
-			", epayTEsitiRicevutis (valore non esposto)" + // ", epayTEsitiRicevutis:" + epayTEsitiRicevutis +
-			" }";
+						"idModalitaPagamento:" + idModalitaPagamento +
+						", descrizione:" + descrizione +
+						", epayTEsitiRicevutis (valore non esposto)" + // ", epayTEsitiRicevutis:" + epayTEsitiRicevutis +
+						" }";
 	}
 }

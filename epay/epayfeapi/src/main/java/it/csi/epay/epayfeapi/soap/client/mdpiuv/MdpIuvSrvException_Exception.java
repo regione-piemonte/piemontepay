@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class MdpIuvSrvException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -367056232488976898L;
 
 	private MdpIuvSrvException mdpIuvSrvException;
 

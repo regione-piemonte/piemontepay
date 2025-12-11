@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="MdpCoreCxfService" targetNamespace="http://interfacecxf.core.mdp.csi.it/" xmlns:ns1="http://www.csi.it/mdp/" xmlns:ns2="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://interfacecxf.core.mdp.csi.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<?xml version='1.0' encoding='UTF-8'?><!--suppress ALL -->
+<wsdl:definitions name="MdpCoreCxfService" targetNamespace="http://interfacecxf.core.mdp.csi.it/" xmlns:ns1="http://www.csi.it/mdp/" xmlns:ns2="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://interfacecxf.core.mdp.csi.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<wsdl:types xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
 		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://interfacecxf.core.mdp.csi.it/" xmlns:tns="http://interfacecxf.core.mdp.csi.it/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 			<xs:element name="getApplication" type="tns:getApplication" xmlns:xs="http://www.w3.org/2001/XMLSchema" />

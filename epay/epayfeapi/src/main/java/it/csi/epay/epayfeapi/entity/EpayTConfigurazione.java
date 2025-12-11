@@ -5,14 +5,13 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 @Entity
@@ -42,53 +41,53 @@ public class EpayTConfigurazione implements Serializable {
 	public EpayTConfigurazione () {
 	}
 
-	public void setId ( Long id ) {
-		this.id = id;
-	}
-
 	public Long getId () {
 		return this.id;
 	}
 
-	public void setCodice ( String codice ) {
-		this.codice = codice;
+	public void setId ( Long id ) {
+		this.id = id;
 	}
 
 	public String getCodice () {
 		return this.codice;
 	}
 
-	public void setValore ( String valore ) {
-		this.valore = valore;
+	public void setCodice ( String codice ) {
+		this.codice = codice;
 	}
 
 	public String getValore () {
 		return this.valore;
 	}
 
-	public void setDescrizione ( String descrizione ) {
-		this.descrizione = descrizione;
+	public void setValore ( String valore ) {
+		this.valore = valore;
 	}
 
 	public String getDescrizione () {
 		return this.descrizione;
 	}
 
-	public void setEpayTEnti ( EpayTEnti epayTEnti ) {
-		this.epayTEnti = epayTEnti;
+	public void setDescrizione ( String descrizione ) {
+		this.descrizione = descrizione;
 	}
 
 	public EpayTEnti getEpayTEnti () {
 		return this.epayTEnti;
 	}
 
+	public void setEpayTEnti ( EpayTEnti epayTEnti ) {
+		this.epayTEnti = epayTEnti;
+	}
+
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", codice:" + codice +
-			", valore:" + valore +
-			", descrizione:" + descrizione +
-			" }";
+						"id:" + id +
+						", codice:" + codice +
+						", valore:" + valore +
+						", descrizione:" + descrizione +
+						" }";
 	}
 }

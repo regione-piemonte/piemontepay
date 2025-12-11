@@ -5,9 +5,8 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
+import java.io.Serializable;
 
 
 @SuppressWarnings ( "unused" )
@@ -57,7 +56,7 @@ public class EpayRTipoPagamentoCollegatoKey implements Serializable {
 		if ( this.getClass () != obj.getClass () ) {
 			return false;
 		}
-		EpayRTipoPagamentoCollegatoKey other = (EpayRTipoPagamentoCollegatoKey) obj;
+		var other = (EpayRTipoPagamentoCollegatoKey) obj;
 		if ( idTipoPagamentoPrincipale == null ) {
 			if ( other.idTipoPagamentoPrincipale != null ) {
 				return false;
@@ -74,20 +73,18 @@ public class EpayRTipoPagamentoCollegatoKey implements Serializable {
 
 	@Override
 	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
-
+		final var prime = 31;
+		var result = 1;
 		result = prime * result + ( ( idTipoPagamentoPrincipale == null ) ? 0 : idTipoPagamentoPrincipale.hashCode () );
 		result = prime * result + ( ( idTipoPagamentoSecondario == null ) ? 0 : idTipoPagamentoSecondario.hashCode () );
-
 		return result;
 	}
 
 	@Override
 	public String toString () {
 		return "{ " +
-			"idTipoPagamentoPrincipale:" + idTipoPagamentoPrincipale +
-			", idTipoPagamentoSecondario:" + idTipoPagamentoSecondario +
-			" }";
+						"idTipoPagamentoPrincipale:" + idTipoPagamentoPrincipale +
+						", idTipoPagamentoSecondario:" + idTipoPagamentoSecondario +
+						" }";
 	}
 }

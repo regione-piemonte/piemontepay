@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 				"applicationId",
 				"gatewayId"
 } )
+@SuppressWarnings ( "unused" )
 public class GetPagonetCustomData {
 
 	protected String applicationId;

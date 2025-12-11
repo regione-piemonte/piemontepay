@@ -149,17 +149,17 @@ public class EpayTTransazioneMdp implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idTransazione:" + idTransazione +
-			", idGateway:" + idGateway +
-			", idInformativaPsp:" + idInformativaPsp +
-			", idPaymentMode:" + idPaymentMode +
-			", identificativoCanalePsp:" + identificativoCanalePsp +
-			", identificativoPsp:" + identificativoPsp +
-			", iuv:" + iuv +
-			", modelloPagamentoPsp:" + modelloPagamentoPsp +
-			", ragioneSocialePsp:" + ragioneSocialePsp +
-			", tipoVersamentoPsp:" + tipoVersamentoPsp +
-			// non esporre epayTRegistroVersamentis
-			" }";
+						"idTransazione:" + idTransazione +
+						", idGateway:" + idGateway +
+						", idInformativaPsp:" + idInformativaPsp +
+						", idPaymentMode:" + idPaymentMode +
+						", identificativoCanalePsp:" + identificativoCanalePsp +
+						", identificativoPsp:" + identificativoPsp +
+						", iuv:" + iuv +
+						", modelloPagamentoPsp:" + modelloPagamentoPsp +
+						", ragioneSocialePsp:" + ragioneSocialePsp +
+						", tipoVersamentoPsp:" + tipoVersamentoPsp +
+						// non esporre epayTRegistroVersamentis
+						" }";
 	}
 }

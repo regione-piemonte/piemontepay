@@ -30,8 +30,8 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter ( ContainerRequestContext requestContext ) {
-		String name = securityCtx.getUserPrincipal ().getName ();
-		User user = new User ( name, httpRequest.remoteAddress ().hostAddress (), new Date () );
+		var name = securityCtx.getUserPrincipal ().getName ();
+		var user = new User ( name, httpRequest.remoteAddress ().hostAddress (), new Date () );
 		authCtx.setCurrentUser ( user );
 	}
 }

@@ -137,18 +137,18 @@ public class RegistroVersamentiDTO implements Serializable {
 	@Override
 	public String toString () {
 		return "RegistroVersamentiDTO{" +
-			"idRegistro=" + idRegistro +
-			", idPagamento=" + idPagamento +
-			", dataOperazione=" + dataOperazione +
-			", iuv='" + iuv + '\'' +
-			", anagraficaVersante=" + anagraficaVersante +
-			", risultato='" + risultato + '\'' +
-			", idTransazione='" + idTransazione + '\'' +
-			", idStato=" + idStato +
-			", origineInserimento='" + origineInserimento + '\'' +
-			", idOrigineChiamata='" + idOrigineChiamata + '\'' +
-			", esitoRicevuto=" + esitoRicevuto +
-			", idPagamentoSecondario=" + idPagamentoSecondario +
-			'}';
+						"idRegistro=" + idRegistro +
+						", idPagamento=" + idPagamento +
+						", dataOperazione=" + dataOperazione +
+						", iuv='" + iuv + '\'' +
+						", anagraficaVersante=" + anagraficaVersante +
+						", risultato='" + risultato + '\'' +
+						", idTransazione='" + idTransazione + '\'' +
+						", idStato=" + idStato +
+						", origineInserimento='" + origineInserimento + '\'' +
+						", idOrigineChiamata='" + idOrigineChiamata + '\'' +
+						", esitoRicevuto=" + esitoRicevuto +
+						", idPagamentoSecondario=" + idPagamentoSecondario +
+						'}';
 	}
 }

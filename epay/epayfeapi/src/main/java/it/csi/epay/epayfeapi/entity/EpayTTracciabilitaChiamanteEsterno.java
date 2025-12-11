@@ -61,6 +61,12 @@ public class EpayTTracciabilitaChiamanteEsterno implements Serializable {
 	@JoinColumn ( name = "codice_chiamante", nullable = false )
 	private EpayDChiamanteEsterno epayDChiamanteEsterno;
 
+	@Column ( name = "service_name", length = 256 )
+	private String serviceName;
+
+	@Column ( name = "duration" )
+	private Integer duration;
+
 	public EpayTTracciabilitaChiamanteEsterno () {
 	}
 
@@ -144,19 +150,35 @@ public class EpayTTracciabilitaChiamanteEsterno implements Serializable {
 		this.descrizioneChiamante = descrizioneChiamante;
 	}
 
+	public String getServiceName () {
+		return serviceName;
+	}
+
+	public void setServiceName ( String serviceName ) {
+		this.serviceName = serviceName;
+	}
+
+	public Integer getDuration () {
+		return duration;
+	}
+
+	public void setDuration ( Integer duration ) {
+		this.duration = duration;
+	}
+
 	@Override
 	public String toString () {
 		return "{ " +
-			"idChiamata:" + idChiamata +
-			", digest:" + digest +
-			", iuv:" + iuv +
-			", codiceFiscale:" + codiceFiscale +
-			", idTransazione:" + idTransazione +
-			", identificativoPagamento:" + identificativoPagamento +
-			", timestampChiamata:" + timestampChiamata +
-			", remoteHost:" + remoteHost +
-			", descrizioneChiamante:" + descrizioneChiamante +
-			// non esporre epayDChiamanteEsterno
-			" }";
+						"idChiamata:" + idChiamata +
+						", digest:" + digest +
+						", iuv:" + iuv +
+						", codiceFiscale:" + codiceFiscale +
+						", idTransazione:" + idTransazione +
+						", identificativoPagamento:" + identificativoPagamento +
+						", timestampChiamata:" + timestampChiamata +
+						", remoteHost:" + remoteHost +
+						", descrizioneChiamante:" + descrizioneChiamante +
+						// non esporre epayDChiamanteEsterno
+						" }";
 	}
 }

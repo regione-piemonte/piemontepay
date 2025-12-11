@@ -5,10 +5,9 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 
 @Embeddable
@@ -46,28 +45,27 @@ public class EpayTParametriPK implements Serializable {
 		if ( this == other ) {
 			return true;
 		}
-		if ( ! ( other instanceof EpayTParametriPK ) ) {
+		if ( !( other instanceof EpayTParametriPK ) ) {
 			return false;
 		}
-		EpayTParametriPK castOther = (EpayTParametriPK) other;
+		var castOther = (EpayTParametriPK) other;
 		return this.gruppo.equals ( castOther.gruppo )
-			&& this.codice.equals ( castOther.codice );
+						&& this.codice.equals ( castOther.codice );
 	}
 
 	public int hashCode () {
-		final int prime = 31;
-		int hash = 17;
+		final var prime = 31;
+		var hash = 17;
 		hash = hash * prime + this.gruppo.hashCode ();
 		hash = hash * prime + this.codice.hashCode ();
-
 		return hash;
 	}
 
 	@Override
 	public String toString () {
 		return "{ " +
-			"gruppo:" + gruppo +
-			", codice:" + codice +
-			" }";
+						"gruppo:" + gruppo +
+						", codice:" + codice +
+						" }";
 	}
 }

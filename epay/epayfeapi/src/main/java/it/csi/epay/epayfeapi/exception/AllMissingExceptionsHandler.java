@@ -5,15 +5,14 @@
 
 package it.csi.epay.epayfeapi.exception;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-
+import io.quarkus.arc.Priority;
+import io.quarkus.logging.Log;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openapitools.model.Error;
 
-import io.quarkus.arc.Priority;
-import io.quarkus.logging.Log;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 
 @Provider
@@ -25,11 +24,11 @@ public class AllMissingExceptionsHandler implements ExceptionMapper<Throwable> {
 	 */
 	@Override public Response toResponse ( Throwable exception ) {
 		Log.info ( "Intercepted unhandled error!" );
-		Log.info ( "exception.message:" + exception.getMessage (), exception );
+		Log.info ( String.format ( "exception.message:%s", exception.getMessage () ), exception );
 
-		Log.error ( "stack-trace of " + ExceptionUtils.getStackTrace ( exception ) );
-		
-		Error error = new Error ();
+		Log.errorf ( "stack-trace of %s", ExceptionUtils.getStackTrace ( exception ) );
+
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.INTERNAL_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.INTERNAL_SERVER_ERROR.getStatusCode () ) );
 		error.setDetail ( "An internal error has occurred" );

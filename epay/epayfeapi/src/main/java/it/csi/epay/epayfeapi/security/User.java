@@ -50,9 +50,9 @@ public class User {
 	@Override
 	public String toString () {
 		return "{ " +
-			"name:" + name +
-			", remoteAddress:" + remoteAddress +
-			", timestamp:" + timestamp +
-			" }";
+						"name:" + name +
+						", remoteAddress:" + remoteAddress +
+						", timestamp:" + timestamp +
+						" }";
 	}
 }

@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class CSIException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6354941200502784695L;
 
 	private CSIException csiException;
 

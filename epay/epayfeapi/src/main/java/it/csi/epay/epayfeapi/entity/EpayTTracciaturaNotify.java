@@ -99,12 +99,12 @@ public class EpayTTracciaturaNotify implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idNotifica:" + idNotifica +
-			// non esporre epayTPagamento
-			", esitoStatoInvioNotify:" + esitoStatoInvioNotify +
-			", dataInivioNotify:" + dataInivioNotify +
-			", messageUuid:" + messageUuid +
-			", bulkId:" + bulkId +
-			" }";
+						"idNotifica:" + idNotifica +
+						// non esporre epayTPagamento
+						", esitoStatoInvioNotify:" + esitoStatoInvioNotify +
+						", dataInivioNotify:" + dataInivioNotify +
+						", messageUuid:" + messageUuid +
+						", bulkId:" + bulkId +
+						" }";
 	}
 }

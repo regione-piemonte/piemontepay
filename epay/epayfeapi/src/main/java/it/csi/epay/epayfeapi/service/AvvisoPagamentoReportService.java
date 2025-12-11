@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 
 
 @ApplicationScoped
@@ -25,33 +24,33 @@ public class AvvisoPagamentoReportService {
 
 	private static final String CODICE_AVVISO_ANALOGICO = "AA01";
 
-	private EpayTPdfReport epayTPdfReport;
-
 	@Inject
 	PdfReportRepository pdfReportRepository;
 
+	private EpayTPdfReport epayTPdfReport;
+
 	@PostConstruct
 	protected void initialize () {
-		String methodName = "initialize";
+		var methodName = "initialize";
 		try {
-			EpayTPdfReport avvisoPagamentoReport = pdfReportRepository.findByCodice ( CODICE_AVVISO_ANALOGICO );
+			var avvisoPagamentoReport = pdfReportRepository.findByCodice ( CODICE_AVVISO_ANALOGICO );
 			if ( null == avvisoPagamentoReport ) {
 				Log.error ( "Nessun report trovato per codice: ".concat ( CODICE_AVVISO_ANALOGICO ) );
 				throw new RuntimeException ( "Nessun report trovato per codice:".concat ( CODICE_AVVISO_ANALOGICO ) );
 			}
 			if ( avvisoPagamentoReport.getTemplateCompilato () == null ) {
 				Log.info ( "Avvio della compilazione del report trovato con codice: ".concat ( CODICE_AVVISO_ANALOGICO ) );
-				try ( InputStream template = new ByteArrayInputStream ( avvisoPagamentoReport.getTemplate () );
-								ByteArrayOutputStream outputStream = new ByteArrayOutputStream () ) {
+				try ( var template = new ByteArrayInputStream ( avvisoPagamentoReport.getTemplate () ); var outputStream = new ByteArrayOutputStream () ) {
 					JasperCompileManager.compileReportToStream ( template, outputStream );
 					avvisoPagamentoReport.setTemplateCompilato ( outputStream.toByteArray () );
 					pdfReportRepository.persist ( avvisoPagamentoReport );
 					Log.info ( "Compilazione del report terminata con successo" );
 				} catch ( Exception e ) {
-					Log.error ( "Errore imprevisto durante la compilazione del template  " + CODICE_AVVISO_ANALOGICO
-									+ ": " + this.getClass ().getName () + "::" + methodName, e );
+					Log.errorf ( "Errore imprevisto durante la compilazione del template %s: %s::%s", CODICE_AVVISO_ANALOGICO, this.getClass ().getName (),
+									methodName );
+					Log.error ( e.getMessage () );
 					throw new RuntimeException (
-									"Errore imprevisto durante la compilazione del template: " + this.getClass ().getName () + "::" + methodName,
+									String.format ( "Errore imprevisto durante la compilazione del template: %s::%s", this.getClass ().getName (), methodName ),
 									e );
 				}
 			} else {
@@ -65,10 +64,9 @@ public class AvvisoPagamentoReportService {
 
 	public EpayTPdfReport getJasperReport () {
 		if ( epayTPdfReport == null ) {
-			Log.error ( "Il template richiesto non presente  " + CODICE_AVVISO_ANALOGICO + ":" + this.getClass ().getName ()
-							+ "::getJasperReport" );
-			throw new RuntimeException ( "Il template richiesto non presente  " + CODICE_AVVISO_ANALOGICO + ":"
-							+ this.getClass ().getName () + "::getJasperReport" );
+			Log.errorf ( "Il template richiesto non presente  %s:%s::getJasperReport", CODICE_AVVISO_ANALOGICO, this.getClass ().getName () );
+			throw new RuntimeException ( String.format ( "Il template richiesto non presente %s:%s::getJasperReport", CODICE_AVVISO_ANALOGICO,
+							this.getClass ().getName () ) );
 		}
 		return epayTPdfReport;
 	}

@@ -94,12 +94,12 @@ public class EpayDStatoPagamento implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idStato:" + idStato + 
-			", descrStato:" + descStato + 
-			", pagabile:" + pagabile + 
-			", modificabile:" + modificabile +
-			// non esporre epayTPagamentos
-			// non esporre epayTRegistroVersamentis
-			" }";
+						"idStato:" + idStato +
+						", descrStato:" + descStato +
+						", pagabile:" + pagabile +
+						", modificabile:" + modificabile +
+						// non esporre epayTPagamentos
+						// non esporre epayTRegistroVersamentis
+						" }";
 	}
 }

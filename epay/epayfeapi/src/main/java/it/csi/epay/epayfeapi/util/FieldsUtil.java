@@ -33,10 +33,10 @@ public class FieldsUtil {
 	 */
 	public static boolean validateFields ( String[] validFields, String inputFieldsString, boolean admitsRepetitions ) {
 		if ( inputFieldsString != null ) {
-			List<String> inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
+			var inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
 			if ( validFields != null ) {
-				Set<String> validFieldSet = new HashSet<> ( Arrays.asList ( validFields ) );
-				Set<String> inputFieldSet = new HashSet<> ( inputFieldList );
+				var validFieldSet = new HashSet<> ( Arrays.asList ( validFields ) );
+				var inputFieldSet = new HashSet<> ( inputFieldList );
 				if ( validFieldSet.containsAll ( inputFieldSet ) )
 					if ( admitsRepetitions ) {
 						return true;
@@ -90,9 +90,9 @@ public class FieldsUtil {
 	}
 
 	private static String[] sortableHelper ( String[] sortableFields ) {
-		int n = sortableFields.length;
-		String[] prefixedSortableFields = new String[n * 2];
-		for ( int i = 0; i < n; i++ ) {
+		var n = sortableFields.length;
+		var prefixedSortableFields = new String[n * 2];
+		for ( var i = 0; i < n; i++ ) {
 			prefixedSortableFields[i] = SORT_DESCENDENT_PREFIX + sortableFields[i];
 		}
 		for ( int i = n, j = 0; i < 2 * n; i++, j++ ) {
@@ -115,10 +115,10 @@ public class FieldsUtil {
 	 */
 	public static Set<String> getInputFieldSet ( String[] validFields, String inputFieldsString ) {
 		Set<String> emptyFieldSet = new HashSet<> ();
-		Set<String> validFieldSet = new HashSet<> ( Arrays.asList ( validFields ) );
+		var validFieldSet = new HashSet<> ( Arrays.asList ( validFields ) );
 		if ( inputFieldsString != null ) {
-			List<String> inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
-			Set<String> inputFieldSet = new HashSet<> ( inputFieldList );
+			var inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
+			var inputFieldSet = new HashSet<> ( inputFieldList );
 			if ( validFieldSet.containsAll ( inputFieldSet ) ) {
 				return inputFieldSet;
 			} else {
@@ -132,11 +132,11 @@ public class FieldsUtil {
 
 	private static List<String> getInputFieldList ( String[] validFields, String inputFieldsString ) {
 		List<String> emptyFieldList = new ArrayList<> ();
-		List<String> validFieldList = Arrays.asList ( validFields );
+		var validFieldList = Arrays.asList ( validFields );
 		if ( inputFieldsString != null ) {
-			List<String> inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
-			Set<String> validFieldSet = new HashSet<> ( validFieldList );
-			Set<String> inputFieldSet = new HashSet<> ( inputFieldList );
+			var inputFieldList = Arrays.asList ( inputFieldsString.trim ().split ( REGEX_FIELD_SEPARATOR ) );
+			var validFieldSet = new HashSet<> ( validFieldList );
+			var inputFieldSet = new HashSet<> ( inputFieldList );
 			if ( validFieldSet.containsAll ( inputFieldSet ) ) {
 				return inputFieldList;
 			} else {
@@ -167,10 +167,10 @@ public class FieldsUtil {
 
 		// costruisce l'sql dell'ORDER BY
 		StringBuilder orderBy = new StringBuilder ();
-		if ( inputSortList.size () > 0 ) {
+		if ( !inputSortList.isEmpty () ) {
 			orderBy.append ( "order by " );
 			for ( int i = 0, n = inputSortList.size (); i < n; i++ ) {
-				String sort = inputSortList.get ( i );
+				var sort = inputSortList.get ( i );
 				orderBy.append ( fieldColumnMap.get ( sort.substring ( 1 ) ) );
 				switch ( sort.charAt ( 0 ) ) {
 				case SORT_ASCENDENT_PREFIX:

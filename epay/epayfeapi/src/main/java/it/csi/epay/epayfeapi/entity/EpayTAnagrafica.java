@@ -117,6 +117,10 @@ public class EpayTAnagrafica implements Serializable {
 		return cap;
 	}
 
+	public void setCap ( String cap ) {
+		this.cap = cap;
+	}
+
 	public String getIndirizzo () {
 		return indirizzo;
 	}
@@ -155,10 +159,6 @@ public class EpayTAnagrafica implements Serializable {
 
 	public void setNazione ( String nazione ) {
 		this.nazione = nazione;
-	}
-
-	public void setCap ( String cap ) {
-		this.cap = cap;
 	}
 
 	public String getTelefono () {
@@ -220,23 +220,23 @@ public class EpayTAnagrafica implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idAnagrafica:" + idAnagrafica +
-			", nome:" + nome +
-			", cognome:" + cognome +
-			", codiceFiscale:" + codiceFiscale +
-			", indirizzo:" + indirizzo +
-			", civico:" + civico +
-			", localita:" + localita +
-			", provincia:" + provincia +
-			", nazione:" + nazione +
-			", cap:" + cap +
-			", telefono:" + telefono +
-			", cellulare:" + cellulare +
-			", email:" + email +
-			", flagPersonaFisica:" + flagPersonaFisica +
-			", ragioneSociale:" + ragioneSociale +
-			// non esporre epayTPagamentos
-			// non esporre epayTRegistroVersamentis
-			" }";
+						"idAnagrafica:" + idAnagrafica +
+						", nome:" + nome +
+						", cognome:" + cognome +
+						", codiceFiscale:" + codiceFiscale +
+						", indirizzo:" + indirizzo +
+						", civico:" + civico +
+						", localita:" + localita +
+						", provincia:" + provincia +
+						", nazione:" + nazione +
+						", cap:" + cap +
+						", telefono:" + telefono +
+						", cellulare:" + cellulare +
+						", email:" + email +
+						", flagPersonaFisica:" + flagPersonaFisica +
+						", ragioneSociale:" + ragioneSociale +
+						// non esporre epayTPagamentos
+						// non esporre epayTRegistroVersamentis
+						" }";
 	}
 }

@@ -101,12 +101,12 @@ public class EpayTRegistroElaborazioniFault implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", idPagamento:" + idPagamento +
-			", codicePagamentoRifEnte:" + codicePagamentoRifEnte +
-			", codiceMessaggio:" + codiceMessaggio +
-			", descrizioneMessaggio:" + descrizioneMessaggio +
-			// non esporre epayTRegistroElaborazioni
-			" }";
+						"id:" + id +
+						", idPagamento:" + idPagamento +
+						", codicePagamentoRifEnte:" + codicePagamentoRifEnte +
+						", codiceMessaggio:" + codiceMessaggio +
+						", descrizioneMessaggio:" + descrizioneMessaggio +
+						// non esporre epayTRegistroElaborazioni
+						" }";
 	}
 }

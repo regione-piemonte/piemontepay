@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class SystemException extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -424379810715051548L;
 
 	private it.csi.epay.epayfeapi.soap.client.mdp.SystemException systemException;
 

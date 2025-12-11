@@ -7,14 +7,13 @@ package it.csi.epay.epayfeapi.util;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public final class DateUtil {
 
 	public static Timestamp currentTimestamp () {
-		Calendar calendar = Calendar.getInstance ();
-		Date now = calendar.getTime ();
+		var calendar = Calendar.getInstance ();
+		var now = calendar.getTime ();
 		return new Timestamp ( now.getTime () );
 	}
 }

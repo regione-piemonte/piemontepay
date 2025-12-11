@@ -41,6 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 				"id",
 				"transactionId"
 } )
+@SuppressWarnings ( "unused" )
 public class NodoErrore {
 
 	protected String applicationId;

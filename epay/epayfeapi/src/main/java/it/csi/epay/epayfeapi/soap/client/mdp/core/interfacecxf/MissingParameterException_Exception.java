@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class MissingParameterException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2476337668849651907L;
 
 	private MissingParameterException missingParameterException;
 

@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 				"iuv",
 				"transactionId"
 } )
+@SuppressWarnings ( "unused" )
 public class GetRTperIUVTransazione {
 
 	protected String iuv;

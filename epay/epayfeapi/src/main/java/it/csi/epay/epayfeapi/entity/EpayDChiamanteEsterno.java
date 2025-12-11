@@ -5,12 +5,13 @@
 
 package it.csi.epay.epayfeapi.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
@@ -90,12 +91,12 @@ public class EpayDChiamanteEsterno implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"codiceChiamante:" + codiceChiamante +
-			", descrizioneChiamante:" + descrizioneChiamante +
-			", dataInizioValidita:" + dataInizioValidita +
-			", dataFineValidita:" + dataFineValidita +
+						"codiceChiamante:" + codiceChiamante +
+						", descrizioneChiamante:" + descrizioneChiamante +
+						", dataInizioValidita:" + dataInizioValidita +
+						", dataFineValidita:" + dataFineValidita +
 			", passphrase (valore non esposto) " +
-			", url:" + url +
-			" }";
+						", url:" + url +
+						" }";
 	}
 }

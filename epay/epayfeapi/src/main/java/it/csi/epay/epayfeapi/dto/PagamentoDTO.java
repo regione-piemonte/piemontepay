@@ -5,6 +5,8 @@
 
 package it.csi.epay.epayfeapi.dto;
 
+import it.csi.epay.epayfeapi.enumeration.StatoPagamento;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -34,10 +36,10 @@ public class PagamentoDTO implements Serializable {
 
 	private String note;
 
-	//PAGATORE è colui che ha la posizione debitoria verso l'amministrazione pubblica
+	//PAGATORE e' colui che ha la posizione debitoria verso l'amministrazione pubblica
 	private AnagraficaDTO pagatore;
 
-	//il VERSANTE è colui che effettua il pagamento dell'imposta
+	//il VERSANTE e' colui che effettua il pagamento dell'imposta
 	private AnagraficaDTO versante;
 
 	private EnteDTO ente;
@@ -405,7 +407,7 @@ public class PagamentoDTO implements Serializable {
 		this.importoPrincipale = importoPrincipale;
 	}
 
-	public String getCodiceAvviso () {
+	public String getCodiceAvviso () throws IllegalArgumentException {
 		return CodiceAvvisoDTO.codiceAvvisoString ( auxDigit, applicationCode, iuv );
 	}
 
@@ -417,46 +419,47 @@ public class PagamentoDTO implements Serializable {
 		this.requiresCostUpdate = requiresCostUpdate;
 	}
 
-	@Override public String toString () {
-		return "PagamentoDTO{" +
-						"idPagamento=" + idPagamento +
-						", idPagamentoCifrato='" + idPagamentoCifrato + '\'' +
-						", causale='" + causale + '\'' +
-						", iuv='" + iuv + '\'' +
-						", iuvRegistroVersamenti='" + iuvRegistroVersamenti + '\'' +
-						", dataInserimento=" + dataInserimento +
-						", importo=" + importo +
-						", note='" + note + '\'' +
-						", pagatore=" + pagatore +
-						", versante=" + versante +
-						", ente=" + ente +
-						", consensoPrivacy=" + consensoPrivacy +
-						", tipoPagamento=" + tipoPagamento +
-						", fineValidita=" + fineValidita +
-						", inizioValidita=" + inizioValidita +
-						", annoRiferimento=" + annoRiferimento +
-						", applicationCode='" + applicationCode + '\'' +
-						", auxDigit='" + auxDigit + '\'' +
-						", codicePagamentoRifEnte='" + codicePagamentoRifEnte + '\'' +
-						", dataScadenza=" + dataScadenza +
-						", idStatoCorrente=" + idStatoCorrente +
-						", numeroRata='" + numeroRata + '\'' +
-						", pagamentoSpontaneo=" + pagamentoSpontaneo +
-						", dataStatoCorrente=" + dataStatoCorrente +
-						", pulsantePdf='" + pulsantePdf + '\'' +
-						", pulsanteXml='" + pulsanteXml + '\'' +
-						", pulsanteReceiptPdf='" + pulsanteReceiptPdf + '\'' +
-						", utenteUltimaModifica='" + utenteUltimaModifica + '\'' +
-						", flagPagamentoAutenticato=" + flagPagamentoAutenticato +
-						", annoAccertamento=" + annoAccertamento +
-						", numeroAccertamento=" + numeroAccertamento +
-						", componenti=" + componenti +
-						", componentiSecondari=" + componentiSecondari +
-						", riferimenti=" + riferimenti +
-						", flgInvioReportPec=" + flgInvioReportPec +
-						", codiceContestoPagamento='" + codiceContestoPagamento + '\'' +
-						", identificativoDominio='" + identificativoDominio + '\'' +
-						", importoPrincipale=" + importoPrincipale +
-						'}';
+	@Override
+	public String toString () {
+		return "{ " +
+						"idPagamento:" + idPagamento +
+						", idPagamentoCifrato:" + idPagamentoCifrato +
+						", causale:" + causale +
+						", iuv:" + iuv +
+						", iuvRegistroVersamenti:" + iuvRegistroVersamenti +
+						", dataInserimento:" + dataInserimento +
+						", importo:" + importo +
+						", note:" + note +
+						", pagatore:" + pagatore +
+						", versante:" + versante +
+						", ente:" + ente +
+						", consensoPrivacy:" + consensoPrivacy +
+						", tipoPagamento:" + tipoPagamento +
+						", fineValidita:" + fineValidita +
+						", inizioValidita:" + inizioValidita +
+						", annoRiferimento:" + annoRiferimento +
+						", applicationCode:" + applicationCode +
+						", auxDigit:" + auxDigit +
+						", codicePagamentoRifEnte:" + codicePagamentoRifEnte +
+						", dataScadenza:" + dataScadenza +
+						", idStatoCorrente:" + idStatoCorrente +
+						", numeroRata:" + numeroRata +
+						", pagamentoSpontaneo:" + pagamentoSpontaneo +
+						", dataStatoCorrente:" + dataStatoCorrente +
+						", pulsantePdf:" + pulsantePdf +
+						", pulsanteXml:" + pulsanteXml +
+						", pulsanteReceiptPdf:" + pulsanteReceiptPdf +
+						", utenteUltimaModifica:" + utenteUltimaModifica +
+						", flagPagamentoAutenticato:" + flagPagamentoAutenticato +
+						", annoAccertamento:" + annoAccertamento +
+						", numeroAccertamento:" + numeroAccertamento +
+						", componenti:" + componenti +
+						", componentiSecondari:" + componentiSecondari +
+						", riferimenti:" + riferimenti +
+						", flgInvioReportPec:" + flgInvioReportPec +
+						", codiceContestoPagamento:" + codiceContestoPagamento +
+						", identificativoDominio:" + identificativoDominio +
+						", importoPrincipale:" + importoPrincipale +
+						" }";
 	}
 }

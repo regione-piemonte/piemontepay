@@ -1,7 +1,7 @@
 /*
-* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
-*
-* SPDX-License-Identifier: EUPL-1.2 */
+ * SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+ *
+ * SPDX-License-Identifier: EUPL-1.2 */
 
 package it.csi.epay.epayfeapi.entity;
 
@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -105,6 +106,12 @@ public class EpayTTipoPagamento implements Serializable {
 
 	@OneToMany ( mappedBy = "epayTTipoPagamento" )
 	private List<EpayTPagamentoSecondario> epayTPagamentoSecondarios;
+
+	@Column ( name = "importo_pagamento_spontaneo" )
+	private BigDecimal importoPagamentoSpontaneo;
+
+	@Column ( name = "flag_visualizza_da_sportello" )
+	Boolean flagVisualizzaDaSportello;
 
 	public EpayTTipoPagamento () {
 	}
@@ -293,32 +300,48 @@ public class EpayTTipoPagamento implements Serializable {
 		this.epayTPagamentoSecondarios = epayTPagamentoSecondarios;
 	}
 
+	public BigDecimal getImportoPagamentoSpontaneo () {
+		return importoPagamentoSpontaneo;
+	}
+
+	public void setImportoPagamentoSpontaneo ( BigDecimal importoPagamentoSpontaneo ) {
+		this.importoPagamentoSpontaneo = importoPagamentoSpontaneo;
+	}
+
+	public Boolean getFlagVisualizzaDaSportello () {
+		return flagVisualizzaDaSportello;
+	}
+
+	public void setFlagVisualizzaDaSportello ( Boolean flagVisualizzaDaSportello ) {
+		this.flagVisualizzaDaSportello = flagVisualizzaDaSportello;
+	}
+
 	@Override
 	public String toString () {
 		return "{ " +
-			"idTipoPagamento:" + idTipoPagamento +
-			", codiceVersamento:" + codiceVersamento +
-			", compilazioneNote:" + compilazioneNote +
-			", contatoreCompilazioni:" + contatoreCompilazioni +
-			", contatorePagamenti:" + contatorePagamenti +
-			", contatoreSelezioni:" + contatoreSelezioni +
-			", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
-			", descrizionePortale:" + descrizionePortale +
-			", inizioValidita:" + inizioValidita +
-			", fineValidita:" + fineValidita +
-			", flagInvioPagamenti:" + flagInvioPagamenti +
-			", idApplicazione:" + idApplicazione +
-			", pagamentoSpontaneo:" + pagamentoSpontaneo +
-			", flagPresenzaBollettinoPostale:" + flagPresenzaBollettinoPostale +
-			// non esporre epayTPagamentos
-			// non esporre epayTEnti
-			", numeroAccertamento:" + numeroAccertamento +
-			", annoAccertamento:" + annoAccertamento +
-			", chiaveIntersistema:" + chiaveIntersistema +
-			", flagInvioRT:" + flagInvioRT +
-			", flagMultibeneficiario:" + flagMultibeneficiario +
-			", tipologiaPagamento:" + tipologiaPagamento +
-			// non esporre epayTPagamentoSecondarios
-			" }";
+						"idTipoPagamento:" + idTipoPagamento +
+						", codiceVersamento:" + codiceVersamento +
+						", compilazioneNote:" + compilazioneNote +
+						", contatoreCompilazioni:" + contatoreCompilazioni +
+						", contatorePagamenti:" + contatorePagamenti +
+						", contatoreSelezioni:" + contatoreSelezioni +
+						", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
+						", descrizionePortale:" + descrizionePortale +
+						", inizioValidita:" + inizioValidita +
+						", fineValidita:" + fineValidita +
+						", flagInvioPagamenti:" + flagInvioPagamenti +
+						", idApplicazione:" + idApplicazione +
+						", pagamentoSpontaneo:" + pagamentoSpontaneo +
+						", flagPresenzaBollettinoPostale:" + flagPresenzaBollettinoPostale +
+						// non esporre epayTPagamentos
+						// non esporre epayTEnti
+						", numeroAccertamento:" + numeroAccertamento +
+						", annoAccertamento:" + annoAccertamento +
+						", chiaveIntersistema:" + chiaveIntersistema +
+						", flagInvioRT:" + flagInvioRT +
+						", flagMultibeneficiario:" + flagMultibeneficiario +
+						", tipologiaPagamento:" + tipologiaPagamento +
+						// non esporre epayTPagamentoSecondarios
+						" }";
 	}
 }

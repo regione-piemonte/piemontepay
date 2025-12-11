@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class SystemException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5490101025786498650L;
 
 	private SystemException systemException;
 

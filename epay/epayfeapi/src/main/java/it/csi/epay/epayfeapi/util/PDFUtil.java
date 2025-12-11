@@ -13,7 +13,7 @@ public class PDFUtil {
 	private static final String TEN_DOUBLE_FORMAT = "0000000000";
 
 	public static String doubleWithTenZeros ( double db ) {
-		DecimalFormat df = new DecimalFormat ( TEN_DOUBLE_FORMAT );
+		var df = new DecimalFormat ( TEN_DOUBLE_FORMAT );
 		return df.format ( db * 100.0 );
 	}
 }

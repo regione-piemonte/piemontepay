@@ -11,8 +11,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import java.util.List;
-
 
 @Mapper ( componentModel = "cdi", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE )
 public interface ChiamanteEsternoMapper {
@@ -20,5 +18,4 @@ public interface ChiamanteEsternoMapper {
 	@Mapping ( target = "codiceChiamante", source = "codiceChiamante" )
 	ChiamanteEsternoDTO toDto ( EpayDChiamanteEsterno epayDChiamanteEsterno );
 
-	List<ChiamanteEsternoDTO> toDtoList ( List<EpayDChiamanteEsterno> epayDChiamanteEsternoList );
 }

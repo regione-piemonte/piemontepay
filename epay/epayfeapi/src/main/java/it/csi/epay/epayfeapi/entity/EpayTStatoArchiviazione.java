@@ -111,12 +111,12 @@ public class EpayTStatoArchiviazione implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", codiceFiscale:" + codiceFiscale +
-			", epayTEnti:" + epayTEnti +
-			", flagAbilitaArchiviazione:" + flagAbilitaArchiviazione +
-			", dataOraUltimaModifica:" + dataOraUltimaModifica +
-			// non esporre epayDChiamanteEsterno
-			" }";
+						"id:" + id +
+						", codiceFiscale:" + codiceFiscale +
+						", epayTEnti:" + epayTEnti +
+						", flagAbilitaArchiviazione:" + flagAbilitaArchiviazione +
+						", dataOraUltimaModifica:" + dataOraUltimaModifica +
+						// non esporre epayDChiamanteEsterno
+						" }";
 	}
 }

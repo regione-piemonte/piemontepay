@@ -17,18 +17,18 @@ import javax.enterprise.context.ApplicationScoped;
 public class StatoArchiviazioneRepository implements PanacheRepository<EpayTStatoArchiviazione> {
 
 	public EpayTStatoArchiviazione findStatoArchiviazione ( String codiceFiscale, EpayTEnti enteEntity ) {
-		String methodName = "[findStatoArchiviazione] ";
-		Log.info ( methodName + "BEGIN" );
+		var methodName = "[findStatoArchiviazione] ";
+		Log.infof ( "%sBEGIN", methodName );
 
-		String query = "codiceFiscale = ?1 and epayTEnti = ?2";
-		Log.info ( methodName + "?1 (codiceFiscale):" + codiceFiscale );
-		Log.info ( methodName + "?2 (enteEntity):" + enteEntity );
-		Log.info ( methodName + "query: select * from EpayTStatoArchiviazione where " + query );
+		var query = "upper(codiceFiscale) = upper(?1) and epayTEnti = ?2";
+		Log.infof ( "%scodiceFiscale:%s", methodName, codiceFiscale );
+		Log.infof ( "%senteEntity:%s", methodName, enteEntity );
+		Log.infof ( "%squery: select * from EpayTStatoArchiviazione where %s", methodName, query );
 
-		EpayTStatoArchiviazione result = find ( query, codiceFiscale, enteEntity ).firstResult ();
+		var result = find ( query, codiceFiscale, enteEntity ).firstResult ();
 
-		Log.info ( methodName + "result:" + result );
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sresult:%s", methodName, result );
+		Log.infof ( "%sEND", methodName );
 		return result;
 	}
 }

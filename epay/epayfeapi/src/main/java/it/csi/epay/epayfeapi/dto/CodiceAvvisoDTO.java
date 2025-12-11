@@ -9,11 +9,17 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
+import static it.csi.epay.epayfeapi.util.Constants.ERROR_APPLICATION_CODE_NOT_VALUED;
+import static it.csi.epay.epayfeapi.util.Constants.ERROR_AUX_DIGIT_NOT_VALUED;
+import static it.csi.epay.epayfeapi.util.Constants.ERROR_CODICE_AVVISO_CON_AUX_DIGIT_NOT_VALUED_AND_IUV_NOT_RF;
+import static it.csi.epay.epayfeapi.util.Constants.ERROR_IUV_NOT_VALUED;
+import static it.csi.epay.epayfeapi.util.Constants.RF;
+
 
 @SuppressWarnings ( "unused" )
 public class CodiceAvvisoDTO implements Serializable {
 
-	private static final long serialVersionUID = -4928311288480553749L;
+	private static final long serialVersionUID = -4796859698053178218L;
 
 	private String auxDigit;
 
@@ -45,8 +51,47 @@ public class CodiceAvvisoDTO implements Serializable {
 
 	}
 
-	static public String codiceAvvisoString ( final String auxDigit, final String applicationCode, final String iuv ) {
-		return testAuxDigit ( auxDigit ) + testApplicationCode ( auxDigit, applicationCode ) + testIuv ( iuv );
+	/* RDI-54 MODELLO UNICO - BEGIN */
+
+	static public String codiceAvvisoString ( final String auxDigit, final String applicationCode, final String iuv ) throws IllegalArgumentException {
+		if ( StringUtils.isBlank ( iuv ) ) {
+			throw new IllegalArgumentException ( ERROR_IUV_NOT_VALUED );
+		}
+		var iuvOk = StringUtils.trimToEmpty ( iuv );
+
+		if ( StringUtils.isBlank ( auxDigit ) ) {
+			if ( !iuvOk.startsWith ( RF ) ) {
+				throw new IllegalArgumentException ( ERROR_CODICE_AVVISO_CON_AUX_DIGIT_NOT_VALUED_AND_IUV_NOT_RF );
+			}
+		}
+		var auxDigitOk = StringUtils.trimToEmpty ( auxDigit );
+
+		var applicationCodeOk = StringUtils.trimToEmpty ( applicationCode );
+
+		return String.format ( "%s%s%s", auxDigitOk, applicationCodeOk, iuvOk );
+	}
+	/* RDI-54 MODELLO UNICO - END */
+
+	private static String testAuxDigit ( final String auxDigit ) {
+		return test ( auxDigit, ERROR_AUX_DIGIT_NOT_VALUED );
+	}
+
+	private static String testApplicationCode ( final String auxDigit, final String applicationCode ) {
+		if ( ( auxDigit != null ) && ( auxDigit.equals ( "3" ) ) ) {
+			return "";
+		}
+		return test ( applicationCode, ERROR_APPLICATION_CODE_NOT_VALUED );
+	}
+
+	private static String testIuv ( final String iuv ) {
+		return test ( iuv, ERROR_IUV_NOT_VALUED );
+	}
+
+	private static String test ( final String str, final String msg ) {
+		if ( StringUtils.isBlank ( str ) ) {
+			throw new IllegalArgumentException ( msg );
+		}
+		return StringUtils.trimToNull ( str );
 	}
 
 	public String getAuxDigit () {
@@ -76,27 +121,5 @@ public class CodiceAvvisoDTO implements Serializable {
 	@Override
 	public String toString () {
 		return auxDigit + applicationCode + iuv;
-	}
-
-	private static String testAuxDigit ( final String auxDigit ) {
-		return test ( auxDigit, "Il codice Aux Digit non può essere vuoto." );
-	}
-
-	private static String testApplicationCode ( final String auxDigit, final String applicationCode ) {
-		if ( ( auxDigit != null ) && ( auxDigit.equals ( "3" ) ) ) {
-			return "";
-		}
-		return test ( applicationCode, "L'application code non può essere vuoto." );
-	}
-
-	private static String testIuv ( final String iuv ) {
-		return test ( iuv, "Il codice IUV non può essere vuoto." );
-	}
-
-	private static String test ( final String str, final String msg ) {
-		if ( StringUtils.isBlank ( str ) ) {
-			throw new IllegalArgumentException ( msg );
-		}
-		return StringUtils.trimToNull ( str );
 	}
 }

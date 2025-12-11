@@ -95,7 +95,8 @@ public enum CodiciEsito {
 	MDP_SERVICES_ERRORE ( "250", "Errore caricamento. Problemi tecnici nella generazione degli iuv. [$0]" ),
 	COOP_ERRORE_GENERICO ( "300", "Errore generico: $0" ),
 	COOP_ERRORE_NON_PRONTO ( "301", "Il servizio non e' pronto" ),
-	COOP_ERRORE_INTERNO ( "399", "Errore interno (CoopApplicativaPEC)" );
+	COOP_ERRORE_INTERNO ( "399", "Errore interno (CoopApplicativaPEC)" ),
+	ERRORE_DATI_AVVISO ( "157", "Errore reperimento dati avviso" );
 
 	private final String codice;
 
@@ -115,15 +116,14 @@ public enum CodiciEsito {
 	}
 
 	public String getMessaggio ( String... params ) {
-		String msg = messaggio;
+		var msg = messaggio;
 		try {
-			int i = 0;
-			for ( String parametro : params ) {
+			var i = 0;
+			for ( var parametro : params ) {
 				msg = msg.replace ( "$" + i++, parametro );
 			}
 			return msg;
 		} catch ( Exception e ) {
-			String methodName = "CodiciErrore";
 			Log.error ( ExceptionUtils.getStackTrace ( e ) );
 			throw new RuntimeException ( "Errore preparazione messaggio di errore", e.getCause () );
 		}

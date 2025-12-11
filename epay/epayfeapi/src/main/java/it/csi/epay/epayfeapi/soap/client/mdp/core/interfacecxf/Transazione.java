@@ -67,6 +67,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType ( name = "Transazione", propOrder = {
 
 } )
+@SuppressWarnings ( "unused" )
 public class Transazione {
 
 	@XmlElement ( required = true, type = Double.class, nillable = true )

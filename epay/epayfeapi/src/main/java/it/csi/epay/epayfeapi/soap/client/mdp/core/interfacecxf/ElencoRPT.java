@@ -34,6 +34,7 @@ import java.util.List;
 @XmlType ( name = "ElencoRPT", propOrder = {
 				"rptdata"
 } )
+@SuppressWarnings ( "unused" )
 public class ElencoRPT {
 
 	@XmlElement ( required = true )

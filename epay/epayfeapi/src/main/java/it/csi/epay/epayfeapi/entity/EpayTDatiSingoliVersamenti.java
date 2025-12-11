@@ -90,11 +90,11 @@ public class EpayTDatiSingoliVersamenti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
-			", descrizioneCausale:" + descrizioneCausale +
-			", importo:" + importo +
-			// non esporre epayTPagamento
-			" }";
+						"id:" + id +
+						", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
+						", descrizioneCausale:" + descrizioneCausale +
+						", importo:" + importo +
+						// non esporre epayTPagamento
+						" }";
 	}
 }

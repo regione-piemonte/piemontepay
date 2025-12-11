@@ -31,52 +31,49 @@ public class StatoArchiviazioneService {
 					boolean flagAbilitaArchiviazione,
 					EpayDChiamanteEsterno chiamanteEsternoEntity ) {
 
-		String methodName = "[setFlagAbilitaArchiviazione] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "param codiceFiscale:" + codiceFiscale );
-		Log.info ( methodName + "param enteEntity:" + enteEntity );
-		Log.info ( methodName + "param flagAbilitaArchiviazione:" + flagAbilitaArchiviazione );
-		Log.info ( methodName + "param chiamanteEsternoEntity:" + chiamanteEsternoEntity );
+		var methodName = "[setFlagAbilitaArchiviazione] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam codiceFiscale:%s", methodName, codiceFiscale );
+		Log.infof ( "%sparam enteEntity:%s", methodName, enteEntity );
+		Log.infof ( "%sparam flagAbilitaArchiviazione:%s", methodName, flagAbilitaArchiviazione );
+		Log.infof ( "%sparam chiamanteEsternoEntity:%s", methodName, chiamanteEsternoEntity );
 
-		EpayTStatoArchiviazione statoArchiviazioneEntity = statoAchiviazioneRepository.findStatoArchiviazione ( codiceFiscale, enteEntity );
+		var statoArchiviazioneEntity = statoAchiviazioneRepository.findStatoArchiviazione ( codiceFiscale, enteEntity );
 		if ( statoArchiviazioneEntity == null ) {
 			// crea l'entity
-			Log.info ( methodName + "crea un nuovo stato di archiviazione" );
+			Log.infof ( "%screa un nuovo stato di archiviazione", methodName );
 			statoArchiviazioneEntity = new EpayTStatoArchiviazione ();
 			statoArchiviazioneEntity.setCodiceFiscale ( codiceFiscale );
 			statoArchiviazioneEntity.setEpayTEnti ( enteEntity );
 			statoArchiviazioneEntity.setEpayDChiamanteEsterno ( chiamanteEsternoEntity );
 
 		} else {
-			Log.info ( methodName + "modifica stato di archiviazione ottenuto" );
+			Log.infof ( "%smodifica stato di archiviazione ottenuto", methodName );
 		}
 
 		// imposta il flag
-		Date now = new Date ();
+		var now = new Date ();
 		statoArchiviazioneEntity.setFlagAbilitaArchiviazione ( flagAbilitaArchiviazione );
 		statoArchiviazioneEntity.setDataOraUltimaModifica ( now );
 
 		// persiste
-		Log.info ( methodName
-						+ "persiste lo stato di archiviazione con il flag a " + flagAbilitaArchiviazione
-						+ " per ente " + enteEntity.getCodiceFiscale ()
-						+ " e codice fiscale cittadino " + codiceFiscale
-						+ " in data e ora " + now );
+		Log.infof ( "%spersiste lo stato di archiviazione con il flag a %s per ente %s e codice fiscale cittadino %s in data e ora %s", methodName,
+						flagAbilitaArchiviazione, enteEntity.getCodiceFiscale (), codiceFiscale, now );
 		statoAchiviazioneRepository.persist ( statoArchiviazioneEntity );
 
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sEND", methodName );
 	}
 
 	public FlagAbilitaArchiviazioneDTO getFlagAbilitaArchiviazione (
 					String codiceFiscale,
 					EpayTEnti enteEntity ) {
 
-		String methodName = "[getFlagAbilitaArchiviazione] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "param codiceFiscale:" + codiceFiscale );
-		Log.info ( methodName + "param enteEntity:" + enteEntity );
+		var methodName = "[getFlagAbilitaArchiviazione] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam codiceFiscale:", methodName, codiceFiscale );
+		Log.infof ( "%sparam enteEntity:", methodName, enteEntity );
 
-		EpayTStatoArchiviazione statoArchiviazioneEntity = statoAchiviazioneRepository.findStatoArchiviazione ( codiceFiscale, enteEntity );
+		var statoArchiviazioneEntity = statoAchiviazioneRepository.findStatoArchiviazione ( codiceFiscale, enteEntity );
 
 		FlagAbilitaArchiviazioneDTO result = null;
 		if ( statoArchiviazioneEntity != null ) {
@@ -85,8 +82,8 @@ public class StatoArchiviazioneService {
 			result.setDataOraUltimaModifica ( statoArchiviazioneEntity.getDataOraUltimaModifica () );
 		}
 
-		Log.info ( methodName + "result:" + result );
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sresult:%s", methodName, result );
+		Log.infof ( "%sEND", methodName );
 		return result;
 	}
 }

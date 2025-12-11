@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType ( name = "getStatoTransazione", propOrder = {
 				"transactionId"
 } )
+@SuppressWarnings ( "unused" )
 public class GetStatoTransazione {
 
 	@XmlElement ( name = "transaction_id" )

@@ -5,10 +5,9 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 
 @Embeddable
@@ -41,8 +40,8 @@ public class EpayRChiamanteAutorizzazioneChiamantePK implements Serializable {
 
 	@Override
 	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
+		final var prime = 31;
+		var result = 1;
 		result = prime * result + ( ( codiceChiamante == null ) ? 0 : codiceChiamante.hashCode () );
 		result = prime * result + ( ( codiceAutorizzazioneChiamante == null ) ? 0 : codiceAutorizzazioneChiamante.hashCode () );
 		return result;
@@ -59,7 +58,7 @@ public class EpayRChiamanteAutorizzazioneChiamantePK implements Serializable {
 		if ( getClass () != obj.getClass () ) {
 			return false;
 		}
-		EpayRChiamanteAutorizzazioneChiamantePK other = (EpayRChiamanteAutorizzazioneChiamantePK) obj;
+		var other = (EpayRChiamanteAutorizzazioneChiamantePK) obj;
 		if ( codiceChiamante == null ) {
 			if ( other.codiceChiamante != null ) {
 				return false;
@@ -77,8 +76,8 @@ public class EpayRChiamanteAutorizzazioneChiamantePK implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"codiceChiamante:" + codiceChiamante +
-			", codiceAutorizzazioneChiamante:" + codiceAutorizzazioneChiamante +
-			" }";
+						"codiceChiamante:" + codiceChiamante +
+						", codiceAutorizzazioneChiamante:" + codiceAutorizzazioneChiamante +
+						" }";
 	}
 }

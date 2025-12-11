@@ -30,10 +30,10 @@ public class EpayTPdfReport implements Serializable {
 	private String nomeTemplate;
 
 	@Column ( name = "template" )
-	private byte [] template;
+	private byte[] template;
 
 	@Column ( name = "template_compilato" )
-	private byte [] templateCompilato;
+	private byte[] templateCompilato;
 
 	public Long getId () {
 		return id;
@@ -59,30 +59,30 @@ public class EpayTPdfReport implements Serializable {
 		this.nomeTemplate = nomeTemplate;
 	}
 
-	public byte [] getTemplate () {
+	public byte[] getTemplate () {
 		return template;
 	}
 
-	public void setTemplate ( byte [] template ) {
+	public void setTemplate ( byte[] template ) {
 		this.template = template;
 	}
 
-	public byte [] getTemplateCompilato () {
+	public byte[] getTemplateCompilato () {
 		return templateCompilato;
 	}
 
-	public void setTemplateCompilato ( byte [] templateCompilato ) {
+	public void setTemplateCompilato ( byte[] templateCompilato ) {
 		this.templateCompilato = templateCompilato;
 	}
 
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", codice:" + codice +
-			", nomeTemplate:" + nomeTemplate +
-			// non esporre template
-			// non esporre templateCompilato
-			" }";
+						"id:" + id +
+						", codice:" + codice +
+						", nomeTemplate:" + nomeTemplate +
+						// non esporre template
+						// non esporre templateCompilato
+						" }";
 	}
 }

@@ -9,14 +9,13 @@ import static it.csi.epay.epayfeapi.util.Constants.ERROR_ENTE_NOT_FOUND;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_PREFERENZA_ARCHIVIAZIONE_NOT_FOUND;
 import static it.csi.epay.epayfeapi.util.Constants.REGEX_IUV_CF;
 import static it.csi.epay.epayfeapi.util.Constants.SERVICE_ENABLE_RECEIPT_STORAGE;
-import static it.csi.epay.epayfeapi.util.Constants.SERVICE_FIELDS_PAYMENT_RECEIPT__CITIZEN_FISCAL_CODE;
-import static it.csi.epay.epayfeapi.util.Constants.SERVICE_FIELDS_PAYMENT_RECEIPT__ORGANIZATION_FISCAL_CODE;
 import static it.csi.epay.epayfeapi.util.Constants.SERVICE_FIELDS_RECEIPT_STORAGE__CITIZEN_FISCAL_CODE;
 import static it.csi.epay.epayfeapi.util.Constants.SERVICE_FIELDS_RECEIPT_STORAGE__ENABLE_RECEIPT_STORAGE;
 import static it.csi.epay.epayfeapi.util.Constants.SERVICE_FIELDS_RECEIPT_STORAGE__ORGANIZATION_FISCAL_CODE;
 import static it.csi.epay.epayfeapi.util.Constants.SERVICE_GET_RECEIPT_STORAGE;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateForbiddenResponse;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateNotFoundErrorResponse;
+import static it.csi.epay.epayfeapi.util.ResponseUtil.generateUnauthorizedEnteResponse;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateUnauthorizedResponse;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateValidationErrorResponse;
 
@@ -33,12 +32,8 @@ import org.openapitools.model.Error;
 import org.openapitools.model.ReceiptStorage;
 
 import io.quarkus.logging.Log;
-import it.csi.epay.epayfeapi.dto.FlagAbilitaArchiviazioneDTO;
-import it.csi.epay.epayfeapi.entity.EpayDChiamanteEsterno;
-import it.csi.epay.epayfeapi.entity.EpayTEnti;
+import it.csi.epay.epayfeapi.enumeration.Scopes;
 import it.csi.epay.epayfeapi.security.AuthenticationContext;
-import it.csi.epay.epayfeapi.security.Scopes;
-import it.csi.epay.epayfeapi.security.User;
 import it.csi.epay.epayfeapi.service.ChiamanteAutorizzazioneChiamanteService;
 import it.csi.epay.epayfeapi.service.ChiamanteEsternoService;
 import it.csi.epay.epayfeapi.service.ChiamataEsternaNonValidaService;
@@ -75,149 +70,157 @@ public class ReceiptStorageService {
 	@Inject
 	StatoArchiviazioneService statoArchiviazioneService;
 
-	public Response enableReceiptStorage ( String organizationFiscalCode, String citizenFiscalCode, Boolean enableReceiptStorage ) {
-		String methodName = "[enableReceiptStorage] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "param organizationFiscalCode:" + organizationFiscalCode );
-		Log.info ( methodName + "param citizenFiscalCode:" + citizenFiscalCode );
-		Log.info ( methodName + "param enableReceiptStorage:" + enableReceiptStorage );
+	public Response enableReceiptStorage ( String organizationFiscalCode, String citizenFiscalCode, Boolean enableReceiptStorage, long initialMoment, String serviceName ) {
+		var methodName = "[enableReceiptStorage] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam organizationFiscalCode:%s", methodName, organizationFiscalCode );
+		Log.infof ( "%sparam citizenFiscalCode:%s", methodName, citizenFiscalCode );
+		Log.infof ( "%sparam enableReceiptStorage:%s", methodName, enableReceiptStorage );
 
-		User user = authenticationContext.getCurrentUser ();
-		Log.info ( methodName + "user:" + user );
+		var user = authenticationContext.getCurrentUser ();
+		Log.infof ( "%suser:%s", methodName, user );
 
 		/* --- validazione --- */
 
 		// autorizzazione
 		// 1. ottiene il chiamante esterno per il tracciamento della chiamata e la validazione dell'autorizzazione
-		EpayDChiamanteEsterno chiamanteEsternoEntity = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
+		var chiamanteEsternoEntity = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
 		if ( chiamanteEsternoEntity == null ) {
-			Response response = generateForbiddenResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, user.getName () );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateForbiddenResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, user.getName () );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "chiamanteEsternoEntity:" + chiamanteEsternoEntity );
+		Log.infof ( "%schiamanteEsternoEntity:%s", methodName, chiamanteEsternoEntity );
 		//
 		// 2. tracciamento della chiamata
-		tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsternoEntity, null, user, null );
-		Log.info ( methodName + "chiamanteEsterno tracciato" );
+		tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsternoEntity, null, user, null, initialMoment, serviceName );
+		Log.infof ( "%schiamanteEsterno tracciato", methodName );
 		//
 		// 3. validazione autorizzazione
 		if ( chiamanteAutorizzazioneChiamanteService.countByCodiceChiamanteAndCodiceAutorizzazioneChiamante ( user.getName (),
-			Scopes.FLAG_ARCHIVIAZIONE.name () ) < 1 ) {
-			Response response = generateUnauthorizedResponse ( SERVICE_ENABLE_RECEIPT_STORAGE );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+						Scopes.FLAG_ARCHIVIAZIONE.name () ) < 1 ) {
+			var response = generateUnauthorizedResponse ( SERVICE_ENABLE_RECEIPT_STORAGE );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "authorization OK" );
+		Log.infof ( "%sauthorization OK", methodName );
 
 		// validazione input
-		List<String> notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode, enableReceiptStorage );
+		var notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode, enableReceiptStorage );
 		if ( !notValids.isEmpty () ) {
-			Response response = generateValidationErrorResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, notValids );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateValidationErrorResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, notValids );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "validation OK" );
+		Log.infof ( "%svalidation OK", methodName );
 
 		/* --- logica di business --- */
 
 		// ottiene l'ente corrispondente al codice fiscale
-		EpayTEnti enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
+		var enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
 		if ( enteEntity == null ) {
-			Response response = generateNotFoundErrorResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_ENABLE_RECEIPT_STORAGE, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "ente:" + enteEntity );
+		if ( enteEntity.getFlagAdesioneCittaFacile()==null || !enteEntity.getFlagAdesioneCittaFacile()) {
+			var response = generateUnauthorizedEnteResponse ( SERVICE_ENABLE_RECEIPT_STORAGE);
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
+			return response;
+		}
+		Log.infof ( "%sente:%s", methodName, enteEntity );
 
 		// impostazione dello stato di archiviazione
 		statoArchiviazioneService.setFlagAbilitaArchiviazione ( citizenFiscalCode, enteEntity, enableReceiptStorage, chiamanteEsternoEntity );
 
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sEND", methodName );
 		return Response.status ( Response.Status.OK ).build ();
 	}
 
 	/*
 	 * Servizio 9 - restituisce la preferenza all'archiviazione delle ricevute di pagamento per il cittadino e per l'ente specificato.
 	 */
-	public Response getReceiptStorage ( String organizationFiscalCode, String citizenFiscalCode ) {
-		String methodName = "[getReceiptStorage] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "param organizationFiscalCode:" + organizationFiscalCode );
-		Log.info ( methodName + "param citizenFiscalCode:" + citizenFiscalCode );
+	public Response getReceiptStorage ( String organizationFiscalCode, String citizenFiscalCode, long initialMoment, String serviceName ) {
+		var methodName = "[getReceiptStorage] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam organizationFiscalCode:%s", methodName, organizationFiscalCode );
+		Log.infof ( "%sparam citizenFiscalCode:%s", methodName, citizenFiscalCode );
 
-		User user = authenticationContext.getCurrentUser ();
-		Log.info ( methodName + "user:" + user );
+		var user = authenticationContext.getCurrentUser ();
+		Log.infof ( "%suser:%s", methodName, user );
 
 		/* --- validazione --- */
 
 		// 1. ottiene il chiamante esterno per il tracciamento della chiamata e la validazione dell'autorizzazione
-		EpayDChiamanteEsterno chiamanteEsterno = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
+		var chiamanteEsterno = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
 		if ( chiamanteEsterno == null ) {
-			Response response = generateForbiddenResponse ( SERVICE_GET_RECEIPT_STORAGE, user.getName () );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateForbiddenResponse ( SERVICE_GET_RECEIPT_STORAGE, user.getName () );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "chiamanteEsterno:" + chiamanteEsterno );
+		Log.infof ( "%schiamanteEsterno:%s", methodName, chiamanteEsterno );
 		//
 		// 2. tracciamento della chiamata
-		tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsterno, null, user, null );
-		Log.info ( methodName + "chiamanteEsterno tracciato" );
+		tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsterno, null, user, null, initialMoment, serviceName );
+		Log.infof ( "chiamanteEsterno tracciato", methodName );
 		//
 		// 3. validazione autorizzazione
-		if ( chiamanteAutorizzazioneChiamanteService.countByCodiceChiamanteAndCodiceAutorizzazioneChiamante (
-			user.getName (), Scopes.GET_ARCHIVIAZIONE.name () ) < 1 ) {
-			Response response = generateUnauthorizedResponse ( SERVICE_GET_RECEIPT_STORAGE );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+		if ( chiamanteAutorizzazioneChiamanteService.countByCodiceChiamanteAndCodiceAutorizzazioneChiamante ( user.getName (),
+						Scopes.GET_ARCHIVIAZIONE.name () ) < 1 ) {
+			var response = generateUnauthorizedResponse ( SERVICE_GET_RECEIPT_STORAGE );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "authorization OK" );
+		Log.infof ( "%sauthorization OK", methodName );
 
 		// validazione input
-		List<String> notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode );
+		var notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode );
 		if ( !notValids.isEmpty () ) {
-			Response response = generateValidationErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, notValids );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateValidationErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, notValids );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "validation OK" );
+		Log.infof ( "%svalidation OK", methodName );
 
 		/* --- logica di business --- */
 
 		// ottiene l'ente corrispondente al codice fiscale
-		EpayTEnti enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
+		var enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
 		if ( enteEntity == null ) {
-			Response response = generateNotFoundErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
-		Log.info ( methodName + "ente:" + enteEntity );
+		if ( enteEntity.getFlagAdesioneCittaFacile()==null || !enteEntity.getFlagAdesioneCittaFacile()) {
+			var response = generateUnauthorizedEnteResponse ( SERVICE_GET_RECEIPT_STORAGE);
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
+			return response;
+		}
+		Log.infof ( "%sente:%s", methodName, enteEntity );
 
 		// lettura del flag di archiviazione
-		FlagAbilitaArchiviazioneDTO flag = statoArchiviazioneService.getFlagAbilitaArchiviazione ( citizenFiscalCode, enteEntity );
+		var flag = statoArchiviazioneService.getFlagAbilitaArchiviazione ( citizenFiscalCode, enteEntity );
 
 		// costruisce la response
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sEND", methodName );
 		if ( flag != null ) {
-			ReceiptStorage receiptStorage = new ReceiptStorage ();
+			var receiptStorage = new ReceiptStorage ();
 			receiptStorage.setFlag ( flag.isAbilitato () );
 			receiptStorage.setDataUltimaVariazione ( flag.getDataOraUltimaModifica () );
 			return Response.status ( Response.Status.OK ).entity ( receiptStorage ).build ();
 		} else {
-			Response response = generateNotFoundErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, ERROR_PREFERENZA_ARCHIVIAZIONE_NOT_FOUND );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_GET_RECEIPT_STORAGE, ERROR_PREFERENZA_ARCHIVIAZIONE_NOT_FOUND );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
 			return response;
 		}
 	}
 
 	private List<String> getNotValidInputs ( String organizationFiscalCode, String citizenFiscalCode, Boolean enableReceiptStorage ) {
-		List<String> notValids = new LinkedList<> ();
-		return getNotValidInputs ( notValids, organizationFiscalCode, citizenFiscalCode, enableReceiptStorage );
+		return getNotValidInputs ( new LinkedList<> (), organizationFiscalCode, citizenFiscalCode, enableReceiptStorage );
 	}
 
 	private List<String> getNotValidInputs ( String organizationFiscalCode, String citizenFiscalCode ) {
-		List<String> notValids = new LinkedList<> ();
-		return getNotValidInputs ( notValids, organizationFiscalCode, citizenFiscalCode );
+		return getNotValidInputs ( new LinkedList<> (), organizationFiscalCode, citizenFiscalCode );
 	}
 
 	private List<String> getNotValidInputs ( List<String> notValids, String organizationFiscalCode, String citizenFiscalCode, Boolean enableReceiptStorage ) {

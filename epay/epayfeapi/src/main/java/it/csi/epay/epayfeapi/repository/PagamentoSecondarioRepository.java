@@ -14,7 +14,4 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class PagamentoSecondarioRepository implements PanacheRepository<EpayTPagamentoSecondario> {
 
-	public EpayTPagamentoSecondario getPagamentoSecondarioByIdPagamentoPrincipale ( Long idPagamento ) {
-		return find ( "epayTPagamento.idPagamento", idPagamento ).singleResult ();
-	}
 }

@@ -48,9 +48,8 @@ public class EpayTRegistroVersamenti implements Serializable {
 	@Column ( name = "origine_inserimento" )
 	private String origineInserimento;
 
-	//bi-directional many-to-one association to EpayDOrigineChiamata
 	@ManyToOne
-	@JoinColumn(name="id_origine_chiamata")
+	@JoinColumn ( name = "id_origine_chiamata" )
 	private EpayDOrigineChiamata epayDOrigineChiamata;
 
 	@OneToMany ( mappedBy = "epayTRegistroVersamenti", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
@@ -122,11 +121,11 @@ public class EpayTRegistroVersamenti implements Serializable {
 		this.origineInserimento = origineInserimento;
 	}
 
-	public EpayDOrigineChiamata getEpayDOrigineChiamata() {
+	public EpayDOrigineChiamata getEpayDOrigineChiamata () {
 		return this.epayDOrigineChiamata;
 	}
 
-	public void setEpayDOrigineChiamata(EpayDOrigineChiamata epayDOrigineChiamata) {
+	public void setEpayDOrigineChiamata ( EpayDOrigineChiamata epayDOrigineChiamata ) {
 		this.epayDOrigineChiamata = epayDOrigineChiamata;
 	}
 
@@ -189,18 +188,18 @@ public class EpayTRegistroVersamenti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idRegistro:" + idRegistro +
-			", dataOperazione:" + dataOperazione +
-			", descEsitoPagamento:" + descEsitoPagamento +
-			", iuv:" + iuv +
-			", origineInserimento:" + origineInserimento +
-			// non esporre epayTEsitiRicevutis
-			// non esporre epayDStatoPagamento
-			// non esporre epayTAnagrafica
-			// non esporre epayTPagamento
-			// non esporre epayTTransazioneMdp
-			// non esporre epayTRts
-			// non esporre  epayTPagamentoSecondario
-			" }";
+						"idRegistro:" + idRegistro +
+						", dataOperazione:" + dataOperazione +
+						", descEsitoPagamento:" + descEsitoPagamento +
+						", iuv:" + iuv +
+						", origineInserimento:" + origineInserimento +
+						// non esporre epayTEsitiRicevutis
+						// non esporre epayDStatoPagamento
+						// non esporre epayTAnagrafica
+						// non esporre epayTPagamento
+						// non esporre epayTTransazioneMdp
+						// non esporre epayTRts
+						// non esporre  epayTPagamentoSecondario
+						" }";
 	}
 }

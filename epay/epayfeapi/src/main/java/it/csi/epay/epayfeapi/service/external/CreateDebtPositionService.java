@@ -1,15 +1,44 @@
 /*
-* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
-*
-* SPDX-License-Identifier: EUPL-1.2 */
+ * SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+ *
+ * SPDX-License-Identifier: EUPL-1.2 */
 
 package it.csi.epay.epayfeapi.service.external;
+
+import io.quarkus.logging.Log;
+import it.csi.epay.epayfeapi.dto.CodiceAvvisoDTO;
+import it.csi.epay.epayfeapi.dto.PagamentoDTO;
+import it.csi.epay.epayfeapi.enumeration.Scopes;
+import it.csi.epay.epayfeapi.exception.MdpException;
+import it.csi.epay.epayfeapi.security.AuthenticationContext;
+import it.csi.epay.epayfeapi.service.ChiamanteAutorizzazioneChiamanteService;
+import it.csi.epay.epayfeapi.service.ChiamanteEsternoService;
+import it.csi.epay.epayfeapi.service.ChiamataEsternaNonValidaService;
+import it.csi.epay.epayfeapi.service.CreaAvvisoPagamentoSpontaneoService;
+import it.csi.epay.epayfeapi.service.EnteService;
+import it.csi.epay.epayfeapi.service.PagamentoService;
+import it.csi.epay.epayfeapi.service.RtService;
+import it.csi.epay.epayfeapi.service.TipoPagamentoService;
+import it.csi.epay.epayfeapi.service.TracciabilitaChiamanteEsternoService;
+import it.csi.epay.epayfeapi.soap.client.mdpmultiiuv.IuvComplex;
+import org.apache.commons.lang3.StringUtils;
+import org.openapitools.model.CreatedDebtPosition;
+import org.openapitools.model.Error;
+import org.openapitools.model.PaymentData;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
+import java.util.LinkedList;
+import java.util.List;
 
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_CAMPO_NOTE_OBBLIGATORIO;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_CODICE_VERSAMENTO_NOT_SPONTANEO;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_ENTE_NOT_FOUND;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_IUV_GENERATION;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_PDF_GENERATION;
+import static it.csi.epay.epayfeapi.util.Constants.ERROR_TIPO_PAGAMENTO_IMPORTO_DIFFERENTE;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_TIPO_PAGAMENTO_NOT_FOUND;
 import static it.csi.epay.epayfeapi.util.Constants.ERROR_TIPO_PAGAMENTO_NOT_UNIQUE;
 import static it.csi.epay.epayfeapi.util.Constants.MAX_IMPORTO;
@@ -34,41 +63,7 @@ import static it.csi.epay.epayfeapi.util.ResponseUtil.generateInternalErrorRespo
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateNotFoundErrorResponse;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateUnauthorizedResponse;
 import static it.csi.epay.epayfeapi.util.ResponseUtil.generateValidationErrorResponse;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.core.Response;
-
-import org.apache.commons.lang3.StringUtils;
-import org.openapitools.model.CreatedDebtPosition;
-import org.openapitools.model.Error;
-import org.openapitools.model.PaymentData;
-
-import io.quarkus.logging.Log;
-import it.csi.epay.epayfeapi.dto.CodiceAvvisoDTO;
-import it.csi.epay.epayfeapi.dto.PagamentoDTO;
-import it.csi.epay.epayfeapi.entity.EpayDChiamanteEsterno;
-import it.csi.epay.epayfeapi.entity.EpayTEnti;
-import it.csi.epay.epayfeapi.entity.EpayTTipoPagamento;
-import it.csi.epay.epayfeapi.entity.EpayTTracciabilitaChiamanteEsterno;
-import it.csi.epay.epayfeapi.exception.MdpException;
-import it.csi.epay.epayfeapi.security.AuthenticationContext;
-import it.csi.epay.epayfeapi.security.Scopes;
-import it.csi.epay.epayfeapi.security.User;
-import it.csi.epay.epayfeapi.service.ChiamanteAutorizzazioneChiamanteService;
-import it.csi.epay.epayfeapi.service.ChiamanteEsternoService;
-import it.csi.epay.epayfeapi.service.ChiamataEsternaNonValidaService;
-import it.csi.epay.epayfeapi.service.CreaAvvisoPagamentoSpontaneoService;
-import it.csi.epay.epayfeapi.service.EnteService;
-import it.csi.epay.epayfeapi.service.PagamentoService;
-import it.csi.epay.epayfeapi.service.TipoPagamentoService;
-import it.csi.epay.epayfeapi.service.TracciabilitaChiamanteEsternoService;
-import it.csi.epay.epayfeapi.soap.client.mdpmultiiuv.IuvComplex;
-import it.csi.epay.epayfeapi.util.MultiIuv;
+import static it.csi.epay.epayfeapi.util.ResponseUtil.generateUnauthorizedEnteResponse;
 
 
 /*
@@ -103,86 +98,109 @@ public class CreateDebtPositionService {
 	TracciabilitaChiamanteEsternoService tracciabilitaChiamanteEsternoService;
 
 	@Inject
-	MultiIuv multiIuv;
+	RtService.MultiIuv multiIuv;
 
 	@Inject
 	CreaAvvisoPagamentoSpontaneoService creaAvvisoPagamentoSpontaneoService;
 
-	public Response createDebtPosition ( String organizationFiscalCode, String citizenFiscalCode, String paymenttype, PaymentData paymentData ) {
-		String methodName = "[createDebtPosition] ";
+	public Response createDebtPosition ( String organizationFiscalCode, String citizenFiscalCode, String paymenttype, PaymentData paymentData,
+					long initialMoment, String serviceName ) {
+		var methodName = "[CF-V0-createDebtPosition-V0] ";
 
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "param organizationFiscalCode:" + organizationFiscalCode );
-		Log.info ( methodName + "param citizenFiscalCode:" + citizenFiscalCode );
-		Log.info ( methodName + "param paymenttype:" + paymenttype );
-		Log.info ( methodName + "param PaymentData:" + paymentData.toString () );
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam organizationFiscalCode:%s", methodName, organizationFiscalCode );
+		Log.infof ( "%sparam citizenFiscalCode:%s", methodName, citizenFiscalCode );
+		Log.infof ( "%sparam paymenttype:%s", methodName, paymenttype );
+		Log.infof ( "%sparam PaymentData:%s", methodName, paymentData.toString () );
 
-		User user = authenticationContext.getCurrentUser ();
-		Log.info ( methodName + "user:" + user );
+		var user = authenticationContext.getCurrentUser ();
+		Log.infof ( "%suser:%s", methodName, user );
 
 		/* --- validazione --- */
 		// 1. ottiene il chiamante esterno per il tracciamento della chiamata e la validazione dell'autorizzazione
-		EpayDChiamanteEsterno chiamanteEsternoEntity = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
+		var chiamanteEsternoEntity = chiamanteEsternoService.findByCodiceChiamante ( user.getName () );
 		if ( chiamanteEsternoEntity == null ) {
-			Response response = generateForbiddenResponse ( SERVICE_DEBT_POSITION, user.getName () );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateForbiddenResponse ( SERVICE_DEBT_POSITION, user.getName () );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
-		Log.info ( methodName + "chiamanteEsternoEntity:" + chiamanteEsternoEntity );
+		Log.infof ( "%schiamanteEsternoEntity:%s", methodName, chiamanteEsternoEntity );
 		//
 		// 2. tracciamento della chiamata
-		EpayTTracciabilitaChiamanteEsterno track
-						= tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsternoEntity, null, user, null );
-		Log.info ( methodName + "chiamanteEsterno tracciato" );
+		var track = tracciabilitaChiamanteEsternoService.trackExternalCall ( null, organizationFiscalCode, chiamanteEsternoEntity, null, user, null,
+						initialMoment, serviceName );
+		Log.infof ( "%schiamanteEsterno tracciato", methodName );
 		//
 		// 3. validazione autorizzazione
 		if ( chiamanteAutorizzazioneChiamanteService.countByCodiceChiamanteAndCodiceAutorizzazioneChiamante ( user.getName (),
 						Scopes.CREAZIONE_IUV.name () ) < 1
 						|| chiamanteAutorizzazioneChiamanteService.countByCodiceChiamanteAndCodiceAutorizzazioneChiamante ( user.getName (),
 						Scopes.STAMPA_AVVISO_PAGAMENTO.name () ) < 1 ) {
-			Response response = generateUnauthorizedResponse ( SERVICE_DEBT_POSITION );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateUnauthorizedResponse ( SERVICE_DEBT_POSITION );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
-		Log.info ( methodName + "authorization OK" );
+		Log.infof ( "%sauthorization OK", methodName );
 
 		// validazione input
-		List<String> notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode, paymenttype, paymentData );
+		var notValids = getNotValidInputs ( organizationFiscalCode, citizenFiscalCode, paymenttype, paymentData );
 		if ( !notValids.isEmpty () ) {
-			Response response = generateValidationErrorResponse ( SERVICE_DEBT_POSITION, notValids );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateValidationErrorResponse ( SERVICE_DEBT_POSITION, notValids );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
-		Log.info ( methodName + "validation OK" );
+		Log.infof ( "%svalidation OK", methodName );
 
 		/* --- logica di business --- */
 
 		// ottiene l'ente corrispondente al codice fiscale
-		EpayTEnti enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
+		var enteEntity = enteService.findByCodiceFiscale ( organizationFiscalCode );
 		if ( enteEntity == null ) {
-			Response response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_ENTE_NOT_FOUND, organizationFiscalCode );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
-		Log.info ( methodName + "ente:" + enteEntity );
-
+		Log.infof ( "%sente:%s", methodName, enteEntity );
+		
+		if ( enteEntity.getFlagAdesioneCittaFacile()==null || !enteEntity.getFlagAdesioneCittaFacile()) {
+			var response = generateUnauthorizedEnteResponse ( SERVICE_DEBT_POSITION);
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment, serviceName );
+			return response;
+		}
 		// recupera tipo pagamento
-		List<EpayTTipoPagamento> tipoPagamentoList = tipoPagamentoService.findByEnteAndCodiceVersamento ( enteEntity, paymenttype );
+		var tipoPagamentoList = tipoPagamentoService.findByEnteAndCodiceVersamento ( enteEntity, paymenttype );
 		if ( null == tipoPagamentoList || tipoPagamentoList.isEmpty () ) {
-			Response response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_TIPO_PAGAMENTO_NOT_FOUND, paymenttype, organizationFiscalCode );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_TIPO_PAGAMENTO_NOT_FOUND, paymenttype, organizationFiscalCode );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
 		if ( tipoPagamentoList.size () > 1 ) {
-			Response response = generateBusinessErrorResponse ( SERVICE_DEBT_POSITION, ERROR_TIPO_PAGAMENTO_NOT_UNIQUE, paymenttype, organizationFiscalCode );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateBusinessErrorResponse ( SERVICE_DEBT_POSITION, ERROR_TIPO_PAGAMENTO_NOT_UNIQUE, paymenttype, organizationFiscalCode );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
-		EpayTTipoPagamento tipoPagamento = tipoPagamentoList.get ( 0 );
+		var tipoPagamento = tipoPagamentoList.get ( 0 );
+
+		// check pagamento spontaneo ad importo fisso
+		if ( null != tipoPagamento.getImportoPagamentoSpontaneo () ) { // se a db e' ad importo fisso allora comparo il db con l'input
+			if ( !( tipoPagamento.getImportoPagamentoSpontaneo ().compareTo ( paymentData.getImporto () ) == 0 ) ) {
+				var response = generateBusinessErrorResponse ( SERVICE_DEBT_POSITION, ERROR_TIPO_PAGAMENTO_IMPORTO_DIFFERENTE, paymenttype, organizationFiscalCode );
+				chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+								serviceName );
+				return response;
+			}
+		}
 
 		// valida campo note, deve essere obbligatorio se il campo compilazione note del tipo pagamento non null
 		if ( !StringUtils.isEmpty ( tipoPagamento.getCompilazioneNote () ) && StringUtils.isEmpty ( paymentData.getNote () ) ) {
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, String.format ( ERROR_CAMPO_NOTE_OBBLIGATORIO, paymenttype ) );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, String.format ( ERROR_CAMPO_NOTE_OBBLIGATORIO, paymenttype ),
+							initialMoment, serviceName );
 			notValids.add ( SERVICE_FIELDS_DEBT_POSITION__PAYMENT_DATA_NOTE );
 			return generateValidationErrorResponse ( SERVICE_DEBT_POSITION, notValids );
 		}
@@ -191,8 +209,9 @@ public class CreateDebtPositionService {
 		if ( !Boolean.TRUE.equals ( tipoPagamento.getPagamentoSpontaneo () )
 						|| ( tipoPagamento.getTipologiaPagamento () != null && !PAGAMENTO_SPONTANEO_CODE.equals (
 						tipoPagamento.getTipologiaPagamento ().getCodice () ) ) ) {
-			Response response = generateBusinessErrorResponse ( SERVICE_DEBT_POSITION, ERROR_CODICE_VERSAMENTO_NOT_SPONTANEO, paymenttype );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			var response = generateBusinessErrorResponse ( SERVICE_DEBT_POSITION, ERROR_CODICE_VERSAMENTO_NOT_SPONTANEO, paymenttype );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
 
@@ -200,53 +219,54 @@ public class CreateDebtPositionService {
 		// chiamata Soap web service MDP
 		IuvComplex iuvComplex;
 		try {
-			List<IuvComplex> iuvList = multiIuv.generateNewIuv ( tipoPagamento, 1 );
+			var iuvList = multiIuv.generateNewIuv ( tipoPagamento, 1 );
 			iuvComplex = iuvList.get ( 0 );
-			Log.info ( methodName + "generato IUV:" + iuvComplex + " - iuv.iuv:" + ( iuvComplex != null ? iuvComplex.getIuv () : "null" ) );
+			Log.infof ( "%sgenerato IUV:%s - iuv.iuv:%s", methodName, iuvComplex, ( iuvComplex != null ? iuvComplex.getIuv () : "null" ) );
 
 		} catch ( MdpException e ) {
-			Response response = generateInternalErrorResponse ( SERVICE_DEBT_POSITION, ERROR_IUV_GENERATION, tipoPagamento.getIdApplicazione (),
+			var response = generateInternalErrorResponse ( SERVICE_DEBT_POSITION, ERROR_IUV_GENERATION, tipoPagamento.getIdApplicazione (),
 							tipoPagamento.getCodiceVersamento () );
-			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail () );
+			chiamataEsternaNonValidaService.track ( null, user, organizationFiscalCode, null, ( (Error) response.getEntity () ).getDetail (), initialMoment,
+							serviceName );
 			return response;
 		}
 
 		// altro tracciamento (update record di prima)
 		assert iuvComplex != null;
 		tracciabilitaChiamanteEsternoService.trackExternalCall ( track, organizationFiscalCode, chiamanteEsternoEntity, iuvComplex.getIuvOttico (), user,
-						null );
+						null, initialMoment, serviceName );
 		Log.info ( methodName + "call tracked, id caller:" + track.getIdChiamata () );
 
 		// costruzione pagamento
 		PagamentoDTO pagamento;
 		try {
-			CodiceAvvisoDTO codiceAvviso
+			var codiceAvviso
 							= new CodiceAvvisoDTO ( iuvComplex.getAuxDigit (), tipoPagamento.getIdApplicazione (), iuvComplex.getIuvOttico (), Boolean.TRUE );
-			Log.info ( methodName + "codiceAvviso:" + codiceAvviso );
+			Log.infof ( "%scodiceAvviso:%s", methodName, codiceAvviso );
 			pagamento = pagamentoService.buildPayment ( citizenFiscalCode, paymentData.getNome (), paymentData.getCognome (), paymentData.getRagioneSociale (),
 							paymentData.getImporto (), paymentData.getEmail (), paymentData.getNote (), tipoPagamento, iuvComplex, organizationFiscalCode,
-							codiceAvviso );
+							codiceAvviso, true );
 
 		} catch ( Exception e ) {
-			Response response = generateInternalErrorResponse ( SERVICE_DEBT_POSITION, e.getMessage () );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, e.getMessage () );
+			var response = generateInternalErrorResponse ( SERVICE_DEBT_POSITION, e.getMessage () );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, null, e.getMessage (), initialMoment, serviceName );
 			return response;
 		}
 
-		CreatedDebtPosition result = new CreatedDebtPosition ();
+		var result = new CreatedDebtPosition ();
 
 		try {
 			result.setPdf ( creaAvvisoPagamentoSpontaneoService.buildAvvisoPagamentoSpontaneo ( pagamento ) );
 			result.setIuv ( pagamento.getIuv () );
 			result.setCodiceAvviso ( pagamento.getCodiceAvviso () );
-
 		} catch ( Exception e ) {
-			Response response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_PDF_GENERATION, pagamento.getIdPagamento () );
-			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, iuvComplex.getIuvOttico (), ( (Error) response.getEntity () ).getDetail () );
+			var response = generateNotFoundErrorResponse ( SERVICE_DEBT_POSITION, ERROR_PDF_GENERATION, pagamento.getIdPagamento () );
+			chiamataEsternaNonValidaService.track ( null, user, citizenFiscalCode, iuvComplex.getIuvOttico (), ( (Error) response.getEntity () ).getDetail (),
+							initialMoment, serviceName );
 			return response;
 		}
 
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sEND", methodName );
 		return Response.status ( Response.Status.CREATED ).entity ( result ).build ();
 	}
 
@@ -279,7 +299,7 @@ public class CreateDebtPositionService {
 			}
 
 			if ( paymentData.getImporto () == null || paymentData.getImporto ().doubleValue () <= 0
-				|| paymentData.getImporto ().doubleValue () > MAX_IMPORTO ) {
+							|| paymentData.getImporto ().doubleValue () > MAX_IMPORTO ) {
 				notValids.add ( SERVICE_FIELDS_DEBT_POSITION__PAYMENT_DATA_IMPORTO );
 			}
 

@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class MdpMultiIuvSrvException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6575785512090978884L;
 
 	private it.csi.epay.epayfeapi.soap.client.mdpmultiiuv.MdpMultiIuvSrvException mdpMultiIuvSrvException;
 

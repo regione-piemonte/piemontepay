@@ -5,12 +5,12 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
+import java.io.Serializable;
 
-@RegisterForReflection ( )
+
+@RegisterForReflection ()
 @SuppressWarnings ( "unused" )
 public class EpayTRegistroVersamentiReflection implements Serializable {
 

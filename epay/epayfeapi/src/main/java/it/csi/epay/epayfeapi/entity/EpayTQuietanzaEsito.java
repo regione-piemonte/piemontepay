@@ -30,7 +30,7 @@ public class EpayTQuietanzaEsito implements Serializable {
 	private Long idQuietanzaEsito;
 
 	@Column ( name = "ricevuta_pdf" )
-	private byte [] ricevutaPdf;
+	private byte[] ricevutaPdf;
 
 	@Column ( name = "data_ora_creazione" )
 	private Timestamp dataOraCreazione;
@@ -46,11 +46,11 @@ public class EpayTQuietanzaEsito implements Serializable {
 		this.idQuietanzaEsito = idQuietanzaEsito;
 	}
 
-	public byte [] getRicevutaPdf () {
+	public byte[] getRicevutaPdf () {
 		return ricevutaPdf;
 	}
 
-	public void setRicevutaPdf ( byte [] ricevutaPdf ) {
+	public void setRicevutaPdf ( byte[] ricevutaPdf ) {
 		this.ricevutaPdf = ricevutaPdf;
 	}
 
@@ -73,10 +73,10 @@ public class EpayTQuietanzaEsito implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idQuietanzaEsito:" + idQuietanzaEsito +
-			// non esporre ricevutaPdf
-			", dataOraCreazione:" + dataOraCreazione +
-			", origineInserimento:" + origineInserimento +
-			" }";
+						"idQuietanzaEsito:" + idQuietanzaEsito +
+						// non esporre ricevutaPdf
+						", dataOraCreazione:" + dataOraCreazione +
+						", origineInserimento:" + origineInserimento +
+						" }";
 	}
 }

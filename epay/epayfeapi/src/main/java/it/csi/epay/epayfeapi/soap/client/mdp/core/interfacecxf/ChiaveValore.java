@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 				"chiave",
 				"valore"
 } )
+@SuppressWarnings ( "unused" )
 public class ChiaveValore {
 
 	@XmlElement ( required = true )

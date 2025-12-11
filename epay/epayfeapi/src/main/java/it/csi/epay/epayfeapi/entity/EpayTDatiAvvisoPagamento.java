@@ -167,18 +167,18 @@ public class EpayTDatiAvvisoPagamento implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idDatiAvvisoPagamento:" + idDatiAvvisoPagamento +
-			// non esporre epayTTipoPagamento
-			", settore:" + settore +
-			", indirizzo:" + indirizzo +
-			", localita:" + localita +
-			", cap:" + cap +
-			", siglaProvincia:" + siglaProvincia +
-			", email:" + email +
-			", infoEnte:" + infoEnte +
-			", intestatarioCCPostale:" + intestatarioCCPostale +
-			", numeroCCPostale:" + numeroCCPostale +
-			", autorizzazioneDaPosteIt:" + autorizzazioneDaPosteIt +
-			" }";
+						"idDatiAvvisoPagamento:" + idDatiAvvisoPagamento +
+						// non esporre epayTTipoPagamento
+						", settore:" + settore +
+						", indirizzo:" + indirizzo +
+						", localita:" + localita +
+						", cap:" + cap +
+						", siglaProvincia:" + siglaProvincia +
+						", email:" + email +
+						", infoEnte:" + infoEnte +
+						", intestatarioCCPostale:" + intestatarioCCPostale +
+						", numeroCCPostale:" + numeroCCPostale +
+						", autorizzazioneDaPosteIt:" + autorizzazioneDaPosteIt +
+						" }";
 	}
 }

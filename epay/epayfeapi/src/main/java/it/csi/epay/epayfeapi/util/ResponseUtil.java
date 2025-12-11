@@ -19,12 +19,25 @@ public class ResponseUtil {
 
 	public static Response generateUnauthorizedResponse ( String serviceName ) {
 		Log.info ( "Invoked generateUnauthorizedResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.AUTHORIZATION_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.UNAUTHORIZED.getStatusCode () ) );
-		String details = "[" + serviceName + "] Gestionale non autorizzato a operare sull'Ente indicato";
-		error.setDetail ( details );
-		Log.error ( details );
+		var detail = String.format ( "[%s] Gestionale non autorizzato a operare sull'Ente indicato", serviceName );
+		error.setDetail ( detail );
+		Log.error ( detail );
+		return Response.status ( Response.Status.UNAUTHORIZED )
+						.entity ( error )
+						.build ();
+	}
+	
+	public static Response generateUnauthorizedEnteResponse ( String serviceName ) {
+		Log.info ( "Invoked generateUnauthorizedResponse" );
+		var error = new Error ();
+		error.setCode ( Error.CodeEnum.AUTHORIZATION_ERROR );
+		error.setStatus ( String.valueOf ( Response.Status.UNAUTHORIZED.getStatusCode () ) );
+		var detail = String.format ( "[%s] Per l'Ente indicato non risulta l'adesione a Ciita' Facile ", serviceName );
+		error.setDetail ( detail );
+		Log.error ( detail );
 		return Response.status ( Response.Status.UNAUTHORIZED )
 						.entity ( error )
 						.build ();
@@ -32,12 +45,12 @@ public class ResponseUtil {
 
 	public static Response generateForbiddenResponse ( String serviceName, String chiamante ) {
 		Log.info ( "Invoked generateForbiddenResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.AUTHORIZATION_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.FORBIDDEN.getStatusCode () ) );
-		String details = "[" + serviceName + "] Chiamante non riconosciuto: " + chiamante;
-		error.setDetail ( details );
-		Log.error ( details );
+		var detail = String.format ( "[%s] Chiamante non riconosciuto: %s", serviceName, chiamante );
+		error.setDetail ( detail );
+		Log.error ( detail );
 		return Response.status ( Response.Status.UNAUTHORIZED )
 						.entity ( error )
 						.build ();
@@ -45,12 +58,12 @@ public class ResponseUtil {
 
 	public static Response generateValidationErrorResponse ( String serviceName, List<String> notValids ) {
 		Log.info ( "Invoked generateValidationErrorResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.VALIDATION_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.BAD_REQUEST.getStatusCode () ) );
-		String details = "[" + serviceName + "] Parametri inseriti non corretti o mancanti: " + String.join ( COMMA_AND_SPACE, notValids );
-		error.setDetail ( details );
-		Log.error ( details );
+		var detail = String.format ( "[%s] Parametri inseriti non corretti o mancanti: %s", serviceName, String.join ( COMMA_AND_SPACE, notValids ) );
+		error.setDetail ( detail );
+		Log.error ( detail );
 		return Response.status ( Response.Status.BAD_REQUEST )
 						.entity ( error )
 						.build ();
@@ -58,12 +71,12 @@ public class ResponseUtil {
 
 	public static Response generateNotFoundErrorResponse ( String serviceName, String message, Object... params ) {
 		Log.info ( "Invoked generateNotFoundErrorResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.VALIDATION_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.NOT_FOUND.getStatusCode () ) );
-		String details = String.format ( "[" + serviceName + "] " + message, params );
-		error.setDetail ( details );
-		Log.error ( details );
+		var detail = String.format ( "[" + serviceName + "] " + message, params );
+		error.setDetail ( detail );
+		Log.error ( detail );
 		return Response.status ( Response.Status.NOT_FOUND )
 						.entity ( error )
 						.build ();
@@ -71,12 +84,12 @@ public class ResponseUtil {
 
 	public static Response generateBusinessErrorResponse ( String serviceName, String message, String... params ) {
 		Log.info ( "Invoked generateBusinessErrorResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.BUSINESS_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.BAD_REQUEST.getStatusCode () ) );
-		String details = String.format ( "[" + serviceName + "] " + message, (Object[]) params );
-		error.setDetail ( details );
-		Log.error ( details );
+		var detail = String.format ( "[" + serviceName + "] " + message, (Object[]) params );
+		error.setDetail ( detail );
+		Log.error ( detail );
 		return Response.status ( Response.Status.BAD_REQUEST )
 						.entity ( error )
 						.build ();
@@ -84,12 +97,12 @@ public class ResponseUtil {
 
 	public static Response generateInternalErrorResponse ( String serviceName, String message, String... params ) {
 		Log.info ( "Invoked generateInternalErrorResponse" );
-		Error error = new Error ();
+		var error = new Error ();
 		error.setCode ( Error.CodeEnum.INTERNAL_ERROR );
 		error.setStatus ( String.valueOf ( Response.Status.INTERNAL_SERVER_ERROR.getStatusCode () ) );
-		String detail = "[" + serviceName + "] Si e' verificato un errore interno";
+		var detail = "[" + serviceName + "] Si e' verificato un errore interno";
 		if ( !StringUtils.isBlank ( message ) ) {
-			String trimmedMessage = message.trim ();
+			var trimmedMessage = message.trim ();
 			if ( !trimmedMessage.isEmpty () ) {
 				detail += ": " + trimmedMessage;
 			}

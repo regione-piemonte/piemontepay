@@ -17,14 +17,14 @@ import javax.enterprise.context.ApplicationScoped;
 public class ConfigurazioneRepository implements PanacheRepository<EpayTConfigurazione> {
 
 	public EpayTConfigurazione findByCodice ( String codice ) {
-		String methodName = "[findByCodice] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "codice:" + codice );
+		var methodName = "[findByCodice] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%scodice:%s", methodName, codice );
 
-		EpayTConfigurazione result = find ( "codice", codice ).firstResult ();
+		var result = find ( "codice", codice ).firstResult ();
 
-		Log.info ( methodName + "result:" + result );
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sresult:%s", methodName, result );
+		Log.infof ( "%sEND", methodName );
 		return result;
 	}
 

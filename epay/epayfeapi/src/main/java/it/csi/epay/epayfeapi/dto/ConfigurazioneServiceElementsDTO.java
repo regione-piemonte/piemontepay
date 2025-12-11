@@ -23,14 +23,14 @@ public class ConfigurazioneServiceElementsDTO implements Serializable {
 	}
 
 	public static ConfigurazioneServiceElementsDTO OK ( Integer elements ) {
-		ConfigurazioneServiceElementsDTO ok = new ConfigurazioneServiceElementsDTO ();
+		var ok = new ConfigurazioneServiceElementsDTO ();
 		ok.elements = elements;
 		ok.ok = true;
 		return ok;
 	}
 
 	public static ConfigurazioneServiceElementsDTO KO ( Response response ) {
-		ConfigurazioneServiceElementsDTO ko = new ConfigurazioneServiceElementsDTO ();
+		var ko = new ConfigurazioneServiceElementsDTO ();
 		ko.response = response;
 		ko.ok = false;
 		return ko;

@@ -18,7 +18,7 @@ import javax.xml.ws.WebFault;
 @SuppressWarnings ( "unused" )
 public class ErrorParameterException_Exception extends Exception {
 
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6448666683615659194L;
 
 	private it.csi.epay.epayfeapi.soap.client.mdpmultiiuv.ErrorParameterException errorParameterException;
 

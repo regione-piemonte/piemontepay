@@ -5,13 +5,12 @@
 
 package it.csi.epay.epayfeapi.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -74,8 +73,8 @@ public class EpayRAutorizzazioneChiamanteTipoPagamento implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"id:" + id +
-			", dataFineValidita:" + dataFineValidita +
-			" }";
+						"id:" + id +
+						", dataFineValidita:" + dataFineValidita +
+						" }";
 	}
 }

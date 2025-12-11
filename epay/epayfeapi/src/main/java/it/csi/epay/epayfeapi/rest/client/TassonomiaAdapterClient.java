@@ -5,105 +5,77 @@
 
 package it.csi.epay.epayfeapi.rest.client;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import javax.enterprise.context.ApplicationScoped;
-
-import org.apache.commons.codec.binary.Base64;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.quarkus.logging.Log;
 import it.csi.epay.epayfeapi.exception.TassonomiaServiceException;
-import it.csi.epay.epayfeapi.model.DatiSpecificiRiscossioneInput;
-import it.csi.epay.epayfeapi.model.DatiSpecificiRiscossioneOutput;
+import it.csi.epay.epayfeapi.model.epaypacatalogsrv.DatiSpecificiRiscossioneInput;
+import it.csi.epay.epayfeapi.model.epaypacatalogsrv.DatiSpecificiRiscossioneOutput;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.io.IOException;
 
 
 @ApplicationScoped
-public class TassonomiaAdapterClient {
+public class TassonomiaAdapterClient extends ApiClient {
 
 	@ConfigProperty ( name = "epaypacatalogService.authusr" )
 	String usr;
 
-	@ConfigProperty ( name = "epaypacatalogService.authupwd" )
+	@ConfigProperty ( name = "epaypacatalogService.authpwd" )
 	String pwd;
-
-	private final static int TIMEOUT = 60000;
 
 	public DatiSpecificiRiscossioneOutput getDatiSpecificiRiscossione ( DatiSpecificiRiscossioneInput request, String url )
 					throws IOException, TassonomiaServiceException {
-		Log.info ( "getDatiSpecificiRiscossione::start" );
+		var methodName = "[getDatiSpecificiRiscossione] ";
+		Log.infof ( "%sBEGIN", methodName );
+		Log.infof ( "%sparam request:%s", methodName, request );
+		Log.infof ( "%sparam url:%s", methodName, url );
 
 		DatiSpecificiRiscossioneOutput response;
-		ObjectMapper mapper = new ObjectMapper ();
-		HttpURLConnection urlConnection;
+		// connect
+		var secret = String.format ( "%s:%s", usr, pwd );
+		var urlConnection = super.getResponse ( url, request, secret, "POST" );
 
-		String secret = usr + ":" + pwd;
-		String basicAuth = new String ( Base64.encodeBase64 ( secret.getBytes () ) );
+		var statusCode = urlConnection.getResponseCode ();
+		var ce = CodiciEsito.ERRORE_DATI_SPECIFICI_RISCOSSIONE;
+		Log.infof ( "%sstatusCode:%d", methodName, statusCode );
 
-		//Connect
-		urlConnection = (HttpURLConnection) ( ( new URL ( url ).openConnection () ) );
-		urlConnection.setDoOutput ( true );
-		urlConnection.setRequestProperty ( "Content-Type", "application/json" );
-		urlConnection.setRequestProperty ( "Authorization", "Basic " + basicAuth );
-		urlConnection.setRequestProperty ( "Accept", "application/json" );
-		urlConnection.setRequestMethod ( "POST" );
-		urlConnection.setConnectTimeout ( TIMEOUT );
-		urlConnection.connect ();
-
-		String requestString = buildJsonInvio ( request );
-		Log.info("JSON pre-call:"+requestString);
-
-		OutputStream os = urlConnection.getOutputStream ();
-		os.write ( requestString.getBytes () );
-		os.flush ();
-
-		int statusCode = urlConnection.getResponseCode ();
-		Log.info("JSON post-call: code"+urlConnection.getResponseCode()+" - "+urlConnection.getResponseMessage());
-		CodiciEsito ce = CodiciEsito.ERRORE_DATI_SPECIFICI_RISCOSSIONE;
-
-		if ( statusCode != 200 ) {
-			response = mapper.readValue ( urlConnection.getErrorStream (), DatiSpecificiRiscossioneOutput.class );
-			String message = response.getCodiceEsito () + " - " + response.getDescrizioneEsito ();
-			switch ( statusCode ) {
-			case 400: //Errore dato dal servizio
-				Log.error ( message );
-				throw new TassonomiaServiceException ( ce.getCodice (), message );
-			case 401: //Unauthorized client
-				message = "Unauthorized client for address - Status: " + statusCode + " -- Check request: " + url;
-				Log.error ( "Unauthorized client for address - Status: " + statusCode + " -- Check request: " + url );
-				throw new TassonomiaServiceException ( ce.getCodice (), message );
-			case 404: //Not Fount
-				message = "Service not found for address - Status: " + statusCode + " -- Check request: " + url;
-				Log.error ( "Service not found for address - Status: " + statusCode + " -- Check request: " + url );
-				throw new TassonomiaServiceException ( ce.getCodice (), message );
-			default:
-				message = "Service for address - unknown error. Status: " + statusCode + " -- Check request: " + url;
-				Log.error ( "Service for address - unknown error. Status: " + statusCode + " -- Check request: " + url );
-				throw new TassonomiaServiceException ( ce.getCodice (), message );
-			}
-		} else {
+		var mapper = new ObjectMapper ();
+		switch ( statusCode ) {
+		case 200:
+		case 201:
 			response = mapper.readValue ( urlConnection.getInputStream (), DatiSpecificiRiscossioneOutput.class );
+			break;
+		default:
+			response = mapper.readValue ( urlConnection.getErrorStream (), DatiSpecificiRiscossioneOutput.class );
+			//
+			String message;
+			switch ( statusCode ) {
+			case 400:
+				message = response.getCodiceEsito () + " - " + response.getDescrizioneEsito ();
+				break;
+			case 401:
+				message = statusCode + " Unauthorized -- Check request: " + url;
+				break;
+			case 403:
+				message = statusCode + " Forbidden -- Check request: " + url;
+				break;
+			case 404:
+				message = statusCode + " Not Found -- Check request: " + url;
+				break;
+			case 500:
+				message = statusCode + " Internal Error -- Check request: " + url;
+				break;
+			default:
+				message = statusCode + " Not Handled error -- Check request: " + url;
+				break;
+			}
+			Log.errorf ( "%s%s", methodName, message );
+			throw new TassonomiaServiceException ( ce.getCodice (), message );
 		}
 
-		Log.info ( "getDatiSpecificiRiscossione::end" );
+		Log.infof ( "%sBEGIN", methodName );
 		return response;
-	}
-
-	public String buildJsonInvio ( Object model ) {
-		String result;
-		try {
-			ObjectMapper mapper = new ObjectMapper ();
-			mapper.setSerializationInclusion ( JsonInclude.Include.NON_NULL );
-			result = mapper.writerWithDefaultPrettyPrinter ().writeValueAsString ( model );
-		} catch ( Exception e ) {
-			return "";
-		}
-		return result;
 	}
 }

@@ -52,8 +52,8 @@ public class EpayRAutorizzazioneChiamanteTipoPagamentoPK implements Serializable
 
 	@Override
 	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
+		final var prime = 31;
+		var result = 1;
 		result = prime * result + ( ( codiceChiamante == null ) ? 0 : codiceChiamante.hashCode () );
 		result = prime * result + ( ( dataInizioValidita == null ) ? 0 : dataInizioValidita.hashCode () );
 		result = prime * result + ( ( idTipoPagamento == null ) ? 0 : idTipoPagamento.hashCode () );
@@ -71,7 +71,7 @@ public class EpayRAutorizzazioneChiamanteTipoPagamentoPK implements Serializable
 		if ( getClass () != obj.getClass () ) {
 			return false;
 		}
-		EpayRAutorizzazioneChiamanteTipoPagamentoPK other = (EpayRAutorizzazioneChiamanteTipoPagamentoPK) obj;
+		var other = (EpayRAutorizzazioneChiamanteTipoPagamentoPK) obj;
 		if ( codiceChiamante == null ) {
 			if ( other.codiceChiamante != null ) {
 				return false;

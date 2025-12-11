@@ -1,13 +1,16 @@
 /*
-* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
-*
-* SPDX-License-Identifier: EUPL-1.2 */
+ * SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+ *
+ * SPDX-License-Identifier: EUPL-1.2 */
 
 package it.csi.epay.epayfeapi.util;
 
-import com.itextpdf.text.pdf.BarcodeQRCode;
-import com.itextpdf.text.pdf.qrcode.EncodeHintType;
-import com.itextpdf.text.pdf.qrcode.ErrorCorrectionLevel;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.lowagie.text.pdf.BarcodeDatamatrix;
 import io.quarkus.logging.Log;
 import it.csi.epay.epayfeapi.dto.AvvisoPagamentoDTO;
@@ -18,7 +21,6 @@ import it.csi.epay.epayfeapi.entity.EpayTPdfReport;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,15 +40,11 @@ public class AvvisoPagamentoPdfGenerator {
 
 	public byte[] creaPdf ( EnteCreditoreAvvisoPagamentoDTO ente, DestinatarioAvvisoPagamentoDTO destinatarioAvviso,
 					InfoPagamentoAvvisoPagamentoDTO infoPagamento, EpayTPdfReport pdfReport ) throws IOException, JRException {
-
-		ArrayList<AvvisoPagamentoDTO> avvisoAnalogicoList = createAvvisoPagamento ( ente, destinatarioAvviso, infoPagamento );
-
+		var avvisoAnalogicoList = createAvvisoPagamento ( ente, destinatarioAvviso, infoPagamento );
 		byte[] output;
-		try ( InputStream inputStream = new ByteArrayInputStream ( pdfReport.getTemplateCompilato () ) ) {
-
+		try ( var inputStream = new ByteArrayInputStream ( pdfReport.getTemplateCompilato () ) ) {
 			java.util.Map<String, Object> parameters = new HashMap<> ();
-			JasperPrint jasperPrint = JasperFillManager.fillReport ( inputStream, parameters, new JRBeanCollectionDataSource ( avvisoAnalogicoList ) );
-
+			var jasperPrint = JasperFillManager.fillReport ( inputStream, parameters, new JRBeanCollectionDataSource ( avvisoAnalogicoList ) );
 			output = JasperExportManager.exportReportToPdf ( jasperPrint );
 		}
 		return output;
@@ -54,29 +52,26 @@ public class AvvisoPagamentoPdfGenerator {
 
 	private ArrayList<AvvisoPagamentoDTO> createAvvisoPagamento ( EnteCreditoreAvvisoPagamentoDTO ente,
 					DestinatarioAvvisoPagamentoDTO destinatarioAvviso, InfoPagamentoAvvisoPagamentoDTO infoPagamento ) throws IOException {
-
-		AvvisoPagamentoDTO avvisoPagamentoDto = new AvvisoPagamentoDTO ();
+		var avvisoPagamentoDto = new AvvisoPagamentoDTO ();
 		ArrayList<AvvisoPagamentoDTO> avvisoPagamentoDtos = new ArrayList<> ();
 
 		// ente creditore
 		if ( ente != null ) {
 			if ( ente.getEcLogo () != null ) {
-				BufferedImage image = ImageIO.read ( new ByteArrayInputStream ( ente.getEcLogo () ) );
-				BufferedImage result = new BufferedImage ( image.getWidth (), image.getHeight (), BufferedImage.TYPE_BYTE_BINARY );
-
-				Graphics2D graphic = result.createGraphics ();
+				var image = ImageIO.read ( new ByteArrayInputStream ( ente.getEcLogo () ) );
+				var result = new BufferedImage ( image.getWidth (), image.getHeight (), BufferedImage.TYPE_BYTE_BINARY );
+				var graphic = result.createGraphics ();
 				graphic.drawImage ( image, 0, 0, Color.WHITE, null );
 				graphic.dispose ();
 				avvisoPagamentoDto.setEcLogo ( result );
 			}
 			avvisoPagamentoDto.setCfEnte ( ente.getCfEnte ().toUpperCase () );
-
 			avvisoPagamentoDto.setEnteCreditore ( ente.getEnteCreditore () );
 			avvisoPagamentoDto.setSettoreEnte ( ente.getSettoreEnte () );
 			avvisoPagamentoDto.setInfoEnte ( ente.getInfoEnte () );
 			avvisoPagamentoDto.setAutorizzazione ( ente.getAutorizzazione () );
 			if ( StringUtils.isNotBlank ( ente.getNumeroCCPostale () ) ) {
-				StringBuilder numeroCCPostale = new StringBuilder ();
+				var numeroCCPostale = new StringBuilder ();
 				if ( ente.getNumeroCCPostale ().length () < Constants.DATAMATRIX_LUNGHEZZA_CONTO ) {
 					numeroCCPostale.append ( "0".repeat ( Math.max ( 0, Constants.DATAMATRIX_LUNGHEZZA_CONTO - ente.getNumeroCCPostale ().length () ) ) );
 					numeroCCPostale.append ( ente.getNumeroCCPostale ().toUpperCase () );
@@ -117,7 +112,7 @@ public class AvvisoPagamentoPdfGenerator {
 			if ( ente.getCbill () != null ) {
 				avvisoPagamentoDto.setCbill ( ente.getCbill ().toUpperCase () );
 			}
-			Image qrCode = qrCode ( infoPagamento.getCodiceAvviso (), ente.getCfEnte (), infoPagamento.getImporto () );
+			var qrCode = qrCode ( infoPagamento.getCodiceAvviso (), ente.getCfEnte (), infoPagamento.getImporto () );
 			avvisoPagamentoDto.setQrCodeRataUnica ( qrCode );
 			if ( StringUtils.isNotBlank ( ente.getAutorizzazione () ) && StringUtils.isNotBlank ( ente.getNumeroCCPostale () ) ) {
 				avvisoPagamentoDto.setDataMatrixRataUnica ( dataMatrix ( ente.getCfEnte (),
@@ -146,13 +141,11 @@ public class AvvisoPagamentoPdfGenerator {
 
 	private Image dataMatrix ( String codiceFiscaleEnte, DestinatarioAvvisoPagamentoDTO pagatore, String oggettoPagamento, String codiceAvviso,
 					Double importo, String numeroContoCorrentePostale ) throws UnsupportedEncodingException {
-
-		StringBuilder sb = new StringBuilder ();
+		var sb = new StringBuilder ();
 		sb.append ( Constants.DATAMATRIX_INDIRIZZAMENTO_FASE );
 		sb.append ( Constants.DATAMATRIX_CODICE_FASE_ACCETTAZIONE );
 		sb.append ( Constants.DATAMATRIX_SEPARATORE );
-
-		StringBuilder codeline = new StringBuilder ();
+		var codeline = new StringBuilder ();
 		codeline.append ( Constants.DATAMATRIX_LUNGHEZZA_CODICE_AVVISO );
 		if ( codiceAvviso.length () != 18 ) {
 			Log.error ( "Lunghezza codice avviso errata" );
@@ -209,18 +202,18 @@ public class AvvisoPagamentoPdfGenerator {
 			throw new RuntimeException ( "Lunghezza datamatrix errata" );
 		}
 
-		BarcodeDatamatrix dm = new BarcodeDatamatrix ();
+		var dm = new BarcodeDatamatrix ();
 		// data matrix con correzione errore ECC200, di dimensione 52x52, senza quiet zone
 		dm.setHeight ( 52 );
 		dm.setWidth ( 52 );
 		dm.setWs ( 0 );
 		dm.generate ( sb.toString () );
-		Image image = dm.createAwtImage ( Color.BLACK, Color.WHITE );
+		var image = dm.createAwtImage ( Color.BLACK, Color.WHITE );
 		return generateAwtImage ( image );
 	}
 
 	private Image qrCode ( String numeroAvviso, String identificativoEnte, double importo ) {
-		String sb = Constants.QRCODE_IDENTIFICATIVO +
+		var sb = Constants.QRCODE_IDENTIFICATIVO +
 						Constants.QRCODE_SEPARATOR +
 						Constants.QRCODE_VERSIONE +
 						Constants.QRCODE_SEPARATOR +
@@ -230,19 +223,44 @@ public class AvvisoPagamentoPdfGenerator {
 						Constants.QRCODE_SEPARATOR +
 						Math.round ( importo * 100.0 );
 
-		Map<EncodeHintType, Object> qrParam = new HashMap<> ();
-		qrParam.put ( EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M );
-		qrParam.put ( EncodeHintType.CHARACTER_SET, "UTF-8" );
-		// Qrcode con modules 33x33 (quindi di 4 versione), con codifica carattere UTF-8
-		// e correzione dell'errore di livello M
-		BarcodeQRCode qrcode = new BarcodeQRCode ( sb, Constants.QRCODE_MODULES, Constants.QRCODE_MODULES, qrParam );
-		Image image = qrcode.createAwtImage ( Color.BLACK, Color.WHITE );
-		return generateAwtImage ( image );
+		try {
+			Map<EncodeHintType, Object> hints = new HashMap<> ();
+			hints.put ( EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M );
+			hints.put ( EncodeHintType.CHARACTER_SET, "UTF-8" );
+
+			var qrCodeWriter = new QRCodeWriter ();
+			var bitMatrix = qrCodeWriter.encode (
+							sb,
+							BarcodeFormat.QR_CODE,
+							Constants.QRCODE_MODULES,
+							Constants.QRCODE_MODULES,
+							hints
+			);
+
+			return generateAwtImageFromBitMatrix ( bitMatrix );
+
+		} catch ( WriterException e ) {
+			Log.error ( "Errore nella generazione del QR Code", e );
+			throw new RuntimeException ( "Errore nella generazione del QR Code", e );
+		}
+	}
+
+	private BufferedImage generateAwtImageFromBitMatrix ( BitMatrix bitMatrix ) {
+		var width = bitMatrix.getWidth ();
+		var height = bitMatrix.getHeight ();
+		var image = new BufferedImage ( width, height, BufferedImage.TYPE_BYTE_BINARY );
+
+		for ( var x = 0; x < width; x++ ) {
+			for ( var y = 0; y < height; y++ ) {
+				image.setRGB ( x, y, bitMatrix.get ( x, y ) ? Color.BLACK.getRGB () : Color.WHITE.getRGB () );
+			}
+		}
+		return image;
 	}
 
 	private BufferedImage generateAwtImage ( Image image ) {
-		BufferedImage outputImage = new BufferedImage ( Constants.SCALED_DIMENSION, Constants.SCALED_DIMENSION, BufferedImage.TYPE_BYTE_BINARY );
-		Graphics2D g2d = outputImage.createGraphics ();
+		var outputImage = new BufferedImage ( Constants.SCALED_DIMENSION, Constants.SCALED_DIMENSION, BufferedImage.TYPE_BYTE_BINARY );
+		var g2d = outputImage.createGraphics ();
 		g2d.drawImage ( image, 0, 0, Color.WHITE, null );
 		g2d.drawImage ( image, 0, 0, Constants.SCALED_DIMENSION, Constants.SCALED_DIMENSION, null );
 		g2d.dispose ();
@@ -254,7 +272,7 @@ public class AvvisoPagamentoPdfGenerator {
 		Image image;
 		InputStream inputStream = null;
 		try {
-			ClassLoader classLoader = getClass ().getClassLoader ();
+			var classLoader = getClass ().getClassLoader ();
 			inputStream = classLoader.getResourceAsStream ( path );
 			assert inputStream != null;
 			image = ImageIO.read ( inputStream );

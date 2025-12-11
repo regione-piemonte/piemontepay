@@ -5,32 +5,30 @@
 
 package it.csi.epay.epayfeapi.service;
 
-import static it.csi.epay.epayfeapi.util.Constants.REGISTRO_VERSAMENTO_ORIGINE_INSERIMENTO;
-import static it.csi.epay.epayfeapi.util.DateUtil.currentTimestamp;
+import io.quarkus.logging.Log;
+import io.quarkus.panache.common.Sort;
+import it.csi.epay.epayfeapi.dto.PagamentoDTO;
+import it.csi.epay.epayfeapi.dto.RegistroVersamentiDTO;
+import it.csi.epay.epayfeapi.dto.TransazioneMdpDTO;
+import it.csi.epay.epayfeapi.entity.EpayDOrigineChiamata;
+import it.csi.epay.epayfeapi.entity.EpayTRegistroVersamenti;
+import it.csi.epay.epayfeapi.entity.EpayTRegistroVersamentiReflection;
+import it.csi.epay.epayfeapi.enumeration.OrigineChiamata;
+import it.csi.epay.epayfeapi.enumeration.StatoPagamento;
+import it.csi.epay.epayfeapi.mapper.AnagraficaMapper;
+import it.csi.epay.epayfeapi.mapper.RegistroVersamentiMapper;
+import it.csi.epay.epayfeapi.mapper.TransazioneMdpMapper;
+import it.csi.epay.epayfeapi.repository.RegistroVersamentiRepository;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.StringUtils;
+import static it.csi.epay.epayfeapi.util.Constants.REGISTRO_VERSAMENTO_ORIGINE_INSERIMENTO;
+import static it.csi.epay.epayfeapi.util.DateUtil.currentTimestamp;
 
-import io.quarkus.logging.Log;
-import io.quarkus.panache.common.Sort;
-import it.csi.epay.epayfeapi.dto.OrigineChiamata;
-import it.csi.epay.epayfeapi.dto.PagamentoDTO;
-import it.csi.epay.epayfeapi.dto.RegistroVersamentiDTO;
-import it.csi.epay.epayfeapi.dto.StatoPagamento;
-import it.csi.epay.epayfeapi.dto.TransazioneMdpDTO;
-import it.csi.epay.epayfeapi.entity.EpayDOrigineChiamata;
-import it.csi.epay.epayfeapi.entity.EpayDStatoPagamento;
-import it.csi.epay.epayfeapi.entity.EpayTAnagrafica;
-import it.csi.epay.epayfeapi.entity.EpayTPagamento;
-import it.csi.epay.epayfeapi.entity.EpayTRegistroVersamenti;
-import it.csi.epay.epayfeapi.entity.EpayTRegistroVersamentiReflection;
-import it.csi.epay.epayfeapi.mapper.AnagraficaMapper;
-import it.csi.epay.epayfeapi.mapper.RegistroVersamentiMapper;
-import it.csi.epay.epayfeapi.mapper.TransazioneMdpMapper;
-import it.csi.epay.epayfeapi.repository.RegistroVersamentiRepository;
+import java.util.List;
 
 
 @ApplicationScoped
@@ -63,7 +61,8 @@ public class RegistroVersamentiService {
 	}
 
 	public void tracciaRegistroPagamento ( PagamentoDTO pagamento, StatoPagamento stato, TransazioneMdpDTO transazioneMdp, OrigineChiamata origineChiamata ) {
-		RegistroVersamentiDTO registroVersamenti = new RegistroVersamentiDTO ();
+		var iuv = StringUtils.isNotEmpty ( pagamento.getIuvRegistroVersamenti () ) ? pagamento.getIuvRegistroVersamenti () : pagamento.getIuv ();
+		var registroVersamenti = new RegistroVersamentiDTO ();
 		registroVersamenti.setIdPagamento ( pagamento.getIdPagamento () );
 		registroVersamenti.setIdPagamentoSecondario ( null ); // sempre a null?
 		registroVersamenti.setRisultato ( stato.getDescrizione () );
@@ -72,8 +71,7 @@ public class RegistroVersamentiService {
 		} else {
 			Log.error ( "TransazioneMdp null, potrebbe causare dei problemi!" );
 		}
-		registroVersamenti
-			.setIuv ( StringUtils.isNotEmpty ( pagamento.getIuvRegistroVersamenti () ) ? pagamento.getIuvRegistroVersamenti () : pagamento.getIuv () );
+		registroVersamenti.setIuv ( iuv );
 		registroVersamenti.setIdStato ( stato.getId () );
 		registroVersamenti.setOrigineInserimento ( REGISTRO_VERSAMENTO_ORIGINE_INSERIMENTO );
 		registroVersamenti.setDataOperazione ( currentTimestamp () );
@@ -86,12 +84,12 @@ public class RegistroVersamentiService {
 			// perche se idOrigineChiamata risultasse null, si scassa da qualche parte con
 			// "save the transient instance before flushing"
 			//
-			EpayDOrigineChiamata origineChiamataEntity = new EpayDOrigineChiamata ();
+			var origineChiamataEntity = new EpayDOrigineChiamata ();
 			origineChiamataEntity.setId ( origineChiamata.getId () );
 			entity.setEpayDOrigineChiamata ( origineChiamataEntity );
 		}
 		if ( pagamento.getPagatore () != null ) {
-			EpayTAnagrafica epayTAnagrafica = anagraficaMapper.toEntity ( pagamento.getPagatore () );
+			var epayTAnagrafica = anagraficaMapper.toEntity ( pagamento.getPagatore () );
 			if ( anagraficaService.isPersistent ( epayTAnagrafica ) ) {
 				anagraficaService.save ( epayTAnagrafica );
 			}
@@ -106,15 +104,15 @@ public class RegistroVersamentiService {
 			//
 			entity.setEpayTTransazioneMdp ( transazioneMdpMapper.toEntity ( transazioneMdp ) );
 		}
-		EpayDStatoPagamento statoPagamento = statoPagamentoService.findById ( registroVersamenti.getIdStato () );
+		var statoPagamento = statoPagamentoService.findById ( registroVersamenti.getIdStato () );
 		entity.setEpayDStatoPagamento ( statoPagamento );
-		EpayTPagamento epayTPagamento = pagamentoService.findById ( pagamento.getIdPagamento () );
+		var epayTPagamento = pagamentoService.findById ( pagamento.getIdPagamento () );
 		entity.setEpayTPagamento ( epayTPagamento );
 		// save
-		EpayTRegistroVersamenti result = save ( entity );
+		var result = save ( entity );
 		//
 		registroVersamenti.setIdRegistro ( result.getIdRegistro () );
-		Log.debug ( "Inserita voce di tracciatura versamento : " + registroVersamenti );
+		Log.debugf ( "Inserita voce di tracciatura versamento : %s", registroVersamenti );
 	}
 
 	private EpayTRegistroVersamenti save ( EpayTRegistroVersamenti epayTRegistroVersamenti ) {
@@ -124,5 +122,9 @@ public class RegistroVersamentiService {
 
 	public Long findMaxIdRegistro ( Long idPagamento ) {
 		return registroVersamentiRepository.findMaxIdRegistro ( idPagamento );
+	}
+	
+	public Long findMaxIdRegistroPagatoByIdPagamentoAndOrigine ( Long idPagamento , List<String>  origineInserimento) {
+		return registroVersamentiRepository.findMaxIdRegistroPagatoByIdPagamentoAndOrigine(idPagamento,origineInserimento ) ;
 	}
 }

@@ -63,25 +63,20 @@ public class EpayTEnti implements Serializable {
 
 	@Column ( name = "flag_riconciliazione_versamenti" )
 	private Boolean flagRiconciliazioneVersamenti;
+	
+	@Column ( name = "flag_adesione_cittafacile" )
+	private Boolean flagAdesioneCittaFacile;
 
 	@Lob
 	@Column ( name = "logo", nullable = false )
 	@Type ( type = "org.hibernate.type.BinaryType" )
-	private byte [] logo;
-
-	public Boolean getFlagRiconciliazioneVersamenti () {
-		return flagRiconciliazioneVersamenti;
-	}
-
-	public void setFlagRiconciliazioneVersamenti ( Boolean flagRiconciliazioneVersamenti ) {
-		this.flagRiconciliazioneVersamenti = flagRiconciliazioneVersamenti;
-	}
+	private byte[] logo;
 
 	public EpayTEnti () {
 	}
 
 	public EpayTEnti ( Long idEnte, String codiceFiscale, BigDecimal codiceGs1Gln, String codiceInterbancario, Boolean flagInvioPagamenti, String nome,
-		String orari ) {
+					String orari ) {
 		this.idEnte = idEnte;
 		this.codiceFiscale = codiceFiscale;
 		this.codiceGs1Gln = codiceGs1Gln;
@@ -89,6 +84,14 @@ public class EpayTEnti implements Serializable {
 		this.flagInvioPagamenti = flagInvioPagamenti;
 		this.nome = nome;
 		this.orari = orari;
+	}
+
+	public Boolean getFlagRiconciliazioneVersamenti () {
+		return flagRiconciliazioneVersamenti;
+	}
+
+	public void setFlagRiconciliazioneVersamenti ( Boolean flagRiconciliazioneVersamenti ) {
+		this.flagRiconciliazioneVersamenti = flagRiconciliazioneVersamenti;
 	}
 
 	public Long getIdEnte () {
@@ -171,29 +174,38 @@ public class EpayTEnti implements Serializable {
 		this.epayTTipoPagamentos = epayTTipoPagamentos;
 	}
 
-	public byte [] getLogo () {
+	public byte[] getLogo () {
 		return logo;
 	}
 
-	public void setLogo ( byte [] logo ) {
+	public void setLogo ( byte[] logo ) {
 		this.logo = logo;
 	}
 
 	@Override
 	public String toString () {
 		return "{ " +
-			"idEnte:" + idEnte +
-			", codiceFiscale:" + codiceFiscale +
-			", codiceGs1Gln:" + codiceGs1Gln +
-			", flagInvioPagamenti:" + flagInvioPagamenti +
-			", flagIntermediato:" + flagIntermediato +
-			", nome:" + nome +
-			", orari:" + orari +
-			", codiceInterbancario:" + codiceInterbancario +
-			", flagInvioNotificatore:" + flagInvioNotificatore +
-			// non esporre epayTTipoPagamentos
-			", flagRiconciliazioneVersamenti:" + flagRiconciliazioneVersamenti +
-			// non esporre logo
-			" }";
+						"idEnte:" + idEnte +
+						", codiceFiscale:" + codiceFiscale +
+						", codiceGs1Gln:" + codiceGs1Gln +
+						", flagInvioPagamenti:" + flagInvioPagamenti +
+						", flagIntermediato:" + flagIntermediato +
+						", nome:" + nome +
+						", orari:" + orari +
+						", codiceInterbancario:" + codiceInterbancario +
+						", flagInvioNotificatore:" + flagInvioNotificatore +
+						// non esporre epayTTipoPagamentos
+						", flagRiconciliazioneVersamenti:" + flagRiconciliazioneVersamenti +
+						", flagAdesioneCittaFacile:" + flagAdesioneCittaFacile +
+						// non esporre logo
+						" }";
+	}
+
+	public Boolean getFlagAdesioneCittaFacile() {
+		return flagAdesioneCittaFacile;
+	}
+
+	public void setFlagAdesioneCittaFacile(Boolean flagAdesioneCittaFacile) {
+		this.flagAdesioneCittaFacile = flagAdesioneCittaFacile;
 	}
 }

@@ -67,11 +67,11 @@ public class PagedListResultDTO<T> implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"list.size:" + list.size () +
-			", currentPage:" + currentPage +
-			", pageSize:" + pageSize +
-			", totalPages:" + totalPages +
-			", totalElements:" + totalElements +
-			" }";
+						"list.size:" + list.size () +
+						", currentPage:" + currentPage +
+						", pageSize:" + pageSize +
+						", totalPages:" + totalPages +
+						", totalElements:" + totalElements +
+						" }";
 	}
 }

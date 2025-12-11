@@ -16,7 +16,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface RegistroVersamentiMapper {
 
 	@Mapping ( target = "idRegistro", source = "idRegistro" )
-	@Mapping ( target = "descEsitoPagamento", source = "risultato")
-	@Mapping ( target = "epayDStatoPagamento.idStato", source = "idStato")
+	@Mapping ( target = "descEsitoPagamento", source = "risultato" )
+	@Mapping ( target = "epayDStatoPagamento.idStato", source = "idStato" )
 	EpayTRegistroVersamenti toEntity ( RegistroVersamentiDTO registroVersamentiDTO );
 }

@@ -11,24 +11,24 @@ import javax.persistence.Column;
 import java.io.Serializable;
 
 
-@RegisterForReflection ( )
+@RegisterForReflection ()
 @SuppressWarnings ( "unused" )
 public class EpayTRtPdf implements Serializable {
 
 	private static final long serialVersionUID = -4889194886685724735L;
 
 	@Column ( name = "ricevuta_pdf" )
-	private byte [] ricevutaPdf;
+	private byte[] ricevutaPdf;
 
-	public EpayTRtPdf ( byte [] ricevutaPdf ) {
+	public EpayTRtPdf ( byte[] ricevutaPdf ) {
 		this.ricevutaPdf = ricevutaPdf;
 	}
 
-	public byte [] getRicevutaPdf () {
+	public byte[] getRicevutaPdf () {
 		return ricevutaPdf;
 	}
 
-	public void setRicevutaPdf ( byte [] ricevutaPdf ) {
+	public void setRicevutaPdf ( byte[] ricevutaPdf ) {
 		this.ricevutaPdf = ricevutaPdf;
 	}
 

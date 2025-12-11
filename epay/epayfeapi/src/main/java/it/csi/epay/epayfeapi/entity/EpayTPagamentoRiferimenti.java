@@ -101,12 +101,12 @@ public class EpayTPagamentoRiferimenti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idRiferimento:" + idRiferimento +
-			", nome:" + nome +
-			", valore:" + valore +
-			", progressivo:" + progressivo +
-			", utenteUltimaModifica:" + utenteUltimaModifica +
-			// non esporre
-			" }";
+						"idRiferimento:" + idRiferimento +
+						", nome:" + nome +
+						", valore:" + valore +
+						", progressivo:" + progressivo +
+						", utenteUltimaModifica:" + utenteUltimaModifica +
+						// non esporre
+						" }";
 	}
 }

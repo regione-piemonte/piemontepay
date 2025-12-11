@@ -146,16 +146,16 @@ public class EpayTPagamentoComponenti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idComponente:" + idComponente +
-			", causale:" + causale +
-			", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
-			", annoAccertamento:" + annoAccertamento +
-			", numeroAccertamento:" + numeroAccertamento +
-			", importo:" + importo +
-			", progressivo:" + progressivo +
-			", utenteUltimaModifica:" + utenteUltimaModifica +
-			", codiceTributo:" + codiceTributo +
-			// non esporre epayTPagamento
-			" }";
+						"idComponente:" + idComponente +
+						", causale:" + causale +
+						", datiSpecificiRiscossione:" + datiSpecificiRiscossione +
+						", annoAccertamento:" + annoAccertamento +
+						", numeroAccertamento:" + numeroAccertamento +
+						", importo:" + importo +
+						", progressivo:" + progressivo +
+						", utenteUltimaModifica:" + utenteUltimaModifica +
+						", codiceTributo:" + codiceTributo +
+						// non esporre epayTPagamento
+						" }";
 	}
 }

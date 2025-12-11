@@ -37,8 +37,8 @@ public class FlagAbilitaArchiviazioneDTO implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"abilitato:" + abilitato +
-			", dataOraUltimaModifica:" + dataOraUltimaModifica +
-			" }";
+						"abilitato:" + abilitato +
+						", dataOraUltimaModifica:" + dataOraUltimaModifica +
+						" }";
 	}
 }

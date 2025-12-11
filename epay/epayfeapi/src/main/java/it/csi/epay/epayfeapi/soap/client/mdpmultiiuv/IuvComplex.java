@@ -128,4 +128,13 @@ public class IuvComplex {
 		this.iuv = value;
 	}
 
+	@Override
+	public String toString () {
+		return "{ " +
+						"auxDigit:" + auxDigit +
+						", applicationCode:" + applicationCode +
+						", iuv:" + iuv +
+						", iuvOttico:" + iuvOttico +
+						" }";
+	}
 }

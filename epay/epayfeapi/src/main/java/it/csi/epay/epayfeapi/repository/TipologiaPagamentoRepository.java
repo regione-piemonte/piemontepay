@@ -16,14 +16,12 @@ import javax.enterprise.context.ApplicationScoped;
 public class TipologiaPagamentoRepository implements PanacheRepository<EpayDTipologiaPagamento> {
 
 	public EpayDTipologiaPagamento findByCodice ( String codice ) {
-		String methodName = "[findByCodice] ";
-		Log.info ( methodName + "BEGIN" );
-		Log.info ( methodName + "codice:" + codice );
+		var methodName = "[findByCodice] ";
+		Log.infof ( "%scodice:%s", methodName, codice );
 
-		EpayDTipologiaPagamento result = find ( "codice", codice ).firstResult ();
+		var result = find ( "codice", codice ).firstResult ();
 
-		Log.info ( methodName + "result:" + result );
-		Log.info ( methodName + "END" );
+		Log.infof ( "%sresult:%s", methodName, result );
 		return result;
 	}
 }

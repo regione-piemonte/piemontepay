@@ -215,22 +215,22 @@ public class EpayTEsitiRicevuti implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idEsito:" + idEsito +
-			", codEsitoPagamento:" + codEsitoPagamento +
-			", dataPagamento:" + dataPagamento +
-			", descEsitoPagamento:" + descEsitoPagamento +
-			", idApplicazione:" + idApplicazione +
-			", idModalitaRicezione:" + idModalitaRicezione +
-			", idTransazione:" + idTransazione +
-			", identificativoPsp:" + identificativoPsp +
-			", importo:" + importo +
-			", iur:" + iur +
-			", ragioneSocialePsp:" + ragioneSocialePsp +
-			", iuv:" + iuv +
-			", dataOraOperazione:" + dataOraOperazione +
-			", epayDModalitaPagamento:" + epayDModalitaPagamento +
-			// non esporre epayTRegistroVersamenti
-			// non esporre epayTQuietanzaEsito
-			" }";
+						"idEsito:" + idEsito +
+						", codEsitoPagamento:" + codEsitoPagamento +
+						", dataPagamento:" + dataPagamento +
+						", descEsitoPagamento:" + descEsitoPagamento +
+						", idApplicazione:" + idApplicazione +
+						", idModalitaRicezione:" + idModalitaRicezione +
+						", idTransazione:" + idTransazione +
+						", identificativoPsp:" + identificativoPsp +
+						", importo:" + importo +
+						", iur:" + iur +
+						", ragioneSocialePsp:" + ragioneSocialePsp +
+						", iuv:" + iuv +
+						", dataOraOperazione:" + dataOraOperazione +
+						", epayDModalitaPagamento:" + epayDModalitaPagamento +
+						// non esporre epayTRegistroVersamenti
+						// non esporre epayTQuietanzaEsito
+						" }";
 	}
 }

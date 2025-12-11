@@ -5,18 +5,22 @@
 
 package it.csi.epay.epayfeapi.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
 
 /**
  * The persistent class for the epay_d_origine_chiamata database table.
- * 
  */
 @Entity
-@Table(name="epay_d_origine_chiamata")
-@NamedQuery(name="EpayDOrigineChiamata.findAll", query="SELECT e FROM EpayDOrigineChiamata e")
+@Table ( name = "epay_d_origine_chiamata" )
+@NamedQuery ( name = "EpayDOrigineChiamata.findAll", query = "SELECT e FROM EpayDOrigineChiamata e" )
+@SuppressWarnings ( "unused" )
 public class EpayDOrigineChiamata implements Serializable {
 
 	private static final long serialVersionUID = 8715135229969884767L;
@@ -29,54 +33,54 @@ public class EpayDOrigineChiamata implements Serializable {
 	private String descrizione;
 
 	//bi-directional many-to-one association to EpayTRegistroVersamenti
-	@OneToMany(mappedBy="epayDOrigineChiamata")
+	@OneToMany ( mappedBy = "epayDOrigineChiamata" )
 	private List<EpayTRegistroVersamenti> epayTRegistroVersamentis;
 
-	public EpayDOrigineChiamata() {
+	public EpayDOrigineChiamata () {
 	}
 
-	public Integer getId() {
+	public Integer getId () {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId ( Integer id ) {
 		this.id = id;
 	}
 
-	public String getCodice() {
+	public String getCodice () {
 		return this.codice;
 	}
 
-	public void setCodice(String codice) {
+	public void setCodice ( String codice ) {
 		this.codice = codice;
 	}
 
-	public String getDescrizione() {
+	public String getDescrizione () {
 		return this.descrizione;
 	}
 
-	public void setDescrizione(String descrizione) {
+	public void setDescrizione ( String descrizione ) {
 		this.descrizione = descrizione;
 	}
 
-	public List<EpayTRegistroVersamenti> getEpayTRegistroVersamentis() {
+	public List<EpayTRegistroVersamenti> getEpayTRegistroVersamentis () {
 		return this.epayTRegistroVersamentis;
 	}
 
-	public void setEpayTRegistroVersamentis(List<EpayTRegistroVersamenti> epayTRegistroVersamentis) {
+	public void setEpayTRegistroVersamentis ( List<EpayTRegistroVersamenti> epayTRegistroVersamentis ) {
 		this.epayTRegistroVersamentis = epayTRegistroVersamentis;
 	}
 
-	public EpayTRegistroVersamenti addEpayTRegistroVersamenti(EpayTRegistroVersamenti epayTRegistroVersamenti) {
-		getEpayTRegistroVersamentis().add(epayTRegistroVersamenti);
-		epayTRegistroVersamenti.setEpayDOrigineChiamata(this);
+	public EpayTRegistroVersamenti addEpayTRegistroVersamenti ( EpayTRegistroVersamenti epayTRegistroVersamenti ) {
+		getEpayTRegistroVersamentis ().add ( epayTRegistroVersamenti );
+		epayTRegistroVersamenti.setEpayDOrigineChiamata ( this );
 
 		return epayTRegistroVersamenti;
 	}
 
-	public EpayTRegistroVersamenti removeEpayTRegistroVersamenti(EpayTRegistroVersamenti epayTRegistroVersamenti) {
-		getEpayTRegistroVersamentis().remove(epayTRegistroVersamenti);
-		epayTRegistroVersamenti.setEpayDOrigineChiamata(null);
+	public EpayTRegistroVersamenti removeEpayTRegistroVersamenti ( EpayTRegistroVersamenti epayTRegistroVersamenti ) {
+		getEpayTRegistroVersamentis ().remove ( epayTRegistroVersamenti );
+		epayTRegistroVersamenti.setEpayDOrigineChiamata ( null );
 
 		return epayTRegistroVersamenti;
 	}

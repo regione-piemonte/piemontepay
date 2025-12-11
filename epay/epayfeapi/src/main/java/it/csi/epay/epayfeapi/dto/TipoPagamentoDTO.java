@@ -1,11 +1,12 @@
 /*
-* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
-*
-* SPDX-License-Identifier: EUPL-1.2 */
+ * SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+ *
+ * SPDX-License-Identifier: EUPL-1.2 */
 
 package it.csi.epay.epayfeapi.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -55,6 +56,8 @@ public class TipoPagamentoDTO implements Serializable {
 	private Boolean flagInvioRT;
 
 	private Boolean flagMultibeneficiario;
+
+	private BigDecimal importoPagamentoSpontaneo;
 
 	public Long getIdTipoPagamento () {
 		return idTipoPagamento;
@@ -222,5 +225,13 @@ public class TipoPagamentoDTO implements Serializable {
 
 	public void setFlagMultibeneficiario ( Boolean flagMultibeneficiario ) {
 		this.flagMultibeneficiario = flagMultibeneficiario;
+	}
+
+	public BigDecimal getImportoPagamentoSpontaneo () {
+		return importoPagamentoSpontaneo;
+	}
+
+	public void setImportoPagamentoSpontaneo ( BigDecimal importoPagamentoSpontaneo ) {
+		this.importoPagamentoSpontaneo = importoPagamentoSpontaneo;
 	}
 }

@@ -57,10 +57,10 @@ public class EpayTRt implements Serializable {
 	private String iuv;
 
 	@Column ( name = "ricevuta_pdf" )
-	private byte [] ricevutaPdf;
+	private byte[] ricevutaPdf;
 
 	@Column ( name = "rt_xml", nullable = false )
-	private byte [] rtXml;
+	private byte[] rtXml;
 
 	@Column ( name = "tipo_firma", length = 10 )
 	private String tipoFirma;
@@ -156,19 +156,19 @@ public class EpayTRt implements Serializable {
 		this.iuv = iuv;
 	}
 
-	public byte [] getRicevutaPdf () {
+	public byte[] getRicevutaPdf () {
 		return ricevutaPdf;
 	}
 
-	public void setRicevutaPdf ( byte [] ricevutaPdf ) {
+	public void setRicevutaPdf ( byte[] ricevutaPdf ) {
 		this.ricevutaPdf = ricevutaPdf;
 	}
 
-	public byte [] getRtXml () {
+	public byte[] getRtXml () {
 		return rtXml;
 	}
 
-	public void setRtXml ( byte [] rtXml ) {
+	public void setRtXml ( byte[] rtXml ) {
 		this.rtXml = rtXml;
 	}
 
@@ -223,23 +223,23 @@ public class EpayTRt implements Serializable {
 	@Override
 	public String toString () {
 		return "{ " +
-			"idRt:" + idRt +
-			", codEsitoPagamento:" + codEsitoPagamento +
-			", dataoraMsgRicevuta:" + dataoraMsgRicevuta +
-			", descEsitoPagamento:" + descEsitoPagamento +
-			", idApplicazione:" + idApplicazione +
-			", idMsgRicevuta:" + idMsgRicevuta +
-			", idMsgRichiesta:" + idMsgRichiesta +
-			", idTransazione:" + idTransazione +
-			", iuv:" + iuv +
-			// non esporre ricevutaPdf
-			// non esporre rtXml
-			", tipoFirma:" + tipoFirma +
-			", idRr:" + idRr +
-			", codiceContestoPagamento:" + codiceContestoPagamento +
-			", identificativoDominio:" + identificativoDominio +
-			// non esporre epayTRegistroVersamenti
-			", importoTotalePagato:" + importoTotalePagato +
-			" }";
+						"idRt:" + idRt +
+						", codEsitoPagamento:" + codEsitoPagamento +
+						", dataoraMsgRicevuta:" + dataoraMsgRicevuta +
+						", descEsitoPagamento:" + descEsitoPagamento +
+						", idApplicazione:" + idApplicazione +
+						", idMsgRicevuta:" + idMsgRicevuta +
+						", idMsgRichiesta:" + idMsgRichiesta +
+						", idTransazione:" + idTransazione +
+						", iuv:" + iuv +
+						// non esporre ricevutaPdf
+						// non esporre rtXml
+						", tipoFirma:" + tipoFirma +
+						", idRr:" + idRr +
+						", codiceContestoPagamento:" + codiceContestoPagamento +
+						", identificativoDominio:" + identificativoDominio +
+						// non esporre epayTRegistroVersamenti
+						", importoTotalePagato:" + importoTotalePagato +
+						" }";
 	}
 }
