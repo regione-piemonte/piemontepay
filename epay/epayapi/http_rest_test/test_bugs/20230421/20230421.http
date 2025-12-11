@@ -1,7 +1,0 @@
-### servizio 7 200ok ma link in errore
-
-GET {{baseURLAPI}}organizations/00125680033/debtpositions/20231161808711522/payment
-Authorization: Basic {{user}} {{pass}}
-Accept: application/json
-
-###

@@ -1,0 +1,50 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+package it.csi.epay.epayapi.integration.mapper;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Service;
+
+import it.csi.epay.epayapi.integration.domain.EpayRTipoPagamentoCollegato;
+import it.csi.epay.epayapi.integration.dto.EpayRTipoPagamentoCollegatoDTO;
+import it.csi.epay.epayapi.integration.mapper.mapping.EpayRTipoPagamentoCollegatoMapping;
+
+/**
+ * MapStruct mapper for "EpayRTipoPagamentoCollegato" 
+ *
+ * @author fabio.fenoglio
+ *
+ */
+@Service
+public class EpayRTipoPagamentoCollegatoMapper implements IMapper<EpayRTipoPagamentoCollegato, EpayRTipoPagamentoCollegatoDTO>  {
+
+	private EpayRTipoPagamentoCollegatoMapping mapping = Mappers.getMapper ( EpayRTipoPagamentoCollegatoMapping.class );
+
+	@Override
+	public EpayRTipoPagamentoCollegatoDTO toDTO(EpayRTipoPagamentoCollegato record) {
+		
+		EpayRTipoPagamentoCollegatoDTO dto = mapping.toDTO( record );
+		
+		return dto;
+	}
+
+	@Override
+    public List<EpayRTipoPagamentoCollegatoDTO> toDTO(Iterable<EpayRTipoPagamentoCollegato> recordList) {
+    	List<EpayRTipoPagamentoCollegatoDTO> output = new LinkedList<>();
+    		
+    	if (recordList != null) {
+    		for (EpayRTipoPagamentoCollegato record : recordList) {
+    			output.add( this.toDTO( record ) );
+    		}
+    	}
+    	
+    	return output;
+    }
+
+}

@@ -1,0 +1,183 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+host: localhost:8080
+basePath: /
+tags:
+  - name: chiamata-esterna-sincrona-api
+    description: Chiamata Esterna Sincrona Api
+paths:
+
+  /epayapi/pagamentoIUV:
+    post:
+      tags:
+        - chiamata-esterna-sincrona-api
+      summary: pagamentoIUV
+      operationId: pagamentoIUVUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: input
+          description: input
+          required: true
+          schema:
+            $ref: '#/definitions/PagamentoIuvChiamanteEsternoInput'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PagamentoIuvChiamanteEsternoOutput'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: true
+  /epayapi/pagamentoMarcaBollo:
+    post:
+      tags:
+        - chiamata-esterna-sincrona-api
+      summary: pagamentoMarcaBollo
+      operationId: pagamentoMarcaBolloUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: input
+          description: input
+          required: true
+          schema:
+            $ref: '#/definitions/PagamentoMarcaDaBolloChiamanteEsternoInput'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PagamentoMarcaBolloChiamanteEsternoOutput'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: true
+definitions:
+  AccessoChiamanteEsternoSincronoComponentePagamentoDSRInput:
+    type: object
+    required:
+      - importo
+    properties:
+      annoAccertamento:
+        type: integer
+        format: int32
+      causale:
+        type: string
+      datiSpecificiRiscossione:
+        type: string
+      importo:
+        type: number
+      numeroAccertamento:
+        type: string
+      progressivo:
+        type: integer
+        format: int32
+    title: AccessoChiamanteEsternoSincronoComponentePagamentoDSRInput
+  PagamentoIuvChiamanteEsternoInput:
+    type: object
+    properties:
+      codiceFiscale:
+        type: string
+      identificativoPagamento:
+        type: string
+      iuv:
+        type: string
+    title: PagamentoIuvChiamanteEsternoInput
+  PagamentoIuvChiamanteEsternoOutput:
+    type: object
+    properties:
+      codiceEsito:
+        type: string
+      descrizioneEsito:
+        type: string
+      identificativoPagamento:
+        type: string
+      urlWisp:
+        type: string
+    title: PagamentoIuvChiamanteEsternoOutput
+  PagamentoMarcaBolloChiamanteEsternoOutput:
+    type: object
+    properties:
+      codiceEsito:
+        type: string
+      descrizioneEsito:
+        type: string
+      elencoIuvMarcaBollo:
+        type: array
+        items:
+          type: string
+      identificativoPagamento:
+        type: string
+      iuvDocumento:
+        type: string
+      urlWisp:
+        type: string
+    title: PagamentoMarcaBolloChiamanteEsternoOutput
+  PagamentoMarcaDaBolloChiamanteEsternoInput:
+    type: object
+    properties:
+      causale:
+        type: string
+      codiceFiscaleEnte:
+        type: string
+      codiceFiscalePartitaIVAPagatore:
+        type: string
+      cognome:
+        type: string
+      componentiPagamento:
+        type: array
+        items:
+          $ref: '#/definitions/AccessoChiamanteEsternoSincronoComponentePagamentoDSRInput'
+      email:
+        type: string
+      flagSoloMarca:
+        type: boolean
+      hashDocumento:
+        type: string
+      identificativoPagamento:
+        type: string
+      importo:
+        type: number
+      importoBollo:
+        type: number
+      iuvIstanzaAssociata:
+        type: string
+      nome:
+        type: string
+      provincia:
+        type: string
+      quantita:
+        type: integer
+        format: int32
+      ragioneSociale:
+        type: string
+      tipoBollo:
+        type: string
+      tipoPagamento:
+        type: string
+    title: PagamentoMarcaDaBolloChiamanteEsternoInput

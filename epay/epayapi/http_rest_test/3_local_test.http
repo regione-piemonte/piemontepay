@@ -1,5 +1,0 @@
-###
-GET http://localhost:8080/epayfe/api/v1/organizations/80087670016/citizens/GNVMGR75H58F335R/debtpositions/20230551742799608/paymentnotice
-Authorization: Basic {{user}} {{pass}}
-Accept: application/json
-Content-Type: application/json

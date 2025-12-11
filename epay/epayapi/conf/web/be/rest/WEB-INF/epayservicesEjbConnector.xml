@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+>
+
+	<!-- EJB -->
+	<jee:remote-slsb id="parametro" jndi-name="java:global/epayservices/epayservices-ejb/ParametroFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.ParametroFacade"/>
+
+	 
+	<jee:remote-slsb id="pagamento" jndi-name="java:global/epayservices/epayservices-ejb/PagamentoFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.PagamentoFacade"/>
+	
+	<jee:remote-slsb id="ente" jndi-name="java:global/epayservices/epayservices-ejb/EnteFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.EnteFacade"/>
+	    
+	<jee:remote-slsb id="mail" jndi-name="java:global/epayservices/epayservices-ejb/MailFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.MailFacade"/>
+	
+	<jee:remote-slsb id="configurazione" jndi-name="java:global/epayservices/epayservices-ejb/ConfigurazioneFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.ConfigurazioneFacade"/>
+   	
+   	<jee:remote-slsb id="avviso" jndi-name="java:global/epayservices/epayservices-ejb/DatiAvvisoPagamentoFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.DatiAvvisoPagamentoFacade"/>
+	    
+   	<jee:remote-slsb id="chiamataEsterna" jndi-name="java:global/epayservices/epayservices-ejb/ChiamataEsternaFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.ChiamataEsternaFacade"/>
+ 	
+   	<jee:remote-slsb id="chiamataEsternaSincrona" jndi-name="java:global/epayservices/epayservices-ejb/ChiamataEsternaSincronaFacade"
+	    business-interface="it.csi.epay.epayservices.interfaces.ejb.ChiamataEsternaSincronaFacade"/>
+	    
+	          <jee:remote-slsb id="chiamataEsternaSincronaV1" jndi-name="java:global/epayservices/epayservices-ejb/ChiamataEsternaSincronaFacadeV1"
+        business-interface="it.csi.epay.epayservices.interfaces.ejb.v1.ChiamataEsternaSincronaFacade"/>
+	    
+ 	<jee:remote-slsb id="chiamataEsternaSincronaSplit" jndi-name="java:global/epayservices/epayservices-ejb/ChiamataEsternaSincronaSplitFacade"
+        business-interface="it.csi.epay.epayservices.interfaces.ejb.ChiamataEsternaSincronaSplitFacade"/>
+
+ 	<jee:remote-slsb id="chiamataEsternaSincronaSplitV1" jndi-name="java:global/epayservices/epayservices-ejb/ChiamataEsternaSincronaSplitFacadeV1"
+        business-interface="it.csi.epay.epayservices.interfaces.ejb.v1.ChiamataEsternaSincronaSplitFacade"/>
+        
+ 	<jee:remote-slsb id="pagamentoMarcaDaBollo" jndi-name="java:global/epayservices/epayservices-ejb/PagamentoMarcaDaBolloFacade"
+        business-interface="it.csi.epay.epayservices.interfaces.ejb.PagamentoMarcaDaBolloFacade"/>
+
+ 	<jee:remote-slsb id="pagamentoMarcaDaBolloV1" jndi-name="java:global/epayservices/epayservices-ejb/PagamentoMarcaDaBolloFacadeV1"
+        business-interface="it.csi.epay.epayservices.interfaces.ejb.v1.PagamentoMarcaDaBolloFacade"/>
+
+</beans>

@@ -1,0 +1,18 @@
+{
+	"java8": false,
+	"useBeanValidation": true,
+	"hideGenerationTimestamp": true,
+	"apiPackage": "it.csi.epay.epayapi.interfaces.endpoint",
+	"modelPackage": "it.csi.epay.epayapi.interfaces.model",
+	"invokerPackage": "it.csi.epay.epayapi.business",
+	"implFolder": "impl",
+	"sourceFolder": "src/java",
+	"useSwaggerFeature": false,
+	"generateJbossDeploymentDescriptor": false,
+	"generateImplArtifacts": false,
+	"generateSwaggerMetadata": true,
+	"serializableModel": true,
+	"attributeSerializationStrategy": "implicit-camel-case",
+	"accessHttpHeaders": false,
+	"accessHttpRequest": false
+}

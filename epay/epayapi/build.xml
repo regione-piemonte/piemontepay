@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+<!-- ##################################################### -->
+<!-- # build.xml file per compilazione e generazione     # -->
+<!-- # del pacchetto per il rilascio dell'applicazione.  # -->
+<!-- #                                                   # -->
+<!-- # Per una lista completa dei tasks eseguibili usare # -->
+<!-- # l'argomento di ant -projecthelp quando si         # -->
+<!-- # richiama questo build.xml.                        # -->
+<!-- ##################################################### -->
+
+<project basedir="."
+        default="default"
+        name="epayapi"
+        xmlns:ivy="antlib:fr.jayasoft.ivy.ant" 
+		xmlns:jacoco="antlib:org.jacoco.ant"
+>
+
+	<description>Build file per il progetto: [epayapi]</description>
+
+	<!-- -->
+	<echo message="Loading build properties..." />
+	<property file="buildfiles/${target}.properties" />
+	<property file="buildfiles/common.properties" />	
+	<property file="buildfiles/build.properties" />
+	
+	<!-- -->
+	<path id="library.ref">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+		<fileset dir="${lib_ext}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: init                                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="init" description="Inizializza lo script Ant.">
+		<tstamp />
+		<condition property="target" value="dev">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${build}/test-classes" />
+		<mkdir dir="${build}/classes/properties-cache" />
+		<mkdir dir="${build}/generated-sources" />
+		<mkdir dir="${temp}/${target}/${earLib}" />
+		<mkdir dir="${build}/archives/${target}" />
+		<mkdir dir="${dist}/${target}" />
+		<mkdir dir="${build}/javadoc" />
+		<mkdir dir="${build}/jsp" />
+		<mkdir dir="${build}/cache" />
+		
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: default                                           # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="default"
+	        description="Eseguire il build per l'environment
+	                     specificato a linea di comando con
+	                     -Dtarget=${target} o per tutti gli
+	                     environment (se non specificato).">
+
+		<condition property="first-call" value="distribution">
+			<not>
+				<equals arg1="${target}" arg2="$${target}" />
+			</not>
+		</condition>
+
+		<condition property="first-call" value="all-targets">
+			<equals arg1="${target}" arg2="$${target}" />
+		</condition>
+
+		<echo message="server: ${server}" />
+		<echo message="target: ${target}" />
+		<echo message="first-call: ${first-call}" />
+
+		<antcall target="clean-all" />
+		<antcall target="${first-call}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: all-targets                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="all-targets"
+	        description="Esegue il build per le varie distribuzioni in sequenza.">
+		<!--PROTECTED REGION ID(R-1748880042) ENABLED START-->
+		<!-- Inserire le varie distribuzioni di cui si intende eseguire il build. -->
+		<antcall target="distribution" />
+		<antcall target="datasource" />
+		<antcall target="package-client-jar" />
+		<!--PROTECTED REGION END-->
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [DISTRIB]: distribution                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="distribution" depends="package-all"
+	        description="Costruisce il tar per la distribuzione." >
+		<echo message="====== Creating distribution for ${target} ..."/>
+		<echo message="====== Basedir: ${build}/archives/${target} ..."/>
+		<!--PROTECTED REGION ID(R-64293809) ENABLED START-->
+		<!-- inserire qui eventuali statement antcall aggiuntivi da invocare
+		     nel processo di distribuzione del tar -->
+		<!--PROTECTED REGION END-->
+		<tar tarfile="${dist}/${target}/${dist-file-name}.tar"
+		     basedir="${build}/archives/${target}"
+		     includes="*.ear,*.xml">
+			<tarfileset dir="buildfiles">
+				<include name="readme.txt"/>
+				<!--PROTECTED REGION ID(R-1413323135) ENABLED START-->
+				<!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
+				<!--PROTECTED REGION END-->
+			</tarfileset>
+		</tar>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: resolve-dependencies                               # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="resolve-dependencies"
+	        description="carica le librerie dal repository remoto">
+		<ivy:configure file="${basedir}/buildfiles/ivyconf.xml" />
+		<ivy:resolve file="${basedir}/buildfiles/ivy.xml" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: internal target: load-dependencies                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies"
+	        depends="resolve-dependencies"
+	        description="Risolve le dipendenze esterne.">
+		<ivy:retrieve pattern="${basedir}/lib/[artifact].[type]" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: compile-all                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="compile-all" depends="init,load-dependencies"
+	        description="Compila tutti i sorgenti.">
+
+		<echo message="===> Target: ${target}" />
+
+		<!-- compilazione dei sorgenti -->
+		<javac srcdir="${src}/java" 
+				destdir="${build}/classes"
+		       	optimize="on" 
+		       	deprecation="on"
+		       	compiler="modern"
+		       	debug="on" 
+		       	debuglevel="lines,vars,source"
+		       	
+		       	classpath="${lib_ext}/mapstruct-jdk8-1.1.0.Final.jar"
+		       	
+		>
+			<classpath refid="library.ref" />
+			
+			<compilerarg line='-processorpath "${lib_ext}/mapstruct-processor-1.1.0.Final.jar"'/>
+			<compilerarg line='-s "${build}/generated-sources"'/>
+			
+		</javac>
+
+		<!-- copia dei sorgenti -->
+		<copy todir="${build}/classes">
+			<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*" />
+		</copy>
+	</target>
+
+	<target name="compile-test" depends="init,load-dependencies"
+	        description="Compila tutti i sorgenti di test.">
+
+		<echo message="===> Target: ${target}" />
+
+		<!-- compilazione dei sorgenti -->
+		<javac srcdir="${testsrc}/java" 
+				destdir="${build}/test-classes"
+		       	optimize="on" 
+		       	deprecation="on"
+		       	compiler="modern"
+		       	debug="on" 
+		       	debuglevel="lines,vars,source"
+		>
+			<classpath refid="library.ref" />
+			<classpath>
+				<pathelement location="${build}/classes"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-recreate                              # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-recreate" description="Ricrea l&apos;environment di configurazione per il target corrente (per applicare le sostituzioni delle variabili).">
+		<mkdir dir="build/temp/conf" />
+			<copy todir="build/temp/conf" overwrite="true">
+		<fileset dir="${conf}" />
+		</copy>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: environment-config                                # -->
+	<!-- #         Gestire qui i  replace delle variabile d'ambiente # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="environment-config"
+	        description="Predispone le configurazioni dipendenti dall&apos;ambiente." >
+
+		<!-- Gestione replace delle variabile d'ambiente create dal generatore -->
+
+		<!--
+		<condition property="filter.cors.enabled" value="false">
+		      <equals arg1="${filter.cors.enabled}" arg2="$${filter.cors.enabled}" />
+		</condition>
+		<replace dir="${build}/temp/conf/web/" token="@@@CORSFILTER.ENABLED@@@" value="${filter.cors.enabled}"/>
+		-->
+		
+		<!--PROTECTED REGION ID(R816510908) ENABLED START-->
+		<!-- gestire qui i  replace delle proprie variabili d'ambiente -->
+		<!--PROTECTED REGION END-->
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all"
+	        description="Esegue il packaging di ogni componente del prodotto">
+		<antcall target="package-ear" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-ear                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-ear"
+            depends="environment-recreate, environment-config, compile-all, package-commons-jar, package-all-ws-wars"
+            description="costruisce l&apos;ear">
+
+		<!-- librerie infrastrutturali o client di servizi fruiti -->
+		<copy todir="${temp}/${target}/${earLib}">
+			<fileset dir="${lib}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+			<fileset dir="${lib_ext}" includes="${ear-libs-filter} ${ear-custom-libs-filter}" />
+			<fileset dir="${build}/archives/${target}" includes="*common.jar" />
+		</copy>
+
+		<ear appxml="${temp}/conf/ear/application.xml"
+		     destfile="${build}/archives/${target}/${ear-file-name}.ear">
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar,*common.jar" />
+			<fileset dir="${temp}/${target}">
+				<include name="**/*" />
+			</fileset>
+			<metainf dir="${temp}/conf/ear/" includes="jboss-deployment-structure.xml" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${DSTAMP}" />
+				<attribute name="Target" value="${target}" />
+				<attribute name="Appl-Version" value="${version}" />
+			</manifest>
+		</ear>
+
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-all-ws-wars                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-all-ws-wars"
+	        description="Costruisce i war di tutti i web services">
+		<!-- richiamo costruzione war backend REST  -->
+		<antcall target="_package-ws-war">
+			<param name="component.name" value="epayapi"/>
+			<param name="service.name" value="be"/>
+			<param name="binding.code" value="rest"/>
+			<param name="service.type" value="appl"/>
+		</antcall>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: _package-ws-war                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_package-ws-war"
+	        description="Costruisce il war per un singolo web service">
+		<!-- prende in input i parametri: component.name, service.name, binding.code, service.type, service.ver (deve essere a 2 cifre!!!) -->
+		
+		<delete dir="${build}/temp/war-conditional" />
+		<mkdir dir="${build}/temp/war-conditional" />
+		<mkdir dir="${build}/temp/war-conditional/lib" />
+	 	<mkdir dir="${build}/temp/war-conditional/resources" />
+	 	
+		<copy 
+			file="buildfiles/${target}.properties" 
+			tofile="${build}/classes/config.properties" 
+			overwrite="true"
+		/>
+
+		<copy todir="${build}/classes/properties-cache">
+			<fileset dir="buildfiles" includes="*.properties" />
+		</copy>
+
+		<replace dir="${build}/classes/properties-cache" token="@@@TARGET@@@" value="${target}"/>
+		
+		<if>
+		 <equals arg1="${integration.ejb.epayservices.enabled}" arg2="true" />
+		 <then>
+		 	<echo message="enabling effective EPAYSERVICES EJB CONNECTOR" />
+		 	<replace dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF" token="@@@EJB.CONNECTOR.DELEGATE@@@" value="epayservicesEjbConnector.xml"/>
+		 </then>
+		 <else>
+	 		<echo message="enabling mock for EPAYSERVICES EJB CONNECTOR" />
+		 	<replace dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF" token="@@@EJB.CONNECTOR.DELEGATE@@@" value="epayservicesEjbMock.xml"/>
+		 </else>
+		</if>
+		
+		<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
+		     webxml="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/web.xml"
+		     roundup="false">
+			<webinf dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/">
+				<include name="*.xml" />
+				<include name="*.properties" />
+				<include name="*.yaml" />
+				<include name="/classes/*.properties" />
+			</webinf>
+			<classes dir="${build}/classes">
+				<!-- <include name="it/csi/*/epayapi/business/${service.name}/**"/> -->
+			    <include name="it/csi/*/epayapi/**"/>
+			</classes>
+			
+			<classes dir="${temp}/conf/web/${service.name}/${binding.code}/WEB-INF/classes">
+				<include name="*.xml"/>
+		    </classes>
+		    
+		    <classes dir="${src}/resources">
+			</classes>
+			
+			<classes dir="${build}/classes">
+				<include name="config.properties"/>
+				<include name="properties-cache/*.properties"/>
+		    </classes>
+			
+			<lib dir="${lib_ext}" includes="*.jar" />
+			
+			<lib dir="${lib}" includes="*" excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
+		
+			<lib dir="${build}/temp/war-conditional/lib" includes="*.jar" excludes="${war-exclude-libs-filter} ${war-exclude-custom-libs-filter}" />
+
+			<fileset dir="${build}/temp/war-conditional/resources" includes="**" />
+		</war>
+
+		<delete dir="${build}/temp/war-conditional" />
+		
+	</target>
+
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-commons-jar                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-commons-jar" description="Genera il jar per le classi comuni.">
+		<jar destfile="${build}/archives/${target}/epayapi-common.jar"
+		     basedir="${build}/classes"
+		     includes="it/csi/epay/epayapi/integration/dto/**,
+		               it/csi/epay/epayapi/dto/**">
+			<!--
+			<exclude name="it/csi/epay/epayapi/integration/mapper/**" />
+			-->
+		</jar>
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [PKG]: package-client-jar                                # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="package-client-jar" description="Genera il jar per il client.">
+		<jar destfile="${build}/archives/${target}/epayapi-client.jar"
+		     basedir="${build}/classes"
+		     includes="it/csi/epay/epayapi/dto/exception/**,
+				it/csi/epay/epayapi/dto/request/**,
+				it/csi/epay/epayapi/dto/response/**,
+				it/csi/epay/epayapi/api/*Api.class">
+		</jar>
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-all                                        # -->
+	<!-- ############################################################# -->
+	<!-- nota: non cancella la directory "dist" appositamente: v. STDMDD-495.
+	per ripulire anche la "dist" richiamare esplicitamente il target "clean-dist" -->
+	<!-- -->
+	<target name="clean-all" description="Rimuove tutte le cartelle temporanee."
+	        depends="clean-archives, clean-cache, clean-classes, clean-test-classes, clean-javadoc, clean-jsp, clean-temp, clean-lib" />
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-cache                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-cache"
+	        description="Rimuove la cartella di cache di Ivy e la lib.">
+		<delete dir="${build}/cache" failonerror="no" />
+		<delete dir="${lib}" failonerror="no" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-temp                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-temp"
+	        description="Rimuove la cartella dei files temporanei di build.">
+		<delete dir="${temp}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-archives                                  # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-archives"
+	        description="Rimuove la cartella degli archivi (war, ear, ...).">
+		<delete dir="${build}/archives" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-dist                                       # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-dist"
+	        description="Rimuove la cartella delle distribuzioni.">
+		<delete dir="${dist}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-classes                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-classes"
+	        description="Rimuove la cartella dei sorgenti compilati.">
+		<delete dir="${build}/classes" />
+		<delete dir="${build}/generated-sources" />
+	</target>
+	
+	<target name="clean-test-classes"
+	        description="Rimuove la cartella dei sorgenti di test compilati.">
+		<delete dir="${build}/test-classes" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-javadoc                                    # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-javadoc"
+	        description="Rimuove la cartella temporanea dei javadoc.">
+		<delete dir="${build}/javadoc" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-jsp                                        # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-jsp"
+	        description="Rimuove la cartella temporanea delle jsp compilate.">
+	<delete dir="${build}/jsp" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: _clean-web-inf                                   # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="_clean-web-inf"
+	        description="Rimuove il contenuto di lib e classes della
+	                     web application (per run locali).">
+		<delete dir="${srcweb}/WEB-INF/classes" />
+		<delete dir="${srcweb}/WEB-INF/lib" />
+	</target>
+
+	<!-- ############################################################# -->
+	<!-- # public target: datasource                                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="datasource" description="costruisce datasource" depends="init">
+		<copy todir="${temp}" file="${conf}/epay-epayapi-ds.xml" />
+
+		<replace file="${temp}/epay-epayapi-ds.xml" token="@@@DATASOURCE.HOST@@@" value="${datasource.host}"/>
+		<replace file="${temp}/epay-epayapi-ds.xml" token="@@@DATASOURCE.PORT@@@" value="${datasource.port}"/>
+		<replace file="${temp}/epay-epayapi-ds.xml" token="@@@DATASOURCE.DATABASE@@@" value="${datasource.database}"/>
+		<replace file="${temp}/epay-epayapi-ds.xml" token="@@@DATASOURCE.USERNAME@@@" value="${datasource.username}"/>
+		<replace file="${temp}/epay-epayapi-ds.xml" token="@@@DATASOURCE.PASSWORD@@@" value="${datasource.password}"/>
+		
+		<move todir="${build}/archives/${target}" file="${temp}/epay-epayapi-ds.xml" />
+	</target>
+	
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about                                             # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about" description="Visualizza l'elenco dei target pubblici dello script.">
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about" srcfile="buildfiles/about.txt" />
+		<echo message="${about}" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: about-custom                                      # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="about-custom"
+	        description="Visualizza l'elenco di tutti i target,
+	                     pubblici e privati
+	                     (equivalente a 'ant -projecthelp')" >
+
+		<loadproperties srcfile="buildfiles/build.properties" />
+		<loadfile property="about-custom" srcfile="buildfiles/about-custom.txt" />
+		<echo message="${about-custom}" />
+		<java classname="org.apache.tools.ant.Main">
+			<arg value="-projecthelp" />
+		</java>
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # Target: show-vars                                         # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="show-vars" depends="init"
+	        description="Visualizza tutte le variabili impostate nei file di properties e/o da linea di comando">
+		<echo message="*****************************************" />
+		<echo message="********  ${componente} environment  *******" />
+		<echo message="*****************************************" />
+		<echoproperties />
+		<echo />
+		<echo />
+		<echo message="*****************************************" />
+		<echo message="********    java properties      ********" />
+		<echo message="*****************************************" />
+		<echoproperties prefix="java."/>
+	</target>
+
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [CLEAN]: clean-lib                                    		 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="clean-lib">
+		<delete dir="lib" />
+	</target>
+
+	<!-- -->
+	<!-- ############################################################# -->
+	<!-- # [IVY]: internal target: load-dependencies                 # -->
+	<!-- ############################################################# -->
+	<!-- -->
+	<target name="load-dependencies-true" depends="clean-lib,resolve-dependencies" description="Risolve le dipendenze esterne.">
+		<ivy:retrieve pattern="${lib}/[conf]/[artifact].[ext]" conf="*"/>
+	</target>
+
+	<target name="load-dependencies-false" description="Risolve le dipendenze esterne.">
+		<echo message="Skipping ivy dependencies resolution." />
+	</target>
+	
+	<target name="load-ivy">
+		<condition property="target.ivy.task" value="load-dependencies-false" else="load-dependencies-true">
+			<equals arg1="${build.ivy.enabled}" arg2="false" />
+		</condition>
+		<echo message="build.ivy.enabled: ${build.ivy.enabled}" />
+		<antcall target="${target.ivy.task}" />
+	</target>
+
+	<target name="deploy-local-jboss" description="Eseguire la copia sulla cartella locale di jboss">
+
+		<copy todir="../epayapiruntime/jboss/standalone/deployments">
+			<fileset dir="${build}/archives/${target}" includes="epayapi.ear" />
+		</copy>
+		
+	</target>
+	
+	<target name="copy-remote-jboss" depends="distribution" description="Eseguire la copia sulla cartella upload di jboss per l'environment specificato a linea di comando con -Dtarget=${target}.">
+		<scp file="${build}/archives/${target}/${ear-file-name}.ear" todir="${applicationserver.scp.upload.dir}" trust="true">
+		</scp>
+	</target>
+
+	<target name="copy-ds-remote-jboss" depends="init" description="Eseguire la copia del datasource sulla cartella upload di jboss per l'environment specificato a linea di comando con -Dtarget=${target}.">
+		<scp file="docs/${prodotto}-${componente}-ds.xml" todir="${applicationserver.scp.upload.dir}" trust="true">
+		</scp>
+	</target>
+
+	<target name="deploy-remote-jboss" depends="copy-remote-jboss" description="Eseguire la copia sulla cartella upload di jboss per l'environment specificato a linea di comando con -Dtarget=${target}.">
+		<sshexec host="${applicationserver.host}"
+		         username="${applicationserver.username}"
+		         password="${applicationserver.password}"
+		         trust="true"
+		         command="cp ${applicationserver.upload.dir}/${ear-file-name}.ear ${applicationserver.deploy.dir}/">
+		</sshexec>
+	</target>
+
+	<target name="deploy-ds-remote-jboss" depends="copy-ds-remote-jboss" description="Eseguire la copia del datasource sulla cartella upload di jboss per l'environment specificato a linea di comando con -Dtarget=${target}.">
+		<sshexec host="${applicationserver.host}"
+		         username="${applicationserver.username}"
+		         password="${applicationserver.password}"
+		         trust="true"
+		         command="cp ${applicationserver.upload.dir}/${prodotto}-${componente}-ds.xml ${applicationserver.deploy.dir}/">
+		</sshexec>
+	</target>
+
+	<target name="tail-remote-jboss-logs" description="Esegue il tail sui log di Jboss">
+		<sshexec host="${applicationserver.host}"
+		         username="${applicationserver.username}"
+		         password="${applicationserver.password}"
+		         trust="true"
+		         command="tail -1000f log-01/server.log">
+		</sshexec>
+	</target>
+
+	<path id="axis1.classpath">
+		<fileset dir="${axis1.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+</project>

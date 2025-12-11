@@ -1,8 +1,0 @@
-###
-
-GET {{baseURLAPI}}organizations/80087670016/paymenttypes
-Authorization: Basic {{epayapi1}} {{pass}}
-Accept: application/json
-
-###
-

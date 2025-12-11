@@ -1,6 +1,0 @@
-### dava 401, a me ora da 404 ed è giusto così
-
-GET http://dev-srv-epay.bilancio.csi.it/epayfe/api/v1/organizations/80087670016/citizens/TBSMRA42T14G398T
-Authorization: Basic {{epayapi1}} {{pass}}
-Accept: application/json
-

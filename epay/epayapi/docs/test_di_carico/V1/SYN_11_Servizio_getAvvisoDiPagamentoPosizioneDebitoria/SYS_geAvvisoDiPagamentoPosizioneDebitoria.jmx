@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="getDatiPosizioneDebitoria" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Creazione Dataset posizioni debitorie" enabled="true">
+        <stringProp name="TestPlan.comments">Legge dati base dei pagamenti e li scrive nel file BasePaymentsData.csv</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Configurazione Connessione JDBC EPAY" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="dbURL" elementType="Argument">
+              <stringProp name="Argument.name">dbURL</stringProp>
+              <stringProp name="Argument.value">jdbc:postgresql://10.138.154.6:10510/TEST</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dbUsr" elementType="Argument">
+              <stringProp name="Argument.name">dbUsr</stringProp>
+              <stringProp name="Argument.value">epay</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="dbPWD" elementType="Argument">
+              <stringProp name="Argument.name">dbPWD</stringProp>
+              <stringProp name="Argument.value">mypass</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+          <stringProp name="TestPlan.comments">Impostazione dei parametri di connessione al database EPAY</stringProp>
+        </Arguments>
+        <hashTree/>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection Connessione DB EPAY" enabled="true">
+          <boolProp name="autocommit">true</boolProp>
+          <stringProp name="checkQuery"></stringProp>
+          <stringProp name="connectionAge">5000</stringProp>
+          <stringProp name="connectionProperties"></stringProp>
+          <stringProp name="dataSource">EPAY_JDBC_POOL</stringProp>
+          <stringProp name="dbUrl">${dbURL}</stringProp>
+          <stringProp name="driver">org.postgresql.Driver</stringProp>
+          <stringProp name="initQuery"></stringProp>
+          <boolProp name="keepAlive">true</boolProp>
+          <stringProp name="password">${dbPWD}</stringProp>
+          <stringProp name="poolMax">2</stringProp>
+          <boolProp name="preinit">false</boolProp>
+          <stringProp name="timeout">10000</stringProp>
+          <stringProp name="transactionIsolation">DEFAULT</stringProp>
+          <stringProp name="trimInterval">60000</stringProp>
+          <stringProp name="username">${dbUsr}</stringProp>
+          <stringProp name="TestPlan.comments">Creazioni del pool di connessioni verso il db EPAY</stringProp>
+        </JDBCDataSource>
+        <hashTree/>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request Caricamento Dati Creazione Pagamenti" enabled="true">
+          <stringProp name="dataSource">EPAY_JDBC_POOL</stringProp>
+          <stringProp name="query">SELECT 
+	  enti.codice_fiscale,
+	  tipoPagamento.codice_versamento,
+	  pag.iuv_numero_avviso
+FROM epay_d_chiamante_esterno chiamanteEsterno,
+	epay_r_chiamante_tipo_pagamento chiamanteTipoPagamento,
+	epay_t_tipo_pagamento tipoPagamento,
+	epay_t_enti enti,
+	epay_t_pagamento pag,
+	epay_t_pagamento_componenti componente,
+	epay_r_chiamante_tipo_pagamento aut
+WHERE chiamanteEsterno.codice_chiamante = chiamanteTipoPagamento.codice_chiamante
+	 AND tipoPagamento.id_tipo_pagamento = chiamanteTipoPagamento.id_tipo_pagamento
+	 AND componente.id_pagamento = pag.id_pagamento
+	 AND pag.id_tipo_pagamento = tipoPagamento.id_tipo_pagamento
+	 AND enti.id_ente = tipoPagamento.id_ente
+	 AND tipoPagamento.id_tipo_pagamento = aut.id_tipo_pagamento
+	 AND pag.codice_pagamento_rif_ente IS NOT NULL
+	 AND componente.anno_accertamento IS NOT NULL
+	 AND componente.numero_accertamento IS NOT NULL
+	 AND tipoPagamento.multibeneficiario IS false
+	 and pag.id_stato_corrente in (0,1,2,3)
+	 AND aut.codice_chiamante = &apos;${codiceChiamante}&apos;
+	 and (pag.inizio_validita is not null and pag.inizio_validita >= &apos;2023-05-31&apos;  )
+	 and (pag.fine_validita  is not null and pag.fine_validita >= current_date  )
+order by pag.codice_pagamento_rif_ente
+limit 500
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">basePaymentsData</stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="TestPlan.comments">Lettura dal DB EPAY dei dati base con i quali creare i pagamenti</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
+            <stringProp name="BeanShellAssertion.query">if (!ResponseCode.equals(&quot;200&quot;)) {
+
+	FailureMessage = &quot;!!!!!!!!!!! CONNESSIONE AL DATABASE FALLITA !!!!!!!!!!!&quot;;
+	Failure = true;	
+	prev.setStopThread(true);
+	
+}</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor Creazione del file BasePaymentsData.csv" enabled="true">
+            <stringProp name="scriptLanguage">java</stringProp>
+            <stringProp name="parameters">basePaymentsData</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import java.math.BigInteger; 
+import java.io.FileWriter;
+import java.util.Arrays;
+import java.io.Writer;
+import java.util.List;
+
+import org.apache.jmeter.services.FileServer;
+
+setStrictJava (true);
+
+String[] columnNames = {&quot;codice_fiscale&quot;,&quot;codice_versamento&quot;,&quot;iuv_numero_avviso&quot;};
+
+ArrayList result = vars.getObject(&quot;basePaymentsData&quot;);
+StringBuilder sbData = new StringBuilder();
+if((result!=null)&amp;&amp;(result.size() &gt; 0)){
+	for(HashMap row:result){
+		
+		if(sbData.length()&gt;0){
+			sbData.append(System.getProperty(&quot;line.separator&quot;));
+		}
+	
+		for(int i=0;i&lt;columnNames.length;i++){
+	
+			if(i&gt;0){
+				sbData.append(&quot;,&quot;);
+			}
+			sbData.append(&quot;\&quot;&quot;).append(row.get(columnNames[i])).append(&quot;\&quot;&quot;);	
+		}
+	}
+
+	
+	String csvFileName = FileServer.getFileServer().getBaseDir() + File.separator + &quot;BasePaymentsData.csv&quot;;
+	FileWriter fileWriter = new FileWriter(csvFileName, false);
+	
+	fileWriter.write(sbData.toString());
+	
+	fileWriter.flush();
+	fileWriter.close();
+	
+}</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group Esecuzione getAvvisoDiPagamentoPosizioneDebitoria" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="TestPlan.comments">Esegue le chiamate al servizio REST per la ricerca dei dati di un pagamento</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Caricamento Dati Base dei Pagamenti" enabled="true">
+          <stringProp name="filename">C:/progetti/test_rdi_32/progettiJMeter/performance/api-rest/V1/SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria/BasePaymentsData.csv</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="variableNames">codiceFiscale,codiceVersamento,iuv_numero_avviso</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">true</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+          <stringProp name="TestPlan.comments">Caricamento del file BasePaymentsData.csv contenete i dai basi con i quali verranno ricercati i pagamenti</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Caricamento Dati di Connessione Servizio REST" enabled="true">
+          <stringProp name="TestPlan.comments">Caricamento dell file CSV contenente i parametri di connessione al servizio REST</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="fileEncoding"></stringProp>
+          <stringProp name="filename">C:/progetti/test_rdi_32/progettiJMeter/performance/api-rest/V1/SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria/RESTConnectionConfigurationData.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="variableNames">protocol,host,port,resource,method</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request Chiamata Servizio REST" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${host}</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
+          <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">${resource}organizations/${codiceFiscale}/paymenttypes/${codiceVersamento}/debtpositions/${iuv_numero_avviso}/paymentnotice</stringProp>
+          <stringProp name="HTTPSampler.method">${method}</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">Chiamata al servizio REST per la creazione del Pagamento</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager Impostazione Basic Authentication" enabled="true">
+            <collectionProp name="AuthManager.auth_list">
+              <elementProp name="" elementType="Authorization">
+                <stringProp name="Authorization.url"></stringProp>
+                <stringProp name="Authorization.username">${codiceChiamante}</stringProp>
+                <stringProp name="Authorization.password">${pwd}</stringProp>
+                <stringProp name="Authorization.domain"></stringProp>
+                <stringProp name="Authorization.realm"></stringProp>
+              </elementProp>
+            </collectionProp>
+            <boolProp name="AuthManager.controlledByThreadGroup">false</boolProp>
+          </AuthManager>
+          <hashTree/>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager Impostazione Content-Type" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\progetti\test_rdi_32\progettiJMeter\performance\api-rest\SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria\summaryResultTree.csv</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\progetti\test_rdi_32\progettiJMeter\performance\api-rest\SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria\summaryReport.csv</stringProp>
+        <boolProp name="useGroupName">true</boolProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">C:\progetti\test_rdi_32\progettiJMeter\performance\api-rest\SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria\summaryAggregate.csv</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Credenziali applicative" enabled="true">
+        <stringProp name="filename">C:/progetti/test_rdi_32/progettiJMeter/performance/api-rest/V1/SYN_11_Servizio_getAvvisoDiPagamentoPosizioneDebitoria/ChiamanteEsternoConfigurationData.csv</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="variableNames">codiceChiamante,pwd</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">shareMode.group</stringProp>
+        <stringProp name="TestPlan.comments">Caricamento del file CSV ChiamanteEsternoConfigurationData.csv contenente le credenziali del chiamante esterno</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,6 +1,0 @@
-### health
-
-GET {{baseURL}}q/health
-Authorization: Basic {{user}} {{pass}}
-
-

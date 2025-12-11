@@ -1,0 +1,38 @@
+/*
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2 */
+
+package it.csi.epay.epayapi.integration.mapper.mapping;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
+
+import it.csi.epay.epayapi.integration.domain.EpayTConfigurazione;
+import it.csi.epay.epayapi.integration.dto.EpayTConfigurazioneDTO;
+
+/**
+ * MapStruct mapping specifications for "EpayTConfigurazione" 
+ *
+ * @author fabio.fenoglio
+ *
+ */
+@Mapper ( unmappedTargetPolicy = ReportingPolicy.ERROR, uses = { 
+	EpayTConfigurazioneReferenceMapping.class,
+	EpayTEntiReferenceMapping.class,
+} )
+public interface EpayTConfigurazioneMapping {
+
+    @Mappings ( { 
+    	/*
+		@Mapping ( source = "id", target = "id" ),
+		@Mapping ( source = "codice", target = "codice" ),
+		@Mapping ( source = "valore", target = "valore" ),
+		@Mapping ( source = "descrizione", target = "descrizione" ),
+		@Mapping ( source = "epayTEnti", target = "epayTEnti" ),
+    	*/
+    } )
+    EpayTConfigurazioneDTO toDTO ( EpayTConfigurazione input );
+
+}

@@ -1,0 +1,982 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: attivazione.piemontepay@csi.it
+    name: PPay Attivazione
+  title: Swagger PPAY api - OpenAPI 3.0.3
+  description: |-
+   PPAY API
+
+  termsOfService: https://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+servers:
+  - url: https://tu-exp-pay-sistemapiemonte.bilancio.csi.it/epayapi/api/v1
+    description: Ambiente di test utente
+paths:
+  /organizations/{organization}/paymenttypes/{paymentType}/payment:
+    post:
+      tags:
+        - Payment 
+      summary: Return pagoPA url for payment 
+      operationId: getPaymentUrl
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: access using post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentData'
+        required: true
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReferences'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal error
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions:
+    post:
+      tags:
+        - Debt Position
+      summary: Create debt position and return iuv and notice number
+      operationId: createDebtPosition
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: input
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebtPositionData'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DebtPositionReference'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Interna error
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/multipayees:
+    post:
+      tags:
+        - Debt Position Multipayee
+      summary: Create debt position Multipayee and return iuv and notice number
+      operationId: getPaymentUrlMultipayee
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: input
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentDataMultipayee'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMultipayeeReferences'
+
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal error
+  /organizations/{organization}/debtpositions/{iuv}/payment:
+    post:
+      tags:
+        - Debt Position Payment
+      summary: Return pagoPA url for Debt Position Payment
+      operationId: iuvpayment
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReferences'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal error
+  /organizations/{organization}/paymenttypes/{paymentType}/stamptaxpayment:
+    post:
+      tags:
+        - Stamp Tax Payment 
+      summary: Return Pagopa URL for stamptax payment
+      operationId: stamptaxpayment
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: input
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentDataStampTax'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentStampTaxReference'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal error
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/{iuv}:
+    put:
+      tags:
+        - Debt Position
+      summary: update Debt Position
+      description: update debt position
+      operationId: updateDebtPositions
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: access using post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebtPositionPaymentData'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+    delete:
+      tags:
+        - Debt Position
+      summary: delete Debt Position
+      description: delete debt position
+      operationId: deleteDebtPositions
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/{iuv}/multipayees:
+    put:
+      tags:
+        - Debt Position Multipayee
+      summary: update Debt Position Multypayee
+      description: update debt position Multypayee
+      operationId: updateDebtPositionsMultypayee
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: access using post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentDataMultipayee'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/{iuv}/status:
+    get:
+      tags:
+        - Debt Position
+      summary: get Debt Position status
+      description: get Debt Position status
+      operationId: getDebtPositionStatus
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/{iuv}/paymentdata:
+    get:
+      tags:
+        - Debt Position
+      summary: get Debt Position data
+      description: get Debt Position data
+      operationId: getDebtPositionData
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentDataResult'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+  /organizations/{organization}/paymenttypes/{paymentType}/debtpositions/{iuv}/paymentnotice:
+    get:
+      tags:
+        - Payment Notice
+      summary: get payment notice
+      description: get payment notice
+      operationId: getPaymentNotice
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: paymentType
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: iuv
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentNotice'
+        '400':
+          description: Input data error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '401':
+          description: Missing authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '403':
+          description: Unrecognized caller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '404':
+          description: Cannot find a Debt Position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+        '500':
+          description: Internale error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+      security:
+        - csi_auth:
+            - read:PaymentData
+components:
+  schemas:
+    DebtPositionPaymentData:
+      properties:
+        dataScadenza:
+          type: string
+          format: date-time
+        dataInizioValidita:
+          type: string
+          format: date-time
+        dataFineValidita:
+          type: string
+          format: date-time
+        importo:
+          type: number
+        componentiImporto:
+          type: array
+          items:
+            type: object
+            required:
+              - importo
+              - causaleDescrittiva
+            properties:
+              importo:
+                type: number
+              causaleDescrittiva:
+                type: string
+              annoAccertamento:
+                type: number
+              numeroAccertamento:
+                type: string
+        causale:
+          type: string
+        motivazione:
+          type: string
+        riferimentiPagamento:
+          type: array
+          items:
+            type: object
+            required:
+                - nome
+                - valore
+            properties:
+              nome:
+                type: string
+              valore:
+                type: string
+        nome:
+          type: string
+        cognome:
+          type: string
+        ragioneSociale:
+          type: string
+        email:
+          type: string
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+        identificativoPagamento:
+          type: string
+        requiresCostUpdate:
+          type: boolean
+          default: false
+    Result:
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+    Status:
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/Result'
+    PaymentNotice:
+      properties:
+        paymentnotice:
+          type: string
+          format: byte
+          description: Return pdf encoded base64 of payment notice
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/Result'
+    PaymentDataMultipayeeResult:
+      properties:
+        enteBeneficiario:
+          type: string
+        codiceFiscaleEnteBeneficiario:
+          type: string
+        tipologiaVersamento:
+          type: string
+        importoPagato:
+          type: number
+    PaymentDataResult:
+      properties:
+        importoPagatoTotale:
+          type: number
+        enteBeneficiario:
+          type: string
+        codiceFiscaleEnteBeneficiario:
+          type: string
+        tipologiaVersamento:
+          type: string
+        importoPagato:
+          type: number
+        datiMultibeneficiario:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentDataMultipayeeResult'
+        nomeECognomeRagioneSociale:
+          type: string
+        codiceFiscalePIva:
+          type: string
+        codiceAvviso:
+          type: string
+        identificativoUnicoVersamento:
+          type: string
+        numeroTransazione:
+          type: string
+        prestatoreDiServiziDiPagamento:
+          type: string
+        dataEOraOperazione:
+          type: string
+          format: date-time
+        dataEsitoPagamento:
+          type: string
+          format: date-time
+        identificativoUnicoRiscossione:
+          type: string
+        infoAggiuntive:
+          type: string
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/Result'
+    PaymentData:
+      type: object
+      properties:
+        causale:
+          type: string
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+        cognome:
+          type: string
+        email:
+          type: string
+        identificativoPagamento:
+          type: string
+        importo:
+          type: number
+        nome:
+          type: string
+        notePerIlPagatore:
+          type: string
+        ragioneSociale:
+          type: string
+      title: PaymentData
+    PaymentReferences:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+        descrizioneEsito:
+          type: string
+        iuv:
+          type: string
+        paymentUrl:
+          type: string
+      title: PaymentReferences
+    PaymentComponent:
+      type: object
+      required:
+        - importo
+      properties:
+        annoAccertamento:
+          type: integer
+          format: int32
+        causale:
+          type: string
+        datiSpecificiRiscossione:
+          type: string
+        importo:
+          type: number
+        numeroAccertamento:
+          type: string
+        progressivo:
+          type: integer
+          format: int32
+      title: ComponentePagamento
+    PaymentComponentMultipayee:
+      type: object
+      required:
+        - importo
+      properties:
+        codiceFiscaleEnte:
+          type: string
+        codiceVersamento:
+          type: string
+        annoAccertamento:
+          type: integer
+          format: int32
+        causale:
+          type: string
+        datiSpecificiRiscossione:
+          type: string
+        importo:
+          type: number
+        numeroAccertamento:
+          type: string
+        progressivo:
+          type: integer
+          format: int32
+      title: ComponentePagamento
+    DebtPositionData:
+      type: object
+      properties:
+        causale:
+          type: string
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+        cognome:
+          type: string
+        componentiPagamento:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentComponent'
+        dataFineValidita:
+          type: string
+          format: date-time
+        dataInizioValidita:
+          type: string
+          format: date-time
+        dataScadenza:
+          type: string
+          format: date-time
+        email:
+          type: string
+        identificativoPagamento:
+          type: string
+        importo:
+          type: number
+        nome:
+          type: string
+        notePerIlPagatore:
+          type: string
+        ragioneSociale:
+          type: string
+        requiresCostUpdate:
+          type: boolean
+          default: false
+      title: DebtPositionData
+    DebtPositionReference:
+      type: object
+      properties:
+        codiceAvviso:
+          type: string
+        codiceEsito:
+          type: string
+        descrizioneEsito:
+          type: string
+        identificativoPagamento:
+          type: string
+        iuv:
+          type: string
+      title: DebtPositionReference
+    PaymentDataMultipayee:
+      type: object
+      properties:
+        causale:
+          type: string
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+        cognome:
+          type: string
+        componentiPagamentoEntePrimario:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentComponent'
+        componentiPagamentoEntiSecondari:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentComponentMultipayee'
+        dataFineValidita:
+          type: string
+          format: date-time
+        dataInizioValidita:
+          type: string
+          format: date-time
+        dataScadenza:
+          type: string
+          format: date-time
+        email:
+          type: string
+        identificativoPagamento:
+          type: string
+        importoTotaleEntePrimario:
+          type: number
+        importoTotaleEntiSecondari:
+          type: number
+        importoTotale:
+          type: number
+        nome:
+          type: string
+        notePerIlPagatore:
+          type: string
+        ragioneSociale:
+          type: string
+        requiresCostUpdate:
+          type: boolean
+          default: false
+      title: PaymentDataMultipayee
+    PaymentMultipayeeReferences:
+      type: object
+      properties:
+        codiceAvviso:
+          type: string
+        codiceEsito:
+          type: string
+        descrizioneEsito:
+          type: string
+        identificativoPagamento:
+          type: string
+        iuv:
+          type: string
+      title: PaymentMultipayeeReferences
+    PaymentDataStampTax:
+      type: object
+      properties:
+        causale:
+          type: string
+        codiceFiscalePartitaIVAPagatore:
+          type: string
+        cognome:
+          type: string
+        componentiPagamento:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentComponent'
+        email:
+          type: string
+        flagSoloMarca:
+          type: boolean
+        hashDocumento:
+          type: string
+        identificativoPagamento:
+          type: string
+        importo:
+          type: number
+        importoBollo:
+          type: number
+        iuvIstanzaAssociata:
+          type: string
+        nome:
+          type: string
+        provincia:
+          type: string
+        quantita:
+          type: integer
+          format: int32
+        ragioneSociale:
+          type: string
+        tipoBollo:
+          type: string
+        codiceMarca:
+          type: string
+      title: PaymentDataStampTax
+    PaymentStampTaxReference:
+      type: object
+      properties:
+        codiceEsito:
+          type: string
+        descrizioneEsito:
+          type: string
+        elencoIuvMarcaBollo:
+          type: array
+          items:
+            type: string
+        iuvDocumento:
+          type: string
+        paymentUrl:
+          type: string
+      title: PaymentStampTaxReference
+  securitySchemes:
+    csi_auth:
+      type: http
+      scheme: basic

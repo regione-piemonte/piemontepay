@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+* SPDX-FileCopyrightText: (C) Copyright 2023 Regione Piemonte
+*
+* SPDX-License-Identifier: EUPL-1.2
+-->
+
+
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+>
+	<!-- ENABLE ANNOTATION CONFIGURATION -->
+	<context:annotation-config />
+
+	<!-- PROPERTIES CACHE -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+            <list>
+                <value>classpath:properties-cache/env.properties</value>
+                <value>classpath:properties-cache/runtime.properties</value>
+                <value>classpath:properties-cache/common.properties</value>
+                <value>classpath:config.properties</value>
+            </list>
+        </property> 
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+
+	<!-- DATASOURCE -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/datasources/epay" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>
+
+	<!-- TRANSACTION MANAGER -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- ENTITY MANAGER -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="packagesToScan" value="it.csi.epay.epayapi.integration.domain" />
+		
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+ 				<prop key="hibernate.default_schema">epay</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- TRANSACTION MANAGEMENT ANNOTATION DRIVER -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<!-- JPA REPOSITORIES -->
+	<jpa:repositories base-package="it.csi.epay.epayapi.integration.repository" />
+	
+ 	<!-- Spring cache setup -->
+    <cache:annotation-driven />
+ 	
+ 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+    	<property name="cacheManager">
+    		<ref bean="ehcache" />
+    	</property>
+    </bean>
+	
+	<!-- EHCACHE CONFIGURATION -->
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="WEB-INF/ehcache.xml" />
+	</bean>
+ 	
+ 	<!-- ASYNC EXECUTOR -->
+	<task:annotation-driven executor="asyncExecutor" />
+	<task:executor id="asyncExecutor" pool-size="10" queue-capacity="100" />
+	
+	<!-- SPRING APPCONTEXT HELPER -->
+	<bean class="it.csi.epay.epayapi.api.util.SpringApplicationContextHelper"></bean>
+	
+	<!-- AOP ANNOTATION BASED -->
+	<aop:aspectj-autoproxy proxy-target-class="true">
+	</aop:aspectj-autoproxy>
+	<context:component-scan base-package="it.csi.epay.epayapi.util.aspects" />	
+	
+	<!-- COMPONENT SCAN FOLDERS -->
+	<context:component-scan base-package="it.csi.epay.epayapi.business.impl" />
+	<context:component-scan base-package="it.csi.epay.epayapi.integration.mapper" />
+
+	<!-- VALIDATOR PROVIDER -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- EJB -->
+	<import resource="@@@EJB.CONNECTOR.DELEGATE@@@" />
+ 
+</beans>

@@ -1,0 +1,2 @@
+# JMeter generated Authorization file
+	epayapi_1	96wVeDM8			BASIC
