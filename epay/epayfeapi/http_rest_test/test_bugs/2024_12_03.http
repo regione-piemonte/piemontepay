@@ -1,0 +1,13 @@
+### su citta facile, questo progetto
+GET {{baseURLAPI}}organizations/80087670016/citizens/LVLDAA85T50G702B/debtpositions/24243122781171687/paymentreceipt
+Authorization: Basic {{epayapi1}} {{pass}}
+Accept: application/json
+
+
+
+### sulla v1 di epayservices
+GET http://localhost:8080/epayapi/api/v1/organizations/80087670016/paymenttypes/DF50/debtpositions/24243122781171687/paymentreceipt
+Authorization: Basic epayapi1 TestPassphrase
+Accept: application/json
+
+

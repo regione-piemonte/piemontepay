@@ -1,0 +1,17 @@
+### http://tst-srv-pay.bilancio.csi.it/epayfe/api/v1/organizations/80087670016/paymenttypes/PN00/payment
+
+POST {{baseURLAPI}}organizations/80087670016/paymenttypes/PN00/payment
+Authorization: Basic {{epayapi1}} {{pass}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "note": "modello unico",
+  "importo": 4.50,
+  "nome": "Alessandra",
+  "cognome": "Ro",
+  "email": "alessandra.rotundi@eng.it",
+  "codiceFiscalePartitaIVAPagatore": "RTNLSN00E00L219X"
+}
+
+###
